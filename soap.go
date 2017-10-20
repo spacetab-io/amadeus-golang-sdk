@@ -34,26 +34,42 @@ const (
 
 type ResponseSOAPEnvelope struct {
 	XMLName xml.Name `xml:"http://schemas.xmlsoap.org/soap/envelope/ Envelope"`
-	Header  SOAPHeaderWithSession
-	Body    SOAPBody
+	Header  ResponseSOAPHeaderWithSession
+	Body    ResponseSOAPBody
 }
 type SOAPEnvelope struct {
-	XMLName xml.Name `xml:"http://schemas.xmlsoap.org/soap/envelope/ Envelope"`
-	Header  SOAPHeader
-	Body    SOAPBody
+	XMLName  xml.Name     `xml:"soap:Envelope"`
+
+	SOAPAttr string       `xml:"xmlns:soap,attr"`
+	XSIAttr  string       `xml:"xmlns:xsi,attr"`
+	XSDAttr  string       `xml:"xmlns:xsd,attr"`
+
+	Header   SOAPHeaderWithSession
+	Body     SOAPBody
 }
 
 type SOAPHeaderWithSession struct {
+	XMLName xml.Name      `xml:"http://xml.amadeus.com/ws/2009/01/WBS_Session-2.0.xsd soap:Header"`
+	Session *Session      `xml:"Session"`
+	Items   []interface{} `xml:",omitempty"`
+}
+type ResponseSOAPHeaderWithSession struct {
 	XMLName xml.Name      `xml:"http://schemas.xmlsoap.org/soap/envelope/ Header"`
 	Session *Session      `xml:",omitempty"`
 	Items   []interface{} `xml:",omitempty"`
 }
 type SOAPHeader struct {
-	XMLName xml.Name      `xml:"http://schemas.xmlsoap.org/soap/envelope/ Header"`
+	XMLName xml.Name      `xml:"soap:Header"`
 	Items   []interface{} `xml:",omitempty"`
 }
 
 type SOAPBody struct {
+	XMLName xml.Name      `xml:"soap:Body"`
+
+	Fault   *SOAPFault    `xml:",omitempty"`
+	Content interface{}   `xml:",omitempty"`
+}
+type ResponseSOAPBody struct {
 	XMLName xml.Name `xml:"http://schemas.xmlsoap.org/soap/envelope/ Body"`
 
 	Fault   *SOAPFault  `xml:",omitempty"`
@@ -242,15 +258,22 @@ func (s *SOAPClient) AddHeader(header interface{}) {
 
 func (s *SOAPClient) Call(soapAction string, request, response interface{}, session *Session) error {
 	envelope := SOAPEnvelope{}
+	envelope.SOAPAttr = "http://schemas.xmlsoap.org/soap/envelope/"
+	envelope.XSIAttr = "http://www.w3.org/2001/XMLSchema-instance"
+	envelope.XSDAttr = "http://www.w3.org/2001/XMLSchema"
 
 	if s.headers != nil && len(s.headers) > 0 {
-		soapHeader := SOAPHeader{Items: make([]interface{}, len(s.headers))}
+		soapHeader := SOAPHeaderWithSession{Items: make([]interface{}, len(s.headers))}
 		copy(soapHeader.Items, s.headers)
+		envelope.Header = soapHeader
+	} else {
+		soapHeader := SOAPHeaderWithSession{Session: &Session{}}
 		envelope.Header = soapHeader
 	}
 
 	envelope.Body.Content = request
 	buffer := new(bytes.Buffer)
+	buffer.Write([]byte("<?xml version=\"1.0\" encoding=\"utf-8\"?>"))
 
 	encoder := xml.NewEncoder(buffer)
 	//encoder.Indent("  ", "    ")
@@ -304,8 +327,8 @@ func (s *SOAPClient) Call(soapAction string, request, response interface{}, sess
 
 	log.Println(string(rawbody))
 	respEnvelope := new(ResponseSOAPEnvelope)
-	respEnvelope.Header = SOAPHeaderWithSession{Session: session}
-	respEnvelope.Body = SOAPBody{Content: response}
+	respEnvelope.Header = ResponseSOAPHeaderWithSession{Session: session}
+	respEnvelope.Body = ResponseSOAPBody{Content: response}
 
 	err = xml.Unmarshal(rawbody, respEnvelope)
 	if err != nil {

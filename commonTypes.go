@@ -20,8 +20,6 @@ type ApplicationType struct {
 }
 
 type BinaryDataType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A passwordInfo"`
-
 	// Length of the data element 114Z. The unit is given in number of binary characters (bytes).
 	DataLength NumericIntegerLength1To15 `xml:"dataLength,omitempty"`
 
@@ -69,8 +67,6 @@ type LocationIdentificationBatchTypeU struct {
 }
 
 type OriginatorIdentificationDetailsTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A originIdentification"`
-
 	// AMADEUS Office Id the workstation belongs to. Must be empty if a workstation Id is specified in the SYS segment.
 	SourceOffice AlphaNumericStringLength1To9 `xml:"sourceOffice,omitempty"`
 }
@@ -89,15 +85,11 @@ type PlaceLocationIdentificationTypeU struct {
 }
 
 type ReferenceInformationTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A dutyCode"`
-
 	// This composite  duty code information. For Duty code info, DUT must be specified in the Qualifier.
 	DutyCodeDetails ReferencingDetailsTypeI `xml:"dutyCodeDetails,omitempty"`
 }
 
 type ReferencingDetailsTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A dutyCodeDetails"`
-
 	// Code determining if the data is a tree identifier, a category identifier or a parent category identifier.
 	ReferenceQualifier AlphaNumericStringLength1To3 `xml:"referenceQualifier,omitempty"`
 
@@ -116,8 +108,6 @@ type RelatedLocationOneIdentificationTypeU struct {
 }
 
 type SystemDetailsInfoType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A systemDetails"`
-
 	// This field contains a workstation Identifier. It is used to retrieve the physical origin of the request (mainly for printing purposes) .
 	WorkstationId *AlphaNumericStringLength1To35 `xml:"workstationId,omitempty"`
 
@@ -129,8 +119,6 @@ type SystemDetailsInfoType struct {
 }
 
 type SystemDetailsTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A organizationDetails"`
-
 	// This DE is used to specify an organization Id such as BA, 1A or QF.
 	OrganizationId AlphaNumericStringLength1To35 `xml:"organizationId,omitempty"`
 }
@@ -143,8 +131,6 @@ type TerminalLocationType struct {
 }
 
 type UserIdentificationType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A userIdentifier"`
-
 	// To specify the source office the workstation belongs to. Not used in the second repetition of the segment (if any, it will not be taken into account). Used when no workstation Id is specified in SYS segment.
 	OriginIdentification *OriginatorIdentificationDetailsTypeI `xml:"originIdentification,omitempty"`
 
@@ -258,16 +244,17 @@ type FullLocationType struct {
 }
 
 type Session struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/ws/2009/01/WBS_Session-2.0.xsd Session"`
+	//XMLName xml.Name `xml:"http://xml.amadeus.com/ws/2009/01/WBS_Session-2.0.xsd Session"`
+	XMLName xml.Name `xml:"Session"`
 
 	// This element defines the identifier part of the SessionId.
-	SessionId string `xml:"SessionId,omitempty"`
+	SessionId string `xml:"SessionId"`  //,omitempty
 
 	// This element defines the sequence number of the SessionId.
-	SequenceNumber int `xml:"SequenceNumber,omitempty"`
+	SequenceNumber string `xml:"SequenceNumber"`  //,omitempty
 
 	// This element defines the SecurityToken of the SessionId.
-	SecurityToken string `xml:"SecurityToken,omitempty"`
+	SecurityToken string `xml:"SecurityToken"`  //,omitempty
 }
 
 type ErrorSection struct {

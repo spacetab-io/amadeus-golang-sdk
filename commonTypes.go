@@ -248,13 +248,13 @@ type Session struct {
 	XMLName xml.Name `xml:"Session"`
 
 	// This element defines the identifier part of the SessionId.
-	SessionId string `xml:"SessionId"`  //,omitempty
+	SessionId string `xml:"SessionId"` //,omitempty
 
 	// This element defines the sequence number of the SessionId.
-	SequenceNumber string `xml:"SequenceNumber"`  //,omitempty
+	SequenceNumber string `xml:"SequenceNumber"` //,omitempty
 
 	// This element defines the SecurityToken of the SessionId.
-	SecurityToken string `xml:"SecurityToken"`  //,omitempty
+	SecurityToken string `xml:"SecurityToken"` //,omitempty
 }
 
 type ErrorSection struct {
@@ -297,4 +297,595 @@ type NumberOfUnitsDetailsType struct {
 
 type IntelligentWorkstationInfoType struct {
 	CompanyIdentification string `xml:"companyIdentification,omitempty"`
+}
+
+type ActionDetailsTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A ActionDetailsTypeI"`
+
+	// used for scrollling purposes
+	NumberOfItemsDetails *ProcessingInformationTypeI `xml:"numberOfItemsDetails,omitempty"`
+}
+
+type ProcessingInformationTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A ProcessingInformationTypeI"`
+
+	// determine if move up or move down required
+	ActionQualifier *AlphaNumericStringLength1To3 `xml:"actionQualifier,omitempty"`
+}
+
+type AdditionalBusinessSourceInformationTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A AdditionalBusinessSourceInformationTypeI"`
+
+	// the office we are targetting
+	SourceType *SourceTypeDetailsTypeI `xml:"sourceType,omitempty"`
+
+	// contains the office ID
+	OriginatorDetails *OriginatorIdentificationDetailsType `xml:"originatorDetails,omitempty"`
+}
+
+type AccountingElementType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A AccountingElementType"`
+
+	// Account number
+	Number *AlphaNumericStringLength1To10 `xml:"number,omitempty"`
+}
+
+type AccountingInformationElementType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A AccountingInformationElementType"`
+
+	// One of these 4 data elements is mandatory , but non in particular
+	Account *AccountingElementType `xml:"account,omitempty"`
+}
+
+type CompanyIdentificationType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A CompanyIdentificationTypeI"`
+
+	// Marketing company.
+	MarketingCompany *AlphaNumericStringLength1To3 `xml:"marketingCompany,omitempty"`
+}
+
+type DummySegmentTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A DummySegmentTypeI"`
+}
+
+type FrequentTravellerIdentificationCodeType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A FrequentTravellerIdentificationCodeType"`
+
+	// Frequent Traveller Info. Repetition 2 is used only in the case we provide a customer value range (only one is accepted).
+	FrequentTravellerDetails *FrequentTravellerIdentificationType `xml:"frequentTravellerDetails,omitempty"`
+
+	DummyNET struct {
+	} `xml:"Dummy.NET,omitempty"`
+}
+
+type FrequentTravellerIdentificationType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A FrequentTravellerIdentificationType"`
+
+	// This field specifies the Tier Level.   This is a 4 letter string indicating the airline's ranking of frequent flyers. It is not to be confused with Alliance tier.  If tierLevel is filled in a given FTI segment, customerValue must not be filled.
+	TierLevel *AlphaNumericStringLength1To4 `xml:"tierLevel,omitempty"`
+
+	// This field specifies the Customer value.   This is a 4 letter string indicating the airline's ranking of frequent flyers. It is not to be confused with Alliance tier.  If customerValue is filled in a given FTI segment, tierLevel field must not be filled.
+	CustomerValue *NumericIntegerLength1To4 `xml:"customerValue,omitempty"`
+}
+
+type LocationTypeU struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A LocationTypeU"`
+
+	// Office identification. It can contain wildcards.
+	Name *AlphaNumericStringLength1To9 `xml:"name,omitempty"`
+}
+
+type OriginAndDestinationDetailsTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A OriginAndDestinationDetailsTypeI"`
+
+	// Board point
+	Origin *AlphaNumericStringLength3To3 `xml:"origin,omitempty"`
+
+	// Off point
+	Destination *AlphaNumericStringLength3To3 `xml:"destination,omitempty"`
+}
+
+type OriginatorIdentificationDetailsType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A OriginatorIdentificationDetailsTypeI"`
+
+	// the office that is being targetted
+	InHouseIdentification1 *AlphaNumericStringLength1To9 `xml:"inHouseIdentification1,omitempty"`
+}
+
+type PartyIdentifierTypeU struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A PartyIdentifierTypeU"`
+
+	// GDS identifier: 1A, 1S, 1G.
+	PartyIdentifier *AlphaNumericStringLength1To3 `xml:"partyIdentifier,omitempty"`
+}
+
+type PointOfSaleInformationType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A PointOfSaleInformationType"`
+
+	// Party identification.
+	PointOfSale *PartyIdentifierTypeU `xml:"pointOfSale,omitempty"`
+
+	// Office id in case the party identifier is 1A.
+	LocationDetails *LocationTypeU `xml:"locationDetails,omitempty"`
+}
+
+type ProductDetailsTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A ProductDetailsTypeI"`
+
+	// Class designator.
+	Designator *AlphaNumericStringLength1To1 `xml:"designator,omitempty"`
+}
+
+type ProductIdentificationDetailsType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A ProductIdentificationDetailsTypeI"`
+
+	// Flight number.
+	FlightNumber *AlphaNumericStringLength1To4 `xml:"flightNumber,omitempty"`
+}
+
+type ProductInformationTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A ProductInformationTypeI"`
+
+	// Booking class details.
+	BookingClassDetails *ProductDetailsTypeI `xml:"bookingClassDetails,omitempty"`
+}
+
+type QueueInformationDetailsType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A QueueInformationDetailsTypeI"`
+
+	// queue number
+	Number *NumericIntegerLength1To2 `xml:"number,omitempty"`
+}
+
+type QueueInformationType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A QueueInformationTypeI"`
+
+	// queue identification
+	QueueDetails *QueueInformationDetailsType `xml:"queueDetails,omitempty"`
+}
+
+type RangeDetailsTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A RangeDetailsTypeI"`
+
+	// define is a range or not
+	RangeQualifier *AlphaNumericStringLength1To3 `xml:"rangeQualifier,omitempty"`
+
+	// define the start and possible end point of the scan
+	RangeDetails *RangeTypeI `xml:"rangeDetails,omitempty"`
+}
+
+type RangeTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A RangeTypeI"`
+
+	// starting point of the scan
+	Min *NumericIntegerLength1To18 `xml:"min,omitempty"`
+
+	// ending point of the scan
+	Max *NumericIntegerLength1To18 `xml:"max,omitempty"`
+}
+
+type RelatedProductInformationTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A RelatedProductInformationTypeI"`
+
+	// Status code
+	StatusCode *AlphaNumericStringLength2To2 `xml:"statusCode,omitempty"`
+}
+
+type SelectionDetailsInformationTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A SelectionDetailsInformationTypeI"`
+
+	// used to determine if a new start or a continuation Also used for search and sort criteria on the ticketing, departure and creation dates
+	Option *AlphaNumericStringLength1To3 `xml:"option,omitempty"`
+}
+
+type SelectionDetailsTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A SelectionDetailsTypeI"`
+
+	// used for search and sort criteria
+	SelectionDetails *SelectionDetailsInformationTypeI `xml:"selectionDetails,omitempty"`
+}
+
+type SourceTypeDetailsTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A SourceTypeDetailsTypeI"`
+
+	// not needed - but mandatory field So just stick a 4 in it !!
+	SourceQualifier1 *AlphaNumericStringLength1To3 `xml:"sourceQualifier1,omitempty"`
+}
+
+type StatusDetailsTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A StatusDetailsTypeI"`
+
+	// Indicator showing what flight information will be transported.
+	Indicator *AlphaNumericStringLength1To3 `xml:"indicator,omitempty"`
+}
+
+type StatusTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A StatusTypeI"`
+
+	// Flight status details.
+	StatusDetails *StatusDetailsTypeI `xml:"statusDetails,omitempty"`
+}
+
+type StructuredDateTimeInformationType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A StructuredDateTimeInformationType"`
+
+	// used for date range only The date ranges are defined on central system as 1,2,3,4 The actual values of the ranges are set in the office profile
+	TimeMode *NumericIntegerLength1To3 `xml:"timeMode,omitempty"`
+}
+
+type StructuredDateTimeType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A StructuredDateTimeType"`
+
+	// Year number.
+	Year *YearYYYY `xml:"year,omitempty"`
+
+	// Month number in the year ( begins to 1 )
+	Month *MonthMM `xml:"month,omitempty"`
+
+	// Day number in the month ( begins to 1 )
+	Day *DayDD `xml:"day,omitempty"`
+}
+
+type StructuredPeriodInformationType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A StructuredPeriodInformationType"`
+
+	// Convey the begin date/time of a period.
+	BeginDateTime *StructuredDateTimeType `xml:"beginDateTime,omitempty"`
+
+	// Convey the end date/time of a period.
+	EndDateTime *StructuredDateTimeType `xml:"endDateTime,omitempty"`
+}
+
+type SubQueueInformationDetailsType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A SubQueueInformationDetailsTypeI"`
+
+	// E for every category    A for cats with items to be worked C for category number N for nickname CN for both category number and nickname numeric for date range
+	IdentificationType *AlphaNumericStringLength1To3 `xml:"identificationType,omitempty"`
+
+	// category number
+	ItemNumber *AlphaNumericStringLength1To3 `xml:"itemNumber,omitempty"`
+
+	// used for nickname on inbound used for category name on outbound
+	ItemDescription *AlphaNumericStringLength1To35 `xml:"itemDescription,omitempty"`
+}
+
+type SubQueueInformationType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A SubQueueInformationTypeI"`
+
+	// identifies the category or categories.
+	SubQueueInfoDetails *SubQueueInformationDetailsType `xml:"subQueueInfoDetails,omitempty"`
+}
+
+type TransportIdentifierType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A TransportIdentifierType"`
+
+	// Company identification.
+	CompanyIdentification *CompanyIdentificationType `xml:"companyIdentification,omitempty"`
+
+	// Flight details.
+	FlightDetails *ProductIdentificationDetailsType `xml:"flightDetails,omitempty"`
+}
+
+type TravellerInformationType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A TravellerInformationTypeI"`
+
+	// Traveller surname information.
+	PaxDetails *TravellerSurnameInformationType `xml:"paxDetails,omitempty"`
+}
+
+type TravellerSurnameInformationType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A TravellerSurnameInformationTypeI"`
+
+	// Passenger surname.
+	Surname *AlphaNumericStringLength1To70 `xml:"surname,omitempty"`
+}
+
+type UserIdentificationTypeQL struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRQ_11_1_1A UserIdentificationType"`
+
+	// The last 2 characters of the sine of the agent who placed the PNR on queue.
+	Originator *AlphaNumericStringLength1To2 `xml:"originator,omitempty"`
+}
+
+type SearchCriteriaType struct {
+	// used to specify if ticketing, departure or creation options
+	SearchOption *SelectionDetailsTypeI `xml:"searchOption,omitempty"`
+
+	// used to specify the dates to be searched on
+	Dates *StructuredPeriodInformationType `xml:"dates,omitempty"`
+}
+
+type FlightInformation struct {
+	// It transport the type of flight information that will follow.
+	FlightInformationType *StatusTypeI `xml:"flightInformationType,omitempty"`
+
+	// Board point or Off Point.
+	BoardPointOrOffPoint *OriginAndDestinationDetailsTypeI `xml:"boardPointOrOffPoint,omitempty"`
+
+	// Airline code or Flight Number (in fact, airline + flight number)
+	AirlineCodeOrFlightNumber *TransportIdentifierType `xml:"airlineCodeOrFlightNumber,omitempty"`
+
+	// Booking class.
+	ClassOfService *ProductInformationTypeI `xml:"classOfService,omitempty"`
+
+	// Segment status code.
+	SegmentStatus *RelatedProductInformationTypeI `xml:"segmentStatus,omitempty"`
+}
+
+type SortCriteriaType struct {
+	// dummy for SDT clash
+	Dumbo *DummySegmentTypeI `xml:"dumbo,omitempty"`
+
+	// Determine the order of the display.
+	SortOption *SelectionDetailsTypeI `xml:"sortOption,omitempty"`
+}
+
+type ErrorReturnType struct {
+	// returns the error code
+	ErrorDefinition *ApplicationErrorInformationTypeI `xml:"errorDefinition,omitempty"`
+
+	// free text for the error
+	ErrorText *FreeTextInformationType `xml:"errorText,omitempty"`
+}
+
+type QueueViewType struct {
+
+	// details of who queue placed the PNR
+	Agent *AdditionalBusinessSourceInformationType `xml:"agent,omitempty"`
+
+	// queue being displayed
+	QueueNumber *QueueInformationTypeR `xml:"queueNumber,omitempty"`
+
+	// category and date range
+	CategoryDetails *SubQueueInformationTypeR `xml:"categoryDetails,omitempty"`
+
+	// date range
+	Date *StructuredDateTimeInformationTypeR `xml:"date,omitempty"`
+
+	// all 3 occurences are mandatory and show in order number of  1)PNRs on queue 2)PNRs found 3)PNRs scanned
+	PnrCount *NumberOfUnitsTypeQLR `xml:"pnrCount,omitempty"`
+
+	Item *ItemType `xml:"item,omitempty"`
+}
+
+type ItemType struct {
+	// surname of the passenger only or GROUP for a group PNR
+	PaxName *TravellerInformationTypeR `xml:"paxName,omitempty"`
+
+	// record locator
+	RecLoc *ReservationControlInformationTypeI `xml:"recLoc,omitempty"`
+
+	// 1st segment found in the PNR - if there is data to send
+	Segment *TravelProductInformationTypeI `xml:"segment,omitempty"`
+
+	// details of who queue placed the PNR
+	Agent *AdditionalBusinessSourceInformationType `xml:"agent,omitempty"`
+
+	// contains 1,2 or 3 of the following Queue placement date/time Ticketing date PNR creation date
+	Pnrdates *StructuredDateTimeInformationType_181906S `xml:"pnrdates,omitempty"`
+}
+
+type AdditionalBusinessSourceInformationType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A AdditionalBusinessSourceInformationType"`
+
+	// ORIGINATOR DETAILS
+	OriginatorDetails *OriginatorIdentificationDetailsTypeR `xml:"originatorDetails,omitempty"`
+}
+
+type ApplicationErrorDetailTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A ApplicationErrorDetailTypeI"`
+
+	// error code
+	ErrorCode *AlphaNumericStringLength1To3 `xml:"errorCode,omitempty"`
+
+	// error category
+	ErrorCategory *AlphaNumericStringLength1To3 `xml:"errorCategory,omitempty"`
+
+	// error code owner
+	ErrorCodeOwner *AlphaNumericStringLength1To3 `xml:"errorCodeOwner,omitempty"`
+}
+
+type ApplicationErrorInformationTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A ApplicationErrorInformationTypeI"`
+
+	// error details
+	ErrorDetails *ApplicationErrorDetailTypeI `xml:"errorDetails,omitempty"`
+}
+
+type CompanyIdentificationTypeR struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A CompanyIdentificationTypeI"`
+
+	// carrier code or defined codeset
+	MarketingCompany *AlphaNumericStringLength1To3 `xml:"marketingCompany,omitempty"`
+}
+
+type FreeTextDetailsType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A FreeTextDetailsType"`
+
+	// qualifier
+	TextSubjectQualifier *AlphaNumericStringLength1To3 `xml:"textSubjectQualifier,omitempty"`
+
+	// source
+	Source *AlphaNumericStringLength1To3 `xml:"source,omitempty"`
+
+	// encoding
+	Encoding *AlphaNumericStringLength1To3 `xml:"encoding,omitempty"`
+}
+
+type FreeTextInformationType struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A FreeTextInformationType"`
+
+	// free text
+	FreeTextDetails *FreeTextDetailsType `xml:"freeTextDetails,omitempty"`
+
+	// Free text and message sequence numbers of the remarks.
+	FreeText *AlphaNumericStringLength1To199 `xml:"freeText,omitempty"`
+}
+
+type LocationTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A LocationTypeI"`
+
+	// board or off point
+	TrueLocation *AlphaNumericStringLength1To3 `xml:"trueLocation,omitempty"`
+}
+
+type NumberOfUnitDetailsTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A NumberOfUnitDetailsTypeI"`
+
+	// numbers of items
+	NumberOfUnit *NumericIntegerLength1To5 `xml:"numberOfUnit,omitempty"`
+}
+
+type NumberOfUnitsTypeQLR struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A NumberOfUnitsType"`
+
+	// Number of Unit Details
+	QuantityDetails *NumberOfUnitDetailsTypeI `xml:"quantityDetails,omitempty"`
+}
+
+type OriginatorIdentificationDetailsTypeR struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A OriginatorIdentificationDetailsTypeI"`
+
+	// office ID of the agent who queue placed the PNR
+	InHouseIdentification1 *AlphaNumericStringLength1To9 `xml:"inHouseIdentification1,omitempty"`
+
+	// agent sign
+	InHouseIdentification2 *AlphaNumericStringLength1To2 `xml:"inHouseIdentification2,omitempty"`
+}
+
+type ProductDateTimeTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A ProductDateTimeTypeI"`
+
+	// departure date
+	DepartureDate *AlphaNumericStringLength1To35 `xml:"departureDate,omitempty"`
+}
+
+type ProductIdentificationDetailsTypeR struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A ProductIdentificationDetailsTypeI"`
+
+	// flight number
+	FlightNumber *AlphaNumericStringLength1To35 `xml:"flightNumber,omitempty"`
+
+	// operational suffix
+	OperationalSuffix *AlphaNumericStringLength1To3 `xml:"operationalSuffix,omitempty"`
+}
+
+type QueueInformationDetailsTypeR struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A QueueInformationDetailsTypeI"`
+
+	// queue number
+	Number *NumericIntegerLength1To2 `xml:"number,omitempty"`
+}
+
+type QueueInformationTypeR struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A QueueInformationTypeI"`
+
+	// queue identification
+	QueueDetails *QueueInformationDetailsTypeR `xml:"queueDetails,omitempty"`
+}
+
+type ReservationControlInformationDetailsTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A ReservationControlInformationDetailsTypeI"`
+
+	// contains the record locator to be queue placed
+	ControlNumber *AlphaNumericStringLength1To8 `xml:"controlNumber,omitempty"`
+}
+
+type ReservationControlInformationTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A ReservationControlInformationTypeI"`
+
+	// contains the record locator
+	Reservation *ReservationControlInformationDetailsTypeI `xml:"reservation,omitempty"`
+}
+
+type StructuredDateTimeInformationTypeR struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A StructuredDateTimeInformationType"`
+
+	// used for date range only The date ranges are defined on central system as 1,2,3,4 The actual values of the ranges are set in the office profile
+	TimeMode *NumericIntegerLength1To3 `xml:"timeMode,omitempty"`
+}
+
+type StructuredDateTimeInformationType_181906S struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A StructuredDateTimeInformationType_181906S"`
+
+	// This data element can be used to provide the semantic of the information provided. Examples : - Impacted period - Departure date - Estimated arrival date and time
+	TimeMode *AlphaNumericStringLength1To3 `xml:"timeMode,omitempty"`
+
+	// Convey date and/or time.
+	DateTime *StructuredDateTimeTypeR `xml:"dateTime,omitempty"`
+}
+
+type StructuredDateTimeTypeR struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A StructuredDateTimeType"`
+
+	// Year number.
+	Year *YearYYYY `xml:"year,omitempty"`
+
+	// Month number of the year (1 being first month, 0 being NULL data)
+	Month *NumericIntegerLength1To2 `xml:"month,omitempty"`
+
+	// day number of the month (1 being first day of the month, 0 is null data)
+	Day *NumericIntegerLength1To2 `xml:"day,omitempty"`
+
+	// Hour between 0 and 23
+	Hour *HourHH `xml:"hour,omitempty"`
+
+	// Minutes between 0 and 59
+	Minutes *MinuteMM `xml:"minutes,omitempty"`
+}
+
+type SubQueueInformationDetailsTypeR struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A SubQueueInformationDetailsTypeI"`
+
+	// E for every category    A for cats with items to be worked C for category number N for nickname CN for both category number and nickname numeric for date range
+	IdentificationType *AlphaNumericStringLength1To3 `xml:"identificationType,omitempty"`
+
+	// category number
+	ItemNumber *AlphaNumericStringLength1To3 `xml:"itemNumber,omitempty"`
+
+	// used for nickname on inbound used for category name on outbound
+	ItemDescription *AlphaNumericStringLength1To35 `xml:"itemDescription,omitempty"`
+}
+
+type SubQueueInformationTypeR struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A SubQueueInformationTypeI"`
+
+	// identifies the category or categories.
+	SubQueueInfoDetails *SubQueueInformationDetailsTypeR `xml:"subQueueInfoDetails,omitempty"`
+}
+
+type TravelProductInformationTypeI struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A TravelProductInformationTypeI"`
+
+	// departure date
+	FlightDate *ProductDateTimeTypeI `xml:"flightDate,omitempty"`
+
+	// board point
+	BoardPointDetails *LocationTypeI `xml:"boardPointDetails,omitempty"`
+
+	// off point if present
+	OffpointDetails *LocationTypeI `xml:"offpointDetails,omitempty"`
+
+	// carrier code or segment type
+	CompanyDetails *CompanyIdentificationTypeR `xml:"companyDetails,omitempty"`
+
+	// flight number and suffix
+	FlightIdentification *ProductIdentificationDetailsTypeR `xml:"flightIdentification,omitempty"`
+}
+
+type TravellerInformationTypeR struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A TravellerInformationTypeI"`
+
+	PaxDetails *TravellerSurnameInformationTypeR `xml:"paxDetails,omitempty"`
+}
+
+type TravellerSurnameInformationTypeR struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A TravellerSurnameInformationTypeI"`
+
+	// surname of the passenger or GROUP for a group PNR
+	Surname *AlphaNumericStringLength1To70 `xml:"surname,omitempty"`
+
+	Type_ *AlphaNumericStringLength1To3 `xml:"type,omitempty"`
+
+	Quantity *NumericIntegerLength1To15 `xml:"quantity,omitempty"`
 }

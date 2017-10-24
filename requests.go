@@ -1,5 +1,10 @@
 package amadeus
 
+import (
+	"github.com/kidem/amadeus-ws-go/reqstructs"
+	"github.com/kidem/amadeus-ws-go/respstructs"
+)
+
 var url string = "http://webservices.amadeus.com"
 
 func (service *WebServicesPT) SecurityAuthenticate(request *SecurityAuthenticate) (*SecurityAuthenticateReply, *Session, error) {
@@ -39,4 +44,17 @@ func (service *WebServicesPT) CommandCryptic(request *CommandCryptic) (*CommandC
 	}
 
 	return response, session, nil
+}
+
+func (service *WebServicesPT) QueueList(request *reqstructs.QueueList) (*respstructs.QueueListReply, error) {
+	soapAction := "QDQLRQ_11_1_1A"
+
+	response := new(respstructs.QueueListReply)
+	session := new(Session)
+	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
 }

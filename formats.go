@@ -47,3 +47,48 @@ type AlphaNumericStringLength1To10 string
 
 // Format limitations: an..4
 type AlphaNumericStringLength1To4 string
+
+// Format limitations: n..3
+type NumericIntegerLength1To3 int32
+
+// Format limitations: an..2
+type AlphaNumericStringLength1To2 string
+
+// Format limitations: an3
+type AlphaNumericStringLength3To3 string
+
+// Format limitations: an2
+type AlphaNumericStringLength2To2 string
+
+// Format limitations: n..2
+type NumericIntegerLength1To2 int32
+
+// Format limitations: n..18
+type NumericIntegerLength1To18 int32
+
+// Format limitations: n..4
+type NumericIntegerLength1To4 int32
+
+// Format limitations: an..199
+type AlphaNumericStringLength1To199 string
+
+// Format limitations: n..5
+type NumericIntegerLength1To5 int32
+
+// Format limitations: an..8
+type AlphaNumericStringLength1To8 string
+
+// Value of the year. Example: 2003
+type YearYYYY string
+
+// Value of the month. Only significant digits are mandatory. Example: 7
+type MonthMM string
+
+// Value of the day in the  month. Only significant digits are mandatory. Example: 7
+type DayNN string
+
+// Value of the hours in the  time. Only significant digits are mandatory. Example: 7
+type HourHH string
+
+// Value of the minutes in the  time. Only significant digits are mandatory. Example: 7
+type MinuteMM string

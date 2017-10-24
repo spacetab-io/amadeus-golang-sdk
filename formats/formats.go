@@ -1,4 +1,4 @@
-package amadeus
+package formats
 
 // Format limitations: an..35
 type AlphaNumericStringLength1To35 string

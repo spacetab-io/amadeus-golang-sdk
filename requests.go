@@ -53,3 +53,16 @@ func (service *AmadeusWebServicesPT) QueueList(request *QueueList) (*QueueListRe
 
 	return response, nil
 }
+
+func (service *AmadeusWebServicesPT) TicketDisplayTST(request *TicketDisplayTST) (*TicketDisplayTSTReply, error) {
+	soapAction := "TTSTRQ_07_1_1A"
+
+	response := new(TicketDisplayTSTReply)
+	session := new(Session)
+	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

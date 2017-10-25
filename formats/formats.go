@@ -120,3 +120,54 @@ type Hour_hH string
 
 // Value of the minutes in the  time. Only significant digits are mandatory. Example: 7
 type Minute_mM string
+
+// Format limitations: an..20
+type AlphaNumericString_Length1To20 string
+
+// Format limitations: an..5
+type AlphaNumericString_Length1To5 string
+
+// Format limitations: n..11
+type NumericInteger_Length1To11 int32
+
+// Format limitations: a..2
+type AlphaString_Length1To2 string
+
+// Format limitations: n..6
+type NumericInteger_Length1To6 int32
+
+// Format limitations: an..11
+type AlphaNumericString_Length1To11 string
+
+// Format limitations: n..11
+type NumericDecimal_Length1To11 float64
+
+// Format limitations: an..6
+type AlphaNumericString_Length1To6 string
+
+// Format limitations: a1
+type AlphaString_Length1To1 string
+
+// Format limitations: n..8
+type NumericInteger_Length1To8 int32
+
+// Format limitations: n1
+type NumericInteger_Length1To1 int32
+
+// Format limitations: n..2
+type NumericDecimal_Length1To2 float64
+
+// Format limitations: an..547
+type AlphaNumericString_Length1To547 string
+
+// Format limitations: an..25
+type AlphaNumericString_Length1To25 string
+
+// Format limitations: n..18
+type NumericDecimal_Length1To18 float64
+
+// Format limitations: an..17
+type AlphaNumericString_Length1To17 string
+
+// Format limitations: n..12
+type NumericDecimal_Length1To12 float64

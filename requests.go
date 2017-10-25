@@ -40,3 +40,16 @@ func (service *WebServicesPT) CommandCryptic(request *CommandCryptic) (*CommandC
 
 	return response, session, nil
 }
+
+func (service *AmadeusWebServicesPT) QueueList(request *QueueList) (*QueueListReply, error) {
+	soapAction := "QDQLRQ_11_1_1A"
+
+	response := new(QueueListReply)
+	session := new(Session)
+	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}

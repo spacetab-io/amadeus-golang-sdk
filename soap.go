@@ -38,14 +38,14 @@ type ResponseSOAPEnvelope struct {
 	Body    ResponseSOAPBody
 }
 type SOAPEnvelope struct {
-	XMLName  xml.Name     `xml:"soap:Envelope"`
+	XMLName xml.Name `xml:"soap:Envelope"`
 
-	SOAPAttr string       `xml:"xmlns:soap,attr"`
-	XSIAttr  string       `xml:"xmlns:xsi,attr"`
-	XSDAttr  string       `xml:"xmlns:xsd,attr"`
+	SOAPAttr string `xml:"xmlns:soap,attr"`
+	XSIAttr  string `xml:"xmlns:xsi,attr"`
+	XSDAttr  string `xml:"xmlns:xsd,attr"`
 
-	Header   SOAPHeaderWithSession
-	Body     SOAPBody
+	Header SOAPHeaderWithSession
+	Body   SOAPBody
 }
 
 type SOAPHeaderWithSession struct {
@@ -64,10 +64,10 @@ type SOAPHeader struct {
 }
 
 type SOAPBody struct {
-	XMLName xml.Name      `xml:"soap:Body"`
+	XMLName xml.Name `xml:"soap:Body"`
 
-	Fault   *SOAPFault    `xml:",omitempty"`
-	Content interface{}   `xml:",omitempty"`
+	Fault   *SOAPFault  `xml:",omitempty"`
+	Content interface{} `xml:",omitempty"`
 }
 type ResponseSOAPBody struct {
 	XMLName xml.Name `xml:"http://schemas.xmlsoap.org/soap/envelope/ Body"`

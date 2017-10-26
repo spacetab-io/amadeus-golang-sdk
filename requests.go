@@ -1,5 +1,15 @@
 package amadeus
 
+import (
+	cc "github.com/kidem/amadeus-ws-go/reqstructs/command_cryptic"
+	ql "github.com/kidem/amadeus-ws-go/reqstructs/queue_list"
+	tdt "github.com/kidem/amadeus-ws-go/reqstructs/ticket_display_tst"
+
+	ccr "github.com/kidem/amadeus-ws-go/respstructs/command_cryptic_reply"
+	qlr "github.com/kidem/amadeus-ws-go/respstructs/queue_list_reply"
+	tdtr "github.com/kidem/amadeus-ws-go/respstructs/ticket_display_tst_reply"
+)
+
 var url string = "http://webservices.amadeus.com"
 
 func (service *WebServicesPT) SecurityAuthenticate(request *SecurityAuthenticate) (*SecurityAuthenticateReply, *Session, error) {
@@ -28,10 +38,10 @@ func (service *WebServicesPT) SecuritySignOut(request *SecuritySignOut) (*Securi
 	return response, nil
 }
 
-func (service *WebServicesPT) CommandCryptic(request *CommandCryptic) (*CommandCrypticReply, *Session, error) {
+func (service *WebServicesPT) CommandCryptic(request *cc.CommandCryptic) (*ccr.CommandCrypticReply, *Session, error) {
 	soapAction := "HSFREQ_07_3_1A"
 
-	response := new(CommandCrypticReply)
+	response := new(ccr.CommandCrypticReply)
 	session := new(Session)
 	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
 	if err != nil {
@@ -41,10 +51,10 @@ func (service *WebServicesPT) CommandCryptic(request *CommandCryptic) (*CommandC
 	return response, session, nil
 }
 
-func (service *AmadeusWebServicesPT) QueueList(request *QueueList) (*QueueListReply, error) {
+func (service *WebServicesPT) QueueList(request *ql.QueueList) (*qlr.QueueListReply, error) {
 	soapAction := "QDQLRQ_11_1_1A"
 
-	response := new(QueueListReply)
+	response := new(qlr.QueueListReply)
 	session := new(Session)
 	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
 	if err != nil {
@@ -54,10 +64,10 @@ func (service *AmadeusWebServicesPT) QueueList(request *QueueList) (*QueueListRe
 	return response, nil
 }
 
-func (service *AmadeusWebServicesPT) TicketDisplayTST(request *TicketDisplayTST) (*TicketDisplayTSTReply, error) {
+func (service *WebServicesPT) TicketDisplayTST(request *tdt.TicketDisplayTST) (*tdtr.TicketDisplayTSTReply, error) {
 	soapAction := "TTSTRQ_07_1_1A"
 
-	response := new(TicketDisplayTSTReply)
+	response := new(tdtr.TicketDisplayTSTReply)
 	session := new(Session)
 	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
 	if err != nil {

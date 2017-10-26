@@ -1,6 +1,8 @@
 package formats
 
-// Formats for backward compatibility
+//  **********************************
+//	Formats for backward compatibility
+//	**********************************
 
 // Format limitations: an..35
 type AlphaNumericStringLength1To35 string
@@ -50,7 +52,9 @@ type AlphaNumericStringLength1To10 string
 // Format limitations: an..4
 type AlphaNumericStringLength1To4 string
 
-// END backward compatibility
+//  **************************
+//	END backward compatibility
+//	**************************
 
 // Format limitations: n..3
 type NumericInteger_Length1To3 int32
@@ -171,3 +175,15 @@ type AlphaNumericString_Length1To17 string
 
 // Format limitations: n..12
 type NumericDecimal_Length1To12 float64
+
+// Format limitations: an..14
+type AlphaNumericString_Length1To14 string
+
+// Format limitations: an..30
+type AlphaNumericString_Length1To30 string
+
+// Format limitations: an..99999
+type AlphaNumericString_Length1To99999 string
+
+// Format limitations: a..6
+type AlphaString_Length1To6 string

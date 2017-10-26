@@ -4,11 +4,13 @@ import (
 	cc "github.com/kidem/amadeus-ws-go/reqstructs/command_cryptic"
 	ql "github.com/kidem/amadeus-ws-go/reqstructs/queue_list"
 	sa "github.com/kidem/amadeus-ws-go/reqstructs/security_authenticate"
+	ss "github.com/kidem/amadeus-ws-go/reqstructs/security_signout"
 	tdt "github.com/kidem/amadeus-ws-go/reqstructs/ticket_display_tst"
 
 	ccr "github.com/kidem/amadeus-ws-go/respstructs/command_cryptic_reply"
 	qlr "github.com/kidem/amadeus-ws-go/respstructs/queue_list_reply"
 	sar "github.com/kidem/amadeus-ws-go/respstructs/security_authenticate_reply"
+	ssr "github.com/kidem/amadeus-ws-go/respstructs/security_signout_reply"
 	tdtr "github.com/kidem/amadeus-ws-go/respstructs/ticket_display_tst_reply"
 )
 
@@ -27,10 +29,10 @@ func (service *WebServicesPT) SecurityAuthenticate(request *sa.SecurityAuthentic
 	return response, session, nil
 }
 
-func (service *WebServicesPT) SecuritySignOut(request *SecuritySignOut) (*SecuritySignOutReply, error) {
+func (service *WebServicesPT) SecuritySignOut(request *ss.SecuritySignOut) (*ssr.SecuritySignOutReply, error) {
 	soapAction := "VLSSOQ_04_1_1A"
 
-	response := new(SecuritySignOutReply)
+	response := new(ssr.SecuritySignOutReply)
 	session := new(Session)
 	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
 	if err != nil {

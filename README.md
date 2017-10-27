@@ -16,7 +16,10 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/smgladkovskiy/amadeus-ws-go"
+	//TODO: fix these path after the merge
+	"github.com/kidem/amadeus-ws-go"
+	"github.com/kidem/amadeus-ws-go/formats"
+	sa "github.com/kidem/amadeus-ws-go/reqstructs/security_authenticate"
 )
 
 func main() {
@@ -27,29 +30,29 @@ func main() {
 
 func authenticate(officeId string) *amadeus.Session {
 	service := amadeus.NewAmadeusWebServicesPT("https://test.webservices.amadeus.com", true, "WSAPId", &amadeus.BasicAuth{})
-	response, session, err := service.SecurityAuthenticate(&amadeus.SecurityAuthenticate{
-		UserIdentifier: amadeus.UserIdentificationType{
-			OriginIdentification: &amadeus.OriginatorIdentificationDetailsTypeI{
-				SourceOffice: amadeus.AlphaNumericStringLength1To9(officeId),
+	response, session, err := service.SecurityAuthenticate(&sa.SecurityAuthenticate{
+		UserIdentifier: &sa.UserIdentificationType{
+			OriginIdentification: &sa.OriginatorIdentificationDetailsTypeI{
+				SourceOffice: formats.AlphaNumericString_Length1To9(officeId),
 			},
-			Originator:         amadeus.AlphaNumericStringLength1To30("Originator"),
-			OriginatorTypeCode: amadeus.AlphaNumericStringLength1To1("U"),
+			Originator:         formats.AlphaNumericString_Length1To30("Originator"),
+			OriginatorTypeCode: formats.AlphaNumericString_Length1To1("U"),
 		},
-		DutyCode: amadeus.ReferenceInformationTypeI{
-			DutyCodeDetails: amadeus.ReferencingDetailsTypeI{
-				ReferenceQualifier:  amadeus.AlphaNumericStringLength1To3("DUT"),
-				ReferenceIdentifier: amadeus.AlphaNumericStringLength1To35("SU"),
-			},
-		},
-		SystemDetails: amadeus.SystemDetailsInfoType{
-			OrganizationDetails: amadeus.SystemDetailsTypeI{
-				OrganizationId: amadeus.AlphaNumericStringLength1To35("OrganizationId"),
+		DutyCode: &sa.ReferenceInformationTypeI{
+			DutyCodeDetails: &sa.ReferencingDetailsTypeI{
+				ReferenceQualifier:  formats.AlphaNumericString_Length1To3("DUT"),
+				ReferenceIdentifier: formats.AlphaNumericString_Length1To35("SU"),
 			},
 		},
-		PasswordInfo: amadeus.BinaryDataType{
-			DataLength: amadeus.NumericIntegerLength1To15(8),
-			DataType:   amadeus.AlphaNumericStringLength1To1("E"),
-			BinaryData: amadeus.AlphaNumericStringLength1To99999("Base64EncodedPassword"),
+		SystemDetails: &sa.SystemDetailsInfoType{
+			OrganizationDetails: &sa.SystemDetailsTypeI{
+				OrganizationId: formats.AlphaNumericString_Length1To35("OrganizationId"),
+			},
+		},
+		PasswordInfo: &sa.BinaryDataType{
+			DataLength: formats.NumericInteger_Length1To15(8),
+			DataType:   formats.AlphaNumericString_Length1To1("E"),
+			BinaryData: formats.AlphaNumericString_Length1To99999("Base64EncodedPassword"),
 		},
 	})
 	if err != nil {

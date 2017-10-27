@@ -24,17 +24,18 @@ type SecurityAuthenticate struct {
 	// These segments contain the password information. Two segments can be used in case of a New password is required.
 	PasswordInfo *BinaryDataType `xml:"passwordInfo,omitempty"`
 
-	FullLocation struct {
-
-		// Stores the location of the workstation.
-		WorkstationPos *PlaceLocationIdentificationTypeU `xml:"workstationPos,omitempty"`
-
-		// Contains terminal and facility or worstation id.
-		LocationInfo *TerminalLocationType `xml:"locationInfo,omitempty"`
-	} `xml:"fullLocation,omitempty"`
+	FullLocation *FullLocation `xml:"fullLocation,omitempty"`
 
 	// Conatins Baleb and INdex of application. ex: JFE 1
 	ApplicationId *ApplicationType `xml:"applicationId,omitempty"`
+}
+
+type FullLocation struct {
+	// Stores the location of the workstation.
+	WorkstationPos *PlaceLocationIdentificationTypeU `xml:"workstationPos,omitempty"`
+
+	// Contains terminal and facility or worstation id.
+	LocationInfo *TerminalLocationType `xml:"locationInfo,omitempty"`
 }
 
 type ApplicationIdentificationType struct {
@@ -48,27 +49,27 @@ type ApplicationIdentificationType struct {
 }
 
 type ApplicationType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A ApplicationType"`
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A ApplicationType"`
 
 	// Identification of the application.
 	ApplicationDetails *ApplicationIdentificationType `xml:"applicationDetails,omitempty"`
 }
 
 type BinaryDataType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A BinaryDataType"`
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A BinaryDataType"`
 
 	// Length of the data element 114Z. The unit is given in number of binary characters (bytes).
-	DataLength *formats.NumericInteger_Length1To15 `xml:"dataLength,omitempty"`
+	DataLength formats.NumericInteger_Length1To15 `xml:"dataLength,omitempty"`
 
 	// type of the data. When E is specified, this means that the password is not crypted. When B specified, this means that the password is crypted.
-	DataType *formats.AlphaNumericString_Length1To1 `xml:"dataType,omitempty"`
+	DataType formats.AlphaNumericString_Length1To1 `xml:"dataType,omitempty"`
 
 	// used to store binary data
-	BinaryData *formats.AlphaNumericString_Length1To99999 `xml:"binaryData,omitempty"`
+	BinaryData formats.AlphaNumericString_Length1To99999 `xml:"binaryData,omitempty"`
 }
 
 type ConversationIDType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A ConversationIDType"`
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A ConversationIDType"`
 
 	// Sender identification
 	SenderIdentification *formats.AlphaNumericString_Length1To35 `xml:"senderIdentification,omitempty"`
@@ -104,14 +105,14 @@ type LocationIdentificationBatchTypeU struct {
 }
 
 type OriginatorIdentificationDetailsTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A OriginatorIdentificationDetailsTypeI"`
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A OriginatorIdentificationDetailsTypeI"`
 
 	// AMADEUS Office Id the workstation belongs to. Must be empty if a workstation Id is specified in the SYS segment.
-	SourceOffice *formats.AlphaNumericString_Length1To9 `xml:"sourceOffice,omitempty"`
+	SourceOffice formats.AlphaNumericString_Length1To9 `xml:"sourceOffice,omitempty"`
 }
 
 type PlaceLocationIdentificationTypeU struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A PlaceLocationIdentificationTypeU"`
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A PlaceLocationIdentificationTypeU"`
 
 	// Type of location
 	LocationType *formats.AlphaNumericString_Length1To3 `xml:"locationType,omitempty"`
@@ -124,20 +125,20 @@ type PlaceLocationIdentificationTypeU struct {
 }
 
 type ReferenceInformationTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A ReferenceInformationTypeI"`
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A ReferenceInformationTypeI"`
 
 	// This composite  duty code information. For Duty code info, DUT must be specified in the Qualifier.
 	DutyCodeDetails *ReferencingDetailsTypeI `xml:"dutyCodeDetails,omitempty"`
 }
 
 type ReferencingDetailsTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A ReferencingDetailsTypeI"`
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A ReferencingDetailsTypeI"`
 
 	// Code determining if the data is a tree identifier, a category identifier or a parent category identifier.
-	ReferenceQualifier *formats.AlphaNumericString_Length1To3 `xml:"referenceQualifier,omitempty"`
+	ReferenceQualifier formats.AlphaNumericString_Length1To3 `xml:"referenceQualifier,omitempty"`
 
 	// Data value.
-	ReferenceIdentifier *formats.AlphaNumericString_Length1To35 `xml:"referenceIdentifier,omitempty"`
+	ReferenceIdentifier formats.AlphaNumericString_Length1To35 `xml:"referenceIdentifier,omitempty"`
 }
 
 type RelatedLocationOneIdentificationTypeU struct {
@@ -151,7 +152,7 @@ type RelatedLocationOneIdentificationTypeU struct {
 }
 
 type SystemDetailsInfoType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A SystemDetailsInfoType"`
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A SystemDetailsInfoType"`
 
 	// This field contains a workstation Identifier. It is used to retrieve the physical origin of the request (mainly for printing purposes) .
 	WorkstationId *formats.AlphaNumericString_Length1To35 `xml:"workstationId,omitempty"`
@@ -164,28 +165,28 @@ type SystemDetailsInfoType struct {
 }
 
 type SystemDetailsTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A SystemDetailsTypeI"`
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A SystemDetailsTypeI"`
 
 	// This DE is used to specify an organization Id such as BA, 1A or QF.
-	OrganizationId *formats.AlphaNumericString_Length1To35 `xml:"organizationId,omitempty"`
+	OrganizationId formats.AlphaNumericString_Length1To35 `xml:"organizationId,omitempty"`
 }
 
 type TerminalLocationType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A TerminalLocationType"`
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A TerminalLocationType"`
 
 	// To convey information related to a specific Facility.
 	FacilityDetails *FacilityInformationType `xml:"facilityDetails,omitempty"`
 }
 
 type UserIdentificationType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A UserIdentificationType"`
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A UserIdentificationType"`
 
 	// To specify the source office the workstation belongs to. Not used in the second repetition of the segment (if any, it will not be taken into account). Used when no workstation Id is specified in SYS segment.
 	OriginIdentification *OriginatorIdentificationDetailsTypeI `xml:"originIdentification,omitempty"`
 
 	// Used to specify which kind of info is given in DE 9900.
-	OriginatorTypeCode *formats.AlphaNumericString_Length1To1 `xml:"originatorTypeCode,omitempty"`
+	OriginatorTypeCode formats.AlphaNumericString_Length1To1 `xml:"originatorTypeCode,omitempty"`
 
 	// Authority code of the requester If Sign Id : (Numeric Sine)+(Agent Initials) ex : 0001XV). If user Id : Logon User Id.
-	Originator *formats.AlphaNumericString_Length1To30 `xml:"originator,omitempty"`
+	Originator formats.AlphaNumericString_Length1To30 `xml:"originator,omitempty"`
 }

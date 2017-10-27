@@ -9,14 +9,7 @@ import (
 type SecurityAuthenticateReply struct {
 	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLR_06_1_1A Security_AuthenticateReply"`
 
-	ErrorSection struct {
-
-		// Application Error
-		ApplicationError *ApplicationErrorInformationType `xml:"applicationError,omitempty"`
-
-		// Supplementary Info on the Error.
-		InteractiveFreeText *InteractiveFreeTextTypeI `xml:"interactiveFreeText,omitempty"`
-	} `xml:"errorSection,omitempty"`
+	ErrorSection *ErrorSection `xml:"errorSection,omitempty"`
 
 	// This segment is only used if process is OK. In that case P is specified.
 	ProcessStatus *ResponseAnalysisDetailsType `xml:"processStatus,omitempty"`
@@ -26,6 +19,14 @@ type SecurityAuthenticateReply struct {
 
 	// Identifier of a group of conversation, shared by sevreal mono-signed conversations.
 	ConversationGrp *BusinessProcessIdType `xml:"conversationGrp,omitempty"`
+}
+
+type ErrorSection struct {
+	// Application Error
+	ApplicationError *ApplicationErrorInformationType `xml:"applicationError,omitempty"`
+
+	// Supplementary Info on the Error.
+	InteractiveFreeText *InteractiveFreeTextTypeI `xml:"interactiveFreeText,omitempty"`
 }
 
 type ApplicationErrorDetailType struct {

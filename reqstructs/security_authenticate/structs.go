@@ -42,10 +42,10 @@ type ApplicationIdentificationType struct {
 	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A ApplicationIdentificationType"`
 
 	// Application Label. Exemple : NGD. Label is the first part of the ApplicationId. Label is considered as an Internal Id, as it is the key of the application.
-	InternalId *formats.AlphaNumericString_Length1To35 `xml:"internalId,omitempty"`
+	InternalId formats.AlphaNumericString_Length1To35 `xml:"internalId,omitempty"`
 
 	// Application Index. Index is part of the ApplicationId.
-	SeqNumber *formats.AlphaNumericString_Length1To6 `xml:"seqNumber,omitempty"`
+	SeqNumber formats.AlphaNumericString_Length1To6 `xml:"seqNumber,omitempty"`
 }
 
 type ApplicationType struct {
@@ -72,36 +72,36 @@ type ConversationIDType struct {
 	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A ConversationIDType"`
 
 	// Sender identification
-	SenderIdentification *formats.AlphaNumericString_Length1To35 `xml:"senderIdentification,omitempty"`
+	SenderIdentification formats.AlphaNumericString_Length1To35 `xml:"senderIdentification,omitempty"`
 
 	// Recipient identification
-	RecipientIdentification *formats.AlphaNumericString_Length1To35 `xml:"recipientIdentification,omitempty"`
+	RecipientIdentification formats.AlphaNumericString_Length1To35 `xml:"recipientIdentification,omitempty"`
 
 	// Sender's interchange control reference
-	SenderInterchangeControlReference *formats.AlphaNumericString_Length1To14 `xml:"senderInterchangeControlReference,omitempty"`
+	SenderInterchangeControlReference formats.AlphaNumericString_Length1To14 `xml:"senderInterchangeControlReference,omitempty"`
 
 	// Recipient's interchange control reference
-	RecipientInterchangeControlReference *formats.AlphaNumericString_Length1To14 `xml:"recipientInterchangeControlReference,omitempty"`
+	RecipientInterchangeControlReference formats.AlphaNumericString_Length1To14 `xml:"recipientInterchangeControlReference,omitempty"`
 }
 
 type FacilityInformationType struct {
 	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A FacilityInformationType"`
 
 	// Type of the Facility, coded. E.g.: - Check-In Desk - Gate... The codeset is not yet defined.
-	Type_ *formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`
+	Type_ formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`
 
 	// Unique Reference to a Facility of a given Type in a terminal. This can be several kind of values. E.g.: - 25 (means Gate 25 when associated  Facility Type= Gate, or Check-in Desk 25 when associated Facility Type= Check-In Desk) - BAEXC: means Ba-Executive Club Lounge when associated to
-	Identifier *formats.AlphaNumericString_Length1To5 `xml:"identifier,omitempty"`
+	Identifier formats.AlphaNumericString_Length1To5 `xml:"identifier,omitempty"`
 }
 
 type LocationIdentificationBatchTypeU struct {
 	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A LocationIdentificationBatchTypeU"`
 
 	// Airport(139) or City (227) code
-	Code *formats.AlphaNumericString_Length1To35 `xml:"code,omitempty"`
+	Code formats.AlphaNumericString_Length1To35 `xml:"code,omitempty"`
 
 	// Discriminator between airport or city.
-	Qualifier *formats.AlphaNumericString_Length1To17 `xml:"qualifier,omitempty"`
+	Qualifier formats.AlphaNumericString_Length1To17 `xml:"qualifier,omitempty"`
 }
 
 type OriginatorIdentificationDetailsTypeI struct {
@@ -115,7 +115,7 @@ type PlaceLocationIdentificationTypeU struct {
 	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A PlaceLocationIdentificationTypeU"`
 
 	// Type of location
-	LocationType *formats.AlphaNumericString_Length1To3 `xml:"locationType,omitempty"`
+	LocationType formats.AlphaNumericString_Length1To3 `xml:"locationType,omitempty"`
 
 	// Description of the location
 	LocationDescription *LocationIdentificationBatchTypeU `xml:"locationDescription,omitempty"`
@@ -145,23 +145,23 @@ type RelatedLocationOneIdentificationTypeU struct {
 	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A RelatedLocationOneIdentificationTypeU"`
 
 	// Terminal (180) or Building(300) code
-	Code *formats.AlphaNumericString_Length1To25 `xml:"code,omitempty"`
+	Code formats.AlphaNumericString_Length1To25 `xml:"code,omitempty"`
 
 	// Discriminator between airport or city.
-	Qualifier *formats.AlphaNumericString_Length1To17 `xml:"qualifier,omitempty"`
+	Qualifier formats.AlphaNumericString_Length1To17 `xml:"qualifier,omitempty"`
 }
 
 type SystemDetailsInfoType struct {
 	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A SystemDetailsInfoType"`
 
 	// This field contains a workstation Identifier. It is used to retrieve the physical origin of the request (mainly for printing purposes) .
-	WorkstationId *formats.AlphaNumericString_Length1To35 `xml:"workstationId,omitempty"`
+	WorkstationId formats.AlphaNumericString_Length1To35 `xml:"workstationId,omitempty"`
 
 	// Used to specify an organization when User Id logon is used.
 	OrganizationDetails *SystemDetailsTypeI `xml:"organizationDetails,omitempty"`
 
 	// Explain what type of workstation ID is stored in data element 3148
-	IdQualifier *formats.AlphaNumericString_Length1To1 `xml:"idQualifier,omitempty"`
+	IdQualifier formats.AlphaNumericString_Length1To1 `xml:"idQualifier,omitempty"`
 }
 
 type SystemDetailsTypeI struct {

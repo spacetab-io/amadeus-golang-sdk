@@ -33,13 +33,13 @@ type ApplicationErrorDetailType struct {
 	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLR_06_1_1A ApplicationErrorDetailType"`
 
 	// Code identifying the data validation error condition.
-	ErrorCode *formats.AlphaNumericString_Length1To5 `xml:"errorCode,omitempty"`
+	ErrorCode formats.AlphaNumericString_Length1To5 `xml:"errorCode,omitempty"`
 
 	// Identification of a code list.
-	ErrorCategory *formats.AlphaNumericString_Length1To3 `xml:"errorCategory,omitempty"`
+	ErrorCategory formats.AlphaNumericString_Length1To3 `xml:"errorCategory,omitempty"`
 
 	// Code identifying the agency responsible for a code list.
-	ErrorCodeOwner *formats.AlphaNumericString_Length1To3 `xml:"errorCodeOwner,omitempty"`
+	ErrorCodeOwner formats.AlphaNumericString_Length1To3 `xml:"errorCodeOwner,omitempty"`
 }
 
 type ApplicationErrorInformationType struct {
@@ -53,20 +53,20 @@ type BusinessProcessIdType struct {
 	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLR_06_1_1A BusinessProcessIdType"`
 
 	// A unique reference to identify the process/business
-	ProcessIdentifier *formats.AlphaNumericString_Length1To10 `xml:"processIdentifier,omitempty"`
+	ProcessIdentifier formats.AlphaNumericString_Length1To10 `xml:"processIdentifier,omitempty"`
 }
 
 type FreeTextQualificationTypeI struct {
 	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLR_06_1_1A FreeTextQualificationTypeI"`
 
 	// Subject
-	Subject *formats.AlphaNumericString_Length1To3 `xml:"subject,omitempty"`
+	Subject formats.AlphaNumericString_Length1To3 `xml:"subject,omitempty"`
 
 	// Info Type
-	InfoType *formats.AlphaNumericString_Length1To4 `xml:"infoType,omitempty"`
+	InfoType formats.AlphaNumericString_Length1To4 `xml:"infoType,omitempty"`
 
 	// Language
-	Language *formats.AlphaNumericString_Length1To3 `xml:"language,omitempty"`
+	Language formats.AlphaNumericString_Length1To3 `xml:"language,omitempty"`
 }
 
 type InteractiveFreeTextTypeI struct {
@@ -76,14 +76,14 @@ type InteractiveFreeTextTypeI struct {
 	FreeTextQualif *FreeTextQualificationTypeI `xml:"freeTextQualif,omitempty"`
 
 	// Free Text
-	FreeText *formats.AlphaNumericString_Length1To70 `xml:"freeText,omitempty"`
+	FreeText formats.AlphaNumericString_Length1To70 `xml:"freeText,omitempty"`
 }
 
 type OrganizationIdentificationType struct {
 	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLR_06_1_1A OrganizationIdentificationType"`
 
 	// Organization label (Company Id).
-	Label *formats.AlphaNumericString_Length1To10 `xml:"label,omitempty"`
+	Label formats.AlphaNumericString_Length1To10 `xml:"label,omitempty"`
 }
 
 type OrganizationType struct {
@@ -97,5 +97,5 @@ type ResponseAnalysisDetailsType struct {
 	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLR_06_1_1A ResponseAnalysisDetailsType"`
 
 	// P must be specified when status of the process is OK.
-	StatusCode *formats.AlphaString_Length1To6 `xml:"statusCode,omitempty"`
+	StatusCode formats.AlphaString_Length1To6 `xml:"statusCode,omitempty"`
 }

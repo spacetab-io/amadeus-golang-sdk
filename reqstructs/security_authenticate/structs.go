@@ -39,8 +39,6 @@ type FullLocation struct {
 }
 
 type ApplicationIdentificationType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A ApplicationIdentificationType"`
-
 	// Application Label. Exemple : NGD. Label is the first part of the ApplicationId. Label is considered as an Internal Id, as it is the key of the application.
 	InternalId formats.AlphaNumericString_Length1To35 `xml:"internalId,omitempty"`
 
@@ -49,15 +47,11 @@ type ApplicationIdentificationType struct {
 }
 
 type ApplicationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A ApplicationType"`
-
 	// Identification of the application.
 	ApplicationDetails *ApplicationIdentificationType `xml:"applicationDetails,omitempty"`
 }
 
 type BinaryDataType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A BinaryDataType"`
-
 	// Length of the data element 114Z. The unit is given in number of binary characters (bytes).
 	DataLength formats.NumericInteger_Length1To15 `xml:"dataLength,omitempty"`
 
@@ -69,8 +63,6 @@ type BinaryDataType struct {
 }
 
 type ConversationIDType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A ConversationIDType"`
-
 	// Sender identification
 	SenderIdentification formats.AlphaNumericString_Length1To35 `xml:"senderIdentification,omitempty"`
 
@@ -85,8 +77,6 @@ type ConversationIDType struct {
 }
 
 type FacilityInformationType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A FacilityInformationType"`
-
 	// Type of the Facility, coded. E.g.: - Check-In Desk - Gate... The codeset is not yet defined.
 	Type_ formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`
 
@@ -95,8 +85,6 @@ type FacilityInformationType struct {
 }
 
 type LocationIdentificationBatchTypeU struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A LocationIdentificationBatchTypeU"`
-
 	// Airport(139) or City (227) code
 	Code formats.AlphaNumericString_Length1To35 `xml:"code,omitempty"`
 
@@ -105,15 +93,11 @@ type LocationIdentificationBatchTypeU struct {
 }
 
 type OriginatorIdentificationDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A OriginatorIdentificationDetailsTypeI"`
-
 	// AMADEUS Office Id the workstation belongs to. Must be empty if a workstation Id is specified in the SYS segment.
 	SourceOffice formats.AlphaNumericString_Length1To9 `xml:"sourceOffice,omitempty"`
 }
 
 type PlaceLocationIdentificationTypeU struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A PlaceLocationIdentificationTypeU"`
-
 	// Type of location
 	LocationType formats.AlphaNumericString_Length1To3 `xml:"locationType,omitempty"`
 
@@ -125,15 +109,11 @@ type PlaceLocationIdentificationTypeU struct {
 }
 
 type ReferenceInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A ReferenceInformationTypeI"`
-
 	// This composite  duty code information. For Duty code info, DUT must be specified in the Qualifier.
 	DutyCodeDetails *ReferencingDetailsTypeI `xml:"dutyCodeDetails,omitempty"`
 }
 
 type ReferencingDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A ReferencingDetailsTypeI"`
-
 	// Code determining if the data is a tree identifier, a category identifier or a parent category identifier.
 	ReferenceQualifier formats.AlphaNumericString_Length1To3 `xml:"referenceQualifier,omitempty"`
 
@@ -142,8 +122,6 @@ type ReferencingDetailsTypeI struct {
 }
 
 type RelatedLocationOneIdentificationTypeU struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A RelatedLocationOneIdentificationTypeU"`
-
 	// Terminal (180) or Building(300) code
 	Code formats.AlphaNumericString_Length1To25 `xml:"code,omitempty"`
 
@@ -152,8 +130,6 @@ type RelatedLocationOneIdentificationTypeU struct {
 }
 
 type SystemDetailsInfoType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A SystemDetailsInfoType"`
-
 	// This field contains a workstation Identifier. It is used to retrieve the physical origin of the request (mainly for printing purposes) .
 	WorkstationId formats.AlphaNumericString_Length1To35 `xml:"workstationId,omitempty"`
 
@@ -165,22 +141,16 @@ type SystemDetailsInfoType struct {
 }
 
 type SystemDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A SystemDetailsTypeI"`
-
 	// This DE is used to specify an organization Id such as BA, 1A or QF.
 	OrganizationId formats.AlphaNumericString_Length1To35 `xml:"organizationId,omitempty"`
 }
 
 type TerminalLocationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A TerminalLocationType"`
-
 	// To convey information related to a specific Facility.
 	FacilityDetails *FacilityInformationType `xml:"facilityDetails,omitempty"`
 }
 
 type UserIdentificationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSLQ_06_1_1A UserIdentificationType"`
-
 	// To specify the source office the workstation belongs to. Not used in the second repetition of the segment (if any, it will not be taken into account). Used when no workstation Id is specified in SYS segment.
 	OriginIdentification *OriginatorIdentificationDetailsTypeI `xml:"originIdentification,omitempty"`
 

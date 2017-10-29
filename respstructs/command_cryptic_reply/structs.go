@@ -1,7 +1,9 @@
 package command_cryptic_reply
 
+import "encoding/xml"
+
 type CommandCrypticReply struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/HSFRES_07_3_1A Command_CrypticReply"`
+	XMLName xml.Name `xml:"http://xml.amadeus.com/HSFRES_07_3_1A Command_CrypticReply"`
 
 	MessageActionDetails *MessageActionDetails `xml:"messageActionDetails,omitempty"`
 

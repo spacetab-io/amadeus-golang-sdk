@@ -26,29 +26,21 @@ type TicketDisplayTST struct {
 }
 
 type ActionDetailsTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/TTSTRQ_07_1_1A ActionDetailsTypeI"`
-
 	// Information on next list of TSTs to return.
 	NextListInformation *ReferenceTypeI `xml:"nextListInformation,omitempty"`
 }
 
 type CodedAttributeInformationType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/TTSTRQ_07_1_1A CodedAttributeInformationType"`
-
 	// provides the attribute Type
 	AttributeType formats.AlphaNumericString_Length1To3 `xml:"attributeType,omitempty"`
 }
 
 type CodedAttributeType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/TTSTRQ_07_1_1A CodedAttributeType"`
-
 	// provides details for the Attribute
 	AttributeDetails *CodedAttributeInformationType `xml:"attributeDetails,omitempty"`
 }
 
 type ItemReferencesAndVersionsType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/TTSTRQ_07_1_1A ItemReferencesAndVersionsType"`
-
 	// qualifies the type of the reference used. Code set to define
 	ReferenceType formats.AlphaNumericString_Length1To3 `xml:"referenceType,omitempty"`
 
@@ -60,15 +52,11 @@ type ItemReferencesAndVersionsType struct {
 }
 
 type ReferenceInformationTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/TTSTRQ_07_1_1A ReferenceInformationTypeI"`
-
 	// Passenger/segment/TST reference details
 	RefDetails *ReferencingDetailsTypeI `xml:"refDetails,omitempty"`
 }
 
 type ReferenceTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/TTSTRQ_07_1_1A ReferenceTypeI"`
-
 	// In case of query specifies the number of TSTs to get in reply. In case of response specifies the number of TSTs remaining.
 	RemainingInformation formats.NumericInteger_Length1To5 `xml:"remainingInformation,omitempty"`
 
@@ -77,8 +65,6 @@ type ReferenceTypeI struct {
 }
 
 type ReferencingDetailsTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/TTSTRQ_07_1_1A ReferencingDetailsTypeI"`
-
 	// Qualifyer of the reference (Pax/Seg/Tst)
 	RefQualifier formats.AlphaNumericString_Length1To3 `xml:"refQualifier,omitempty"`
 
@@ -87,22 +73,16 @@ type ReferencingDetailsTypeI struct {
 }
 
 type ReservationControlInformationDetailsTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/TTSTRQ_07_1_1A ReservationControlInformationDetailsTypeI"`
-
 	// Record locator.
 	ControlNumber formats.AlphaNumericString_Length1To20 `xml:"controlNumber,omitempty"`
 }
 
 type ReservationControlInformationTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/TTSTRQ_07_1_1A ReservationControlInformationTypeI"`
-
 	// Reservation control information
 	ReservationInformation *ReservationControlInformationDetailsTypeI `xml:"reservationInformation,omitempty"`
 }
 
 type UniqueIdDescriptionType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/TTSTRQ_07_1_1A UniqueIdDescriptionType"`
-
 	// The TST Id Number : The Id number allows to determine a TST in the single manner.
 	IDSequenceNumber formats.NumericInteger_Length1To11 `xml:"iDSequenceNumber,omitempty"`
 }

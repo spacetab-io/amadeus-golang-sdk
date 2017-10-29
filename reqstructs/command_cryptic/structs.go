@@ -1,7 +1,9 @@
 package command_cryptic
 
+import "encoding/xml"
+
 type CommandCryptic struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/HSFREQ_07_3_1A Command_Cryptic"`
+	XMLName xml.Name `xml:"http://xml.amadeus.com/HSFREQ_07_3_1A Command_Cryptic"`
 
 	MessageAction *MessageAction `xml:"messageAction,omitempty"`
 

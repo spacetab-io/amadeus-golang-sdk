@@ -14,8 +14,6 @@ type SecuritySignOut struct {
 }
 
 type ConversationIDType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSOQ_04_1_1A ConversationIDType"`
-
 	// Sender identification
 	SenderIdentification formats.AlphaNumericString_Length1To35 `xml:"senderIdentification,omitempty"`
 

@@ -2,12 +2,14 @@ package amadeus
 
 import (
 	cc "github.com/tmconsulting/amadeus-ws-go/reqstructs/command_cryptic"
+	diit "github.com/tmconsulting/amadeus-ws-go/reqstructs/docissuance_issueticket"
 	ql "github.com/tmconsulting/amadeus-ws-go/reqstructs/queue_list"
 	sa "github.com/tmconsulting/amadeus-ws-go/reqstructs/security_authenticate"
 	ss "github.com/tmconsulting/amadeus-ws-go/reqstructs/security_signout"
 	tdt "github.com/tmconsulting/amadeus-ws-go/reqstructs/ticket_display_tst"
 
 	ccr "github.com/tmconsulting/amadeus-ws-go/respstructs/command_cryptic_reply"
+	diitr "github.com/tmconsulting/amadeus-ws-go/respstructs/docissuance_issueticket_reply"
 	qlr "github.com/tmconsulting/amadeus-ws-go/respstructs/queue_list_reply"
 	sar "github.com/tmconsulting/amadeus-ws-go/respstructs/security_authenticate_reply"
 	ssr "github.com/tmconsulting/amadeus-ws-go/respstructs/security_signout_reply"
@@ -72,6 +74,19 @@ func (service *WebServicesPT) TicketDisplayTST(request *tdt.TicketDisplayTST) (*
 	soapAction := "TTSTRQ_07_1_1A"
 
 	response := new(tdtr.TicketDisplayTSTReply)
+	session := new(Session)
+	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+func (service *WebServicesPT) DocIssuanceIssueTicket(request *diit.DocIssuanceIssueTicket) (*diitr.DocIssuanceIssueTicketReply, error) {
+	soapAction := "TTKTIQ_09_1_1A"
+
+	response := new(diitr.DocIssuanceIssueTicketReply)
 	session := new(Session)
 	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
 	if err != nil {

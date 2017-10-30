@@ -187,3 +187,6 @@ type AlphaNumericString_Length1To99999 string
 
 // Format limitations: a..6
 type AlphaString_Length1To6 string
+
+// Format limitations: an..256
+type AlphaNumericString_Length1To256 string

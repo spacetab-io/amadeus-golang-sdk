@@ -217,3 +217,42 @@ type AlphaNumericString_Length1To12 string
 
 // Used for codes in the AMADEUS code tables. Code Length is three alphanumeric characters.
 type AMA_EDICodesetType_Length1to3 string
+
+// Format limitations: an9
+type AlphaNumericString_Length9To9 string
+
+// Format limitations: an7
+type AlphaNumericString_Length7To7 string
+
+// Format limitations: a3
+type AlphaString_Length3To3 string
+
+// Format limitations: n3
+type NumericInteger_Length3To3 int32
+
+// Format limitations: n10
+type NumericInteger_Length10To10 int32
+
+// Format limitations: an5..6
+type AlphaNumericString_Length5To6 string
+
+// Format limitations: a..57
+type AlphaString_Length1To57 string
+
+// Format limitations: a..56
+type AlphaString_Length1To56 string
+
+// Format limitations: an..27
+type AlphaNumericString_Length1To27 string
+
+// Date format: DDMMYY
+type Date_DDMMYY string
+
+// Time format: 24H. All digits are mandatory . Example: from 0000 to 2359
+type Time24_HHMM string
+
+// Format limitations: an..57
+type AlphaNumericString_Length1To57 string
+
+// Format limitations: an..56
+type AlphaNumericString_Length1To56 string

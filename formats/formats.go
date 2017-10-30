@@ -190,3 +190,30 @@ type AlphaString_Length1To6 string
 
 // Format limitations: an..256
 type AlphaNumericString_Length1To256 string
+
+// Format limitations: an..100
+type AlphaNumericString_Length1To100 string
+
+// Format limitations: n..9
+type NumericDecimal_Length1To9 float64
+
+// Format limitations: an2..3
+type AlphaNumericString_Length2To3 string
+
+// Format limitations: an..60
+type AlphaNumericString_Length1To60 string
+
+// Format limitations: n..35
+type NumericDecimal_Length1To35 float64
+
+// Format limitations: a..3
+type AlphaString_Length1To3 string
+
+// Format limitations: an..500
+type AlphaNumericString_Length1To500 string
+
+// Format limitations: an..12
+type AlphaNumericString_Length1To12 string
+
+// Used for codes in the AMADEUS code tables. Code Length is three alphanumeric characters.
+type AMA_EDICodesetType_Length1to3 string

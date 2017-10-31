@@ -451,3 +451,54 @@ type AlphaNumericString_Length1To13 string
 
 // Date format: MMYY
 type Date_MMYY string
+
+// Format limitations: an..250
+type AlphaNumericString_Length1To250 string
+
+// Format limitations: an..18
+type AlphaNumericString_Length0To18 string
+
+// Format limitations: n..3
+type NumericInteger_Length0To3 int32
+
+// Format limitations: a3..5
+type AlphaString_Length3To5 string
+
+// Format limitations: a..1
+type AlphaString_Length0To1 string
+
+// Format limitations: an..1
+type AlphaNumericString_Length0To1 string
+
+// Format limitations: n..35
+type NumericInteger_Length0To35 int32
+
+// Format limitations: an3..5
+type AlphaNumericString_Length3To5 string
+
+// Used for codes in the AMADEUS code tables. Code Length is one alphanumeric character.
+type AMA_EDICodesetType_Length1 string
+
+// Format limitations: an..70
+type AlphaNumericString_Length0To70 string
+
+// Format limitations: an..6
+type AlphaNumericString_Length0To6 string
+
+// Format limitations: a..3
+type AlphaString_Length0To3 string
+
+// Format limitations: n..8
+type NumericDecimal_Length1To8 float64
+
+// Format limitations: an..12
+type AlphaNumericString_Length0To12 string
+
+// Format limitations: a..9
+type AlphaString_Length0To9 string
+
+// Format limitations: an..5
+type AlphaNumericString_Length0To5 string
+
+// Format limitations: n..6
+type NumericInteger_Length0To6 int32

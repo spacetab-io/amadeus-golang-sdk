@@ -3,6 +3,7 @@ package amadeus
 import (
 	cc "github.com/tmconsulting/amadeus-ws-go/reqstructs/command_cryptic"
 	diit "github.com/tmconsulting/amadeus-ws-go/reqstructs/docissuance_issueticket"
+	fmptbs "github.com/tmconsulting/amadeus-ws-go/reqstructs/fare_masterpricertravelboardsearch"
 	fppwbc "github.com/tmconsulting/amadeus-ws-go/reqstructs/fare_pricepnrwithbookingclass"
 	pame "github.com/tmconsulting/amadeus-ws-go/reqstructs/pnr_addmultielements"
 	pc "github.com/tmconsulting/amadeus-ws-go/reqstructs/pnr_cancel"
@@ -17,6 +18,7 @@ import (
 
 	ccr "github.com/tmconsulting/amadeus-ws-go/respstructs/command_cryptic_reply"
 	diitr "github.com/tmconsulting/amadeus-ws-go/respstructs/docissuance_issueticket_reply"
+	fmptbsr "github.com/tmconsulting/amadeus-ws-go/respstructs/fare_masterpricertravelboardsearch_reply"
 	fppwbcr "github.com/tmconsulting/amadeus-ws-go/respstructs/fare_pricepnrwithbookingclass_reply"
 	pl "github.com/tmconsulting/amadeus-ws-go/respstructs/pnr_list"
 	prepl "github.com/tmconsulting/amadeus-ws-go/respstructs/pnr_reply"
@@ -204,6 +206,19 @@ func (service *WebServicesPT) PNRAddMultiElements(request *pame.PNRAddMultiEleme
 	soapAction := "PNRADD_11_3_1A"
 
 	response := new(prepl.PNRReply)
+	session := new(Session)
+	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+func (service *WebServicesPT) FareMasterPricerTravelBoardSearch(request *fmptbs.FareMasterPricerTravelBoardSearch) (*fmptbsr.FareMasterPricerTravelBoardSearchReply, error) {
+	soapAction := "FMPTBQ_14_3_1A"
+
+	response := new(fmptbsr.FareMasterPricerTravelBoardSearchReply)
 	session := new(Session)
 	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
 	if err != nil {

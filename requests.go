@@ -9,6 +9,7 @@ import (
 	ql "github.com/tmconsulting/amadeus-ws-go/reqstructs/queue_list"
 	sa "github.com/tmconsulting/amadeus-ws-go/reqstructs/security_authenticate"
 	ss "github.com/tmconsulting/amadeus-ws-go/reqstructs/security_signout"
+	tctfp "github.com/tmconsulting/amadeus-ws-go/reqstructs/ticket_createtstfrompricing"
 	tdt "github.com/tmconsulting/amadeus-ws-go/reqstructs/ticket_display_tst"
 
 	ccr "github.com/tmconsulting/amadeus-ws-go/respstructs/command_cryptic_reply"
@@ -19,6 +20,7 @@ import (
 	qlr "github.com/tmconsulting/amadeus-ws-go/respstructs/queue_list_reply"
 	sar "github.com/tmconsulting/amadeus-ws-go/respstructs/security_authenticate_reply"
 	ssr "github.com/tmconsulting/amadeus-ws-go/respstructs/security_signout_reply"
+	tctfpr "github.com/tmconsulting/amadeus-ws-go/respstructs/ticket_createtstfrompricing_reply"
 	tdtr "github.com/tmconsulting/amadeus-ws-go/respstructs/ticket_display_tst_reply"
 )
 
@@ -145,6 +147,19 @@ func (service *WebServicesPT) PNRCancel(request *pc.PNRCancel) (*prepl.PNRReply,
 	soapAction := "PNRXCL_11_3_1A"
 
 	response := new(prepl.PNRReply)
+	session := new(Session)
+	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+func (service *WebServicesPT) TicketCreateTSTFromPricing(request *tctfp.TicketCreateTSTFromPricing) (*tctfpr.TicketCreateTSTFromPricingReply, error) {
+	soapAction := "TAUTCQ_04_1_1A"
+
+	response := new(tctfpr.TicketCreateTSTFromPricingReply)
 	session := new(Session)
 	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
 	if err != nil {

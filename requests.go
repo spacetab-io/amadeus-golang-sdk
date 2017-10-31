@@ -7,6 +7,7 @@ import (
 	pc "github.com/tmconsulting/amadeus-ws-go/reqstructs/pnr_cancel"
 	pr "github.com/tmconsulting/amadeus-ws-go/reqstructs/pnr_retrieve"
 	ql "github.com/tmconsulting/amadeus-ws-go/reqstructs/queue_list"
+	qpp "github.com/tmconsulting/amadeus-ws-go/reqstructs/queue_placepnr"
 	qri "github.com/tmconsulting/amadeus-ws-go/reqstructs/queue_removeitem"
 	sa "github.com/tmconsulting/amadeus-ws-go/reqstructs/security_authenticate"
 	ss "github.com/tmconsulting/amadeus-ws-go/reqstructs/security_signout"
@@ -19,6 +20,7 @@ import (
 	pl "github.com/tmconsulting/amadeus-ws-go/respstructs/pnr_list"
 	prepl "github.com/tmconsulting/amadeus-ws-go/respstructs/pnr_reply"
 	qlr "github.com/tmconsulting/amadeus-ws-go/respstructs/queue_list_reply"
+	qppr "github.com/tmconsulting/amadeus-ws-go/respstructs/queue_placepnr_reply"
 	qrir "github.com/tmconsulting/amadeus-ws-go/respstructs/queue_removeitem_reply"
 	sar "github.com/tmconsulting/amadeus-ws-go/respstructs/security_authenticate_reply"
 	ssr "github.com/tmconsulting/amadeus-ws-go/respstructs/security_signout_reply"
@@ -175,6 +177,19 @@ func (service *WebServicesPT) QueueRemoveItem(request *qri.QueueRemoveItem) (*qr
 	soapAction := "QUQMDQ_03_1_1A"
 
 	response := new(qrir.QueueRemoveItemReply)
+	session := new(Session)
+	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+func (service *WebServicesPT) QueuePlacePNR(request *qpp.QueuePlacePNR) (*qppr.QueuePlacePNRReply, error) {
+	soapAction := "QUQPCQ_03_1_1A"
+
+	response := new(qppr.QueuePlacePNRReply)
 	session := new(Session)
 	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
 	if err != nil {

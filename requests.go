@@ -4,6 +4,7 @@ import (
 	cc "github.com/tmconsulting/amadeus-ws-go/reqstructs/command_cryptic"
 	diit "github.com/tmconsulting/amadeus-ws-go/reqstructs/docissuance_issueticket"
 	fppwbc "github.com/tmconsulting/amadeus-ws-go/reqstructs/fare_pricepnrwithbookingclass"
+	pc "github.com/tmconsulting/amadeus-ws-go/reqstructs/pnr_cancel"
 	pr "github.com/tmconsulting/amadeus-ws-go/reqstructs/pnr_retrieve"
 	ql "github.com/tmconsulting/amadeus-ws-go/reqstructs/queue_list"
 	sa "github.com/tmconsulting/amadeus-ws-go/reqstructs/security_authenticate"
@@ -129,6 +130,19 @@ func (service *WebServicesPT) PNRRetrieve2(request *pr.PNRRetrieve) (*pl.PNRList
 
 func (service *WebServicesPT) PNRRetrieve(request *pr.PNRRetrieve) (*prepl.PNRReply, error) {
 	soapAction := "PNRRET_11_3_1A"
+
+	response := new(prepl.PNRReply)
+	session := new(Session)
+	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+func (service *WebServicesPT) PNRCancel(request *pc.PNRCancel) (*prepl.PNRReply, error) {
+	soapAction := "PNRXCL_11_3_1A"
 
 	response := new(prepl.PNRReply)
 	session := new(Session)

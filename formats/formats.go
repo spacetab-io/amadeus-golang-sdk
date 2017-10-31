@@ -256,3 +256,162 @@ type AlphaNumericString_Length1To57 string
 
 // Format limitations: an..56
 type AlphaNumericString_Length1To56 string
+
+// Format limitations: an..999
+type AlphaNumericString_Length1To999 string
+
+// Format limitations: an..255
+type AlphaNumericString_Length1To255 string
+
+// Format limitations: an..320
+type AlphaNumericString_Length1To320 string
+
+// Format limitations: an..64
+type AlphaNumericString_Length1To64 string
+
+// Format limitations: an..90
+type AlphaNumericString_Length1To90 string
+
+// Format limitations: an..2
+type AlphaNumericString_Length0To2 string
+
+// Format limitations: an..40
+type AlphaNumericString_Length1To40 string
+
+// Format limitations: an..55
+type AlphaNumericString_Length1To55 string
+
+// Format limitations: n2..4
+type NumericInteger_Length2To4 int32
+
+// Format limitations: an..63
+type AlphaNumericString_Length1To63 string
+
+// Format limitations: an..32
+type AlphaNumericString_Length1To32 string
+
+// Format limitations: an..16
+type AlphaNumericString_Length1To16 string
+
+// Format limitations: an..127
+type AlphaNumericString_Length1To127 string
+
+// Format limitations: an..15
+type AlphaNumericString_Length1To15 string
+
+// Format limitations: an8
+type AlphaNumericString_Length8To8 string
+
+// Format limitations: an..19
+type AlphaNumericString_Length1To19 string
+
+// Format limitations: an4
+type AlphaNumericString_Length4To4 string
+
+// Format limitations: n8
+type NumericInteger_Length8To8 int32
+
+// Format limitations: an..24
+type AlphaNumericString_Length1To24 string
+
+// Format limitations: an..7
+type AlphaNumericString_Length1To7 string
+
+// Format limitations: n..9
+type NumericInteger_Length1To9 int32
+
+// Format limitations: n6
+type NumericInteger_Length6To6 int32
+
+// Format limitations: a2
+type AlphaString_Length2To2 string
+
+// Format limitations: n..4
+type NumericInteger_Length0To4 int32
+
+// Format limitations: an..3
+type AlphaNumericString_Length0To3 string
+
+// Format limitations: n..3
+type NumericDecimal_Length1To3 float64
+
+// Format limitations: a..60
+type AlphaString_Length1To60 string
+
+// Format limitations: n4
+type NumericInteger_Length4To4 int32
+
+// Format limitations: an..18
+type AlphaNumericString_Length1To18 string
+
+// Format limitations: an..50
+type AlphaNumericString_Length1To50 string
+
+// Format limitations: an..22
+type AlphaNumericString_Length1To22 string
+
+// Format limitations: n5..8
+type NumericInteger_Length5To8 int32
+
+// Format limitations: an..31
+type AlphaNumericString_Length1To31 string
+
+// Format limitations: an..120
+type AlphaNumericString_Length1To120 string
+
+// Format limitations: an..28
+type AlphaNumericString_Length1To28 string
+
+// Format limitations: n..35
+type NumericInteger_Length1To35 int32
+
+// Format limitations: an..188
+type AlphaNumericString_Length1To188 string
+
+// Format limitations: n..30
+type NumericDecimal_Length1To30 float64
+
+// Format limitations: n..20
+type NumericDecimal_Length1To20 float64
+
+// Format limitations: n..10
+type NumericDecimal_Length1To10 float64
+
+// Format limitations: n..20
+type NumericInteger_Length1To20 int32
+
+// Format limitations: an6
+type AlphaNumericString_Length6To6 string
+
+// Format limitations: an..109
+type AlphaNumericString_Length1To109 string
+
+// Format limitations: an..61
+type AlphaNumericString_Length1To61 string
+
+// Format limitations: n..10
+type NumericInteger_Length1To10 int32
+
+// Format limitations: an..512
+type AlphaNumericString_Length1To512 string
+
+// Format limitations: an..99
+type AlphaNumericString_Length1To99 string
+
+// Format limitations: an..108
+type AlphaNumericString_Length0To108 string
+
+// Format limitations: an..56
+type AlphaNumericString_Length0To56 string
+
+// Date format: YYYYMMDD
+type Date_YYYYMMDD string
+
+// Format limitations: an..144
+type AlphaNumericString_Length0To144 string
+
+// Format limitations: an..400
+type AlphaNumericString_Length1To400 string
+
+// Format limitations: an6..9
+type AlphaNumericString_Length6To9 string

@@ -14,6 +14,7 @@ import (
 	diitr "github.com/tmconsulting/amadeus-ws-go/respstructs/docissuance_issueticket_reply"
 	fppwbcr "github.com/tmconsulting/amadeus-ws-go/respstructs/fare_pricepnrwithbookingclass_reply"
 	pl "github.com/tmconsulting/amadeus-ws-go/respstructs/pnr_list"
+	prepl "github.com/tmconsulting/amadeus-ws-go/respstructs/pnr_reply"
 	qlr "github.com/tmconsulting/amadeus-ws-go/respstructs/queue_list_reply"
 	sar "github.com/tmconsulting/amadeus-ws-go/respstructs/security_authenticate_reply"
 	ssr "github.com/tmconsulting/amadeus-ws-go/respstructs/security_signout_reply"
@@ -117,6 +118,19 @@ func (service *WebServicesPT) PNRRetrieve2(request *pr.PNRRetrieve) (*pl.PNRList
 	soapAction := "PNRRET_11_3_1A"
 
 	response := new(pl.PNRList)
+	session := new(Session)
+	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+func (service *WebServicesPT) PNRRetrieve(request *pr.PNRRetrieve) (*prepl.PNRReply, error) {
+	soapAction := "PNRRET_11_3_1A"
+
+	response := new(prepl.PNRReply)
 	session := new(Session)
 	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
 	if err != nil {

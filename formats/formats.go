@@ -415,3 +415,39 @@ type AlphaNumericString_Length1To400 string
 
 // Format limitations: an6..9
 type AlphaNumericString_Length6To9 string
+
+// Format limitations: an..126
+type AlphaNumericString_Length1To126 string
+
+// Format limitations: an..49
+type AlphaNumericString_Length1To49 string
+
+// Format limitations: an..200
+type AlphaNumericString_Length1To200 string
+
+// Format limitations: n2
+type NumericInteger_Length2To2 int32
+
+// Format limitations: a..30
+type AlphaString_Length1To30 string
+
+// Format limitations: n..12
+type NumericInteger_Length1To12 int32
+
+// Format limitations: n..13
+type NumericInteger_Length1To13 int32
+
+// Format limitations: an3
+type NumericString_Length3To3 string
+
+// Format limitations: an10
+type NumericString_Length10To10 string
+
+// Format limitations: n..5
+type NumericDecimal_Length1To5 float64
+
+// Format limitations: an..13
+type AlphaNumericString_Length1To13 string
+
+// Date format: MMYY
+type Date_MMYY string

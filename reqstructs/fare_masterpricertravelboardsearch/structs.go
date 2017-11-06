@@ -16,7 +16,7 @@ type FareMasterPricerTravelBoardSearch struct {
 	GlobalOptions *AttributeType `xml:"globalOptions,omitempty"`
 
 	// Traveler Details
-	PaxReference *TravellerReferenceInformationType `xml:"paxReference,omitempty"`
+	PaxReference []*TravellerReferenceInformationType `xml:"paxReference,omitempty"`
 
 	// Customer references
 	CustomerRef *ConsumerReferenceInformationType `xml:"customerRef,omitempty"`
@@ -45,7 +45,7 @@ type FareMasterPricerTravelBoardSearch struct {
 
 	ValueSearch *ValueSearchCriteriaType `xml:"valueSearch,omitempty"`
 
-	Itinerary *Itinerary `xml:"itinerary,omitempty"`
+	Itinerary []*Itinerary `xml:"itinerary,omitempty"`
 
 	TicketChangeInfo *TicketChangeInfo `xml:"ticketChangeInfo,omitempty"`
 
@@ -404,7 +404,7 @@ type ArrivalLocationDetailsType struct {
 	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ArrivalLocationDetailsType"`
 
 	// For Radius: This is the length of the requested radius around the location of destination.
-	Distance formats.NumericInteger_Length1To3 `xml:"distance,omitempty"`
+	Distance *formats.NumericInteger_Length1To3 `xml:"distance,omitempty"`
 
 	// Distance unit qualifier for radius
 	DistanceUnit formats.AlphaNumericString_Length0To3 `xml:"distanceUnit,omitempty"`
@@ -426,7 +426,7 @@ type ArrivalLocationDetailsType_120834C struct {
 	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ArrivalLocationDetailsType_120834C"`
 
 	// For Radius: This is the length of the requested radius around the location of origin.
-	Distance formats.NumericInteger_Length1To3 `xml:"distance,omitempty"`
+	Distance *formats.NumericInteger_Length1To3 `xml:"distance,omitempty"`
 
 	// Distance unit qualifier for radius
 	DistanceUnit formats.AlphaNumericString_Length1To3 `xml:"distanceUnit,omitempty"`
@@ -1535,7 +1535,7 @@ type NumberOfUnitsType struct {
 	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A NumberOfUnitsType"`
 
 	// NUMBER OF UNIT DETAILS
-	UnitNumberDetail *NumberOfUnitDetailsType_260583C `xml:"unitNumberDetail,omitempty"`
+	UnitNumberDetail []NumberOfUnitDetailsType_260583C `xml:"unitNumberDetail,omitempty"`
 }
 
 type NumberOfUnitsType_80154S struct {
@@ -1637,7 +1637,7 @@ type PricingTicketingInformationType struct {
 	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A PricingTicketingInformationType"`
 
 	// Price type qualifier
-	PriceType formats.AlphaNumericString_Length0To3 `xml:"priceType,omitempty"`
+	PriceType []formats.AlphaNumericString_Length0To3 `xml:"priceType,omitempty"`
 }
 
 type ProductDateTimeTypeI struct {
@@ -2089,19 +2089,19 @@ type TravelFlightInformationType_185853S struct {
 	CabinId *CabinIdentificationType_233500C `xml:"cabinId,omitempty"`
 
 	// Company Identification
-	CompanyIdentity *CompanyIdentificationType_233548C `xml:"companyIdentity,omitempty"`
+	CompanyIdentity []*CompanyIdentificationType_233548C `xml:"companyIdentity,omitempty"`
 
 	// Type of flight details
 	FlightDetail *ProductTypeDetailsType_120801C `xml:"flightDetail,omitempty"`
 
 	// Details of included connect point
-	InclusionDetail *ConnectPointDetailsType_195492C `xml:"inclusionDetail,omitempty"`
+	InclusionDetail []*ConnectPointDetailsType_195492C `xml:"inclusionDetail,omitempty"`
 
 	// Further connection details
-	ExclusionDetail *ConnectPointDetailsType `xml:"exclusionDetail,omitempty"`
+	ExclusionDetail []*ConnectPointDetailsType `xml:"exclusionDetail,omitempty"`
 
 	// Added departed flights flag
-	UnitNumberDetail *NumberOfUnitDetailsTypeI `xml:"unitNumberDetail,omitempty"`
+	UnitNumberDetail []*NumberOfUnitDetailsTypeI `xml:"unitNumberDetail,omitempty"`
 }
 
 type TravelProductInformationTypeI struct {
@@ -2158,17 +2158,17 @@ type TravellerDetailsType struct {
 	Ref formats.NumericInteger_Length1To3 `xml:"ref,omitempty"`
 
 	// Traveller is an infant
-	InfantIndicator formats.NumericInteger_Length1To1 `xml:"infantIndicator,omitempty"`
+	InfantIndicator *formats.NumericInteger_Length1To1 `xml:"infantIndicator,omitempty"`
 }
 
 type TravellerReferenceInformationType struct {
 	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A TravellerReferenceInformationType"`
 
 	// Requested passenger type
-	Ptc formats.AlphaNumericString_Length1To6 `xml:"ptc,omitempty"`
+	Ptc []*formats.AlphaNumericString_Length1To6 `xml:"ptc,omitempty"`
 
 	// Traveller details
-	Traveller *TravellerDetailsType `xml:"traveller,omitempty"`
+	Traveller []TravellerDetailsType `xml:"traveller,omitempty"`
 }
 
 type UniqueIdDescriptionType struct {

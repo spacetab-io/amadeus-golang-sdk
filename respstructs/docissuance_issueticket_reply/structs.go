@@ -3,7 +3,7 @@ package docissuance_issueticket_reply
 import (
 	"encoding/xml"
 
-	"github.com/kidem/amadeus-ws-go/formats"
+	"github.com/tmconsulting/amadeus-ws-go/formats"
 )
 
 type DocIssuanceIssueTicketReply struct {

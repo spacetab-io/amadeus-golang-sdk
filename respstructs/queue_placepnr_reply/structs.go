@@ -3,7 +3,7 @@ package queue_placepnr_reply
 import (
 	"encoding/xml"
 
-	"github.com/kidem/amadeus-ws-go/formats"
+	"github.com/tmconsulting/amadeus-ws-go/formats"
 )
 
 type QueuePlacePNRReply struct {

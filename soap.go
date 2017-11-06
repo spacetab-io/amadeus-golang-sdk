@@ -190,7 +190,7 @@ func NewWSSSecurityHeader(user, pass, mustUnderstand string) *WSSSecurityHeader 
 	return hdr
 }
 
-func (b *SOAPBody) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+func (b *ResponseSOAPBody) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
 	if b.Content == nil {
 		return xml.UnmarshalError("Content must be a pointer to a struct")
 	}

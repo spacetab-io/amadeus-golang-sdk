@@ -3,7 +3,7 @@ package ticket_createtstfrompricing
 import (
 	"encoding/xml"
 
-	"github.com/kidem/amadeus-ws-go/formats"
+	"github.com/tmconsulting/amadeus-ws-go/formats"
 )
 
 type TicketCreateTSTFromPricing struct {

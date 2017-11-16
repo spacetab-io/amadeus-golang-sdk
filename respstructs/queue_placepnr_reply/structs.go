@@ -1,82 +1,76 @@
 package queue_placepnr_reply
 
-import (
-	"encoding/xml"
-
-	"github.com/tmconsulting/amadeus-ws-go/formats"
-)
+//import "encoding/xml"
 
 type QueuePlacePNRReply struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QUQPCR_03_1_1A Queue_PlacePNRReply"`
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQPCR_03_1_1A Queue_PlacePNRReply"`
 
-	ErrorReturn *ErrorReturn `xml:"errorReturn,omitempty"`
+	ErrorReturn *ErrorReturn `xml:"errorReturn,omitempty"`  // minOccurs="0"
 
 	// record locator
-	RecordLocator *ReservationControlInformationTypeI `xml:"recordLocator,omitempty"`
+	RecordLocator *ReservationControlInformationTypeI `xml:"recordLocator,omitempty"`  // minOccurs="0"
 }
 
 type ErrorReturn struct {
 
 	// returns the error code
-	ErrorDefinition *ApplicationErrorInformationTypeI `xml:"errorDefinition,omitempty"`
+	ErrorDefinition *ApplicationErrorInformationTypeI `xml:"errorDefinition"`
 
 	// contains the text of the error
-	ErrorText *FreeTextInformationType `xml:"errorText,omitempty"`
+	ErrorText *FreeTextInformationType `xml:"errorText,omitempty"`  // minOccurs="0"
 }
 
+//
+// Complex structs
+//
+
 type ApplicationErrorDetailTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQPCR_03_1_1A ApplicationErrorDetailTypeI"`
 
 	// error code
-	ErrorCode formats.AlphaNumericString_Length1To3 `xml:"errorCode,omitempty"`
+	ErrorCode string `xml:"errorCode"`
 
 	// error category
-	ErrorCategory formats.AlphaNumericString_Length1To3 `xml:"errorCategory,omitempty"`
+	ErrorCategory string `xml:"errorCategory,omitempty"`  // minOccurs="0"
 
 	// error code owner
-	ErrorCodeOwner formats.AlphaNumericString_Length1To3 `xml:"errorCodeOwner,omitempty"`
+	ErrorCodeOwner string `xml:"errorCodeOwner,omitempty"`  // minOccurs="0"
 }
 
 type ApplicationErrorInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQPCR_03_1_1A ApplicationErrorInformationTypeI"`
 
 	// error details
-	ErrorDetails *ApplicationErrorDetailTypeI `xml:"errorDetails,omitempty"`
+	ErrorDetails *ApplicationErrorDetailTypeI `xml:"errorDetails"`
 }
 
 type FreeTextDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQPCR_03_1_1A FreeTextDetailsType"`
 
 	// qualifier of the following text
-	TextSubjectQualifier formats.AlphaNumericString_Length1To3 `xml:"textSubjectQualifier,omitempty"`
+	TextSubjectQualifier string `xml:"textSubjectQualifier"`
 
 	// Source Details
-	Source formats.AlphaNumericString_Length1To3 `xml:"source,omitempty"`
+	Source string `xml:"source,omitempty"`  // minOccurs="0"
 
 	// Encoding Informations
-	Encoding formats.AlphaNumericString_Length1To3 `xml:"encoding,omitempty"`
+	Encoding string `xml:"encoding,omitempty"`  // minOccurs="0"
 }
 
 type FreeTextInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQPCR_03_1_1A FreeTextInformationType"`
 
 	// contains only the qualifier.
-	FreeTextDetails *FreeTextDetailsType `xml:"freeTextDetails,omitempty"`
+	FreeTextDetails *FreeTextDetailsType `xml:"freeTextDetails,omitempty"`  // minOccurs="0"
 
 	// Free text
-	FreeText formats.AlphaNumericString_Length1To199 `xml:"freeText,omitempty"`
+	FreeText []string `xml:"freeText"`  // maxOccurs="99"
 }
 
 type ReservationControlInformationDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQPCR_03_1_1A ReservationControlInformationDetailsTypeI"`
 
 	// contains the record locator to be queue placed
-	ControlNumber formats.AlphaNumericString_Length1To8 `xml:"controlNumber,omitempty"`
+	ControlNumber string `xml:"controlNumber"`
 }
 
 type ReservationControlInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQPCR_03_1_1A ReservationControlInformationTypeI"`
 
 	// contains the record locator
-	Reservation *ReservationControlInformationDetailsTypeI `xml:"reservation,omitempty"`
+	Reservation *ReservationControlInformationDetailsTypeI `xml:"reservation"`
 }

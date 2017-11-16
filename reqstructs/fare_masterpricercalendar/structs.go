@@ -1,4 +1,4 @@
-package fare_masterpricertravelboardsearch
+package fare_masterpricercalendar
 
 import (
 	"encoding/xml"
@@ -6,8 +6,8 @@ import (
 	"github.com/tmconsulting/amadeus-ws-go/formats"
 )
 
-type FareMasterPricerTravelBoardSearch struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A Fare_MasterPricerTravelBoardSearch"`
+type FareMasterPricerCalendar struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/FMPCAQ_14_3_1A Fare_MasterPricerCalendar"`
 
 	// Number of seats , recommendations.
 	NumberOfUnit *NumberOfUnitsType `xml:"numberOfUnit,omitempty"`  // minOccurs="0"

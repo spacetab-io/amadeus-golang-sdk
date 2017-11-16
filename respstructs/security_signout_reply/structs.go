@@ -1,74 +1,70 @@
 package security_signout_reply
 
-import (
-	"encoding/xml"
-
-	"github.com/tmconsulting/amadeus-ws-go/formats"
-)
+//import "encoding/xml"
 
 type SecuritySignOutReply struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSOR_04_1_1A Security_SignOutReply"`
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSOR_04_1_1A Security_SignOutReply"`
 
-	ErrorSection *ErrorSection `xml:"errorSection,omitempty"`
+	ErrorSection *ErrorSection `xml:"errorSection,omitempty"`  // minOccurs="0"
 
 	// This segment is only used if process is OK. In that case P is specified.
-	ProcessStatus *ResponseAnalysisDetailsType `xml:"processStatus,omitempty"`
+	ProcessStatus *ResponseAnalysisDetailsType `xml:"processStatus,omitempty"`  // minOccurs="0"
 }
 
 type ErrorSection struct {
+
 	// Application Error
-	ApplicationError *ApplicationErrorInformationType `xml:"applicationError,omitempty"`
+	ApplicationError *ApplicationErrorInformationType `xml:"applicationError"`
 
 	// Supplementary Info on the Error.
-	InteractiveFreeText *InteractiveFreeTextTypeI `xml:"interactiveFreeText,omitempty"`
+	InteractiveFreeText *InteractiveFreeTextTypeI `xml:"interactiveFreeText,omitempty"`  // minOccurs="0"
 }
 
+//
+// Complex structs
+//
+
 type ApplicationErrorDetailType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSOR_04_1_1A ApplicationErrorDetailType"`
 
 	// Code identifying the data validation error condition.
-	ErrorCode formats.AlphaNumericString_Length1To5 `xml:"errorCode,omitempty"`
+	ErrorCode string `xml:"errorCode"`
 
 	// Identification of a code list.
-	ErrorCategory formats.AlphaNumericString_Length1To3 `xml:"errorCategory,omitempty"`
+	ErrorCategory string `xml:"errorCategory,omitempty"`  // minOccurs="0"
 
 	// Code identifying the agency responsible for a code list.
-	ErrorCodeOwner formats.AlphaNumericString_Length1To3 `xml:"errorCodeOwner,omitempty"`
+	ErrorCodeOwner string `xml:"errorCodeOwner,omitempty"`  // minOccurs="0"
 }
 
 type ApplicationErrorInformationType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSOR_04_1_1A ApplicationErrorInformationType"`
 
 	// Application error details.
-	ErrorDetails *ApplicationErrorDetailType `xml:"errorDetails,omitempty"`
+	ErrorDetails *ApplicationErrorDetailType `xml:"errorDetails"`
 }
 
 type FreeTextQualificationTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSOR_04_1_1A FreeTextQualificationTypeI"`
 
 	// Subject
-	TextSubjectQualifier formats.AlphaNumericString_Length1To3 `xml:"textSubjectQualifier,omitempty"`
+	TextSubjectQualifier string `xml:"textSubjectQualifier"`
 
 	// Info Type
-	InformationType formats.AlphaNumericString_Length1To4 `xml:"informationType,omitempty"`
+	InformationType string `xml:"informationType,omitempty"`  // minOccurs="0"
 
 	// Language
-	Language formats.AlphaNumericString_Length1To3 `xml:"language,omitempty"`
+	Language string `xml:"language,omitempty"`  // minOccurs="0"
 }
 
 type InteractiveFreeTextTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSOR_04_1_1A InteractiveFreeTextTypeI"`
 
 	// Free Text Qualifier
-	FreeTextQualification *FreeTextQualificationTypeI `xml:"freeTextQualification,omitempty"`
+	FreeTextQualification *FreeTextQualificationTypeI `xml:"freeTextQualification,omitempty"`  // minOccurs="0"
 
 	// Free Text
-	FreeText formats.AlphaNumericString_Length1To70 `xml:"freeText,omitempty"`
+	FreeText []string `xml:"freeText,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 type ResponseAnalysisDetailsType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/VLSSOR_04_1_1A ResponseAnalysisDetailsType"`
 
 	// P must be specified when status of the process is OK.
-	StatusCode formats.AlphaString_Length1To6 `xml:"statusCode,omitempty"`
+	StatusCode string `xml:"statusCode"`
 }

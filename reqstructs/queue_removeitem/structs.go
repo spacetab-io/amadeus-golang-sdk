@@ -10,137 +10,128 @@ type QueueRemoveItem struct {
 	XMLName xml.Name `xml:"http://xml.amadeus.com/QUQMDQ_03_1_1A Queue_RemoveItem"`
 
 	// determine the target of the removal ordinary queue Ticketing queue option queue
-	RemovalOption *SelectionDetailsTypeI `xml:"removalOption,omitempty"`
+	RemovalOption *SelectionDetailsTypeI `xml:"removalOption"`
 
-	TargetDetails *TargetDetails `xml:"targetDetails,omitempty"`
+	TargetDetails []*TargetDetails `xml:"targetDetails"`  // maxOccurs="3"
 }
 
 type TargetDetails struct {
 
 	// used to specify the target office for which the queue removal is to be done
-	TargetOffice *AdditionalBusinessSourceInformationType `xml:"targetOffice,omitempty"`
+	TargetOffice *AdditionalBusinessSourceInformationType `xml:"targetOffice"`
 
 	// used to specify the queue if required
-	QueueNumber *QueueInformationTypeI `xml:"queueNumber,omitempty"`
+	QueueNumber *QueueInformationTypeI `xml:"queueNumber,omitempty"`  // minOccurs="0"
 
 	// used to select the category
-	CategoryDetails *SubQueueInformationTypeI `xml:"categoryDetails,omitempty"`
+	CategoryDetails *SubQueueInformationTypeI `xml:"categoryDetails,omitempty"`  // minOccurs="0"
 
 	// used to pass the target date/time if not default
-	PlacementDate *StructuredDateTimeInformationType `xml:"placementDate,omitempty"`
+	PlacementDate *StructuredDateTimeInformationType `xml:"placementDate,omitempty"`  // minOccurs="0"
 
 	// contains the record locators to be removed from the queue being targeted
-	RecordLocator *ReservationControlInformationTypeI `xml:"recordLocator,omitempty"`
+	RecordLocator []*ReservationControlInformationTypeI `xml:"recordLocator,omitempty"`  // minOccurs="0" maxOccurs="300"
 }
 
+//
+// Complex structs
+//
+
 type AdditionalBusinessSourceInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQMDQ_03_1_1A AdditionalBusinessSourceInformationType"`
 
 	// SOURCE TYPE
-	SourceType *SourceTypeDetailsTypeI `xml:"sourceType,omitempty"`
+	SourceType *SourceTypeDetailsTypeI `xml:"sourceType"`
 
 	// ORIGINATOR DETAILS
-	OriginatorDetails *OriginatorIdentificationDetailsTypeI `xml:"originatorDetails,omitempty"`
+	OriginatorDetails *OriginatorIdentificationDetailsTypeI `xml:"originatorDetails,omitempty"`  // minOccurs="0"
 }
 
 type OriginatorIdentificationDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQMDQ_03_1_1A OriginatorIdentificationDetailsTypeI"`
 
 	// the office that is being targetted
-	InHouseIdentification1 formats.AlphaNumericString_Length1To9 `xml:"inHouseIdentification1,omitempty"`
+	InHouseIdentification1 formats.AlphaNumericString_Length1To9 `xml:"inHouseIdentification1"`
 }
 
 type QueueInformationDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQMDQ_03_1_1A QueueInformationDetailsTypeI"`
 
 	// queue number
-	Number formats.NumericInteger_Length1To2 `xml:"number,omitempty"`
+	Number formats.NumericInteger_Length1To2 `xml:"number"`
 }
 
 type QueueInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQMDQ_03_1_1A QueueInformationTypeI"`
 
 	// queue identification
-	QueueDetails *QueueInformationDetailsTypeI `xml:"queueDetails,omitempty"`
+	QueueDetails *QueueInformationDetailsTypeI `xml:"queueDetails"`
 }
 
 type ReservationControlInformationDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQMDQ_03_1_1A ReservationControlInformationDetailsTypeI"`
 
 	// contains the record locator to be queue placed
-	ControlNumber formats.AlphaNumericString_Length1To8 `xml:"controlNumber,omitempty"`
+	ControlNumber formats.AlphaNumericString_Length1To8 `xml:"controlNumber"`
 }
 
 type ReservationControlInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQMDQ_03_1_1A ReservationControlInformationTypeI"`
 
 	// contains the record locator
-	Reservation *ReservationControlInformationDetailsTypeI `xml:"reservation,omitempty"`
+	Reservation *ReservationControlInformationDetailsTypeI `xml:"reservation"`
 }
 
 type SelectionDetailsInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQMDQ_03_1_1A SelectionDetailsInformationTypeI"`
 
 	// removal option
-	Option formats.AlphaNumericString_Length1To3 `xml:"option,omitempty"`
+	Option formats.AlphaNumericString_Length1To3 `xml:"option"`
 }
 
 type SelectionDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQMDQ_03_1_1A SelectionDetailsTypeI"`
 
 	// specify the option for removal
-	SelectionDetails *SelectionDetailsInformationTypeI `xml:"selectionDetails,omitempty"`
+	SelectionDetails *SelectionDetailsInformationTypeI `xml:"selectionDetails"`
 }
 
 type SourceTypeDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQMDQ_03_1_1A SourceTypeDetailsTypeI"`
 
 	// to define if own office or different office being targetted
-	SourceQualifier1 formats.AlphaNumericString_Length1To3 `xml:"sourceQualifier1,omitempty"`
+	SourceQualifier1 formats.AlphaNumericString_Length1To3 `xml:"sourceQualifier1"`
 }
 
 type StructuredDateTimeInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQMDQ_03_1_1A StructuredDateTimeInformationType"`
 
 	// used to select the date range
-	TimeMode formats.NumericInteger_Length1To1 `xml:"timeMode,omitempty"`
+	TimeMode *formats.NumericInteger_Length1To1 `xml:"timeMode,omitempty"`  // minOccurs="0"
 
 	// Convey date and/or time.
-	DateTime *StructuredDateTimeType `xml:"dateTime,omitempty"`
+	DateTime *StructuredDateTimeType `xml:"dateTime,omitempty"`  // minOccurs="0"
 }
 
 type StructuredDateTimeType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQMDQ_03_1_1A StructuredDateTimeType"`
 
 	// Year number. The format is a little long for short term usage but it can be reduced by implementation if required.
-	Year formats.Year_YYYY `xml:"year,omitempty"`
+	Year formats.Year_YYYY `xml:"year"`
 
 	// Month number in the year ( begins to 1 )
-	Month formats.Month_mM `xml:"month,omitempty"`
+	Month formats.Month_mM `xml:"month"`
 
 	// Day number in the month ( begins to 1 )
-	Day formats.Day_nN `xml:"day,omitempty"`
+	Day formats.Day_nN `xml:"day"`
 
 	// Hour between 0 and 23
-	Hour formats.Hour_hH `xml:"hour,omitempty"`
+	Hour formats.Hour_hH `xml:"hour,omitempty"`  // minOccurs="0"
 }
 
 type SubQueueInformationDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQMDQ_03_1_1A SubQueueInformationDetailsTypeI"`
 
 	// E for every category    A for cats with items to be worked C for category number N for nickname CN for both category number and nickname numeric for date range
-	IdentificationType formats.AlphaNumericString_Length1To3 `xml:"identificationType,omitempty"`
+	IdentificationType formats.AlphaNumericString_Length1To3 `xml:"identificationType"`
 
 	// category number
-	ItemNumber formats.AlphaNumericString_Length1To3 `xml:"itemNumber,omitempty"`
+	ItemNumber formats.AlphaNumericString_Length1To3 `xml:"itemNumber,omitempty"`  // minOccurs="0"
 
 	// used for nickname on inbound used for category name on outbound
-	ItemDescription formats.AlphaNumericString_Length1To35 `xml:"itemDescription,omitempty"`
+	ItemDescription formats.AlphaNumericString_Length1To35 `xml:"itemDescription,omitempty"`  // minOccurs="0"
 }
 
 type SubQueueInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/QUQMDQ_03_1_1A SubQueueInformationTypeI"`
 
 	// identifies the category or categories.
-	SubQueueInfoDetails *SubQueueInformationDetailsTypeI `xml:"subQueueInfoDetails,omitempty"`
+	SubQueueInfoDetails *SubQueueInformationDetailsTypeI `xml:"subQueueInfoDetails"`
 }

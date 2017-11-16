@@ -1,9 +1,9 @@
-package fare_masterpricertravelboardsearch_reply
+package fare_masterpricercalendar_reply
 
 //import "encoding/xml"
 
-type FareMasterPricerTravelBoardSearchReply struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBR_14_3_1A Fare_MasterPricerTravelBoardSearchReply"`
+type FareMasterPricerCalendarReply struct {
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPCAR_14_3_1A Fare_MasterPricerCalendarReply"`
 
 	// Gives status about reply : type of process, region , CPU etc..
 	ReplyStatus *StatusType `xml:"replyStatus,omitempty"`  // minOccurs="0"

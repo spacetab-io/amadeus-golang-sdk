@@ -1,4 +1,4 @@
-package fare_masterpricertravelboardsearch
+package fare_masterpricercalendar_old
 
 import (
 	"encoding/xml"
@@ -6,8 +6,8 @@ import (
 	"github.com/tmconsulting/amadeus-ws-go/formats"
 )
 
-type FareMasterPricerTravelBoardSearch struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A Fare_MasterPricerTravelBoardSearch"`
+type FareMasterPricerCalendarOld struct {
+	XMLName xml.Name `xml:"http://xml.amadeus.com/FMPCAQ_12_2_1A Fare_MasterPricerCalendar"`
 
 	// Number of seats , recommendations.
 	NumberOfUnit *NumberOfUnitsType `xml:"numberOfUnit,omitempty"`  // minOccurs="0"
@@ -27,9 +27,6 @@ type FareMasterPricerTravelBoardSearch struct {
 	// Solution Family
 	SolutionFamily []*FareInformationType `xml:"solutionFamily,omitempty"`  // minOccurs="0" maxOccurs="20"
 
-	// Passenger info group  (9 ADT + 9 IN)
-	PassengerInfoGrp []*GroupPassengerDetailsType `xml:"passengerInfoGrp,omitempty"`  // minOccurs="0" maxOccurs="9"
-
 	FareFamilies []*FareFamilies `xml:"fareFamilies,omitempty"`  // minOccurs="0" maxOccurs="20"
 
 	FareOptions *FareOptions `xml:"fareOptions,omitempty"`  // minOccurs="0"
@@ -38,12 +35,10 @@ type FareMasterPricerTravelBoardSearch struct {
 	PriceToBeat *MonetaryInformationType `xml:"priceToBeat,omitempty"`  // minOccurs="0"
 
 	// Tax Details
-	TaxInfo []*TaxType `xml:"taxInfo,omitempty"`  // minOccurs="0" maxOccurs="9"
+	TaxInfo []*TaxDetailsType `xml:"taxInfo,omitempty"`  // minOccurs="0" maxOccurs="9"
 
 	// Details of a Flight : Direct, Non stop...
-	TravelFlightInfo *TravelFlightInformationType_185853S `xml:"travelFlightInfo,omitempty"`  // minOccurs="0"
-
-	ValueSearch []*ValueSearchCriteriaType `xml:"valueSearch,omitempty"`  // minOccurs="0" maxOccurs="99"
+	TravelFlightInfo *TravelFlightInformationType_134790S `xml:"travelFlightInfo,omitempty"`  // minOccurs="0"
 
 	Itinerary []*Itinerary `xml:"itinerary,omitempty"`  // minOccurs="0" maxOccurs="18"
 
@@ -101,7 +96,7 @@ type FareOptions struct {
 	TicketingPriceScheme *TicketingPriceSchemeType `xml:"ticketingPriceScheme,omitempty"`  // minOccurs="0"
 
 	// PSR number
-	FeeIdDescription *CodedAttributeType `xml:"feeIdDescription,omitempty"`  // minOccurs="0"
+	FeeIdDescription *CodedAttributeType_78503S `xml:"feeIdDescription,omitempty"`  // minOccurs="0"
 
 	// Used to force the currency of pricing
 	ConversionRate *ConversionRateType `xml:"conversionRate,omitempty"`  // minOccurs="0"
@@ -110,7 +105,7 @@ type FareOptions struct {
 	FormOfPayment *FormOfPaymentTypeI `xml:"formOfPayment,omitempty"`  // minOccurs="0"
 
 	// Frequent traveller information
-	FrequentTravellerInfo *FrequentTravellerIdentificationCodeType_177150S `xml:"frequentTravellerInfo,omitempty"`  // minOccurs="0"
+	FrequentTravellerInfo *FrequentTravellerInformationTypeI `xml:"frequentTravellerInfo,omitempty"`  // minOccurs="0"
 
 	// Monetary and cabin information.
 	MonetaryCabinInfo *MonetaryAndCabinInformationType `xml:"monetaryCabinInfo,omitempty"`  // minOccurs="0"
@@ -128,14 +123,10 @@ type Itinerary struct {
 	ArrivalLocalization *ArrivalLocalizationType `xml:"arrivalLocalization,omitempty"`  // minOccurs="0"
 
 	// Details on requested date and time plus range of date trip duration
-	TimeDetails *DateAndTimeInformationType_181295S `xml:"timeDetails,omitempty"`  // minOccurs="0"
+	TimeDetails *DateAndTimeInformationType `xml:"timeDetails,omitempty"`  // minOccurs="0"
 
 	// Specify Flight options.
-	FlightInfo *TravelFlightInformationType_165053S `xml:"flightInfo,omitempty"`  // minOccurs="0"
-
-	ValueSearch []*ValueSearchCriteriaType `xml:"valueSearch,omitempty"`  // minOccurs="0" maxOccurs="99"
-
-	GroupOfFlights []*GroupOfFlights `xml:"groupOfFlights,omitempty"`  // minOccurs="0" maxOccurs="6"
+	FlightInfo *TravelFlightInformationType_134790S `xml:"flightInfo,omitempty"`  // minOccurs="0"
 
 	FlightInfoPNR []*FlightInfoPNR `xml:"flightInfoPNR,omitempty"`  // minOccurs="0" maxOccurs="4"
 
@@ -143,45 +134,7 @@ type Itinerary struct {
 	RequestedSegmentAction *ActionIdentificationType `xml:"requestedSegmentAction,omitempty"`  // minOccurs="0"
 
 	// Coded attributes
-	Attributes *CodedAttributeType_181239S `xml:"attributes,omitempty"`  // minOccurs="0"
-}
-
-type GroupOfFlights struct {
-
-	// To indicate parameters for proposed flight group.
-	PropFlightGrDetail *ProposedSegmentType `xml:"propFlightGrDetail"`
-
-	// Indicates Price to beat
-	PriceToBeat *MonetaryInformationType `xml:"priceToBeat,omitempty"`  // minOccurs="0"
-
-	FlightDetails []*FlightDetails `xml:"flightDetails"`  // maxOccurs="4"
-}
-
-type FlightDetails struct {
-
-	// Specification of details on the flight and posting availability
-	FlightInformation *TravelProductType `xml:"flightInformation"`
-
-	// returns booking class and availability context
-	AvlInfo []*FlightProductInformationType `xml:"avlInfo,omitempty"`  // minOccurs="0" maxOccurs="6"
-
-	// Details on Flight date, time and location of technical stop or change of gauge
-	TechnicalStop []*DateAndTimeInformationType `xml:"technicalStop,omitempty"`  // minOccurs="0" maxOccurs="5"
-
-	// Code Share Agreement description for current flight.
-	CommercialAgreement *CommercialAgreementsType_78540S `xml:"commercialAgreement,omitempty"`  // minOccurs="0"
-
-	// Additional Info about flight, such as Reference number, and several options
-	AddInfo *HeaderInformationTypeI `xml:"addInfo,omitempty"`  // minOccurs="0"
-
-	// Terminal, Equipment and EFT Details. If a Total EFT of the Travel Solution is requested then we will have 2 occurrences of the terminalEquipmentDetails attached to the first leg flightInformation: the 1st occurence will give the EFT of the leg, the 2nd occurrence will give the total EFT of the Travel Solution.
-	TerminalEquipmentDetails []*AdditionalProductDetailsTypeI `xml:"terminalEquipmentDetails,omitempty"`  // minOccurs="0" maxOccurs="2"
-
-	// PNR flight reservation info
-	ReservationInfo *PassengerItineraryInformationType `xml:"reservationInfo,omitempty"`  // minOccurs="0"
-
-	// Indicates Price to beat
-	PriceToBeat *MonetaryInformationType `xml:"priceToBeat,omitempty"`  // minOccurs="0"
+	Attributes *CodedAttributeType_82309S `xml:"attributes,omitempty"`  // minOccurs="0"
 }
 
 type FlightInfoPNR struct {
@@ -192,7 +145,7 @@ type FlightInfoPNR struct {
 	// Time Table Effective/Discontinue dates and frequency of operating Travel Solution
 	TimeTableDate *StructuredPeriodInformationType `xml:"timeTableDate,omitempty"`  // minOccurs="0"
 
-	// Terminal, Equipment and EFT Details. If a Total EFT of the Travel Solution is requested then we will have 2 occurrences of the terminalEquipmentDetails attached to the first leg travelResponseDetails: the 1st occurrence will give the EFT of the leg, the 2nd occurrence will give the total EFT of the Travel Solution.
+	// Terminal,Equipment and EFT Details. If a Total EFT of the Travel Solution is requested (TEF in SFLIGQ SDT) then we will have 2 occurences of the APD attached to the first leg TVL: the 1st occurence will give the EFT of the leg, the 2nd occurence will give the total EFT of the Travel Solution.
 	TerminalEquipmentDetails []*AdditionalProductDetailsTypeI `xml:"terminalEquipmentDetails,omitempty"`  // minOccurs="0" maxOccurs="2"
 
 	// Codeshare data
@@ -291,7 +244,7 @@ type OfficeIdDetails struct {
 	NbOfUnits *NumberOfUnitsType_80154S `xml:"nbOfUnits,omitempty"`  // minOccurs="0"
 
 	// UID option
-	UidOption *CodedAttributeType_78500S `xml:"uidOption,omitempty"`  // minOccurs="0"
+	UidOption *CodedAttributeType `xml:"uidOption,omitempty"`  // minOccurs="0"
 
 	// Pricing and ticketing details.
 	PricingTickInfo *PricingTicketingDetailsType `xml:"pricingTickInfo,omitempty"`  // minOccurs="0"
@@ -324,21 +277,6 @@ type ActionIdentificationType struct {
 	ActionRequestCode formats.AlphaNumericString_Length1To3 `xml:"actionRequestCode"`
 
 	ProductDetails *ProductIdentificationDetailsTypeI_50878C `xml:"productDetails,omitempty"`  // minOccurs="0"
-}
-
-type AdditionalProductDetailsType struct {
-
-	// Type of aircraft
-	EquipmentType formats.AlphaNumericString_Length1To3 `xml:"equipmentType,omitempty"`  // minOccurs="0"
-
-	// Day number of the week
-	OperatingDay formats.AlphaNumericString_Length1To7 `xml:"operatingDay,omitempty"`  // minOccurs="0"
-
-	// Number of stops made in a journey if different from 0
-	TechStopNumber *formats.NumericInteger_Length1To2 `xml:"techStopNumber,omitempty"`  // minOccurs="0"
-
-	// Location places of the stops
-	LocationId []formats.AlphaString_Length3To5 `xml:"locationId,omitempty"`  // minOccurs="0" maxOccurs="3"
 }
 
 type AdditionalProductDetailsTypeI struct {
@@ -493,30 +431,6 @@ type CabinIdentificationType struct {
 	Cabin []formats.AlphaString_Length0To1 `xml:"cabin"`  // maxOccurs="3"
 }
 
-type CabinIdentificationType_233500C struct {
-
-	// Cabin qualifier. For Star Pricer,MD stands for Mandatory Cabin qualifier.  For other products no qualifier stands for Mandatory Cabin.
-	CabinQualifier formats.AlphaNumericString_Length1To2 `xml:"cabinQualifier,omitempty"`  // minOccurs="0"
-
-	// Cabin
-	Cabin []formats.AlphaString_Length0To1 `xml:"cabin,omitempty"`  // minOccurs="0" maxOccurs="5"
-}
-
-type CabinProductDetailsType struct {
-
-	// Reservation booking designator - RBD
-	Rbd formats.AlphaString_Length1To1 `xml:"rbd"`
-
-	// Reservation Booking Modifier
-	BookingModifier formats.AMA_EDICodesetType_Length1 `xml:"bookingModifier,omitempty"`  // minOccurs="0"
-
-	// Indicates the cabin related to the Booking code
-	Cabin formats.AlphaString_Length1To1 `xml:"cabin,omitempty"`  // minOccurs="0"
-
-	// Availibility status : posting level
-	AvlStatus formats.AMA_EDICodesetType_Length1to3 `xml:"avlStatus,omitempty"`  // minOccurs="0"
-}
-
 type CodedAttributeInformationType struct {
 
 	// Attribute type identification
@@ -524,6 +438,15 @@ type CodedAttributeInformationType struct {
 
 	// Attribute Description
 	AttributeDescription formats.AlphaNumericString_Length1To20 `xml:"attributeDescription,omitempty"`  // minOccurs="0"
+}
+
+type CodedAttributeInformationType_120700C struct {
+
+	// Type of fee/reduction
+	FeeType formats.AlphaNumericString_Length1To5 `xml:"feeType"`
+
+	// Fee Id Number
+	FeeIdNumber formats.AlphaNumericString_Length1To50 `xml:"feeIdNumber"`
 }
 
 type CodedAttributeInformationType_120742C struct {
@@ -535,6 +458,15 @@ type CodedAttributeInformationType_120742C struct {
 	Value []formats.AlphaNumericString_Length1To20 `xml:"value,omitempty"`  // minOccurs="0" maxOccurs="10"
 }
 
+type CodedAttributeInformationType_125859C struct {
+
+	// Attribute type
+	AttributeType formats.AlphaNumericString_Length1To5 `xml:"attributeType"`
+
+	// Attribute description
+	AttributeDescription formats.AlphaNumericString_Length1To50 `xml:"attributeDescription,omitempty"`  // minOccurs="0"
+}
+
 type CodedAttributeInformationType_139508C struct {
 
 	// Attribute type
@@ -544,48 +476,22 @@ type CodedAttributeInformationType_139508C struct {
 	Value []formats.AlphaNumericString_Length1To20 `xml:"value,omitempty"`  // minOccurs="0" maxOccurs="10"
 }
 
-type CodedAttributeInformationType_247828C struct {
-
-	AttributeType formats.AlphaNumericString_Length1To5 `xml:"attributeType"`
-
-	// Attribute description
-	AttributeDescription formats.AlphaNumericString_Length1To10 `xml:"attributeDescription,omitempty"`  // minOccurs="0"
-}
-
-type CodedAttributeInformationType_247829C struct {
-
-	// Type of fee/reduction
-	FeeType formats.AlphaNumericString_Length1To5 `xml:"feeType"`
-
-	// Fee Id Number
-	FeeIdNumber formats.AlphaNumericString_Length1To50 `xml:"feeIdNumber"`
-}
-
-type CodedAttributeInformationType_254574C struct {
-
-	// Attribute type
-	AttributeType formats.AlphaNumericString_Length1To5 `xml:"attributeType"`
-
-	// Attribute description
-	AttributeDescription formats.AlphaNumericString_Length1To50 `xml:"attributeDescription,omitempty"`  // minOccurs="0"
-}
-
 type CodedAttributeType struct {
-
-	// Fee/reduction Id
-	FeeId []*CodedAttributeInformationType_247829C `xml:"feeId,omitempty"`  // minOccurs="0" maxOccurs="20"
-}
-
-type CodedAttributeType_181239S struct {
-
-	// Attribute details
-	AttributeDetails []*CodedAttributeInformationType_254574C `xml:"attributeDetails"`  // maxOccurs="9"
-}
-
-type CodedAttributeType_78500S struct {
 
 	// Atrribute details.
 	AttributeDetails []*CodedAttributeInformationType `xml:"attributeDetails"`  // maxOccurs="20"
+}
+
+type CodedAttributeType_78503S struct {
+
+	// Fee/reduction Id
+	FeeId []*CodedAttributeInformationType_120700C `xml:"feeId,omitempty"`  // minOccurs="0" maxOccurs="20"
+}
+
+type CodedAttributeType_82309S struct {
+
+	// Attribute details
+	AttributeDetails []*CodedAttributeInformationType_125859C `xml:"attributeDetails"`  // maxOccurs="9"
 }
 
 type CommercialAgreementsType struct {
@@ -595,15 +501,6 @@ type CommercialAgreementsType struct {
 
 	// Other codeshare details
 	OtherCodeshareDetails []*CompanyRoleIdentificationType `xml:"otherCodeshareDetails,omitempty"`  // minOccurs="0" maxOccurs="8"
-}
-
-type CommercialAgreementsType_78540S struct {
-
-	// Codeshare Details
-	CodeshareDetails *CompanyRoleIdentificationType_120761C `xml:"codeshareDetails,omitempty"`  // minOccurs="0"
-
-	// Other codeshare details
-	OtherCodeshareDetails []*CompanyRoleIdentificationType_120761C `xml:"otherCodeshareDetails,omitempty"`  // minOccurs="0" maxOccurs="9"
 }
 
 type CompanyIdentificationType struct {}
@@ -623,24 +520,6 @@ type CompanyIdentificationType_120719C struct {
 	CarrierId []formats.AlphaNumericString_Length2To3 `xml:"carrierId"`  // maxOccurs="99"
 }
 
-type CompanyIdentificationType_195544C struct {
-
-	// Marketing carrier
-	MarketingCarrier formats.AlphaNumericString_Length2To3 `xml:"marketingCarrier"`
-
-	// Operating carrier
-	OperatingCarrier formats.AlphaNumericString_Length2To3 `xml:"operatingCarrier,omitempty"`  // minOccurs="0"
-}
-
-type CompanyIdentificationType_233548C struct {
-
-	// Item description identification.
-	CarrierQualifier formats.AlphaNumericString_Length0To1 `xml:"carrierQualifier"`
-
-	// carrier id
-	CarrierId []formats.AlphaNumericString_Length2To3 `xml:"carrierId"`  // maxOccurs="999"
-}
-
 type CompanyRoleIdentificationType struct {
 
 	// Codeshare qualifier
@@ -654,18 +533,6 @@ type CompanyRoleIdentificationType struct {
 
 	// suffix
 	OperationalSuffix formats.AlphaString_Length1To1 `xml:"operationalSuffix,omitempty"`  // minOccurs="0"
-}
-
-type CompanyRoleIdentificationType_120761C struct {
-
-	// Type of code share agreement.
-	CodeShareType formats.AlphaString_Length1To1 `xml:"codeShareType,omitempty"`  // minOccurs="0"
-
-	// company identification
-	AirlineDesignator formats.AlphaNumericString_Length2To3 `xml:"airlineDesignator,omitempty"`  // minOccurs="0"
-
-	// flight number
-	FlightNumber *formats.NumericInteger_Length1To4 `xml:"flightNumber,omitempty"`  // minOccurs="0"
 }
 
 type ConnectPointDetailsType struct {
@@ -766,15 +633,6 @@ type CorporateIdentityType struct {
 	Identity []formats.AlphaNumericString_Length1To20 `xml:"identity"`  // maxOccurs="9"
 }
 
-type CriteriaiDetaislType struct {
-
-	Type formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`  // minOccurs="0"
-
-	Value formats.AlphaNumericString_Length1To18 `xml:"value,omitempty"`  // minOccurs="0"
-
-	Attribute []formats.AlphaNumericString_Length1To9 `xml:"attribute,omitempty"`  // minOccurs="0" maxOccurs="99"
-}
-
 type DataInformationType struct {
 
 	// Ancillary services options
@@ -836,25 +694,7 @@ type DateAndTimeDetailsTypeI_120740C struct {
 	Reserved2 formats.AlphaNumericString_Length3To5 `xml:"reserved2,omitempty"`  // minOccurs="0"
 }
 
-type DateAndTimeDetailsType_120762C struct {
-
-	// Date time period qualifier
-	DateQualifier formats.AlphaNumericString_Length1To3 `xml:"dateQualifier,omitempty"`  // minOccurs="0"
-
-	// First Date
-	Date formats.Date_DDMMYY `xml:"date,omitempty"`  // minOccurs="0"
-
-	// First Time
-	FirstTime formats.Time24_HHMM `xml:"firstTime,omitempty"`  // minOccurs="0"
-
-	// Movement type.
-	EquipementType formats.AlphaNumericString_Length1To3 `xml:"equipementType,omitempty"`  // minOccurs="0"
-
-	// Place/location identification.
-	LocationId formats.AlphaNumericString_Length3To5 `xml:"locationId,omitempty"`  // minOccurs="0"
-}
-
-type DateAndTimeDetailsType_254619C struct {
+type DateAndTimeDetailsType_120843C struct {
 
 	// To identify type of range (Plus,Minus or combined)
 	RangeQualifier formats.AlphaNumericString_Length1To3 `xml:"rangeQualifier,omitempty"`  // minOccurs="0"
@@ -863,40 +703,25 @@ type DateAndTimeDetailsType_254619C struct {
 	DayInterval *formats.NumericInteger_Length1To6 `xml:"dayInterval,omitempty"`  // minOccurs="0"
 
 	// Time at destination (local)
-	TimeAtdestination formats.Time24_HHMM `xml:"timeAtdestination,omitempty"`  // minOccurs="0"
+	TimeAtdestination *formats.NumericInteger_Length4To4 `xml:"timeAtdestination,omitempty"`  // minOccurs="0"
 }
 
 type DateAndTimeInformationType struct {
 
-	// Details on date and time
-	StopDetails []*DateAndTimeDetailsType_120762C `xml:"stopDetails"`  // maxOccurs="2"
+	// Details on date and Time
+	FirstDateTimeDetail *DateAndTimeDetailsTypeI `xml:"firstDateTimeDetail"`
+
+	// Details of the Requested Range of Dates
+	RangeOfDate *DateAndTimeDetailsType_120843C `xml:"rangeOfDate,omitempty"`  // minOccurs="0"
+
+	// Details of the trip duration
+	TripDetails *DateAndTimeDetailsType `xml:"tripDetails,omitempty"`  // minOccurs="0"
 }
 
 type DateAndTimeInformationTypeI struct {
 
 	// DATE AND TIME DETAILS.
 	DateTimeDetails []*DateAndTimeDetailsTypeI_120740C `xml:"dateTimeDetails,omitempty"`  // minOccurs="0" maxOccurs="2"
-}
-
-type DateAndTimeInformationType_181295S struct {
-
-	// Details on date and Time
-	FirstDateTimeDetail *DateAndTimeDetailsTypeI `xml:"firstDateTimeDetail"`
-
-	// Details of the Requested Range of Dates
-	RangeOfDate *DateAndTimeDetailsType_254619C `xml:"rangeOfDate,omitempty"`  // minOccurs="0"
-
-	// Details of the trip duration
-	TripDetails *DateAndTimeDetailsType `xml:"tripDetails,omitempty"`  // minOccurs="0"
-}
-
-type DateTimePeriodDetailsTypeI struct {
-
-	// Qualifier
-	Qualifier formats.AlphaNumericString_Length1To3 `xml:"qualifier"`
-
-	// Value
-	Value formats.AlphaNumericString_Length1To35 `xml:"value,omitempty"`  // minOccurs="0"
 }
 
 type DepartureLocationType struct {
@@ -1010,15 +835,6 @@ type FareInformationType struct {
 	RateCategory formats.AlphaNumericString_Length1To35 `xml:"rateCategory,omitempty"`  // minOccurs="0"
 }
 
-type FareInformationTypeI struct {
-
-	// PTC (Full Codeset List described in ATPCo Documentation B11109 Appendix A)
-	ValueQualifier formats.AlphaNumericString_Length1To3 `xml:"valueQualifier,omitempty"`  // minOccurs="0"
-
-	// age
-	Value *formats.NumericInteger_Length1To15 `xml:"value,omitempty"`  // minOccurs="0"
-}
-
 type FareProductDetailsType struct {
 
 	// Fare basis code
@@ -1038,15 +854,6 @@ type FareTypeGroupingInformationType struct {
 
 	// Pricing Group
 	PricingGroup formats.AlphaNumericString_Length1To35 `xml:"pricingGroup,omitempty"`  // minOccurs="0"
-}
-
-type FlightProductInformationType struct {
-
-	// Indicates flight cabin details
-	CabinProduct []*CabinProductDetailsType `xml:"cabinProduct,omitempty"`  // minOccurs="0" maxOccurs="26"
-
-	// To specify additional characteristics.
-	ContextDetails *ProductTypeDetailsType_205137C `xml:"contextDetails,omitempty"`  // minOccurs="0"
 }
 
 type FormOfPaymentDetailsTypeI struct {
@@ -1100,50 +907,7 @@ type FrequencyType struct {
 	Value []*formats.NumericInteger_Length1To1 `xml:"value,omitempty"`  // minOccurs="0" maxOccurs="7"
 }
 
-type FrequentTravellerIdentificationCodeType struct {
-
-	// Frequent Traveller Info
-	FrequentTravellerDetails []*FrequentTravellerIdentificationType `xml:"frequentTravellerDetails"`  // maxOccurs="99"
-}
-
-type FrequentTravellerIdentificationCodeType_177150S struct {
-
-	// Frequent traveller details
-	FrequentTravellerDetails []*FrequentTravellerIdentificationType_249074C `xml:"frequentTravellerDetails"`  // maxOccurs="99"
-}
-
-type FrequentTravellerIdentificationType struct {
-
-	// Carrier where the FQTV is registered.
-	Carrier formats.AlphaNumericString_Length1To35 `xml:"carrier,omitempty"`  // minOccurs="0"
-
-	Number formats.AlphaNumericString_Length1To28 `xml:"number,omitempty"`  // minOccurs="0"
-
-	// Specifies which traveller in the TIF segment the frequent traveller number applies (same as 9944 in TIF).
-	CustomerReference formats.AlphaNumericString_Length1To10 `xml:"customerReference,omitempty"`  // minOccurs="0"
-
-	// status code: 'OK' if the frequent flyer card has been validated
-	Status formats.AlphaNumericString_Length1To3 `xml:"status,omitempty"`  // minOccurs="0"
-
-	// To specify a Tier linked to the FQTV
-	TierLevel formats.AlphaNumericString_Length1To35 `xml:"tierLevel,omitempty"`  // minOccurs="0"
-
-	// For example : priority code
-	PriorityCode formats.AlphaNumericString_Length1To12 `xml:"priorityCode,omitempty"`  // minOccurs="0"
-
-	// For example : Level description
-	TierDescription formats.AlphaNumericString_Length1To35 `xml:"tierDescription,omitempty"`  // minOccurs="0"
-
-	// For example : Company code of alliance
-	CompanyCode formats.AlphaNumericString_Length1To35 `xml:"companyCode,omitempty"`  // minOccurs="0"
-
-	CustomerValue *formats.NumericInteger_Length1To4 `xml:"customerValue,omitempty"`  // minOccurs="0"
-
-	// To specify the product/account number qualifier. (e.g. 2=Corporate Frequent Flyer).
-	Type formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`  // minOccurs="0"
-}
-
-type FrequentTravellerIdentificationType_249074C struct {
+type FrequentTravellerIdentificationTypeI struct {
 
 	// carrier
 	Carrier formats.AlphaNumericString_Length1To3 `xml:"carrier"`
@@ -1162,42 +926,12 @@ type FrequentTravellerIdentificationType_249074C struct {
 
 	// Tier description
 	TierDescription formats.AlphaNumericString_Length1To35 `xml:"tierDescription,omitempty"`  // minOccurs="0"
-
-	// To specify the product/account number qualifier. (e.g. 2=Corporate Frequent Flyer).
-	Type formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`  // minOccurs="0"
 }
 
-type GroupPassengerDetailsType struct {
+type FrequentTravellerInformationTypeI struct {
 
-	// Trigger
-	PassengerReference *SegmentRepetitionControlTypeI `xml:"passengerReference"`
-
-	// pricing option at passenger level
-	PsgDetailsInfo []*PsgDetailsInfo `xml:"psgDetailsInfo,omitempty"`  // minOccurs="0" maxOccurs="2"
-}
-
-type PsgDetailsInfo struct {
-
-	// PTC/Discount Code age
-	DiscountPtc *FareInformationTypeI `xml:"discountPtc"`
-
-	// Tier level information
-	FlequentFlyerDetails *FrequentTravellerIdentificationCodeType `xml:"flequentFlyerDetails,omitempty"`  // minOccurs="0"
-}
-
-type HeaderInformationTypeI struct {
-
-	// Status
-	Status []formats.AlphaNumericString_Length1To3 `xml:"status,omitempty"`  // minOccurs="0" maxOccurs="2"
-
-	// Date and Time info
-	DateTimePeriodDetails *DateTimePeriodDetailsTypeI `xml:"dateTimePeriodDetails,omitempty"`  // minOccurs="0"
-
-	// Reference number
-	ReferenceNumber formats.AlphaNumericString_Length1To35 `xml:"referenceNumber,omitempty"`  // minOccurs="0"
-
-	// Contains product identification such as UIC code...
-	ProductIdentification []formats.AlphaNumericString_Length1To35 `xml:"productIdentification,omitempty"`  // minOccurs="0" maxOccurs="2"
+	// Frequent traveller details
+	FrequentTravellerDetails []*FrequentTravellerIdentificationTypeI `xml:"frequentTravellerDetails"`  // maxOccurs="9"
 }
 
 type ItemNumberIdentificationType struct {
@@ -1255,18 +989,6 @@ type LocationDetailsTypeI struct {
 
 	// Country, coded
 	Country formats.AlphaNumericString_Length1To3 `xml:"country,omitempty"`  // minOccurs="0"
-}
-
-type LocationIdentificationDetailsType struct {
-
-	// 3 characters ATA/IATA airport/city code
-	LocationId formats.AlphaString_Length3To5 `xml:"locationId"`
-
-	// Airport/city qualifier: the requested point is an airport when ambiguity exists (e.g. HOU)
-	AirportCityQualifier formats.AlphaString_Length1To1 `xml:"airportCityQualifier,omitempty"`  // minOccurs="0"
-
-	// Terminal information
-	Terminal formats.AlphaNumericString_Length1To5 `xml:"terminal,omitempty"`  // minOccurs="0"
 }
 
 type LocationTypeI struct {
@@ -1416,7 +1138,7 @@ type NumberOfUnitDetailsTypeI struct {
 	TypeOfUnit formats.AlphaNumericString_Length1To3 `xml:"typeOfUnit"`
 }
 
-type NumberOfUnitDetailsType_260583C struct {
+type NumberOfUnitDetailsType_191580C struct {
 
 	// Number of Units
 	NumberOfUnits formats.NumericInteger_Length1To6 `xml:"numberOfUnits"`
@@ -1428,7 +1150,7 @@ type NumberOfUnitDetailsType_260583C struct {
 type NumberOfUnitsType struct {
 
 	// NUMBER OF UNIT DETAILS
-	UnitNumberDetail []*NumberOfUnitDetailsType_260583C `xml:"unitNumberDetail"`  // maxOccurs="20"
+	UnitNumberDetail []*NumberOfUnitDetailsType_191580C `xml:"unitNumberDetail"`  // maxOccurs="20"
 }
 
 type NumberOfUnitsType_80154S struct {
@@ -1571,45 +1293,6 @@ type ProductDateTimeTypeI_194598C struct {
 	RtcDate formats.Date_DDMMYY `xml:"rtcDate,omitempty"`  // minOccurs="0"
 }
 
-type ProductDateTimeType_195546C struct {
-
-	// Departure date
-	DateOfDeparture formats.Date_DDMMYY `xml:"dateOfDeparture"`
-
-	// Departure time
-	TimeOfDeparture formats.Time24_HHMM `xml:"timeOfDeparture,omitempty"`  // minOccurs="0"
-
-	// Arrival date
-	DateOfArrival formats.Date_DDMMYY `xml:"dateOfArrival,omitempty"`  // minOccurs="0"
-
-	// Arrival time
-	TimeOfArrival formats.Time24_HHMM `xml:"timeOfArrival,omitempty"`  // minOccurs="0"
-
-	// Arrival date compared to departure date, only if different from 0
-	DateVariation *formats.NumericInteger_Length1To1 `xml:"dateVariation,omitempty"`  // minOccurs="0"
-}
-
-type ProductFacilitiesType struct {
-
-	// Yes-No indicator whether Last Seat Available
-	LastSeatAvailable formats.AlphaString_Length1To1 `xml:"lastSeatAvailable,omitempty"`  // minOccurs="0"
-
-	// Level of access
-	LevelOfAccess formats.AlphaNumericString_Length1To3 `xml:"levelOfAccess,omitempty"`  // minOccurs="0"
-
-	// Yes-No indicator whether electronic ticketing
-	ElectronicTicketing formats.AlphaString_Length1To1 `xml:"electronicTicketing,omitempty"`  // minOccurs="0"
-
-	// Product identification suffix
-	OperationalSuffix formats.AlphaString_Length1To1 `xml:"operationalSuffix,omitempty"`  // minOccurs="0"
-
-	// Define whether a flight has been polled or not
-	ProductDetailQualifier formats.AlphaNumericString_Length1To3 `xml:"productDetailQualifier,omitempty"`  // minOccurs="0"
-
-	// Add some flight restrictions (See code set list)
-	FlightCharacteristic []formats.AlphaNumericString_Length1To3 `xml:"flightCharacteristic,omitempty"`  // minOccurs="0" maxOccurs="9"
-}
-
 type ProductIdentificationDetailsTypeI struct {
 
 	// Flight number
@@ -1657,33 +1340,6 @@ type ProductTypeDetailsType_120801C struct {
 	FlightType []formats.AlphaNumericString_Length1To2 `xml:"flightType,omitempty"`  // minOccurs="0" maxOccurs="9"
 }
 
-type ProductTypeDetailsType_205137C struct {
-
-	// indicates whether the flight is domestic or international
-	Avl []formats.AlphaNumericString_Length1To6 `xml:"avl"`  // maxOccurs="9"
-}
-
-type ProposedSegmentDetailsType struct {
-
-	// Flight proposal reference
-	Ref formats.AlphaNumericString_Length1To6 `xml:"ref,omitempty"`  // minOccurs="0"
-
-	// Elapse Flying Time
-	UnitQualifier formats.AlphaNumericString_Length1To3 `xml:"unitQualifier,omitempty"`  // minOccurs="0"
-}
-
-type ProposedSegmentType struct {
-
-	// Parameters for proposed flight group
-	FlightProposal []*ProposedSegmentDetailsType `xml:"flightProposal"`  // maxOccurs="9"
-
-	// Flight characteristics.
-	FlightCharacteristic formats.AlphaNumericString_Length0To3 `xml:"flightCharacteristic,omitempty"`  // minOccurs="0"
-
-	// Majority cabin
-	MajCabin formats.AlphaString_Length1To1 `xml:"majCabin,omitempty"`  // minOccurs="0"
-}
-
 type ReferenceInfoType struct {
 
 	// Referencing details
@@ -1703,18 +1359,6 @@ type RoutingInformationTypeI struct {
 
 	// Stops details
 	RoutingDetails []*ProductLocationDetailsTypeI `xml:"routingDetails,omitempty"`  // minOccurs="0" maxOccurs="9"
-}
-
-type SegmentRepetitionControlDetailsTypeI struct {
-
-	// traveller number
-	Quantity *formats.NumericInteger_Length1To15 `xml:"quantity,omitempty"`  // minOccurs="0"
-}
-
-type SegmentRepetitionControlTypeI struct {
-
-	// Segment control details
-	SegmentControlDetails []*SegmentRepetitionControlDetailsTypeI `xml:"segmentControlDetails,omitempty"`  // minOccurs="0" maxOccurs="9"
 }
 
 type SelectionDetailsInformationType struct {
@@ -1819,6 +1463,15 @@ type StructuredPeriodInformationType struct {
 	Frequency *FrequencyType `xml:"frequency,omitempty"`  // minOccurs="0"
 }
 
+type TaxDetailsType struct {
+
+	// Duty tax fee category, coded
+	WithholdTaxSurcharge formats.AlphaNumericString_Length1To3 `xml:"withholdTaxSurcharge,omitempty"`  // minOccurs="0"
+
+	// TAX DETAILS
+	TaxDetail []*TaxDetailsTypeI `xml:"taxDetail,omitempty"`  // minOccurs="0" maxOccurs="99"
+}
+
 type TaxDetailsTypeI struct {
 
 	// Duty/tax/fee rate
@@ -1835,15 +1488,6 @@ type TaxDetailsTypeI struct {
 
 	// Amount type qualifier, coded
 	AmountQualifier formats.AlphaNumericString_Length1To3 `xml:"amountQualifier,omitempty"`  // minOccurs="0"
-}
-
-type TaxType struct {
-
-	// Duty tax fee category, coded
-	WithholdTaxSurcharge formats.AlphaNumericString_Length1To3 `xml:"withholdTaxSurcharge,omitempty"`  // minOccurs="0"
-
-	// TAX DETAILS
-	TaxDetail []*TaxDetailsTypeI `xml:"taxDetail,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 type TicketNumberDetailsTypeI struct {
@@ -1904,10 +1548,10 @@ type TravelFlightInformationType struct {
 	UnitNumberDetail []*NumberOfUnitDetailsTypeI `xml:"unitNumberDetail,omitempty"`  // minOccurs="0" maxOccurs="9"
 }
 
-type TravelFlightInformationType_165053S struct {
+type TravelFlightInformationType_134790S struct {
 
 	// Cabin identification
-	CabinId *CabinIdentificationType_233500C `xml:"cabinId,omitempty"`  // minOccurs="0"
+	CabinId *CabinIdentificationType `xml:"cabinId,omitempty"`  // minOccurs="0"
 
 	// Company Identification
 	CompanyIdentity []*CompanyIdentificationType_120719C `xml:"companyIdentity,omitempty"`  // minOccurs="0" maxOccurs="20"
@@ -1922,28 +1566,7 @@ type TravelFlightInformationType_165053S struct {
 	ExclusionDetail []*ConnectPointDetailsType `xml:"exclusionDetail,omitempty"`  // minOccurs="0" maxOccurs="20"
 
 	// Nb of connections allowed at requested segment level.
-	UnitNumberDetail []*NumberOfUnitDetailsTypeI `xml:"unitNumberDetail,omitempty"`  // minOccurs="0" maxOccurs="20"
-}
-
-type TravelFlightInformationType_185853S struct {
-
-	// Cabin identification
-	CabinId *CabinIdentificationType_233500C `xml:"cabinId,omitempty"`  // minOccurs="0"
-
-	// Company Identification
-	CompanyIdentity []*CompanyIdentificationType_233548C `xml:"companyIdentity,omitempty"`  // minOccurs="0" maxOccurs="20"
-
-	// Type of flight details
-	FlightDetail *ProductTypeDetailsType_120801C `xml:"flightDetail,omitempty"`  // minOccurs="0"
-
-	// Details of included connect point
-	InclusionDetail []*ConnectPointDetailsType_195492C `xml:"inclusionDetail,omitempty"`  // minOccurs="0" maxOccurs="20"
-
-	// Further connection details
-	ExclusionDetail []*ConnectPointDetailsType `xml:"exclusionDetail,omitempty"`  // minOccurs="0" maxOccurs="20"
-
-	// Added departed flights flag
-	UnitNumberDetail []*NumberOfUnitDetailsTypeI `xml:"unitNumberDetail,omitempty"`  // minOccurs="0" maxOccurs="20"
+	UnitNumberDetail []*NumberOfUnitDetailsTypeI `xml:"unitNumberDetail,omitempty"`  // minOccurs="0" maxOccurs="9"
 }
 
 type TravelProductInformationTypeI struct {
@@ -1965,30 +1588,6 @@ type TravelProductInformationTypeI struct {
 
 	// Identify flight part of the journey
 	FlightTypeDetails *ProductTypeDetailsTypeI `xml:"flightTypeDetails,omitempty"`  // minOccurs="0"
-}
-
-type TravelProductType struct {
-
-	// Date and time of departure and arrival
-	ProductDateTime *ProductDateTimeType_195546C `xml:"productDateTime"`
-
-	// Location of departure and arrival
-	Location []*LocationIdentificationDetailsType `xml:"location"`  // maxOccurs="2"
-
-	// Company identification
-	CompanyId *CompanyIdentificationType_195544C `xml:"companyId,omitempty"`  // minOccurs="0"
-
-	// Flight number or trainNumber
-	FlightOrtrainNumber formats.AlphaNumericString_Length1To8 `xml:"flightOrtrainNumber,omitempty"`  // minOccurs="0"
-
-	// Product details
-	ProductDetail *AdditionalProductDetailsType `xml:"productDetail,omitempty"`  // minOccurs="0"
-
-	// Additional product details
-	AddProductDetail *ProductFacilitiesType `xml:"addProductDetail,omitempty"`  // minOccurs="0"
-
-	// Attribute details
-	AttributeDetails []*CodedAttributeInformationType_247828C `xml:"attributeDetails,omitempty"`  // minOccurs="0" maxOccurs="20"
 }
 
 type TravellerDetailsType struct {
@@ -2025,15 +1624,4 @@ type UserIdentificationType struct {
 
 	// The code given to an agent by the originating reservation system.
 	OfficeCode formats.AlphaNumericString_Length1To30 `xml:"officeCode,omitempty"`  // minOccurs="0"
-}
-
-type ValueSearchCriteriaType struct {
-
-	CriteriaName formats.AlphaNumericString_Length1To50 `xml:"criteriaName,omitempty"`  // minOccurs="0"
-
-	CriteriaCode formats.AlphaNumericString_Length1To3 `xml:"criteriaCode,omitempty"`  // minOccurs="0"
-
-	Value formats.AlphaNumericString_Length1To18 `xml:"value,omitempty"`  // minOccurs="0"
-
-	CriteriaDetails []*CriteriaiDetaislType `xml:"criteriaDetails,omitempty"`  // minOccurs="0" maxOccurs="10"
 }

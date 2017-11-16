@@ -1,284 +1,265 @@
 package queue_list_reply
 
-import (
-	"encoding/xml"
-
-	"github.com/tmconsulting/amadeus-ws-go/formats"
-)
+//import "encoding/xml"
 
 type QueueListReply struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A Queue_ListReply"`
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A Queue_ListReply"`
 
-	ErrorReturn *ErrorReturn `xml:"errorReturn,omitempty"`
+	ErrorReturn *ErrorReturn `xml:"errorReturn,omitempty"`  // minOccurs="0"
 
-	QueueView *QueueView `xml:"queueView,omitempty"`
+	QueueView *QueueView `xml:"queueView,omitempty"`  // minOccurs="0"
 }
 
 type ErrorReturn struct {
+
 	// returns the error code
-	ErrorDefinition *ApplicationErrorInformationTypeI `xml:"errorDefinition,omitempty"`
+	ErrorDefinition *ApplicationErrorInformationTypeI `xml:"errorDefinition"`
 
 	// free text for the error
-	ErrorText *FreeTextInformationType `xml:"errorText,omitempty"`
+	ErrorText *FreeTextInformationType `xml:"errorText,omitempty"`  // minOccurs="0"
 }
 
 type QueueView struct {
+
 	// details of who queue placed the PNR
-	Agent *AdditionalBusinessSourceInformationType `xml:"agent,omitempty"`
+	Agent *AdditionalBusinessSourceInformationType `xml:"agent"`
 
 	// queue being displayed
-	QueueNumber *QueueInformationTypeI `xml:"queueNumber,omitempty"`
+	QueueNumber *QueueInformationTypeI `xml:"queueNumber"`
 
 	// category and date range
-	CategoryDetails *SubQueueInformationTypeI `xml:"categoryDetails,omitempty"`
+	CategoryDetails *SubQueueInformationTypeI `xml:"categoryDetails"`
 
 	// date range
-	Date *StructuredDateTimeInformationType `xml:"date,omitempty"`
+	Date *StructuredDateTimeInformationType `xml:"date,omitempty"`  // minOccurs="0"
 
 	// all 3 occurences are mandatory and show in order number of  1)PNRs on queue 2)PNRs found 3)PNRs scanned
-	PnrCount *NumberOfUnitsType `xml:"pnrCount,omitempty"`
+	PnrCount []*NumberOfUnitsType `xml:"pnrCount"`  // maxOccurs="3"
 
-	Item *Item `xml:"item,omitempty"`
-}
-
-type AdditionalBusinessSourceInformationType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A AdditionalBusinessSourceInformationType"`
-
-	// ORIGINATOR DETAILS
-	OriginatorDetails *OriginatorIdentificationDetailsTypeI `xml:"originatorDetails,omitempty"`
-}
-
-type ApplicationErrorDetailTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A ApplicationErrorDetailTypeI"`
-
-	// error code
-	ErrorCode formats.AlphaNumericString_Length1To3 `xml:"errorCode,omitempty"`
-
-	// error category
-	ErrorCategory formats.AlphaNumericString_Length1To3 `xml:"errorCategory,omitempty"`
-
-	// error code owner
-	ErrorCodeOwner formats.AlphaNumericString_Length1To3 `xml:"errorCodeOwner,omitempty"`
+	Item []*Item `xml:"item"`  // maxOccurs="1000"
 }
 
 type Item struct {
+
 	// surname of the passenger only or GROUP for a group PNR
-	PaxName *TravellerInformationTypeI `xml:"paxName,omitempty"`
+	PaxName *TravellerInformationTypeI `xml:"paxName"`
 
 	// record locator
-	RecLoc *ReservationControlInformationTypeI `xml:"recLoc,omitempty"`
+	RecLoc *ReservationControlInformationTypeI `xml:"recLoc"`
 
 	// 1st segment found in the PNR - if there is data to send
-	Segment *TravelProductInformationTypeI `xml:"segment,omitempty"`
+	Segment *TravelProductInformationTypeI `xml:"segment,omitempty"`  // minOccurs="0"
 
 	// details of who queue placed the PNR
-	Agent *AdditionalBusinessSourceInformationType `xml:"agent,omitempty"`
+	Agent *AdditionalBusinessSourceInformationType `xml:"agent"`
 
 	// contains 1,2 or 3 of the following Queue placement date/time Ticketing date PNR creation date
-	Pnrdates *StructuredDateTimeInformationType_181906S `xml:"pnrdates,omitempty"`
+	Pnrdates []*StructuredDateTimeInformationType_181906S `xml:"pnrdates"`  // maxOccurs="3"
+}
+
+//
+// Complex structs
+//
+
+type AdditionalBusinessSourceInformationType struct {
+
+	// ORIGINATOR DETAILS
+	OriginatorDetails *OriginatorIdentificationDetailsTypeI `xml:"originatorDetails"`
+}
+
+type ApplicationErrorDetailTypeI struct {
+
+	// error code
+	ErrorCode string `xml:"errorCode"`
+
+	// error category
+	ErrorCategory string `xml:"errorCategory,omitempty"`  // minOccurs="0"
+
+	// error code owner
+	ErrorCodeOwner string `xml:"errorCodeOwner,omitempty"`  // minOccurs="0"
 }
 
 type ApplicationErrorInformationTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A ApplicationErrorInformationTypeI"`
 
 	// error details
-	ErrorDetails *ApplicationErrorDetailTypeI `xml:"errorDetails,omitempty"`
+	ErrorDetails *ApplicationErrorDetailTypeI `xml:"errorDetails"`
 }
 
 type CompanyIdentificationTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A CompanyIdentificationTypeI"`
 
 	// carrier code or defined codeset
-	MarketingCompany formats.AlphaNumericString_Length1To3 `xml:"marketingCompany,omitempty"`
+	MarketingCompany string `xml:"marketingCompany"`
 }
 
 type FreeTextDetailsType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A FreeTextDetailsType"`
 
 	// qualifier
-	TextSubjectQualifier formats.AlphaNumericString_Length1To3 `xml:"textSubjectQualifier,omitempty"`
+	TextSubjectQualifier string `xml:"textSubjectQualifier"`
 
 	// source
-	Source formats.AlphaNumericString_Length1To3 `xml:"source,omitempty"`
+	Source string `xml:"source"`
 
 	// encoding
-	Encoding formats.AlphaNumericString_Length1To3 `xml:"encoding,omitempty"`
+	Encoding string `xml:"encoding"`
 }
 
 type FreeTextInformationType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A FreeTextInformationType"`
 
 	// free text
-	FreeTextDetails *FreeTextDetailsType `xml:"freeTextDetails,omitempty"`
+	FreeTextDetails *FreeTextDetailsType `xml:"freeTextDetails"`
 
 	// Free text and message sequence numbers of the remarks.
-	FreeText formats.AlphaNumericString_Length1To199 `xml:"freeText,omitempty"`
+	FreeText []string `xml:"freeText"`  // maxOccurs="99"
 }
 
 type LocationTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A LocationTypeI"`
 
 	// board or off point
-	TrueLocation formats.AlphaNumericString_Length1To3 `xml:"trueLocation,omitempty"`
+	TrueLocation string `xml:"trueLocation"`
 }
 
 type NumberOfUnitDetailsTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A NumberOfUnitDetailsTypeI"`
 
 	// numbers of items
-	NumberOfUnit formats.NumericInteger_Length1To5 `xml:"numberOfUnit,omitempty"`
+	NumberOfUnit int32 `xml:"numberOfUnit"`
 }
 
 type NumberOfUnitsType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A NumberOfUnitsType"`
 
 	// Number of Unit Details
-	QuantityDetails *NumberOfUnitDetailsTypeI `xml:"quantityDetails,omitempty"`
+	QuantityDetails *NumberOfUnitDetailsTypeI `xml:"quantityDetails"`
 }
 
 type OriginatorIdentificationDetailsTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A OriginatorIdentificationDetailsTypeI"`
 
 	// office ID of the agent who queue placed the PNR
-	InHouseIdentification1 formats.AlphaNumericString_Length1To9 `xml:"inHouseIdentification1,omitempty"`
+	InHouseIdentification1 string `xml:"inHouseIdentification1"`
 
 	// agent sign
-	InHouseIdentification2 formats.AlphaNumericString_Length1To2 `xml:"inHouseIdentification2,omitempty"`
+	InHouseIdentification2 string `xml:"inHouseIdentification2,omitempty"`  // minOccurs="0"
 }
 
 type ProductDateTimeTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A ProductDateTimeTypeI"`
 
 	// departure date
-	DepartureDate formats.AlphaNumericString_Length1To35 `xml:"departureDate,omitempty"`
+	DepartureDate string `xml:"departureDate,omitempty"`  // minOccurs="0"
 }
 
 type ProductIdentificationDetailsTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A ProductIdentificationDetailsTypeI"`
 
 	// flight number
-	FlightNumber formats.AlphaNumericString_Length1To35 `xml:"flightNumber,omitempty"`
+	FlightNumber string `xml:"flightNumber"`
 
 	// operational suffix
-	OperationalSuffix formats.AlphaNumericString_Length1To3 `xml:"operationalSuffix,omitempty"`
+	OperationalSuffix string `xml:"operationalSuffix,omitempty"`  // minOccurs="0"
 }
 
 type QueueInformationDetailsTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A QueueInformationDetailsTypeI"`
 
 	// queue number
-	Number formats.NumericInteger_Length1To2 `xml:"number,omitempty"`
+	Number int32 `xml:"number"`
 }
 
 type QueueInformationTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A QueueInformationTypeI"`
 
 	// queue identification
-	QueueDetails *QueueInformationDetailsTypeI `xml:"queueDetails,omitempty"`
+	QueueDetails *QueueInformationDetailsTypeI `xml:"queueDetails"`
 }
 
 type ReservationControlInformationDetailsTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A ReservationControlInformationDetailsTypeI"`
 
 	// contains the record locator to be queue placed
-	ControlNumber formats.AlphaNumericString_Length1To8 `xml:"controlNumber,omitempty"`
+	ControlNumber string `xml:"controlNumber"`
 }
 
 type ReservationControlInformationTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A ReservationControlInformationTypeI"`
 
 	// contains the record locator
-	Reservation *ReservationControlInformationDetailsTypeI `xml:"reservation,omitempty"`
+	Reservation *ReservationControlInformationDetailsTypeI `xml:"reservation"`
 }
 
 type StructuredDateTimeInformationType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A StructuredDateTimeInformationType"`
 
 	// used for date range only The date ranges are defined on central system as 1,2,3,4 The actual values of the ranges are set in the office profile
-	TimeMode formats.NumericInteger_Length1To3 `xml:"timeMode,omitempty"`
+	TimeMode int32 `xml:"timeMode"`
 }
 
 type StructuredDateTimeInformationType_181906S struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A StructuredDateTimeInformationType_181906S"`
 
 	// This data element can be used to provide the semantic of the information provided. Examples : - Impacted period - Departure date - Estimated arrival date and time
-	TimeMode formats.AlphaNumericString_Length1To3 `xml:"timeMode,omitempty"`
+	TimeMode string `xml:"timeMode"`
 
 	// Convey date and/or time.
-	DateTime *StructuredDateTimeType `xml:"dateTime,omitempty"`
+	DateTime *StructuredDateTimeType `xml:"dateTime"`
 }
 
 type StructuredDateTimeType struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A StructuredDateTimeType"`
 
 	// Year number.
-	Year formats.Year_YYYY `xml:"year,omitempty"`
+	Year string `xml:"year"`
 
 	// Month number of the year (1 being first month, 0 being NULL data)
-	Month formats.NumericInteger_Length1To2 `xml:"month,omitempty"`
+	Month int32 `xml:"month"`
 
 	// day number of the month (1 being first day of the month, 0 is null data)
-	Day formats.NumericInteger_Length1To2 `xml:"day,omitempty"`
+	Day int32 `xml:"day"`
 
 	// Hour between 0 and 23
-	Hour formats.Hour_hH `xml:"hour,omitempty"`
+	Hour string `xml:"hour,omitempty"`  // minOccurs="0"
 
 	// Minutes between 0 and 59
-	Minutes formats.Minute_mM `xml:"minutes,omitempty"`
+	Minutes string `xml:"minutes,omitempty"`  // minOccurs="0"
 }
 
 type SubQueueInformationDetailsTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A SubQueueInformationDetailsTypeI"`
 
 	// E for every category    A for cats with items to be worked C for category number N for nickname CN for both category number and nickname numeric for date range
-	IdentificationType formats.AlphaNumericString_Length1To3 `xml:"identificationType,omitempty"`
+	IdentificationType string `xml:"identificationType"`
 
 	// category number
-	ItemNumber formats.AlphaNumericString_Length1To3 `xml:"itemNumber,omitempty"`
+	ItemNumber string `xml:"itemNumber,omitempty"`  // minOccurs="0"
 
 	// used for nickname on inbound used for category name on outbound
-	ItemDescription formats.AlphaNumericString_Length1To35 `xml:"itemDescription,omitempty"`
+	ItemDescription string `xml:"itemDescription,omitempty"`  // minOccurs="0"
 }
 
 type SubQueueInformationTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A SubQueueInformationTypeI"`
 
 	// identifies the category or categories.
-	SubQueueInfoDetails *SubQueueInformationDetailsTypeI `xml:"subQueueInfoDetails,omitempty"`
+	SubQueueInfoDetails *SubQueueInformationDetailsTypeI `xml:"subQueueInfoDetails"`
 }
 
 type TravelProductInformationTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A TravelProductInformationTypeI"`
 
 	// departure date
-	FlightDate *ProductDateTimeTypeI `xml:"flightDate,omitempty"`
+	FlightDate *ProductDateTimeTypeI `xml:"flightDate,omitempty"`  // minOccurs="0"
 
 	// board point
-	BoardPointDetails *LocationTypeI `xml:"boardPointDetails,omitempty"`
+	BoardPointDetails *LocationTypeI `xml:"boardPointDetails,omitempty"`  // minOccurs="0"
 
 	// off point if present
-	OffpointDetails *LocationTypeI `xml:"offpointDetails,omitempty"`
+	OffpointDetails *LocationTypeI `xml:"offpointDetails,omitempty"`  // minOccurs="0"
 
 	// carrier code or segment type
-	CompanyDetails *CompanyIdentificationTypeI `xml:"companyDetails,omitempty"`
+	CompanyDetails *CompanyIdentificationTypeI `xml:"companyDetails,omitempty"`  // minOccurs="0"
 
 	// flight number and suffix
-	FlightIdentification *ProductIdentificationDetailsTypeI `xml:"flightIdentification,omitempty"`
+	FlightIdentification *ProductIdentificationDetailsTypeI `xml:"flightIdentification,omitempty"`  // minOccurs="0"
 }
 
 type TravellerInformationTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A TravellerInformationTypeI"`
 
-	PaxDetails *TravellerSurnameInformationTypeI `xml:"paxDetails,omitempty"`
+	PaxDetails *TravellerSurnameInformationTypeI `xml:"paxDetails"`
 }
 
 type TravellerSurnameInformationTypeI struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/QDQLRR_11_1_1A TravellerSurnameInformationTypeI"`
 
 	// surname of the passenger or GROUP for a group PNR
-	Surname formats.AlphaNumericString_Length1To70 `xml:"surname,omitempty"`
+	Surname string `xml:"surname"`
 
-	Type_ formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`
+	// Format limitations: an..3
+	Type string `xml:"type,omitempty"`  // minOccurs="0"
 
-	Quantity formats.NumericInteger_Length1To15 `xml:"quantity,omitempty"`
+	// Format limitations: n..15
+	Quantity *int32 `xml:"quantity,omitempty"`  // minOccurs="0"
 }

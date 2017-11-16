@@ -1,50 +1,43 @@
-package ticket_display_tst_reply
+package fare_pricepnrwithbookingclass_reply
 
 //import "encoding/xml"
 
-type TicketDisplayTSTReply struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TTSTRR_07_1_1A Ticket_DisplayTSTReply"`
+type FarePricePNRWithBookingClassReply struct {
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_14_1_1A Fare_PricePNRWithBookingClassReply"`
 
-	// Scrolling information used for long messages. C673.1050 represents the number of TSTs remaining. 0 means that there is no more TST. C673.1154 represents the last TST reference in the list retrieved. For the last reply value in C673.1154 of the first query is placed.
-	ScrollingInformation *ActionDetailsTypeI `xml:"scrollingInformation,omitempty"`  // minOccurs="0"
+	ApplicationError *ErrorGroupType `xml:"applicationError,omitempty"`  // minOccurs="0"
 
-	ApplicationError *ApplicationError `xml:"applicationError,omitempty"`  // minOccurs="0"
+	// PNR record locator information for this transaction. This PNR record locator is used for tracing purpose.
+	PnrLocatorData *ReservationControlInformationTypeI `xml:"pnrLocatorData,omitempty"`  // minOccurs="0"
 
-	FareList []*FareList `xml:"fareList,omitempty"`  // minOccurs="0" maxOccurs="20"
-}
-
-type ApplicationError struct {
-
-	// Error information returned by ticketing application
-	ApplicationErrorInfo *ApplicationErrorInformationType `xml:"applicationErrorInfo"`
-
-	// Description in free flow text of the error returned by ticketing application
-	ErrorText *InteractiveFreeTextTypeI `xml:"errorText,omitempty"`  // minOccurs="0"
+	FareList []*FareList `xml:"fareList,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 type FareList struct {
 
-	// Information on TST creation method such as pricing rules and sales indicator.
+	// Pricing information such as pricing rule and sales indicator.
 	PricingInformation *PricingTicketingSubsequentTypeI `xml:"pricingInformation"`
 
-	// TST reference number. Ordering information is not relevant here.
-	FareReference *ItemReferencesAndVersionsType_14908S `xml:"fareReference"`
+	// Fare reference number. Ordering information is not relevant here.
+	FareReference *ItemReferencesAndVersionsType_94584S `xml:"fareReference"`
 
-	// - Last date to ticket the fare - Creation date - Last modification date
-	LastTktDate []*StructuredDateTimeInformationType_14907S `xml:"lastTktDate,omitempty"`  // minOccurs="0" maxOccurs="3"
+	// Fare Indicators
+	FareIndicators *FareInformationType `xml:"fareIndicators,omitempty"`  // minOccurs="0"
+
+	// Last date to ticket the fare.
+	LastTktDate *StructuredDateTimeInformationType `xml:"lastTktDate,omitempty"`  // minOccurs="0"
 
 	// Validating carrier identification.
 	ValidatingCarrier *TransportIdentifierType `xml:"validatingCarrier,omitempty"`  // minOccurs="0"
 
-	// Passenger/segment association of the TST.
+	// Passenger/segment association of the fare is specified here.
 	PaxSegReference *ReferenceInformationTypeI `xml:"paxSegReference"`
 
-	// Specify all fare data information (base fare, equivalent fare...)
-	FareDataInformation *MonetaryInformationTypeI `xml:"fareDataInformation,omitempty"`  // minOccurs="0"
+	FareDataInformation *MonetaryInformationType_187640S `xml:"fareDataInformation,omitempty"`  // minOccurs="0"
 
 	TaxInformation []*TaxInformation `xml:"taxInformation,omitempty"`  // minOccurs="0" maxOccurs="120"
 
-	// Banker's rates are used to convert amounts of the TST (base/equivalent).
+	// Banker's rates are used to convert amounts of the TST (converts base fare to equivalent fare) 1st C661 : 1st bankers' rate which is a percentage (no currency) 2nd C661 : 2nd bankers' rate which is currency+amount.
 	BankerRates *ConversionRateTypeI `xml:"bankerRates,omitempty"`  // minOccurs="0"
 
 	PassengerInformation []*PassengerInformation `xml:"passengerInformation,omitempty"`  // minOccurs="0" maxOccurs="99"
@@ -54,29 +47,25 @@ type FareList struct {
 
 	SegmentInformation []*SegmentInformation `xml:"segmentInformation,omitempty"`  // minOccurs="0" maxOccurs="96"
 
-	// Other fare information : - fare calculation  - payment restrictions. - mileage breakdown freeflow
-	OtherPricingInfo []*CodedAttributeType `xml:"otherPricingInfo,omitempty"`  // minOccurs="0" maxOccurs="2"
-
-	// TST status information such as TST confidentiality.
-	StatusInformation *StatusTypeI `xml:"statusInformation,omitempty"`  // minOccurs="0"
-
-	// Mentions the TST creation office ID and the agent sign in.
-	OfficeDetails *UserIdentificationType `xml:"officeDetails,omitempty"`  // minOccurs="0"
+	// Other pricing information such as endorsement, tour name...
+	OtherPricingInfo []*CodedAttributeType_39223S `xml:"otherPricingInfo,omitempty"`  // minOccurs="0" maxOccurs="99"
 
 	WarningInformation []*WarningInformation `xml:"warningInformation,omitempty"`  // minOccurs="0" maxOccurs="99"
 
 	AutomaticReissueInfo *AutomaticReissueInfo `xml:"automaticReissueInfo,omitempty"`  // minOccurs="0"
 
-	CarrierFeesGroup []*CarrierFeesGroup `xml:"carrierFeesGroup,omitempty"`  // minOccurs="0" maxOccurs="99"
+	// Corporate number
+	CorporateInfo *CorporateFareInformationType `xml:"corporateInfo,omitempty"`  // minOccurs="0"
 
-	// contextual form of payment
-	ContextualFop *FormOfPaymentTypeI `xml:"contextualFop,omitempty"`  // minOccurs="0"
-
-	// Office Id where the pricing has been made. Implemented with Airline Ticketing Fees
-	ContextualPointofSale *UserIdentificationType `xml:"contextualPointofSale,omitempty"`  // minOccurs="0"
+	FeeBreakdown []*FeeBreakdown `xml:"feeBreakdown,omitempty"`  // minOccurs="0" maxOccurs="9"
 
 	// convey the mileage information
 	Mileage *AdditionalProductDetailsTypeI `xml:"mileage,omitempty"`  // minOccurs="0"
+
+	// Details at fare component or at bound level.
+	FareComponentDetailsGroup []*FareComponentDetailsType `xml:"fareComponentDetailsGroup,omitempty"`  // minOccurs="0" maxOccurs="99"
+
+	EndFareList *DummySegmentTypeI `xml:"endFareList"`
 }
 
 type TaxInformation struct {
@@ -90,7 +79,7 @@ type TaxInformation struct {
 
 type PassengerInformation struct {
 
-	// Penalty details specified in the request.
+	// Penalty/discount details specified in the request.
 	PenDisInformation *DiscountAndPenaltyInformationTypeI_6128S `xml:"penDisInformation"`
 
 	// Reference of passengers that have a type code.
@@ -103,21 +92,21 @@ type SegmentInformation struct {
 	ConnexInformation *ConnectionTypeI `xml:"connexInformation"`
 
 	// Details on open segments added to the price calculation. These open segments exist only in the fare calculated, they have no equivalent in the PNR itinerary. This segment gives also information on booking class for best buy transactions.
-	SegDetails *TravelProductInformationTypeI `xml:"segDetails,omitempty"`  // minOccurs="0"
+	SegDetails *TravelProductInformationTypeI_26322S `xml:"segDetails,omitempty"`  // minOccurs="0"
 
 	// Fare basis information
 	FareQualifier *FareQualifierDetailsTypeI `xml:"fareQualifier,omitempty"`  // minOccurs="0"
 
-	// Validity information for the fare
+	// Validity information for this fare
 	ValidityInformation []*StructuredDateTimeInformationType `xml:"validityInformation,omitempty"`  // minOccurs="0" maxOccurs="2"
 
-	// baggage allowance information
+	// Baggage allowance information
 	BagAllowanceInformation *ExcessBaggageTypeI `xml:"bagAllowanceInformation,omitempty"`  // minOccurs="0"
 
 	// Reference of the segment associated to the group.
 	SegmentReference *ReferenceInformationTypeI `xml:"segmentReference,omitempty"`  // minOccurs="0"
 
-	// The segment order in the pricing response can be different than the one of the PNR itinerary (segments are reordered at price calculation time). This order information is conveyed by the sequence number. If this order information is not present then the order is by default the one of the PNR.
+	// The segment order in the pricing response can be different than the one of the PNR itinerary (segments are reordered at price calculation time). This order inform,ation is conveyed by the sequence number. If this order information is not present then the order is by default the one of the PNR.
 	SequenceInformation *ItemReferencesAndVersionsType `xml:"sequenceInformation,omitempty"`  // minOccurs="0"
 }
 
@@ -140,12 +129,15 @@ type AutomaticReissueInfo struct {
 
 	PaperCouponRange *PaperCouponRange `xml:"paperCouponRange,omitempty"`  // minOccurs="0"
 
-	// Base Fare information
+	// Base fare Information
 	BaseFareInfo *MonetaryInformationTypeI_20897S `xml:"baseFareInfo"`
 
 	FirstDpiGroup *FirstDpiGroup `xml:"firstDpiGroup"`
 
 	SecondDpiGroup *SecondDpiGroup `xml:"secondDpiGroup"`
+
+	// this segment conveys specific reissue attributes like Revalidation flag.
+	ReissueAttributes *CodedAttributeType `xml:"reissueAttributes,omitempty"`  // minOccurs="0"
 }
 
 type PaperCouponRange struct {
@@ -162,13 +154,13 @@ type FirstDpiGroup struct {
 	// Penalty amount in reissue currency
 	ReIssuePenalty *DiscountAndPenaltyInformationTypeI `xml:"reIssuePenalty"`
 
-	// Reissue Information
+	// Reissue Informations
 	ReissueInfo *MonetaryInformationTypeI_20897S `xml:"reissueInfo"`
 
-	// Old Tax Information
+	// Old Tax informations
 	OldTaxInfo *MonetaryInformationTypeI_20897S `xml:"oldTaxInfo"`
 
-	// Balance Reissue Information
+	// Balance Reissue Informations
 	ReissueBalanceInfo *MonetaryInformationTypeI_20897S `xml:"reissueBalanceInfo"`
 }
 
@@ -177,48 +169,42 @@ type SecondDpiGroup struct {
 	// Discount and penalty info.
 	Penalty *DiscountAndPenaltyInformationTypeI `xml:"penalty"`
 
-	// Residual Value Information
+	// Residual Value information
 	ResidualValueInfo *MonetaryInformationTypeI_20897S `xml:"residualValueInfo"`
 
-	// Old Tax Information
+	// Old Tax informations
 	OldTaxInfo *MonetaryInformationTypeI_20897S `xml:"oldTaxInfo"`
 
-	// Balance Issue Information
+	// Balance issue Informations
 	IssueBalanceInfo *MonetaryInformationTypeI_20897S `xml:"issueBalanceInfo"`
 }
 
-type CarrierFeesGroup struct {
+type FeeBreakdown struct {
 
-	// Airline Ticketing Fees : OB
-	CarrierFeeType *SelectionDetailsTypeI `xml:"carrierFeeType"`
+	// Nature of the fee (OB, OC)
+	FeeType *SelectionDetailsTypeI `xml:"feeType"`
 
-	CarrierFeeInfo []*CarrierFeeInfo `xml:"carrierFeeInfo,omitempty"`  // minOccurs="0" maxOccurs="99"
+	FeeDetails []*FeeDetails `xml:"feeDetails,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
-type CarrierFeeInfo struct {
+type FeeDetails struct {
 
-	// contains the Carrier Fee subcode and the properties of the carrier fee:
-	CarrierFeeSubcode *SpecificDataInformationTypeI `xml:"carrierFeeSubcode"`
+	// Fee information
+	FeeInfo *SpecificDataInformationTypeI `xml:"feeInfo"`
 
-	// convey the commercial name of the fee
-	CommercialName *InteractiveFreeTextTypeI_37809S `xml:"commercialName"`
+	// Attributes of this fee (commercial description)
+	FeeDescription *InteractiveFreeTextTypeI `xml:"feeDescription,omitempty"`  // minOccurs="0"
 
-	// amount of the fee, taxes included
-	FeeAmount *MonetaryInformationTypeI_37810S `xml:"feeAmount"`
+	// Fee associated amounts: amount with/without tax, total tax amount
+	FeeAmounts *MonetaryInformationTypeI_39230S `xml:"feeAmounts,omitempty"`  // minOccurs="0"
 
-	// tax on the fee
-	FeeTax []*TaxTypeI `xml:"feeTax,omitempty"`  // minOccurs="0" maxOccurs="99"
+	// taxes related to this fee
+	FeeTaxes []*TaxTypeI `xml:"feeTaxes,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 //
 // Complex structs
 //
-
-type ActionDetailsTypeI struct {
-
-	// Information on next list of TSTs to return.
-	NextListInformation *ReferenceTypeI `xml:"nextListInformation"`
-}
 
 type AdditionalFareQualifierDetailsTypeI struct {
 
@@ -237,10 +223,22 @@ type AdditionalFareQualifierDetailsTypeI struct {
 
 type AdditionalProductDetailsTypeI struct {
 
-	MileageTimeDetails *MileageTimeDetailsTypeI `xml:"mileageTimeDetails"`
+	MileageTimeDetails *MileageTimeDetailsTypeI `xml:"mileageTimeDetails,omitempty"`  // minOccurs="0"
 }
 
 type ApplicationErrorDetailType struct {
+
+	// Code identifying the data validation error condition.
+	ErrorCode string `xml:"errorCode"`
+
+	// Identification of a code list.
+	ErrorCategory string `xml:"errorCategory,omitempty"`  // minOccurs="0"
+
+	// Code identifying the agency responsible for a code list.
+	ErrorCodeOwner string `xml:"errorCodeOwner,omitempty"`  // minOccurs="0"
+}
+
+type ApplicationErrorDetailType_48648C struct {
 
 	// Code identifying the data validation error condition.
 	ApplicationErrorCode string `xml:"applicationErrorCode"`
@@ -255,7 +253,13 @@ type ApplicationErrorDetailType struct {
 type ApplicationErrorInformationType struct {
 
 	// Application error details.
-	ApplicationErrorDetail *ApplicationErrorDetailType `xml:"applicationErrorDetail"`
+	ApplicationErrorDetail *ApplicationErrorDetailType_48648C `xml:"applicationErrorDetail"`
+}
+
+type ApplicationErrorInformationType_84497S struct {
+
+	// Application error details.
+	ErrorDetails *ApplicationErrorDetailType `xml:"errorDetails"`
 }
 
 type BaggageDetailsTypeI struct {
@@ -264,7 +268,7 @@ type BaggageDetailsTypeI struct {
 	BaggageQuantity *int32 `xml:"baggageQuantity,omitempty"`  // minOccurs="0"
 
 	// Baggage allowance weight
-	BaggageWeight *float64 `xml:"baggageWeight,omitempty"`  // minOccurs="0"
+	BaggageWeight *int32 `xml:"baggageWeight,omitempty"`  // minOccurs="0"
 
 	// Baggage allowance type (weight/number)
 	BaggageType string `xml:"baggageType,omitempty"`  // minOccurs="0"
@@ -282,22 +286,37 @@ type CodedAttributeInformationType struct {
 	AttributeDescription string `xml:"attributeDescription,omitempty"`  // minOccurs="0"
 }
 
+type CodedAttributeInformationType_66047C struct {
+
+	// provides the attribute Type
+	AttributeType string `xml:"attributeType"`
+
+	// provides a description for the attribute
+	AttributeDescription string `xml:"attributeDescription,omitempty"`  // minOccurs="0"
+}
+
 type CodedAttributeType struct {
 
-	// provides details for the Attribute fare calculation or payment restriction or mileage breakdown freeflow.
-	AttributeDetails []*CodedAttributeInformationType `xml:"attributeDetails"`  // maxOccurs="3"
+	// provides details for the Attribute
+	AttributeDetails []*CodedAttributeInformationType `xml:"attributeDetails"`  // maxOccurs="99"
+}
+
+type CodedAttributeType_39223S struct {
+
+	// provides details for the Attribute
+	AttributeDetails []*CodedAttributeInformationType_66047C `xml:"attributeDetails"`  // maxOccurs="5"
 }
 
 type CompanyIdentificationTypeI struct {
 
 	// Carrier code
-	CarrierCode string `xml:"carrierCode"`
+	CarrierCode string `xml:"carrierCode,omitempty"`  // minOccurs="0"
 }
 
-type CompanyIdentificationTypeI_27116C struct {
+type CompanyIdentificationTypeI_222513C struct {
 
-	// Code of the airline.
-	CarrierCode string `xml:"carrierCode,omitempty"`  // minOccurs="0"
+	// Carrier owner fo the fare family
+	OtherCompany string `xml:"otherCompany,omitempty"`  // minOccurs="0"
 }
 
 type ConnectionDetailsTypeI struct {
@@ -331,6 +350,29 @@ type ConversionRateTypeI struct {
 
 	// Second rate detail.
 	SecondRateDetail *ConversionRateDetailsTypeI `xml:"secondRateDetail,omitempty"`  // minOccurs="0"
+}
+
+type CorporateFareIdentifiersTypeI struct {
+
+	// Format limitations: an..3
+	FareQualifier string `xml:"fareQualifier,omitempty"`  // minOccurs="0"
+
+	// Format limitations: an..35
+	CorporateID []string `xml:"corporateID,omitempty"`  // minOccurs="0" maxOccurs="20"
+}
+
+type CorporateFareInformationType struct {
+
+	CorporateFareIdentifiers []*CorporateFareIdentifiersTypeI `xml:"corporateFareIdentifiers"`  // maxOccurs="20"
+}
+
+type CouponDetailsType struct {
+
+	// Tattoo + type of the product identifying the coupon.
+	ProductId *ReferenceInfoType `xml:"productId"`
+
+	// Flight Connection Type
+	FlightConnectionType *TravelProductInformationType `xml:"flightConnectionType,omitempty"`  // minOccurs="0"
 }
 
 type CouponInformationDetailsTypeI struct {
@@ -375,6 +417,12 @@ type DiscountAndPenaltyInformationTypeI_6128S struct {
 	PenDisData []*DiscountPenaltyMonetaryInformationTypeI `xml:"penDisData,omitempty"`  // minOccurs="0" maxOccurs="9"
 }
 
+type DiscountPenaltyInformationType struct {
+
+	// Used for codes in the AMADEUS code tables. Code Length is three alphanumeric characters.
+	FareQualifier string `xml:"fareQualifier,omitempty"`  // minOccurs="0"
+}
+
 type DiscountPenaltyInformationTypeI struct {
 
 	// Discount off type.
@@ -417,6 +465,9 @@ type DiscountPenaltyMonetaryInformationTypeI_29792C struct {
 	PenaltyCurrency string `xml:"penaltyCurrency,omitempty"`  // minOccurs="0"
 }
 
+type DummySegmentTypeI struct {
+}
+
 type DutyTaxFeeAccountDetailTypeU struct {
 
 	// Iso country of the tax
@@ -447,10 +498,79 @@ type DutyTaxFeeTypeDetailsTypeU struct {
 	TaxIdentifier string `xml:"taxIdentifier"`
 }
 
+type ErrorGroupType struct {
+
+	// The details of error/warning code.
+	ErrorOrWarningCodeDetails *ApplicationErrorInformationType_84497S `xml:"errorOrWarningCodeDetails"`
+
+	// The desciption of warning or error.
+	ErrorWarningDescription *FreeTextInformationType `xml:"errorWarningDescription,omitempty"`  // minOccurs="0"
+}
+
 type ExcessBaggageTypeI struct {
 
 	// Baggage allowance information details
-	BagAllowanceDetails *BaggageDetailsTypeI `xml:"bagAllowanceDetails"`
+	BagAllowanceDetails *BaggageDetailsTypeI `xml:"bagAllowanceDetails,omitempty"`  // minOccurs="0"
+}
+
+type FareComponentDetailsType struct {
+
+	FareComponentID *ItemNumberType `xml:"fareComponentID"`
+
+	// Market information related to the fare component or to the bound.
+	MarketFareComponent *TravelProductInformationTypeI `xml:"marketFareComponent,omitempty"`  // minOccurs="0"
+
+	// Monetary Information.
+	MonetaryInformation *MonetaryInformationType `xml:"monetaryInformation,omitempty"`  // minOccurs="0"
+
+	// Component Class information
+	ComponentClassInfo *PricingOrTicketingSubsequentType `xml:"componentClassInfo,omitempty"`  // minOccurs="0"
+
+	// Fare Qualifier Detail
+	FareQualifiersDetail *FareQualifierDetailsType `xml:"fareQualifiersDetail,omitempty"`  // minOccurs="0"
+
+	// Details of the fare family used for this fare component
+	FareFamilyDetails *FareFamilyType `xml:"fareFamilyDetails,omitempty"`  // minOccurs="0"
+
+	// Carrier owner of the fare family
+	FareFamilyOwner *TransportIdentifierType_156079S `xml:"fareFamilyOwner,omitempty"`  // minOccurs="0"
+
+	// Used to specify coupons included in the fare component or in the bound.
+	CouponDetailsGroup []*CouponDetailsType `xml:"couponDetailsGroup"`  // maxOccurs="99"
+}
+
+type FareDetailsType struct {
+
+	// fare indicators
+	FareCategory string `xml:"fareCategory,omitempty"`  // minOccurs="0"
+}
+
+type FareFamilyDetailsType struct {
+
+	// Commercial fare Family Short name
+	CommercialFamily string `xml:"commercialFamily"`
+}
+
+type FareFamilyType struct {
+
+	// Fare Family Short Name
+	FareFamilyname string `xml:"fareFamilyname,omitempty"`  // minOccurs="0"
+
+	// HIERARCHICAL ORDER WITHIN FARE FAMILY
+	Hierarchy *int32 `xml:"hierarchy,omitempty"`  // minOccurs="0"
+
+	// Indicates Commercial Fare Family Short names
+	CommercialFamilyDetails []*FareFamilyDetailsType `xml:"commercialFamilyDetails,omitempty"`  // minOccurs="0" maxOccurs="20"
+}
+
+type FareInformationType struct {
+
+	FareDetails *FareDetailsType `xml:"fareDetails,omitempty"`  // minOccurs="0"
+}
+
+type FareQualifierDetailsType struct {
+
+	DiscountDetails []*DiscountPenaltyInformationType `xml:"discountDetails,omitempty"`  // minOccurs="0" maxOccurs="9"
 }
 
 type FareQualifierDetailsTypeI struct {
@@ -465,22 +585,36 @@ type FareQualifierDetailsTypeI struct {
 	ZapOffDetails *DiscountPenaltyInformationTypeI `xml:"zapOffDetails,omitempty"`  // minOccurs="0"
 }
 
-type FormOfPaymentDetailsTypeI struct {
+type FreeTextDetailsType struct {
 
-	// Type of Form Of Payment (Credit card, cash, check...).
-	Type string `xml:"type,omitempty"`  // minOccurs="0"
+	// Format limitations: an..3
+	TextSubjectQualifier string `xml:"textSubjectQualifier"`
 
-	// amount to be charged on this form
-	ChargedAmount *float64 `xml:"chargedAmount,omitempty"`  // minOccurs="0"
+	// Format limitations: an..4
+	InformationType string `xml:"informationType,omitempty"`  // minOccurs="0"
 
-	// It is mandatory if the Form of Payment at pricing was a credit card with a bin number. It may only occur for Credit Card Types.  It is composed of the first 6 bin numbers of the credit card.  Wildcards are not possible.
-	CreditCardNumber string `xml:"creditCardNumber,omitempty"`  // minOccurs="0"
+	// Format limitations: an..3
+	Status string `xml:"status,omitempty"`  // minOccurs="0"
+
+	// Format limitations: an..35
+	CompanyId string `xml:"companyId,omitempty"`  // minOccurs="0"
+
+	// Format limitations: an..3
+	Language string `xml:"language,omitempty"`  // minOccurs="0"
+
+	// Format limitations: an..3
+	Source string `xml:"source"`
+
+	// Format limitations: an..3
+	Encoding string `xml:"encoding"`
 }
 
-type FormOfPaymentTypeI struct {
+type FreeTextInformationType struct {
 
-	// FORM OF PAYMENT DETAILS
-	FormOfPayment []*FormOfPaymentDetailsTypeI `xml:"formOfPayment,omitempty"`  // minOccurs="0" maxOccurs="3"
+	FreeTextDetails *FreeTextDetailsType `xml:"freeTextDetails,omitempty"`  // minOccurs="0"
+
+	// Free text and message sequence numbers of the remarks.
+	FreeText []string `xml:"freeText"`  // maxOccurs="99"
 }
 
 type FreeTextQualificationTypeI struct {
@@ -491,15 +625,9 @@ type FreeTextQualificationTypeI struct {
 
 type InteractiveFreeTextTypeI struct {
 
-	// Free flow text describing the error
-	ErrorFreeText string `xml:"errorFreeText"`
-}
-
-type InteractiveFreeTextTypeI_37809S struct {
-
 	FreeTextQualification *FreeTextQualificationTypeI `xml:"freeTextQualification,omitempty"`  // minOccurs="0"
 
-	// commercial name of the fee suncode. 10 an
+	// Format limitations: an..10
 	FreeText string `xml:"freeText"`
 }
 
@@ -509,25 +637,43 @@ type InteractiveFreeTextTypeI_6759S struct {
 	ErrorFreeText string `xml:"errorFreeText,omitempty"`  // minOccurs="0"
 }
 
+type ItemNumberIdentificationType struct {
+
+	// Item identification: number of the fare component or of the bound.
+	Number string `xml:"number,omitempty"`  // minOccurs="0"
+
+	// Item type: fare component (FC) or bound (BND).
+	Type string `xml:"type,omitempty"`  // minOccurs="0"
+}
+
+type ItemNumberType struct {
+
+	// Item identification: number of the fare component or of the bound.
+	ItemNumberDetails []*ItemNumberIdentificationType `xml:"itemNumberDetails"`  // maxOccurs="99"
+}
+
 type ItemReferencesAndVersionsType struct {
 
 	// Identification details : order number
 	SequenceSection *UniqueIdDescriptionType `xml:"sequenceSection,omitempty"`  // minOccurs="0"
 }
 
-type ItemReferencesAndVersionsType_14908S struct {
+type ItemReferencesAndVersionsType_94584S struct {
 
 	// qualifies the type of the reference used. Code set to define
 	ReferenceType string `xml:"referenceType,omitempty"`  // minOccurs="0"
 
-	// Tattoo number (It is in fact the Tst Display Number)
+	// Tattoo number
 	UniqueReference *int32 `xml:"uniqueReference,omitempty"`  // minOccurs="0"
-
-	// Gives the TST ID number
-	IDDescription *UniqueIdDescriptionType_26102C `xml:"iDDescription,omitempty"`  // minOccurs="0"
 }
 
 type LocationTypeI struct {
+
+	// Format limitations: an..25
+	TrueLocationId string `xml:"trueLocationId,omitempty"`  // minOccurs="0"
+}
+
+type LocationTypeI_47688C struct {
 
 	// Code of the city.
 	CityCode string `xml:"cityCode,omitempty"`  // minOccurs="0"
@@ -537,6 +683,18 @@ type MileageTimeDetailsTypeI struct {
 
 	// mileage total associated to the TST
 	TotalMileage int32 `xml:"totalMileage"`
+}
+
+type MonetaryInformationDetailsType struct {
+
+	// Format limitations: an..3
+	TypeQualifier string `xml:"typeQualifier"`
+
+	// Amount
+	Amount string `xml:"amount,omitempty"`  // minOccurs="0"
+
+	// Currency
+	Currency string `xml:"currency,omitempty"`  // minOccurs="0"
 }
 
 type MonetaryInformationDetailsTypeI struct {
@@ -569,16 +727,43 @@ type MonetaryInformationDetailsTypeI_37257C struct {
 	Location string `xml:"location,omitempty"`  // minOccurs="0"
 }
 
-type MonetaryInformationDetailsTypeI_64230C struct {
+type MonetaryInformationDetailsTypeI_63727C struct {
 
-	// qualifier
+	// Qualifier
 	TypeQualifier string `xml:"typeQualifier"`
 
-	// In case of exempted Fee, this data element does not contain an amount but a text: EXEMPTED.
-	Amount string `xml:"amount"`
+	// Amount
+	Amount string `xml:"amount,omitempty"`  // minOccurs="0"
 
-	// currency of the fee amount
+	// Currency
 	Currency string `xml:"currency,omitempty"`  // minOccurs="0"
+
+	// Location
+	Location string `xml:"location,omitempty"`  // minOccurs="0"
+}
+
+type MonetaryInformationDetailsType_223832C struct {
+
+	// Format limitations: an..3
+	FareDataQualifier string `xml:"fareDataQualifier"`
+
+	// Amount
+	FareAmount string `xml:"fareAmount,omitempty"`  // minOccurs="0"
+
+	// Currency
+	FareCurrency string `xml:"fareCurrency,omitempty"`  // minOccurs="0"
+
+	// location
+	FareLocation string `xml:"fareLocation,omitempty"`  // minOccurs="0"
+}
+
+type MonetaryInformationType struct {
+
+	// Monetary information per fare component
+	MonetaryDetails *MonetaryInformationDetailsType `xml:"monetaryDetails"`
+
+	// Other monetary information per fare component
+	OtherMonetaryDetails []*MonetaryInformationDetailsType `xml:"otherMonetaryDetails,omitempty"`  // minOccurs="0" maxOccurs="19"
 }
 
 type MonetaryInformationTypeI struct {
@@ -598,10 +783,17 @@ type MonetaryInformationTypeI_20897S struct {
 	OtherMonetaryDetails []*MonetaryInformationDetailsTypeI_37257C `xml:"otherMonetaryDetails,omitempty"`  // minOccurs="0" maxOccurs="5"
 }
 
-type MonetaryInformationTypeI_37810S struct {
+type MonetaryInformationTypeI_39230S struct {
 
-	// MON used for a single fee
-	MonetaryDetails *MonetaryInformationDetailsTypeI_64230C `xml:"monetaryDetails"`
+	// Monetary info
+	MonetaryDetails []*MonetaryInformationDetailsTypeI_63727C `xml:"monetaryDetails"`  // maxOccurs="20"
+}
+
+type MonetaryInformationType_187640S struct {
+
+	FareDataMainInformation *MonetaryInformationDetailsType_223832C `xml:"fareDataMainInformation"`
+
+	FareDataSupInformation []*MonetaryInformationDetailsType_223832C `xml:"fareDataSupInformation,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 type OriginAndDestinationDetailsTypeI struct {
@@ -610,13 +802,10 @@ type OriginAndDestinationDetailsTypeI struct {
 	CityCode []string `xml:"cityCode"`  // maxOccurs="2"
 }
 
-type OriginatorIdentificationDetailsTypeI struct {
+type PricingOrTicketingSubsequentType struct {
 
-	// Agent Sign In
-	InHouseIdentification1 string `xml:"inHouseIdentification1,omitempty"`  // minOccurs="0"
-
-	// Tst office ID : It's the TST creation office ID.
-	InHouseIdentification2 string `xml:"inHouseIdentification2,omitempty"`  // minOccurs="0"
+	// RATE OR TARIFF CLASS INFORMATION
+	FareBasisDetails *RateTariffClassInformationType `xml:"fareBasisDetails,omitempty"`  // minOccurs="0"
 }
 
 type PricingTicketingSubsequentTypeI struct {
@@ -629,6 +818,9 @@ type PricingTicketingSubsequentTypeI struct {
 
 	// Fare calculation mode indicator. This indicator specifies the type fare.
 	Fcmi string `xml:"fcmi"`
+
+	// Information of original fare used to create TST. The TST is created from Best Fare ( possible or available).
+	BestFareType string `xml:"bestFareType,omitempty"`  // minOccurs="0"
 }
 
 type ProductIdentificationDetailsTypeI struct {
@@ -636,8 +828,26 @@ type ProductIdentificationDetailsTypeI struct {
 	// OPEN or AIR are the two identifications accepted.  OPEN means the segment described here is an open segment. AIR means that it is a valid AIR segment.
 	Identification string `xml:"identification"`
 
+	// to describe the transportation class.
+	BookingClass string `xml:"bookingClass,omitempty"`  // minOccurs="0"
+
 	// Class of service to use in order to price the extra segment.
 	ClassOfService string `xml:"classOfService,omitempty"`  // minOccurs="0"
+}
+
+type ProductTypeDetailsType struct {
+
+	// TST Connection Type
+	FlightIndicator string `xml:"flightIndicator"`
+}
+
+type RateTariffClassInformationType struct {
+
+	// Fare Basis Code
+	RateTariffClass string `xml:"rateTariffClass,omitempty"`  // minOccurs="0"
+
+	// Ticket Designator
+	OtherRateTariffClass string `xml:"otherRateTariffClass,omitempty"`  // minOccurs="0"
 }
 
 type RateTariffClassInformationTypeI struct {
@@ -646,19 +856,24 @@ type RateTariffClassInformationTypeI struct {
 	TstIndicator string `xml:"tstIndicator"`
 }
 
+type ReferenceInfoType struct {
+
+	ReferenceDetails *ReferencingDetailsType `xml:"referenceDetails"`
+}
+
 type ReferenceInformationTypeI struct {
 
-	// Passenger/segment/TST reference details
+	// Passenger/segment/TST/fare reference details
 	RefDetails []*ReferencingDetailsTypeI `xml:"refDetails,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
-type ReferenceTypeI struct {
+type ReferencingDetailsType struct {
 
-	// In case of query specifies the number of TSTs to get in reply. In case of response specifies the number of TSTs remaining.
-	RemainingInformation *int32 `xml:"remainingInformation,omitempty"`  // minOccurs="0"
+	// Format limitations: an..10
+	Type string `xml:"type"`
 
-	// In case of first query specifies the value of  this field in the last reply. In case of other queries specifies the last reference returned in the previous list. In case of reply specifies the last TST reference of the list. In case of last reply the value of this field set in the first query is sent.
-	RemainingReference string `xml:"remainingReference,omitempty"`  // minOccurs="0"
+	// Format limitations: an..60
+	Value string `xml:"value"`
 }
 
 type ReferencingDetailsTypeI struct {
@@ -668,6 +883,18 @@ type ReferencingDetailsTypeI struct {
 
 	// Passenger/segment/TST/fare tattoo reference number
 	RefNumber *int32 `xml:"refNumber,omitempty"`  // minOccurs="0"
+}
+
+type ReservationControlInformationDetailsTypeI struct {
+
+	// Record locator.
+	ControlNumber string `xml:"controlNumber"`
+}
+
+type ReservationControlInformationTypeI struct {
+
+	// Reservation control information
+	ReservationInformation *ReservationControlInformationDetailsTypeI `xml:"reservationInformation"`
 }
 
 type SelectionDetailsInformationTypeI struct {
@@ -690,21 +917,6 @@ type SpecificDataInformationTypeI struct {
 	DataInformation []*DataInformationTypeI `xml:"dataInformation,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
-type StatusDetailsTypeI struct {
-
-	// Information on TST.
-	TstFlag string `xml:"tstFlag"`
-}
-
-type StatusTypeI struct {
-
-	// Detail on the status of the TST.
-	FirstStatusDetails *StatusDetailsTypeI `xml:"firstStatusDetails"`
-
-	// Other details on the status of the TST.
-	OtherStatusDetails []*StatusDetailsTypeI `xml:"otherStatusDetails,omitempty"`  // minOccurs="0" maxOccurs="20"
-}
-
 type StructuredDateTimeInformationType struct {
 
 	// This data element can be used to provide the semantic of the information provided. Examples : - Impacted period - Departure date - Estimated arrival date and time
@@ -712,15 +924,6 @@ type StructuredDateTimeInformationType struct {
 
 	// Convey date and/or time.
 	DateTime *StructuredDateTimeType `xml:"dateTime,omitempty"`  // minOccurs="0"
-}
-
-type StructuredDateTimeInformationType_14907S struct {
-
-	// This data element can be used to provide the semantic of the information provided. Examples : - Impacted period - Departure date - Estimated arrival date and time
-	BusinessSemantic string `xml:"businessSemantic"`
-
-	// Convey date and/or time.
-	DateTime *StructuredDateTimeType_26100C `xml:"dateTime,omitempty"`  // minOccurs="0"
 }
 
 type StructuredDateTimeType struct {
@@ -735,36 +938,28 @@ type StructuredDateTimeType struct {
 	Day string `xml:"day,omitempty"`  // minOccurs="0"
 }
 
-type StructuredDateTimeType_26100C struct {
-
-	// Year number. The format is a little long for short term usage but it can be reduced by implementation if required.
-	Year *int32 `xml:"year,omitempty"`  // minOccurs="0"
-
-	// Month number in the year ( begins to 1 )
-	Month *int32 `xml:"month,omitempty"`  // minOccurs="0"
-
-	// Day number in the month ( begins to 1 )
-	Day string `xml:"day,omitempty"`  // minOccurs="0"
-}
-
 type TaxDetailsTypeI struct {
 
-	// Format limitations: an..17
-	Rate string `xml:"rate"`
+	// Tax Amount
+	Rate string `xml:"rate,omitempty"`  // minOccurs="0"
 
-	// Format limitations: an..3
+	// ISO code identifying Country
+	CountryCode string `xml:"countryCode,omitempty"`  // minOccurs="0"
+
+	// ISO code identifying currency
 	CurrencyCode string `xml:"currencyCode,omitempty"`  // minOccurs="0"
 
-	// Details applicable to the tax applied to the Carrier Fee.  TX = Tax applies to fee
-	Type []string `xml:"type"`  // maxOccurs="99"
+	// Tax designator code
+	Type string `xml:"type,omitempty"`  // minOccurs="0"
+
+	// tax designator code.
+	SecondType string `xml:"secondType,omitempty"`  // minOccurs="0"
 }
 
 type TaxTypeI struct {
 
-	// type of tax
-	TaxCategory string `xml:"taxCategory,omitempty"`  // minOccurs="0"
-
-	FeeTaxDetails []*TaxDetailsTypeI `xml:"feeTaxDetails"`  // maxOccurs="99"
+	// Tax details
+	TaxDetails []*TaxDetailsTypeI `xml:"taxDetails,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 type TicketNumberDetailsTypeI struct {
@@ -785,19 +980,41 @@ type TicketNumberTypeI struct {
 type TransportIdentifierType struct {
 
 	// Information related to validating carrier.
-	CarrierInformation *CompanyIdentificationTypeI `xml:"carrierInformation"`
+	CarrierInformation *CompanyIdentificationTypeI `xml:"carrierInformation,omitempty"`  // minOccurs="0"
+}
+
+type TransportIdentifierType_156079S struct {
+
+	CompanyIdentification *CompanyIdentificationTypeI_222513C `xml:"companyIdentification,omitempty"`  // minOccurs="0"
+}
+
+type TravelProductInformationType struct {
+
+	BoardPointDetails *LocationTypeI `xml:"boardPointDetails,omitempty"`  // minOccurs="0"
+
+	OffpointDetails *LocationTypeI `xml:"offpointDetails,omitempty"`  // minOccurs="0"
+
+	// TST Connection Type
+	FlightTypeDetails *ProductTypeDetailsType `xml:"flightTypeDetails,omitempty"`  // minOccurs="0"
 }
 
 type TravelProductInformationTypeI struct {
 
-	// departure city code
-	DepartureCity *LocationTypeI `xml:"departureCity,omitempty"`  // minOccurs="0"
+	BoardPointDetails *LocationTypeI `xml:"boardPointDetails,omitempty"`  // minOccurs="0"
 
-	// arrival city code
-	ArrivalCity *LocationTypeI `xml:"arrivalCity,omitempty"`  // minOccurs="0"
+	OffpointDetails *LocationTypeI `xml:"offpointDetails,omitempty"`  // minOccurs="0"
+}
+
+type TravelProductInformationTypeI_26322S struct {
+
+	// City of departure for this extra segment.
+	DepartureCity *LocationTypeI_47688C `xml:"departureCity,omitempty"`  // minOccurs="0"
+
+	// City of arrival for this extra segment.
+	ArrivalCity *LocationTypeI_47688C `xml:"arrivalCity,omitempty"`  // minOccurs="0"
 
 	// Airline detail information of the extra segment.
-	AirlineDetail *CompanyIdentificationTypeI_27116C `xml:"airlineDetail,omitempty"`  // minOccurs="0"
+	AirlineDetail *CompanyIdentificationTypeI `xml:"airlineDetail,omitempty"`  // minOccurs="0"
 
 	// Segment detail information.
 	SegmentDetail *ProductIdentificationDetailsTypeI `xml:"segmentDetail,omitempty"`  // minOccurs="0"
@@ -810,16 +1027,4 @@ type UniqueIdDescriptionType struct {
 
 	// Number specifying the ordering information of the item described within a group.
 	SequenceNumber *int32 `xml:"sequenceNumber,omitempty"`  // minOccurs="0"
-}
-
-type UniqueIdDescriptionType_26102C struct {
-
-	// The TST Id Number : The Id number allows to determine a TST in the single manner.
-	IDSequenceNumber int32 `xml:"iDSequenceNumber"`
-}
-
-type UserIdentificationType struct {
-
-	// Originator Identification Details
-	OriginIdentification *OriginatorIdentificationDetailsTypeI `xml:"originIdentification"`
 }

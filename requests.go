@@ -3,6 +3,7 @@ package amadeus
 import (
 	cc "github.com/tmconsulting/amadeus-ws-go/reqstructs/command_cryptic"
 	diit "github.com/tmconsulting/amadeus-ws-go/reqstructs/docissuance_issueticket"
+	fipwpnr "github.com/tmconsulting/amadeus-ws-go/reqstructs/fare_informativepricingwithoutpnr"
 	fmptbs "github.com/tmconsulting/amadeus-ws-go/reqstructs/fare_masterpricertravelboardsearch"
 	fppwbc "github.com/tmconsulting/amadeus-ws-go/reqstructs/fare_pricepnrwithbookingclass"
 	pame "github.com/tmconsulting/amadeus-ws-go/reqstructs/pnr_addmultielements"
@@ -18,6 +19,7 @@ import (
 
 	ccr "github.com/tmconsulting/amadeus-ws-go/respstructs/command_cryptic_reply"
 	diitr "github.com/tmconsulting/amadeus-ws-go/respstructs/docissuance_issueticket_reply"
+	fipwpnrr "github.com/tmconsulting/amadeus-ws-go/respstructs/fare_informativepricingwithoutpnr_reply"
 	fmptbsr "github.com/tmconsulting/amadeus-ws-go/respstructs/fare_masterpricertravelboardsearch_reply"
 	fppwbcr "github.com/tmconsulting/amadeus-ws-go/respstructs/fare_pricepnrwithbookingclass_reply"
 	pl "github.com/tmconsulting/amadeus-ws-go/respstructs/pnr_list"
@@ -219,6 +221,19 @@ func (service *WebServicesPT) FareMasterPricerTravelBoardSearch(request *fmptbs.
 	soapAction := "FMPTBQ_14_3_1A"
 
 	response := new(fmptbsr.FareMasterPricerTravelBoardSearchReply)
+	session := new(Session)
+	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
+func (service *WebServicesPT) FareInformativePricingWithoutPNR(request *fipwpnr.FareInformativePricingWithoutPNR) (*fipwpnrr.FareInformativePricingWithoutPNRReply, error) {
+	soapAction := "TIPNRQ_12_4_1A"
+
+	response := new(fipwpnrr.FareInformativePricingWithoutPNRReply)
 	session := new(Session)
 	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
 	if err != nil {

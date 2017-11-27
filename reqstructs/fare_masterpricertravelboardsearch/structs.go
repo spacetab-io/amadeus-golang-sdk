@@ -9,7 +9,7 @@ import (
 type FareMasterPricerTravelBoardSearch struct {
 	XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A Fare_MasterPricerTravelBoardSearch"`
 
-	// Number of seats , recommendations.
+	// Number of seats, recommendations.
 	NumberOfUnit *NumberOfUnitsType `xml:"numberOfUnit,omitempty"`  // minOccurs="0"
 
 	// Global options
@@ -980,7 +980,7 @@ type FareFamilyType struct {
 	RefNumber *formats.NumericInteger_Length1To3 `xml:"refNumber,omitempty"`  // minOccurs="0"
 
 	// Fare Family Short Name
-	FareFamilyname formats.AlphaNumericString_Length1To10 `xml:"fareFamilyname,omitempty"`  // minOccurs="0"
+	FareFamilyName formats.AlphaNumericString_Length1To10 `xml:"fareFamilyname,omitempty"`  // minOccurs="0"
 
 	// HIERARCHICAL ORDER WITHIN FARE FAMILY
 	Hierarchy *formats.NumericInteger_Length1To4 `xml:"hierarchy,omitempty"`  // minOccurs="0"

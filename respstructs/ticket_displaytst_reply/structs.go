@@ -1,4 +1,4 @@
-package ticket_display_tst_reply
+package ticket_displaytst_reply
 
 //import "encoding/xml"
 

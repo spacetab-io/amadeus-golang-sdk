@@ -1,4 +1,4 @@
-package ticket_display_tst
+package ticket_displaytst
 
 import (
 	"encoding/xml"

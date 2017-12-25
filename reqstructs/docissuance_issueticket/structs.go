@@ -3,7 +3,7 @@ package docissuance_issueticket
 import (
 	"encoding/xml"
 
-	"github.com/tmconsulting/amadeus-ws-go/formats"
+	"github.com/tmconsulting/amadeus-golang-sdk/formats"
 )
 
 type DocIssuanceIssueTicket struct {

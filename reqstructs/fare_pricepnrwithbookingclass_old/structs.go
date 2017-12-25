@@ -3,7 +3,7 @@ package fare_pricepnrwithbookingclass_old
 import (
 	"encoding/xml"
 
-	"github.com/tmconsulting/amadeus-ws-go/formats"
+	"github.com/tmconsulting/amadeus-golang-sdk/formats"
 )
 
 type FarePricePNRWithBookingClassOld struct {

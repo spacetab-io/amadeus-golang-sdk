@@ -3,7 +3,7 @@ package security_signout
 import (
 	"encoding/xml"
 
-	"github.com/tmconsulting/amadeus-ws-go/formats"
+	"github.com/tmconsulting/amadeus-golang-sdk/formats"
 )
 
 type SecuritySignOut struct {

@@ -15,7 +15,7 @@ The following versions of services are currently implemented:
 * Fare_InformativeBestPricingWithoutPNR (12.4)
 * Fare_InformativePricingWithoutPNR (12.4)
 * Fare_MasterPricerCalendar (14.3, 12.2)
-* Fare_MasterPricerTravelBoardSearch (14.3, 12.3)
+* Fare_MasterPricerTravelBoardSearch (16.3, 14.3, 12.3)
 * Fare_PricePNRWithBookingClass (14.1, 12.4)
 * PNR_AddMultiElements (11.3)
 * PNR_Cancel (11.3)

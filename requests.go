@@ -12,6 +12,7 @@ import (
 	fmpcaq143 "github.com/tmconsulting/amadeus-golang-sdk/reqstructs/fare_masterpricercalendar"
 	fmpcaq122 "github.com/tmconsulting/amadeus-golang-sdk/reqstructs/fare_masterpricercalendar_old"
 	fmptbq143 "github.com/tmconsulting/amadeus-golang-sdk/reqstructs/fare_masterpricertravelboardsearch"
+	fmptbq163 "github.com/tmconsulting/amadeus-golang-sdk/reqstructs/fare_masterpricertravelboardsearch_new"
 	fmptbq123 "github.com/tmconsulting/amadeus-golang-sdk/reqstructs/fare_masterpricertravelboardsearch_old"
 	tpcbrq141 "github.com/tmconsulting/amadeus-golang-sdk/reqstructs/fare_pricepnrwithbookingclass"
 	tpcbrq124 "github.com/tmconsulting/amadeus-golang-sdk/reqstructs/fare_pricepnrwithbookingclass_old"
@@ -41,6 +42,7 @@ import (
 	tipnrr124 "github.com/tmconsulting/amadeus-golang-sdk/respstructs/fare_informativepricingwithoutpnr_reply"
 	fmpcar122 "github.com/tmconsulting/amadeus-golang-sdk/respstructs/fare_masterpricercalendar_old_reply"
 	fmpcar143 "github.com/tmconsulting/amadeus-golang-sdk/respstructs/fare_masterpricercalendar_reply"
+	fmptbr163 "github.com/tmconsulting/amadeus-golang-sdk/respstructs/fare_masterpricertravelboardsearch_new_reply"
 	fmptbr123 "github.com/tmconsulting/amadeus-golang-sdk/respstructs/fare_masterpricertravelboardsearch_old_reply"
 	fmptbr143 "github.com/tmconsulting/amadeus-golang-sdk/respstructs/fare_masterpricertravelboardsearch_reply"
 	tpcbrr124 "github.com/tmconsulting/amadeus-golang-sdk/respstructs/fare_pricepnrwithbookingclass_old_reply"
@@ -193,6 +195,19 @@ func (service *WebServicesPT) FareMasterPricerCalendarOld(request *fmpcaq122.Far
 	return response, nil
 }
 
+func (service *WebServicesPT) FareMasterPricerTravelBoardSearchNew(request *fmptbq163.FareMasterPricerTravelBoardSearch) (*fmptbr163.FareMasterPricerTravelBoardSearchReply, error) {
+	soapAction := "FMPTBQ_16_3_1A"
+
+	response := new(fmptbr163.FareMasterPricerTravelBoardSearchReply)
+	session := new(Session)
+	err := service.client.Call(url+"/"+service.wsap+"/"+soapAction, request, response, session)
+	if err != nil {
+		return nil, err
+	}
+
+	return response, nil
+}
+
 func (service *WebServicesPT) FareMasterPricerTravelBoardSearch(request *fmptbq143.FareMasterPricerTravelBoardSearch) (*fmptbr143.FareMasterPricerTravelBoardSearchReply, error) {
 	soapAction := "FMPTBQ_14_3_1A"
 
@@ -207,7 +222,7 @@ func (service *WebServicesPT) FareMasterPricerTravelBoardSearch(request *fmptbq1
 }
 
 func (service *WebServicesPT) FareMasterPricerTravelBoardSearchOld(request *fmptbq123.FareMasterPricerTravelBoardSearchOld) (*fmptbr123.FareMasterPricerTravelBoardSearchOldReply, error) {
-	soapAction := "FMPTBQ_14_3_1A"
+	soapAction := "FMPTBQ_12_3_1A"
 
 	response := new(fmptbr123.FareMasterPricerTravelBoardSearchOldReply)
 	session := new(Session)

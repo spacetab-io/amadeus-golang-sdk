@@ -6,7 +6,6 @@ import (
 	"encoding/xml"
 	"io/ioutil"
 	"log"
-	"math/rand"
 	"net"
 	"net/http"
 	"time"
@@ -15,21 +14,9 @@ import (
 var timeout = time.Duration(30 * time.Second)
 
 const (
-	// Predefined WSS namespaces to be used in
-	WssNsWSSE string = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
-	WssNsWSU  string = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-	WssNsType string = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText"
-)
-
-// **********
-// Accepted solution from http://stackoverflow.com/questions/22892120/how-to-generate-a-random-string-of-a-fixed-length-in-golang
-// Author: Icza - http://stackoverflow.com/users/1705598/icza
-
-const (
-	letterBytes   = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-	letterIdxBits = 6                    // 6 bits to represent a letter index
-	letterIdxMask = 1<<letterIdxBits - 1 // All 1-bits, as many as letterIdxBits
-	letterIdxMax  = 63 / letterIdxBits   // # of letter indices fitting in 63 bits
+	SoapNs    = "http://schemas.xmlsoap.org/soap/envelope/"
+	XsiNs     = "http://www.w3.org/2001/XMLSchema-instance"
+	XsdNs     = "http://www.w3.org/2001/XMLSchema"
 )
 
 type ResponseSOAPEnvelope struct {
@@ -85,41 +72,6 @@ type SOAPFault struct {
 	Detail string `xml:"detail,omitempty"`
 }
 
-type WSSSecurityHeader struct {
-	XMLName   xml.Name `xml:"http://schemas.xmlsoap.org/soap/envelope/ wsse:Security"`
-	XmlNSWsse string   `xml:"xmlns:wsse,attr"`
-
-	MustUnderstand string `xml:"mustUnderstand,attr,omitempty"`
-
-	Token *WSSUsernameToken `xml:",omitempty"`
-}
-
-type WSSUsernameToken struct {
-	XMLName   xml.Name `xml:"wsse:UsernameToken"`
-	XmlNSWsu  string   `xml:"xmlns:wsu,attr"`
-	XmlNSWsse string   `xml:"xmlns:wsse,attr"`
-
-	Id string `xml:"wsu:Id,attr,omitempty"`
-
-	Username *WSSUsername `xml:",omitempty"`
-	Password *WSSPassword `xml:",omitempty"`
-}
-
-type WSSUsername struct {
-	XMLName   xml.Name `xml:"wsse:Username"`
-	XmlNSWsse string   `xml:"xmlns:wsse,attr"`
-
-	Data string `xml:",chardata"`
-}
-
-type WSSPassword struct {
-	XMLName   xml.Name `xml:"wsse:Password"`
-	XmlNSWsse string   `xml:"xmlns:wsse,attr"`
-	XmlNSType string   `xml:"Type,attr"`
-
-	Data string `xml:",chardata"`
-}
-
 type BasicAuth struct {
 	Login    string
 	Password string
@@ -160,34 +112,6 @@ func (service *WebServicesPT) SetHeader(header interface{}) {
 
 func dialTimeout(network, addr string) (net.Conn, error) {
 	return net.DialTimeout(network, addr, timeout)
-}
-
-func randStringBytesMaskImprSrc(n int) string {
-	src := rand.NewSource(time.Now().UnixNano())
-	b := make([]byte, n)
-	// A src.Int63() generates 63 random bits, enough for letterIdxMax characters!
-	for i, cache, remain := n-1, src.Int63(), letterIdxMax; i >= 0; {
-		if remain == 0 {
-			cache, remain = src.Int63(), letterIdxMax
-		}
-		if idx := int(cache & letterIdxMask); idx < len(letterBytes) {
-			b[i] = letterBytes[idx]
-			i--
-		}
-		cache >>= letterIdxBits
-		remain--
-	}
-	return string(b)
-}
-
-// **********
-
-func NewWSSSecurityHeader(user, pass, mustUnderstand string) *WSSSecurityHeader {
-	hdr := &WSSSecurityHeader{XmlNSWsse: WssNsWSSE, MustUnderstand: mustUnderstand}
-	hdr.Token = &WSSUsernameToken{XmlNSWsu: WssNsWSU, XmlNSWsse: WssNsWSSE, Id: "UsernameToken-" + randStringBytesMaskImprSrc(9)}
-	hdr.Token.Username = &WSSUsername{XmlNSWsse: WssNsWSSE, Data: user}
-	hdr.Token.Password = &WSSPassword{XmlNSWsse: WssNsWSSE, XmlNSType: WssNsType, Data: pass}
-	return hdr
 }
 
 func (b *ResponseSOAPBody) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
@@ -257,10 +181,7 @@ func (s *SOAPClient) AddHeader(header interface{}) {
 }
 
 func (s *SOAPClient) Call(soapAction string, request, response interface{}, session *Session) error {
-	envelope := SOAPEnvelope{}
-	envelope.SOAPAttr = "http://schemas.xmlsoap.org/soap/envelope/"
-	envelope.XSIAttr = "http://www.w3.org/2001/XMLSchema-instance"
-	envelope.XSDAttr = "http://www.w3.org/2001/XMLSchema"
+	envelope := SOAPEnvelope{SOAPAttr: SoapNs, XSIAttr: XsiNs, XSDAttr: XsdNs}
 
 	if s.headers != nil && len(s.headers) > 0 {
 		soapHeader := SOAPHeaderWithSession{Items: make([]interface{}, len(s.headers))}

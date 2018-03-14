@@ -219,12 +219,13 @@ func (s *SOAP4Client) AddHeader(header interface{}) {
 func (s *SOAP4Client) Call(soapAction, messageId string, request, response interface{}, session *Session_v3) (*ResponseSOAP4Header, error) {
 	envelope := RequestSOAP4Envelope{SOAPAttr: soap.SoapNs, XSIAttr: soap.XsiNs, XSDAttr: soap.XsdNs}
 	envelope.Header = &RequsetSOAP4Header{WSAAttr: WasNs, To: s.url, Action: soapAction, MessageId: messageId}
-	if session == nil {
-		session = &Session_v3{TransactionStatusCode: TransactionStatusCode[0]}
+	if session == nil || session.TransactionStatusCode == TransactionStatusCode[0] {
 		envelope.Header.Security = NewWSSSecurityHeader(s.user, s.pass, "")
 		envelope.Header.AMASecurity = NewAMASecurityHostedUser(s.agent)
 	}
-	envelope.Header.Session = &RequestSession_v3{Session_v3: *session}
+	if session != nil {
+		envelope.Header.Session = &RequestSession_v3{Session_v3: *session}
+	}
 
 	envelope.Body.Content = request
 	buffer := new(bytes.Buffer)

@@ -1,4 +1,4 @@
-package amadeus
+package soap2_0
 
 import (
 	"bytes"
@@ -72,15 +72,9 @@ type SOAPFault struct {
 	Detail string `xml:"detail,omitempty"`
 }
 
-type BasicAuth struct {
-	Login    string
-	Password string
-}
-
 type SOAPClient struct {
 	url     string
 	tls     bool
-	auth    *BasicAuth
 	headers []interface{}
 }
 
@@ -89,11 +83,11 @@ type WebServicesPT struct {
 	wsap   string
 }
 
-func NewAmadeusWebServicesPT(url string, tls bool, WSAP string, auth *BasicAuth) *WebServicesPT {
+func NewAmadeusWebServicesPT(url string, tls bool, WSAP string) *WebServicesPT {
 	if url == "" {
 		url = ""
 	}
-	client := NewSOAPClient(url, tls, auth)
+	client := NewSOAPClient(url, tls)
 
 	return &WebServicesPT{
 		client: client,
@@ -168,11 +162,10 @@ func (f *SOAPFault) Error() string {
 	return f.String
 }
 
-func NewSOAPClient(url string, tls bool, auth *BasicAuth) *SOAPClient {
+func NewSOAPClient(url string, tls bool) *SOAPClient {
 	return &SOAPClient{
 		url:  url,
 		tls:  tls,
-		auth: auth,
 	}
 }
 
@@ -180,7 +173,7 @@ func (s *SOAPClient) AddHeader(header interface{}) {
 	s.headers = append(s.headers, header)
 }
 
-func (s *SOAPClient) Call(soapAction string, request, response interface{}, session *Session) error {
+func (s *SOAPClient) Call(soapAction string, query, reply interface{}, session *Session) error {
 	envelope := SOAPEnvelope{SOAPAttr: SoapNs, XSIAttr: XsiNs, XSDAttr: XsdNs}
 
 	if s.headers != nil && len(s.headers) > 0 {
@@ -192,7 +185,7 @@ func (s *SOAPClient) Call(soapAction string, request, response interface{}, sess
 		envelope.Header = soapHeader
 	}
 
-	envelope.Body.Content = request
+	envelope.Body.Content = query
 	buffer := new(bytes.Buffer)
 	buffer.Write([]byte("<?xml version=\"1.0\" encoding=\"utf-8\"?>"))
 
@@ -212,9 +205,6 @@ func (s *SOAPClient) Call(soapAction string, request, response interface{}, sess
 	req, err := http.NewRequest("POST", s.url, buffer)
 	if err != nil {
 		return err
-	}
-	if s.auth != nil {
-		req.SetBasicAuth(s.auth.Login, s.auth.Password)
 	}
 
 	req.Header.Add("Content-Type", "text/xml; charset=\"utf-8\"")
@@ -249,7 +239,7 @@ func (s *SOAPClient) Call(soapAction string, request, response interface{}, sess
 	log.Println(string(rawbody))
 	respEnvelope := new(ResponseSOAPEnvelope)
 	respEnvelope.Header = ResponseSOAPHeaderWithSession{Session: session}
-	respEnvelope.Body = ResponseSOAPBody{Content: response}
+	respEnvelope.Body = ResponseSOAPBody{Content: reply}
 
 	err = xml.Unmarshal(rawbody, respEnvelope)
 	if err != nil {

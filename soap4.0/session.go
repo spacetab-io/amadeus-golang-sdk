@@ -1,7 +1,14 @@
-package wsdl4
+package soap4_0
 
-import (
-	"encoding/xml"
+import "encoding/xml"
+
+const (
+	Start = iota
+	End
+	Rollback
+	InSeries
+	Continuation
+	Subsequent
 )
 
 var TransactionStatusCode = [...]string{

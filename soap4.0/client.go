@@ -1,4 +1,4 @@
-package wsdl4
+package soap4_0
 
 import (
 	"bytes"
@@ -12,7 +12,7 @@ import (
 	"net/http"
 	"time"
 
-	soap "github.com/tmconsulting/amadeus-golang-sdk"
+	soap "github.com/tmconsulting/amadeus-golang-sdk/soap2.0"
 	"github.com/tmconsulting/amadeus-golang-sdk/utils"
 )
 
@@ -176,7 +176,6 @@ type SOAP4Client struct {
 	pass    string
 	agent   string
 	tls     bool
-	auth    *soap.BasicAuth
 	headers []interface{}
 }
 
@@ -185,11 +184,11 @@ type WebServicesPTSOAP4Header struct {
 	//wsap   string
 }
 
-func NewAmadeusWebServicesPTSOAP4Header(url, user, pass, agent string, tls bool, auth *soap.BasicAuth) *WebServicesPTSOAP4Header {
+func NewAmadeusWebServicesPTSOAP4Header(url, user, pass, agent string, tls bool) *WebServicesPTSOAP4Header {
 	if url == "" {
 		url = ""
 	}
-	client := NewSOAP4Client(url, user, pass, agent, tls, auth)
+	client := NewSOAP4Client(url, user, pass, agent, tls)
 
 	return &WebServicesPTSOAP4Header{
 		client: client,
@@ -201,14 +200,13 @@ func dialTimeout(network, addr string) (net.Conn, error) {
 	return net.DialTimeout(network, addr, timeout)
 }
 
-func NewSOAP4Client(url, user, pass, agent string, tls bool, auth *soap.BasicAuth) *SOAP4Client {
+func NewSOAP4Client(url, user, pass, agent string, tls bool) *SOAP4Client {
 	return &SOAP4Client{
 		url:   url,
 		user:  user,
 		pass:  pass,
 		agent: agent,
 		tls:   tls,
-		auth:  auth,
 	}
 }
 
@@ -216,10 +214,10 @@ func (s *SOAP4Client) AddHeader(header interface{}) {
 	s.headers = append(s.headers, header)
 }
 
-func (s *SOAP4Client) Call(soapAction, messageId string, request, response interface{}, session *Session_v3) (*ResponseSOAP4Header, error) {
+func (s *SOAP4Client) Call(soapAction, messageId string, query, reply interface{}, session *Session_v3) (*ResponseSOAP4Header, error) {
 	envelope := RequestSOAP4Envelope{SOAPAttr: soap.SoapNs, XSIAttr: soap.XsiNs, XSDAttr: soap.XsdNs}
 	envelope.Header = &RequsetSOAP4Header{WSAAttr: WasNs, To: s.url, Action: soapAction, MessageId: messageId}
-	if session == nil || session.TransactionStatusCode == TransactionStatusCode[0] {
+	if session == nil || session.TransactionStatusCode == TransactionStatusCode[Start] {
 		envelope.Header.Security = NewWSSSecurityHeader(s.user, s.pass, "")
 		envelope.Header.AMASecurity = NewAMASecurityHostedUser(s.agent)
 	}
@@ -227,7 +225,7 @@ func (s *SOAP4Client) Call(soapAction, messageId string, request, response inter
 		envelope.Header.Session = &RequestSession_v3{Session_v3: *session}
 	}
 
-	envelope.Body.Content = request
+	envelope.Body.Content = query
 	buffer := new(bytes.Buffer)
 	buffer.Write([]byte("<?xml version=\"1.0\" encoding=\"utf-8\"?>"))
 
@@ -247,9 +245,6 @@ func (s *SOAP4Client) Call(soapAction, messageId string, request, response inter
 	req, err := http.NewRequest("POST", s.url, buffer)
 	if err != nil {
 		return nil, err
-	}
-	if s.auth != nil {
-		req.SetBasicAuth(s.auth.Login, s.auth.Password)
 	}
 
 	req.Header.Add("Content-Type", "text/xml; charset=\"utf-8\"")
@@ -283,7 +278,7 @@ func (s *SOAP4Client) Call(soapAction, messageId string, request, response inter
 
 	log.Println(string(rawbody))
 	respEnvelope := new(ResponseSOAP4Envelope)
-	respEnvelope.Body = soap.ResponseSOAPBody{Content: response}
+	respEnvelope.Body = soap.ResponseSOAPBody{Content: reply}
 
 	err = xml.Unmarshal(rawbody, respEnvelope)
 	if err != nil {

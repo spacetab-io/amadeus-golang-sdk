@@ -185,9 +185,7 @@ type WebServicesPTSOAP4Header struct {
 }
 
 func NewAmadeusWebServicesPTSOAP4Header(url, user, pass, agent string, tls bool) *WebServicesPTSOAP4Header {
-	if url == "" {
-		url = ""
-	}
+
 	client := NewSOAP4Client(url, user, pass, agent, tls)
 
 	return &WebServicesPTSOAP4Header{
@@ -195,6 +193,31 @@ func NewAmadeusWebServicesPTSOAP4Header(url, user, pass, agent string, tls bool)
 		//wsap:   wsap,
 	}
 }
+
+func (service *WebServicesPTSOAP4Header) Call(soapAction, messageId string, query, reply interface{}, session *Session_v3) (*ResponseSOAP4Header, error) {
+
+	header, err := service.client.Call(soapAction, messageId, query, reply, session)
+	if err != nil {
+		return header, err
+	}
+
+	return header, nil
+
+}
+
+func (service *WebServicesPTSOAP4Header) AddHeader(header interface{}) {
+	service.client.AddHeader(header)
+}
+
+// Backwards-compatible function: use AddHeader instead
+func (service *WebServicesPTSOAP4Header) SetHeader(header interface{}) {
+	service.client.UpdateHeader(header)
+}
+
+func (service *WebServicesPTSOAP4Header) UpdateHeader(header interface{}) {
+	service.client.UpdateHeader(header)
+}
+
 
 func dialTimeout(network, addr string) (net.Conn, error) {
 	return net.DialTimeout(network, addr, timeout)
@@ -212,6 +235,10 @@ func NewSOAP4Client(url, user, pass, agent string, tls bool) *SOAP4Client {
 
 func (s *SOAP4Client) AddHeader(header interface{}) {
 	s.headers = append(s.headers, header)
+}
+
+func (s *SOAP4Client) UpdateHeader(header interface{}) {
+	s.headers = []interface{}{header}
 }
 
 func (s *SOAP4Client) Call(soapAction, messageId string, query, reply interface{}, session *Session_v3) (*ResponseSOAP4Header, error) {
@@ -276,7 +303,15 @@ func (s *SOAP4Client) Call(soapAction, messageId string, query, reply interface{
 		return nil, nil
 	}
 
-	log.Println(string(rawbody))
+	//log.Println(string(rawbody))
+	var str = ""
+	for _, ch := range rawbody {
+		if ch != 0 && ch != '\r' {
+			str += string(ch)
+		}
+	}
+	log.Println(str)
+
 	respEnvelope := new(ResponseSOAP4Envelope)
 	respEnvelope.Body = soap.ResponseSOAPBody{Content: reply}
 

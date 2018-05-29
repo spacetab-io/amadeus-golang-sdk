@@ -32,3 +32,47 @@ The following versions of services are currently implemented:
 * Ticket_CreditCardCheck (06.1)
 * Ticket_DeleteTST (04.1)
 * Ticket_DisplayTST (07.1)
+
+## Installation
+
+It is go gettable
+
+    $ go get github.com/tmconsulting/amadeus-golang-sdk
+
+```go
+package main
+
+import (
+	amadeusSdk "github.com/tmconsulting/amadeus-golang-sdk"
+)
+...
+```
+
+## Usage examples
+
+There are several usage examples in `./example` folder. Try it out.
+
+## Tests
+
+There are no tests yet. :( Feel free to help us to change this situation!
+
+## Contribution
+
+Contribution, in any kind of way, is highly welcome!
+It doesn't matter if you are not able to write code.
+Creating issues or holding talks and help other people to use 
+[amadeus-golang-sdk](https://github.com/tmconsulting/amadeus-golang-sdk) is contribution, too!
+
+A few examples:
+
+* Correct typos in the README / documentation
+* Reporting bugs
+* Implement a new feature or endpoint
+* Sharing the love if like to use [amadeus-golang-sdk](https://github.com/tmconsulting/amadeus-golang-sdk) and help people 
+to get use to it
+
+If you are new to pull requests, checkout [Collaborating on projects using issues and pull requests / Creating a pull request](https://help.github.com/articles/creating-a-pull-request/).
+
+## License
+
+SDK is released under the [MIT License](./LICENSE).

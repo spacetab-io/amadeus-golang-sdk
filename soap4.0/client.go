@@ -16,7 +16,7 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/utils"
 )
 
-var timeout = time.Duration(30 * time.Second)
+var timeout = time.Duration(20 * time.Second)
 
 const (
 	WasNs    = "http://www.w3.org/2005/08/addressing"
@@ -287,12 +287,30 @@ func (s *SOAP4Client) Call(soapAction, messageId string, query, reply interface{
 		Dial: dialTimeout,
 	}
 
+	numberOfAttempts := 3
+
+	var res *http.Response
 	client := &http.Client{Transport: tr}
-	res, err := client.Do(req)
+	res, err = client.Do(req)
+	for err != nil {
+		if res != nil {
+			res.Body.Close()
+		}
+
+		time.Sleep(3 * time.Second)
+
+		client = &http.Client{Transport: tr}
+		res, err = client.Do(req)
+
+		numberOfAttempts--
+		if numberOfAttempts == 0 {
+			break
+		}
+	}
+	defer res.Body.Close()
 	if err != nil {
 		return nil, err
 	}
-	defer res.Body.Close()
 
 	rawbody, err := ioutil.ReadAll(res.Body)
 	if err != nil {

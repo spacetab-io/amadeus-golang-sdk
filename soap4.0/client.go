@@ -267,7 +267,8 @@ func (s *SOAP4Client) Call(soapAction, messageId string, query, reply interface{
 		return nil, err
 	}
 
-	log.Println(buffer.String())
+	savebuf := buffer.Bytes()
+	log.Println(string(savebuf))
 
 	req, err := http.NewRequest("POST", s.url, buffer)
 	if err != nil {
@@ -290,16 +291,23 @@ func (s *SOAP4Client) Call(soapAction, messageId string, query, reply interface{
 	numberOfAttempts := 3
 
 	var res *http.Response
-	client := &http.Client{Transport: tr}
+	client := &http.Client{
+		Transport: tr,
+		Timeout: timeout,
+	}
 	res, err = client.Do(req)
 	for err != nil {
-		if res != nil {
-			res.Body.Close()
+		time.Sleep(1 * time.Second)
+
+		buffer := new(bytes.Buffer)
+		buffer.Write(savebuf)
+		rc := ioutil.NopCloser(buffer)
+		req.Body = rc  //.(io.ReadCloser)
+
+		client = &http.Client{
+			Transport: tr,
+			Timeout: timeout,
 		}
-
-		time.Sleep(3 * time.Second)
-
-		client = &http.Client{Transport: tr}
 		res, err = client.Do(req)
 
 		numberOfAttempts--
@@ -307,10 +315,10 @@ func (s *SOAP4Client) Call(soapAction, messageId string, query, reply interface{
 			break
 		}
 	}
-	defer res.Body.Close()
 	if err != nil {
 		return nil, err
 	}
+	defer res.Body.Close()
 
 	rawbody, err := ioutil.ReadAll(res.Body)
 	if err != nil {

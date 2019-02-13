@@ -3,12 +3,11 @@ package amadeus_sdk
 import (
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/command/cryptic/v07_3_query"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/command/cryptic/v07_3_reply"
-	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/utils"
-	"gitlab.teamc.io/tm-consulting/tmc24/provider-logs/receiver.git"
+	"github.com/tmconsulting/amadeus-golang-sdk/utils"
 	"strings"
 )
 
-func (client *AmadeusClient) CommandCrypticV073(query *Command_Cryptic_v07_3.CommandCryptic, attr *receiver.LogAttributes) (*Command_CrypticReply_v07_3.CommandCrypticReply, *ResponseSOAP4Header, error) {
+func (client *AmadeusClient) CommandCrypticV073(query *Command_Cryptic_v07_3.CommandCryptic) (*Command_CrypticReply_v07_3.CommandCrypticReply, *ResponseSOAP4Header, error) {
 	var soapAction = "HSFREQ_07_3_1A"
 	var reply = new(Command_CrypticReply_v07_3.CommandCrypticReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))

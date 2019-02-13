@@ -8,8 +8,8 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/pnr/reply/v11_3"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/pnr/retrieve/v11_3_query"
 	//"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/support"
-	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/utils"
-	"gitlab.teamc.io/tm-consulting/tmc24/provider-logs/receiver.git"
+	"github.com/tmconsulting/amadeus-golang-sdk/utils"
+	//"gitlab.teamc.io/tm-consulting/tmc24/provider-logs/receiver.git"
 	"strings"
 )
 
@@ -19,7 +19,7 @@ const (
 	ActInfoFareCheckRules                   = "FARQNQ_07_1_1A"
 )
 
-func (client *AmadeusClient) PNRRetrieveV113(query *PNR_Retrieve_v11_3.PNRRetrieve, attr *receiver.LogAttributes) (*PNR_Reply_v11_3.PNRReply, *ResponseSOAP4Header, error) {
+func (client *AmadeusClient) PNRRetrieveV113(query *PNR_Retrieve_v11_3.PNRRetrieve) (*PNR_Reply_v11_3.PNRReply, *ResponseSOAP4Header, error) {
 	var soapAction = ActInfoPNRRetrieve
 	var reply = new(PNR_Reply_v11_3.PNRReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
@@ -30,7 +30,7 @@ func (client *AmadeusClient) PNRRetrieveV113(query *PNR_Retrieve_v11_3.PNRRetrie
 	return reply, header, nil
 }
 
-func (client *AmadeusClient) FareInformativePricingWithoutPNRv124(query *Fare_InformativePricingWithoutPNR_v12_4.FareInformativePricingWithoutPNR, attr *receiver.LogAttributes) (*Fare_InformativePricingWithoutPNRReply_v12_4.FareInformativePricingWithoutPNRReply, *ResponseSOAP4Header, error) {
+func (client *AmadeusClient) FareInformativePricingWithoutPNRv124(query *Fare_InformativePricingWithoutPNR_v12_4.FareInformativePricingWithoutPNR) (*Fare_InformativePricingWithoutPNRReply_v12_4.FareInformativePricingWithoutPNRReply, *ResponseSOAP4Header, error) {
 	var soapAction = ActInfoFareInformativePricingWithoutPNR
 	var reply = new(Fare_InformativePricingWithoutPNRReply_v12_4.FareInformativePricingWithoutPNRReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
@@ -41,7 +41,7 @@ func (client *AmadeusClient) FareInformativePricingWithoutPNRv124(query *Fare_In
 	return reply, header, nil
 }
 
-func (client *AmadeusClient) FareCheckRulesV071(query *Fare_CheckRules_v07_1.FareCheckRules, attr *receiver.LogAttributes) (*Fare_CheckRulesReply_v07_1.FareCheckRulesReply, *ResponseSOAP4Header, error) {
+func (client *AmadeusClient) FareCheckRulesV071(query *Fare_CheckRules_v07_1.FareCheckRules) (*Fare_CheckRulesReply_v07_1.FareCheckRulesReply, *ResponseSOAP4Header, error) {
 	var soapAction = ActInfoFareCheckRules
 	var reply = new(Fare_CheckRulesReply_v07_1.FareCheckRulesReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))

@@ -9,14 +9,12 @@ import (
 	"fmt"
 	"os"
 
-	//"github.com/tmconsulting/amadeus-golang-sdk/soap4.0"
-	"gitlab.teamc.io/teamc.io/microservice/support/logs-go.git"
 	"io/ioutil"
 	"net"
 	"net/http"
 	"time"
 
-	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/utils"
+	"github.com/tmconsulting/amadeus-golang-sdk/utils"
 )
 
 var timeout = time.Duration(20 * time.Second)
@@ -401,10 +399,6 @@ func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply i
 	rawbody, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		return nil, err
-	}
-	if len(rawbody) == 0 {
-		logs.Log.Error("empty response")
-		return nil, nil
 	}
 
 	//attrResponse := *attr

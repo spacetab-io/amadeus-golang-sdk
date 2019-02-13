@@ -9,9 +9,7 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/ticket/deleteTST/v04_1_reply"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/ticket/displayTST/v07_1_query"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/ticket/displayTST/v07_1_reply"
-	//"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/support"
-	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/utils"
-	"gitlab.teamc.io/tm-consulting/tmc24/provider-logs/receiver.git"
+	"github.com/tmconsulting/amadeus-golang-sdk/utils"
 	"strings"
 )
 
@@ -20,7 +18,7 @@ const (
 	ActVoidTicketCancelDocument           = "TRCANQ_11_1_1A"
 )
 
-func (client *AmadeusClient) SalesReportsDisplayQueryReportV101(query *SalesReports_DisplayQueryReport_v10_1.SalesReportsDisplayQueryReport, attr *receiver.LogAttributes) (*SalesReports_DisplayQueryReportReply_v10_1.SalesReportsDisplayQueryReportReply, *ResponseSOAP4Header, error) {
+func (client *AmadeusClient) SalesReportsDisplayQueryReportV101(query *SalesReports_DisplayQueryReport_v10_1.SalesReportsDisplayQueryReport) (*SalesReports_DisplayQueryReportReply_v10_1.SalesReportsDisplayQueryReportReply, *ResponseSOAP4Header, error) {
 	var soapAction = ActVoidSalesReportsDisplayQueryReport
 	var reply = new(SalesReports_DisplayQueryReportReply_v10_1.SalesReportsDisplayQueryReportReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
@@ -31,7 +29,7 @@ func (client *AmadeusClient) SalesReportsDisplayQueryReportV101(query *SalesRepo
 	return reply, header, nil
 }
 
-func (client *AmadeusClient) TicketCancelDocumentV111(query *Ticket_CancelDocument_v11_1.TicketCancelDocument, attr *receiver.LogAttributes) (*Ticket_CancelDocumentReply_v11_1.TicketCancelDocumentReply, *ResponseSOAP4Header, error) {
+func (client *AmadeusClient) TicketCancelDocumentV111(query *Ticket_CancelDocument_v11_1.TicketCancelDocument) (*Ticket_CancelDocumentReply_v11_1.TicketCancelDocumentReply, *ResponseSOAP4Header, error) {
 	var soapAction = ActVoidTicketCancelDocument
 	var reply = new(Ticket_CancelDocumentReply_v11_1.TicketCancelDocumentReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
@@ -42,7 +40,7 @@ func (client *AmadeusClient) TicketCancelDocumentV111(query *Ticket_CancelDocume
 	return reply, header, nil
 }
 
-func (client *AmadeusClient) TicketDeleteTSTv041(query *Ticket_DeleteTST_v04_1.TicketDeleteTST, attr *receiver.LogAttributes) (*Ticket_DeleteTSTReply_v04_1.TicketDeleteTSTReply, *ResponseSOAP4Header, error) {
+func (client *AmadeusClient) TicketDeleteTSTv041(query *Ticket_DeleteTST_v04_1.TicketDeleteTST) (*Ticket_DeleteTSTReply_v04_1.TicketDeleteTSTReply, *ResponseSOAP4Header, error) {
 	var soapAction = "TTSTDQ_04_1_1A"
 	var reply = new(Ticket_DeleteTSTReply_v04_1.TicketDeleteTSTReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
@@ -53,7 +51,7 @@ func (client *AmadeusClient) TicketDeleteTSTv041(query *Ticket_DeleteTST_v04_1.T
 	return reply, header, nil
 }
 
-func (client *AmadeusClient) TicketDisplayTSTv071(query *Ticket_DisplayTST_v07_1.TicketDisplayTST, attr *receiver.LogAttributes) (*Ticket_DisplayTSTReply_v07_1.TicketDisplayTSTReply, *ResponseSOAP4Header, error) {
+func (client *AmadeusClient) TicketDisplayTSTv071(query *Ticket_DisplayTST_v07_1.TicketDisplayTST) (*Ticket_DisplayTSTReply_v07_1.TicketDisplayTSTReply, *ResponseSOAP4Header, error) {
 	var soapAction = "TTSTRQ_07_1_1A" //TTSTRQ_15_1_1A
 	var reply = new(Ticket_DisplayTSTReply_v07_1.TicketDisplayTSTReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))

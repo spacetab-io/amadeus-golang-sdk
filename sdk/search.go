@@ -3,11 +3,7 @@ package amadeus_sdk
 import (
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/fare/masterPricerTravelBoardSearch/v14_3_query"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/fare/masterPricerTravelBoardSearch/v14_3_reply"
-	//"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/support"
-
-	//"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/support"
-	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/utils"
-	//"gitlab.teamc.io/tm-consulting/tmc24/provider-logs/receiver.git"
+	"github.com/tmconsulting/amadeus-golang-sdk/utils"
 	"strings"
 )
 

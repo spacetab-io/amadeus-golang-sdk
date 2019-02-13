@@ -4,9 +4,7 @@ import (
 	"encoding/xml"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/security/signOut/v04_1_query"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/security/signOut/v04_1_reply"
-	//"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/support"
-	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/utils"
-	"gitlab.teamc.io/tm-consulting/tmc24/provider-logs/receiver.git"
+	"github.com/tmconsulting/amadeus-golang-sdk/utils"
 	"strings"
 )
 
@@ -52,7 +50,7 @@ const (
 	ActSessionSecuritySignOut = "VLSSOQ_04_1_1A"
 )
 
-func (client *AmadeusClient) SecuritySignOutV041(attr *receiver.LogAttributes) (*Security_SignOutReply_v04_1.SecuritySignOutReply, *ResponseSOAP4Header, error) {
+func (client *AmadeusClient) SecuritySignOutV041() (*Security_SignOutReply_v04_1.SecuritySignOutReply, *ResponseSOAP4Header, error) {
 	var soapAction = ActSessionSecuritySignOut
 	var query = new(Security_SignOut_v04_1.SecuritySignOut)
 	var reply = new(Security_SignOutReply_v04_1.SecuritySignOutReply)
@@ -104,14 +102,14 @@ func (client *AmadeusClient) UpdateSession(session *Session) bool {
 	return true
 }
 
-func (client *AmadeusClient) CloseSession(attr *receiver.LogAttributes) (reply *Security_SignOutReply_v04_1.SecuritySignOutReply, err error) {
+func (client *AmadeusClient) CloseSession() (reply *Security_SignOutReply_v04_1.SecuritySignOutReply, err error) {
 	if client == nil || client.service == nil {
 		return
 	}
 	if client.session != nil && client.session.TransactionStatusCode != TransactionStatusCode[End] {
 		var header *ResponseSOAP4Header
 		client.session.TransactionStatusCode = TransactionStatusCode[End]
-		reply, header, err = client.SecuritySignOutV041(attr)
+		reply, header, err = client.SecuritySignOutV041()
 		if err == nil {
 			client.session = nil
 		} else {

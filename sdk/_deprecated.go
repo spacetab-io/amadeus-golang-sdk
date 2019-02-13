@@ -11,7 +11,7 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/ticket/deleteTST/v04_1_reply"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/ticket/displayTST/v07_1_query"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/ticket/displayTST/v07_1_reply"
-	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/utils"
+	"github.com/tmconsulting/amadeus-golang-sdk/utils"
 	"strings"
 )
 

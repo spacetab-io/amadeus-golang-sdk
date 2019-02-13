@@ -10,7 +10,7 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/pnr/reply/v11_3"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/ticket/createTSTFromPricing/v04_1_query"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/ticket/createTSTFromPricing/v04_1_reply"
-	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/support"
+	//"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/support"
 	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/utils"
 	"gitlab.teamc.io/tm-consulting/tmc24/provider-logs/receiver.git"
 	"strings"
@@ -28,8 +28,8 @@ func (client *AmadeusClient) AirSellFromRecommendationV052(query *Air_SellFromRe
 	var soapAction = ActBookAirSellFromRecommendation
 	var reply = new(Air_SellFromRecommendationReply_v05_2.AirSellFromRecommendationReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl+soapAction, messageId, query, reply, client.session, support.AddMethod(attr, soapAction), client)
-	//header, err := client.service.Call(soapUrl+soapAction, messageId, query, reply, client.session)
+	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
+	//header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client.session)
 	if err != nil {
 		return nil, header, err
 	}
@@ -40,7 +40,7 @@ func (client *AmadeusClient) PNRAddMultiElementsV113(query *PNR_AddMultiElements
 	var soapAction = ActBookPNRAddMultiElements
 	var reply = new(PNR_Reply_v11_3.PNRReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl+soapAction, messageId, query, reply, client.session, support.AddMethod(attr, soapAction), client)
+	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
 	if err != nil {
 		return nil, header, err
 	}
@@ -51,7 +51,7 @@ func (client *AmadeusClient) FarePricePNRWithBookingClassV141(query *Fare_PriceP
 	var soapAction = ActBookFarePricePNRWithBookingClass
 	var reply = new(Fare_PricePNRWithBookingClassReply_v14_1.FarePricePNRWithBookingClassReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl+soapAction, messageId, query, reply, client.session, support.AddMethod(attr, soapAction), client)
+	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
 	if err != nil {
 		return nil, header, err
 	}
@@ -62,7 +62,7 @@ func (client *AmadeusClient) TicketCreateTSTFromPricingV041(query *Ticket_Create
 	var soapAction = ActBookTicketCreateTSTFromPricing
 	var reply = new(Ticket_CreateTSTFromPricingReply_v04_1.TicketCreateTSTFromPricingReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl+soapAction, messageId, query, reply, client.session, support.AddMethod(attr, soapAction), client)
+	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
 	if err != nil {
 		return nil, header, err
 	}
@@ -73,7 +73,7 @@ func (client *AmadeusClient) PNRCancelV113(query *PNR_Cancel_v11_3.PNRCancel, at
 	var soapAction = ActBookPNRCancel
 	var reply = new(PNR_Reply_v11_3.PNRReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl+soapAction, messageId, query, reply, client.session, support.AddMethod(attr, soapAction), client)
+	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
 	if err != nil {
 		return nil, header, err
 	}

@@ -7,7 +7,7 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/fare/informativePricingWithoutPNR/v12_4_reply"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/pnr/reply/v11_3"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/pnr/retrieve/v11_3_query"
-	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/support"
+	//"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/support"
 	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/utils"
 	"gitlab.teamc.io/tm-consulting/tmc24/provider-logs/receiver.git"
 	"strings"
@@ -23,7 +23,7 @@ func (client *AmadeusClient) PNRRetrieveV113(query *PNR_Retrieve_v11_3.PNRRetrie
 	var soapAction = ActInfoPNRRetrieve
 	var reply = new(PNR_Reply_v11_3.PNRReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl+soapAction, messageId, query, reply, client.session, support.AddMethod(attr, soapAction), client)
+	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
 	if err != nil {
 		return nil, header, err
 	}
@@ -34,7 +34,7 @@ func (client *AmadeusClient) FareInformativePricingWithoutPNRv124(query *Fare_In
 	var soapAction = ActInfoFareInformativePricingWithoutPNR
 	var reply = new(Fare_InformativePricingWithoutPNRReply_v12_4.FareInformativePricingWithoutPNRReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl+soapAction, messageId, query, reply, client.session, support.AddMethod(attr, soapAction), client)
+	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
 	if err != nil {
 		return nil, header, err
 	}
@@ -45,7 +45,7 @@ func (client *AmadeusClient) FareCheckRulesV071(query *Fare_CheckRules_v07_1.Far
 	var soapAction = ActInfoFareCheckRules
 	var reply = new(Fare_CheckRulesReply_v07_1.FareCheckRulesReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl+soapAction, messageId, query, reply, client.session, support.AddMethod(attr, soapAction), client)
+	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
 	if err != nil {
 		return nil, header, err
 	}

@@ -12,7 +12,7 @@ func (client *AmadeusClient) CommandCrypticV073(query *Command_Cryptic_v07_3.Com
 	var soapAction = "HSFREQ_07_3_1A"
 	var reply = new(Command_CrypticReply_v07_3.CommandCrypticReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl+soapAction, messageId, query, reply, client.session, attr, client)
+	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
 	if err != nil {
 		return nil, header, err
 	}

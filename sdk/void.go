@@ -9,7 +9,7 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/ticket/deleteTST/v04_1_reply"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/ticket/displayTST/v07_1_query"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/ticket/displayTST/v07_1_reply"
-	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/support"
+	//"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/support"
 	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/utils"
 	"gitlab.teamc.io/tm-consulting/tmc24/provider-logs/receiver.git"
 	"strings"
@@ -24,7 +24,7 @@ func (client *AmadeusClient) SalesReportsDisplayQueryReportV101(query *SalesRepo
 	var soapAction = ActVoidSalesReportsDisplayQueryReport
 	var reply = new(SalesReports_DisplayQueryReportReply_v10_1.SalesReportsDisplayQueryReportReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl+soapAction, messageId, query, reply, client.session, support.AddMethod(attr, soapAction), client)
+	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
 	if err != nil {
 		return nil, header, err
 	}
@@ -35,7 +35,7 @@ func (client *AmadeusClient) TicketCancelDocumentV111(query *Ticket_CancelDocume
 	var soapAction = ActVoidTicketCancelDocument
 	var reply = new(Ticket_CancelDocumentReply_v11_1.TicketCancelDocumentReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl+soapAction, messageId, query, reply, client.session, support.AddMethod(attr, soapAction), client)
+	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
 	if err != nil {
 		return nil, header, err
 	}
@@ -46,7 +46,7 @@ func (client *AmadeusClient) TicketDeleteTSTv041(query *Ticket_DeleteTST_v04_1.T
 	var soapAction = "TTSTDQ_04_1_1A"
 	var reply = new(Ticket_DeleteTSTReply_v04_1.TicketDeleteTSTReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl+soapAction, messageId, query, reply, client.session, support.AddMethod(attr, soapAction), client)
+	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
 	if err != nil {
 		return nil, header, err
 	}
@@ -57,7 +57,7 @@ func (client *AmadeusClient) TicketDisplayTSTv071(query *Ticket_DisplayTST_v07_1
 	var soapAction = "TTSTRQ_07_1_1A" //TTSTRQ_15_1_1A
 	var reply = new(Ticket_DisplayTSTReply_v07_1.TicketDisplayTSTReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl+soapAction, messageId, query, reply, client.session, support.AddMethod(attr, soapAction), client)
+	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
 	if err != nil {
 		return nil, header, err
 	}

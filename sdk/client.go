@@ -11,8 +11,6 @@ import (
 
 	//"github.com/tmconsulting/amadeus-golang-sdk/soap4.0"
 	"gitlab.teamc.io/teamc.io/microservice/support/logs-go.git"
-	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/support"
-	"gitlab.teamc.io/tm-consulting/tmc24/provider-logs/receiver.git"
 	"io/ioutil"
 	"net"
 	"net/http"
@@ -276,8 +274,8 @@ func CreateWebServicePTSOAP4Header(url, user, pass, agent string, tls bool) *Web
 	}
 }
 
-func (service *WebServicePT) Call(soapAction, messageId string, query, reply interface{}, session *Session, attr *receiver.LogAttributes, client *AmadeusClient) (header *ResponseSOAP4Header, err error) {
-	header, err = service.client.Call(soapAction, messageId, query, reply, session, attr, client)
+func (service *WebServicePT) Call(soapUrl, soapAction, messageId string, query, reply interface{}, client *AmadeusClient) (header *ResponseSOAP4Header, err error) {
+	header, err = service.client.Call(soapUrl, soapAction, messageId, query, reply, client)
 	return
 }
 
@@ -316,9 +314,10 @@ func (s *SOAP4Client) UpdateHeader(header interface{}) {
 	s.headers = []interface{}{header}
 }
 
-func (s *SOAP4Client) Call(soapAction, messageId string, query, reply interface{}, session *Session, attr *receiver.LogAttributes, cli *AmadeusClient) (*ResponseSOAP4Header, error) {
+func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply interface{}, cli *AmadeusClient) (*ResponseSOAP4Header, error) {
+	session := cli.session
 	envelope := RequestSOAP4Envelope{SOAPAttr: SoapNs, XSIAttr: XsiNs, XSDAttr: XsdNs}
-	envelope.Header = &RequsetSOAP4Header{WSAAttr: WasNs, To: s.url, Action: soapAction, MessageId: messageId}
+	envelope.Header = &RequsetSOAP4Header{WSAAttr: WasNs, To: s.url, Action: soapUrl + soapAction, MessageId: messageId}
 	if session == nil || session.TransactionStatusCode == TransactionStatusCode[Start] {
 		envelope.Header.Security = NewWSSSecurityHeader(s.user, s.pass, "")
 		envelope.Header.AMASecurity = NewAMASecurityHostedUser(s.agent)
@@ -342,7 +341,12 @@ func (s *SOAP4Client) Call(soapAction, messageId string, query, reply interface{
 		return nil, err
 	}
 	savebuf := buffer.Bytes()
-	support.LogsPush(attr, savebuf)
+
+	//support.LogsPush(attr, savebuf)
+	err := cli.Hooks.Fire("log_request", soapAction, string(savebuf))
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to fire hook log_request: %v\n", err)
+	}
 
 	req, err := http.NewRequest("POST", s.url, buffer)
 	if err != nil {
@@ -350,7 +354,7 @@ func (s *SOAP4Client) Call(soapAction, messageId string, query, reply interface{
 	}
 
 	req.Header.Add("Content-Type", "text/xml; charset=\"utf-8\"")
-	req.Header.Add("SOAPAction", soapAction)
+	req.Header.Add("SOAPAction", soapUrl+soapAction)
 
 	req.Header.Set("User-Agent", "connector_amadeus-go/0.2")
 	req.Close = true
@@ -403,13 +407,12 @@ func (s *SOAP4Client) Call(soapAction, messageId string, query, reply interface{
 		return nil, nil
 	}
 
-	attrResponse := *attr
-	attrResponse.Layer = receiver.Layer4
-	support.LogsPush(&attrResponse, rawbody)
-
-	err = cli.Hooks.Fire("test666", string(rawbody))
+	//attrResponse := *attr
+	//attrResponse.Layer = receiver.Layer4
+	//support.LogsPush(&attrResponse, rawbody)
+	err = cli.Hooks.Fire("log_response", soapAction, string(rawbody))
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to fire hook: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Failed to fire hook log_response: %v\n", err)
 	}
 
 	respEnvelope := new(ResponseSOAP4Envelope)

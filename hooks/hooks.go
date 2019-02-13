@@ -8,7 +8,7 @@ package hooks
 
 type Hook interface {
 	Levels() []string
-	Fire(string) error
+	Fire(string, string, string) error
 }
 
 // Internal type for storing the hooks on a logger instance.
@@ -28,9 +28,9 @@ func (hooks LevelHooks) Add(hook Hook) {
 
 // Fire all the hooks for the passed level. Used by `entry.log` to fire
 // appropriate hooks for a log entry.
-func (hooks LevelHooks) Fire(level string, entry string) error {
+func (hooks LevelHooks) Fire(level string, soapAction string, entry string) error {
 	for _, hook := range hooks[level] {
-		if err := hook.Fire(entry); err != nil {
+		if err := hook.Fire(level, soapAction, entry); err != nil {
 			return err
 		}
 	}

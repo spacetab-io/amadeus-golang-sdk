@@ -4,7 +4,7 @@ import (
 	"encoding/xml"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/security/signOut/v04_1_query"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/security/signOut/v04_1_reply"
-	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/support"
+	//"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/support"
 	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/utils"
 	"gitlab.teamc.io/tm-consulting/tmc24/provider-logs/receiver.git"
 	"strings"
@@ -57,7 +57,7 @@ func (client *AmadeusClient) SecuritySignOutV041(attr *receiver.LogAttributes) (
 	var query = new(Security_SignOut_v04_1.SecuritySignOut)
 	var reply = new(Security_SignOutReply_v04_1.SecuritySignOutReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl+soapAction, messageId, query, reply, client.session, support.AddMethod(attr, soapAction), client)
+	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
 	if err != nil {
 		return nil, header, err
 	}

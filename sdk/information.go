@@ -7,9 +7,7 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/fare/informativePricingWithoutPNR/v12_4_reply"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/pnr/reply/v11_3"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/pnr/retrieve/v11_3_query"
-	//"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/support"
 	"github.com/tmconsulting/amadeus-golang-sdk/utils"
-	//"gitlab.teamc.io/tm-consulting/tmc24/provider-logs/receiver.git"
 	"strings"
 )
 

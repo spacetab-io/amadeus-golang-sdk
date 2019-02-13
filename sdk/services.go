@@ -2,15 +2,14 @@ package amadeus_sdk
 
 import (
 	"github.com/tmconsulting/amadeus-golang-sdk/hooks"
-	app "gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/config"
 )
 
 var soapUrl = "http://webservices.amadeus.com/WSAP/"
 
-func CreateAmadeusClient(officeId string) *AmadeusClient {
+func CreateAmadeusClient(url, originator, passwordRaw, officeId string) *AmadeusClient {
 	var client = new(AmadeusClient)
-	var url, originator, passwordRaw = app.GetAmadeusClientData()
 	client.service = CreateWebServicePTSOAP4Header(url, originator, passwordRaw, officeId, true)
+	//client.service = soap4.NewAmadeusWebServicesPTSOAP4Header(url, originator, passwordRaw, officeId, true)
 	client.session = CreateSession()
 	client.Hooks = make(hooks.LevelHooks)
 	return client

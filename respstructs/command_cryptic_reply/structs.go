@@ -1,27 +1,34 @@
 package command_cryptic_reply
 
-import "encoding/xml"
+//import "encoding/xml"
 
 type CommandCrypticReply struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/HSFRES_07_3_1A Command_CrypticReply"`
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/HSFRES_07_3_1A Command_CrypticReply"`
 
-	MessageActionDetails *MessageActionDetails `xml:"messageActionDetails,omitempty"`
+	MessageActionDetails *MessageActionDetails `xml:"messageActionDetails,omitempty"`  // minOccurs="0"
 
-	LongTextString *LongTextString `xml:"longTextString,omitempty"`
+	LongTextString *LongTextString `xml:"longTextString"`
 }
 
 type MessageActionDetails struct {
-	MessageFunctionDetails *MessageFunctionDetails `xml:"messageFunctionDetails,omitempty"`
 
-	ResponseType string `xml:"responseType,omitempty"`
+	MessageFunctionDetails *MessageFunctionDetails `xml:"messageFunctionDetails"`
+
+	// Format limitations: an..3
+	ResponseType string `xml:"responseType,omitempty"`  // minOccurs="0"
 }
 
 type MessageFunctionDetails struct {
-	BusinessFunction string `xml:"businessFunction,omitempty"`
 
-	MessageFunction string `xml:"messageFunction,omitempty"`
+	// Format limitations: an..3
+	BusinessFunction string `xml:"businessFunction,omitempty"`  // minOccurs="0"
+
+	// Format limitations: an..3
+	MessageFunction string `xml:"messageFunction"`
 }
 
 type LongTextString struct {
-	TextStringDetails string `xml:"textStringDetails,omitempty"`
+
+	// Format limitations: an..9999
+	TextStringDetails string `xml:"textStringDetails"`
 }

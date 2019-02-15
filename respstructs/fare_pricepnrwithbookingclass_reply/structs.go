@@ -1,1054 +1,1030 @@
 package fare_pricepnrwithbookingclass_reply
 
-import (
-	"encoding/xml"
-
-	"github.com/tmconsulting/amadeus-ws-go/formats"
-)
+//import "encoding/xml"
 
 type FarePricePNRWithBookingClassReply struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A Fare_PricePNRWithBookingClassReply"`
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_14_1_1A Fare_PricePNRWithBookingClassReply"`
 
-	ApplicationError *ErrorGroupType `xml:"applicationError,omitempty"`
+	ApplicationError *ErrorGroupType `xml:"applicationError,omitempty"`  // minOccurs="0"
 
 	// PNR record locator information for this transaction. This PNR record locator is used for tracing purpose.
-	PnrLocatorData *ReservationControlInformationTypeI `xml:"pnrLocatorData,omitempty"`
+	PnrLocatorData *ReservationControlInformationTypeI `xml:"pnrLocatorData,omitempty"`  // minOccurs="0"
 
-	FareList *FareList `xml:"fareList,omitempty"`
+	FareList []*FareList `xml:"fareList,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 type FareList struct {
+
 	// Pricing information such as pricing rule and sales indicator.
-	PricingInformation *PricingTicketingSubsequentTypeI `xml:"pricingInformation,omitempty"`
+	PricingInformation *PricingTicketingSubsequentTypeI `xml:"pricingInformation"`
 
 	// Fare reference number. Ordering information is not relevant here.
-	FareReference *ItemReferencesAndVersionsType_94584S `xml:"fareReference,omitempty"`
+	FareReference *ItemReferencesAndVersionsType_94584S `xml:"fareReference"`
 
 	// Fare Indicators
-	FareIndicators *FareInformationType `xml:"fareIndicators,omitempty"`
+	FareIndicators *FareInformationType `xml:"fareIndicators,omitempty"`  // minOccurs="0"
 
 	// Last date to ticket the fare.
-	LastTktDate *StructuredDateTimeInformationType `xml:"lastTktDate,omitempty"`
+	LastTktDate *StructuredDateTimeInformationType `xml:"lastTktDate,omitempty"`  // minOccurs="0"
 
 	// Validating carrier identification.
-	ValidatingCarrier *TransportIdentifierType `xml:"validatingCarrier,omitempty"`
+	ValidatingCarrier *TransportIdentifierType `xml:"validatingCarrier,omitempty"`  // minOccurs="0"
 
 	// Passenger/segment association of the fare is specified here.
-	PaxSegReference *ReferenceInformationTypeI `xml:"paxSegReference,omitempty"`
+	PaxSegReference *ReferenceInformationTypeI `xml:"paxSegReference"`
 
-	FareDataInformation *MonetaryInformationType `xml:"fareDataInformation,omitempty"`
+	FareDataInformation *MonetaryInformationType_187640S `xml:"fareDataInformation,omitempty"`  // minOccurs="0"
 
-	TaxInformation *TaxInformation `xml:"taxInformation,omitempty"`
+	TaxInformation []*TaxInformation `xml:"taxInformation,omitempty"`  // minOccurs="0" maxOccurs="120"
 
 	// Banker's rates are used to convert amounts of the TST (converts base fare to equivalent fare) 1st C661 : 1st bankers' rate which is a percentage (no currency) 2nd C661 : 2nd bankers' rate which is currency+amount.
-	BankerRates *ConversionRateTypeI `xml:"bankerRates,omitempty"`
+	BankerRates *ConversionRateTypeI `xml:"bankerRates,omitempty"`  // minOccurs="0"
 
-	PassengerInformation *PassengerInformation `xml:"passengerInformation,omitempty"`
+	PassengerInformation []*PassengerInformation `xml:"passengerInformation,omitempty"`  // minOccurs="0" maxOccurs="99"
+
 	// Origin and destination of the fare. 1st C3225 occurence : origin city. 2nd C3225 occurence : destination city
-	OriginDestination *OriginAndDestinationDetailsTypeI `xml:"originDestination,omitempty"`
+	OriginDestination *OriginAndDestinationDetailsTypeI `xml:"originDestination,omitempty"`  // minOccurs="0"
 
-	SegmentInformation *SegmentInformation `xml:"segmentInformation,omitempty"`
+	SegmentInformation []*SegmentInformation `xml:"segmentInformation,omitempty"`  // minOccurs="0" maxOccurs="96"
 
 	// Other pricing information such as endorsement, tour name...
-	OtherPricingInfo *CodedAttributeType_39223S `xml:"otherPricingInfo,omitempty"`
+	OtherPricingInfo []*CodedAttributeType_39223S `xml:"otherPricingInfo,omitempty"`  // minOccurs="0" maxOccurs="99"
 
-	WarningInformation *WarningInformation `xml:"warningInformation,omitempty"`
+	WarningInformation []*WarningInformation `xml:"warningInformation,omitempty"`  // minOccurs="0" maxOccurs="99"
 
-	AutomaticReissueInfo *AutomaticReissueInfo `xml:"automaticReissueInfo,omitempty"`
+	AutomaticReissueInfo *AutomaticReissueInfo `xml:"automaticReissueInfo,omitempty"`  // minOccurs="0"
 
 	// Corporate number
-	CorporateInfo *CorporateFareInformationType `xml:"corporateInfo,omitempty"`
+	CorporateInfo *CorporateFareInformationType `xml:"corporateInfo,omitempty"`  // minOccurs="0"
 
-	FeeBreakdown *FeeBreakdown `xml:"feeBreakdown,omitempty"`
+	FeeBreakdown []*FeeBreakdown `xml:"feeBreakdown,omitempty"`  // minOccurs="0" maxOccurs="9"
 
 	// convey the mileage information
-	Mileage *AdditionalProductDetailsTypeI `xml:"mileage,omitempty"`
+	Mileage *AdditionalProductDetailsTypeI `xml:"mileage,omitempty"`  // minOccurs="0"
 
-	FareComponentDetailsGroup *FareComponentDetailsType `xml:"fareComponentDetailsGroup,omitempty"`
+	// Details at fare component or at bound level.
+	FareComponentDetailsGroup []*FareComponentDetailsType `xml:"fareComponentDetailsGroup,omitempty"`  // minOccurs="0" maxOccurs="99"
 
-	EndFareList *DummySegmentTypeI `xml:"endFareList,omitempty"`
+	EndFareList *DummySegmentTypeI `xml:"endFareList"`
 }
 
 type TaxInformation struct {
+
 	// Tax details
-	TaxDetails *DutyTaxFeeDetailsTypeU `xml:"taxDetails,omitempty"`
+	TaxDetails *DutyTaxFeeDetailsTypeU `xml:"taxDetails"`
 
 	// Amount details. If the tax is a passenger facility charge (PFC) the detail of the airports related taxes is given here.
-	AmountDetails *MonetaryInformationTypeI `xml:"amountDetails,omitempty"`
+	AmountDetails *MonetaryInformationTypeI `xml:"amountDetails,omitempty"`  // minOccurs="0"
 }
 
 type PassengerInformation struct {
+
 	// Penalty/discount details specified in the request.
-	PenDisInformation *DiscountAndPenaltyInformationTypeI_6128S `xml:"penDisInformation,omitempty"`
+	PenDisInformation *DiscountAndPenaltyInformationTypeI_6128S `xml:"penDisInformation"`
 
 	// Reference of passengers that have a type code.
-	PassengerReference *ReferenceInformationTypeI `xml:"passengerReference,omitempty"`
+	PassengerReference *ReferenceInformationTypeI `xml:"passengerReference,omitempty"`  // minOccurs="0"
 }
 
 type SegmentInformation struct {
+
 	// Connection information.
-	ConnexInformation *ConnectionTypeI `xml:"connexInformation,omitempty"`
+	ConnexInformation *ConnectionTypeI `xml:"connexInformation"`
 
 	// Details on open segments added to the price calculation. These open segments exist only in the fare calculated, they have no equivalent in the PNR itinerary. This segment gives also information on booking class for best buy transactions.
-	SegDetails *TravelProductInformationTypeI_26322S `xml:"segDetails,omitempty"`
+	SegDetails *TravelProductInformationTypeI_26322S `xml:"segDetails,omitempty"`  // minOccurs="0"
 
 	// Fare basis information
-	FareQualifier *FareQualifierDetailsTypeI `xml:"fareQualifier,omitempty"`
+	FareQualifier *FareQualifierDetailsTypeI `xml:"fareQualifier,omitempty"`  // minOccurs="0"
 
 	// Validity information for this fare
-	ValidityInformation *StructuredDateTimeInformationType `xml:"validityInformation,omitempty"`
+	ValidityInformation []*StructuredDateTimeInformationType `xml:"validityInformation,omitempty"`  // minOccurs="0" maxOccurs="2"
 
 	// Baggage allowance information
-	BagAllowanceInformation *ExcessBaggageTypeI `xml:"bagAllowanceInformation,omitempty"`
+	BagAllowanceInformation *ExcessBaggageTypeI `xml:"bagAllowanceInformation,omitempty"`  // minOccurs="0"
 
 	// Reference of the segment associated to the group.
-	SegmentReference *ReferenceInformationTypeI `xml:"segmentReference,omitempty"`
+	SegmentReference *ReferenceInformationTypeI `xml:"segmentReference,omitempty"`  // minOccurs="0"
 
 	// The segment order in the pricing response can be different than the one of the PNR itinerary (segments are reordered at price calculation time). This order inform,ation is conveyed by the sequence number. If this order information is not present then the order is by default the one of the PNR.
-	SequenceInformation *ItemReferencesAndVersionsType `xml:"sequenceInformation,omitempty"`
+	SequenceInformation *ItemReferencesAndVersionsType `xml:"sequenceInformation,omitempty"`  // minOccurs="0"
 }
 
 type WarningInformation struct {
+
 	// Fare warning information code.
-	WarningCode *ApplicationErrorInformationType `xml:"warningCode,omitempty"`
+	WarningCode *ApplicationErrorInformationType `xml:"warningCode"`
 
 	// Description in free flow text of the warning concerning the fare.
-	WarningText *InteractiveFreeTextTypeI_6759S `xml:"warningText,omitempty"`
+	WarningText *InteractiveFreeTextTypeI_6759S `xml:"warningText,omitempty"`  // minOccurs="0"
 }
 
 type AutomaticReissueInfo struct {
+
 	// This segment contains the original ticket number.
-	TicketInfo *TicketNumberTypeI `xml:"ticketInfo,omitempty"`
+	TicketInfo *TicketNumberTypeI `xml:"ticketInfo"`
 
 	// This segment contains the coupon number (in absolute) corresponding to the first coupon for use from the last flawn segment.
-	CouponInfo *CouponInformationTypeI `xml:"couponInfo,omitempty"`
+	CouponInfo *CouponInformationTypeI `xml:"couponInfo"`
 
-	PaperCouponRange *PaperCouponRange `xml:"paperCouponRange,omitempty"`
+	PaperCouponRange *PaperCouponRange `xml:"paperCouponRange,omitempty"`  // minOccurs="0"
 
 	// Base fare Information
-	BaseFareInfo *MonetaryInformationTypeI_20897S `xml:"baseFareInfo,omitempty"`
+	BaseFareInfo *MonetaryInformationTypeI_20897S `xml:"baseFareInfo"`
 
-	FirstDpiGroup *FirstDpiGroup `xml:"firstDpiGroup,omitempty"`
+	FirstDpiGroup *FirstDpiGroup `xml:"firstDpiGroup"`
 
-	SecondDpiGroup *SecondDpiGroup `xml:"secondDpiGroup,omitempty"`
+	SecondDpiGroup *SecondDpiGroup `xml:"secondDpiGroup"`
 
 	// this segment conveys specific reissue attributes like Revalidation flag.
-	ReissueAttributes *CodedAttributeType `xml:"reissueAttributes,omitempty"`
+	ReissueAttributes *CodedAttributeType `xml:"reissueAttributes,omitempty"`  // minOccurs="0"
 }
 
 type PaperCouponRange struct {
+
 	// This segment contains the original ticket number.
-	TicketInfo *TicketNumberTypeI `xml:"ticketInfo,omitempty"`
+	TicketInfo *TicketNumberTypeI `xml:"ticketInfo"`
 
 	// This segment contains the coupon number (in absolute) corresponding to the first coupon for use from the last flawn segment.
-	CouponInfo *CouponInformationTypeI `xml:"couponInfo,omitempty"`
+	CouponInfo *CouponInformationTypeI `xml:"couponInfo"`
 }
 
 type FirstDpiGroup struct {
+
 	// Penalty amount in reissue currency
-	ReIssuePenalty *DiscountAndPenaltyInformationTypeI `xml:"reIssuePenalty,omitempty"`
+	ReIssuePenalty *DiscountAndPenaltyInformationTypeI `xml:"reIssuePenalty"`
 
 	// Reissue Informations
-	ReissueInfo *MonetaryInformationTypeI_20897S `xml:"reissueInfo,omitempty"`
+	ReissueInfo *MonetaryInformationTypeI_20897S `xml:"reissueInfo"`
 
 	// Old Tax informations
-	OldTaxInfo *MonetaryInformationTypeI_20897S `xml:"oldTaxInfo,omitempty"`
+	OldTaxInfo *MonetaryInformationTypeI_20897S `xml:"oldTaxInfo"`
 
 	// Balance Reissue Informations
-	ReissueBalanceInfo *MonetaryInformationTypeI_20897S `xml:"reissueBalanceInfo,omitempty"`
+	ReissueBalanceInfo *MonetaryInformationTypeI_20897S `xml:"reissueBalanceInfo"`
 }
 
 type SecondDpiGroup struct {
+
 	// Discount and penalty info.
-	Penalty *DiscountAndPenaltyInformationTypeI `xml:"penalty,omitempty"`
+	Penalty *DiscountAndPenaltyInformationTypeI `xml:"penalty"`
 
 	// Residual Value information
-	ResidualValueInfo *MonetaryInformationTypeI_20897S `xml:"residualValueInfo,omitempty"`
+	ResidualValueInfo *MonetaryInformationTypeI_20897S `xml:"residualValueInfo"`
 
 	// Old Tax informations
-	OldTaxInfo *MonetaryInformationTypeI_20897S `xml:"oldTaxInfo,omitempty"`
+	OldTaxInfo *MonetaryInformationTypeI_20897S `xml:"oldTaxInfo"`
 
 	// Balance issue Informations
-	IssueBalanceInfo *MonetaryInformationTypeI_20897S `xml:"issueBalanceInfo,omitempty"`
+	IssueBalanceInfo *MonetaryInformationTypeI_20897S `xml:"issueBalanceInfo"`
 }
 
 type FeeBreakdown struct {
-	// Nature of the fee (OB, OC)
-	FeeType *SelectionDetailsTypeI `xml:"feeType,omitempty"`
 
-	FeeDetails *FeeDetails `xml:"feeDetails,omitempty"`
+	// Nature of the fee (OB, OC)
+	FeeType *SelectionDetailsTypeI `xml:"feeType"`
+
+	FeeDetails []*FeeDetails `xml:"feeDetails,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 type FeeDetails struct {
+
 	// Fee information
-	FeeInfo *SpecificDataInformationTypeI `xml:"feeInfo,omitempty"`
+	FeeInfo *SpecificDataInformationTypeI `xml:"feeInfo"`
 
 	// Attributes of this fee (commercial description)
-	FeeDescription *InteractiveFreeTextTypeI `xml:"feeDescription,omitempty"`
+	FeeDescription *InteractiveFreeTextTypeI `xml:"feeDescription,omitempty"`  // minOccurs="0"
 
 	// Fee associated amounts: amount with/without tax, total tax amount
-	FeeAmounts *MonetaryInformationTypeI_39230S `xml:"feeAmounts,omitempty"`
+	FeeAmounts *MonetaryInformationTypeI_39230S `xml:"feeAmounts,omitempty"`  // minOccurs="0"
 
 	// taxes related to this fee
-	FeeTaxes *TaxTypeI `xml:"feeTaxes,omitempty"`
+	FeeTaxes []*TaxTypeI `xml:"feeTaxes,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
+//
+// Complex structs
+//
+
 type AdditionalFareQualifierDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A AdditionalFareQualifierDetailsTypeI"`
 
 	// Primary code of the fare basis. This is not a codeset but a free flow text field.
-	PrimaryCode formats.AlphaNumericString_Length1To3 `xml:"primaryCode,omitempty"`
+	PrimaryCode string `xml:"primaryCode,omitempty"`  // minOccurs="0"
 
 	// Fare basis code of the fare basis. This is not a codeset but a free flow text field.
-	FareBasisCode formats.AlphaNumericString_Length1To6 `xml:"fareBasisCode,omitempty"`
+	FareBasisCode string `xml:"fareBasisCode,omitempty"`  // minOccurs="0"
 
 	// Ticket designator of the fare basis
-	TicketDesignator formats.AlphaNumericString_Length1To6 `xml:"ticketDesignator,omitempty"`
+	TicketDesignator string `xml:"ticketDesignator,omitempty"`  // minOccurs="0"
 
 	// For any query : discount ticket designator to be assigned by Fare Quote server. For any response : priced PTCs
-	DiscTktDesignator formats.AlphaNumericString_Length1To11 `xml:"discTktDesignator,omitempty"`
+	DiscTktDesignator string `xml:"discTktDesignator,omitempty"`  // minOccurs="0"
 }
 
 type AdditionalProductDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A AdditionalProductDetailsTypeI"`
 
-	MileageTimeDetails *MileageTimeDetailsTypeI `xml:"mileageTimeDetails,omitempty"`
+	MileageTimeDetails *MileageTimeDetailsTypeI `xml:"mileageTimeDetails,omitempty"`  // minOccurs="0"
 }
 
 type ApplicationErrorDetailType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ApplicationErrorDetailType"`
 
 	// Code identifying the data validation error condition.
-	ErrorCode formats.AlphaNumericString_Length1To5 `xml:"errorCode,omitempty"`
+	ErrorCode string `xml:"errorCode"`
 
 	// Identification of a code list.
-	ErrorCategory formats.AlphaNumericString_Length1To3 `xml:"errorCategory,omitempty"`
+	ErrorCategory string `xml:"errorCategory,omitempty"`  // minOccurs="0"
 
 	// Code identifying the agency responsible for a code list.
-	ErrorCodeOwner formats.AlphaNumericString_Length1To3 `xml:"errorCodeOwner,omitempty"`
+	ErrorCodeOwner string `xml:"errorCodeOwner,omitempty"`  // minOccurs="0"
 }
 
 type ApplicationErrorDetailType_48648C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ApplicationErrorDetailType_48648C"`
 
 	// Code identifying the data validation error condition.
-	ApplicationErrorCode formats.AlphaNumericString_Length1To5 `xml:"applicationErrorCode,omitempty"`
+	ApplicationErrorCode string `xml:"applicationErrorCode"`
 
 	// Identification of a code list.
-	CodeListQualifier formats.AlphaNumericString_Length1To3 `xml:"codeListQualifier,omitempty"`
+	CodeListQualifier string `xml:"codeListQualifier,omitempty"`  // minOccurs="0"
 
 	// Code identifying the agency responsible for a code list.
-	CodeListResponsibleAgency formats.AlphaNumericString_Length1To3 `xml:"codeListResponsibleAgency,omitempty"`
+	CodeListResponsibleAgency string `xml:"codeListResponsibleAgency,omitempty"`  // minOccurs="0"
 }
 
 type ApplicationErrorInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ApplicationErrorInformationType"`
 
 	// Application error details.
-	ApplicationErrorDetail *ApplicationErrorDetailType_48648C `xml:"applicationErrorDetail,omitempty"`
+	ApplicationErrorDetail *ApplicationErrorDetailType_48648C `xml:"applicationErrorDetail"`
 }
 
 type ApplicationErrorInformationType_84497S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ApplicationErrorInformationType_84497S"`
 
 	// Application error details.
-	ErrorDetails *ApplicationErrorDetailType `xml:"errorDetails,omitempty"`
+	ErrorDetails *ApplicationErrorDetailType `xml:"errorDetails"`
 }
 
 type BaggageDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A BaggageDetailsTypeI"`
 
 	// Baggage allowance quantity (piece concept)
-	BaggageQuantity formats.NumericInteger_Length1To1 `xml:"baggageQuantity,omitempty"`
+	BaggageQuantity *int32 `xml:"baggageQuantity,omitempty"`  // minOccurs="0"
 
 	// Baggage allowance weight
-	BaggageWeight formats.NumericInteger_Length1To2 `xml:"baggageWeight,omitempty"`
+	BaggageWeight *int32 `xml:"baggageWeight,omitempty"`  // minOccurs="0"
 
 	// Baggage allowance type (weight/number)
-	BaggageType formats.AlphaNumericString_Length1To3 `xml:"baggageType,omitempty"`
+	BaggageType string `xml:"baggageType,omitempty"`  // minOccurs="0"
 
 	// Measurement unit for weighing baggage allowance
-	MeasureUnit formats.AlphaNumericString_Length1To1 `xml:"measureUnit,omitempty"`
+	MeasureUnit string `xml:"measureUnit,omitempty"`  // minOccurs="0"
 }
 
 type CodedAttributeInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A CodedAttributeInformationType"`
 
 	// provides the attribute Type
-	AttributeType formats.AlphaNumericString_Length1To5 `xml:"attributeType,omitempty"`
+	AttributeType string `xml:"attributeType"`
 
 	// provides a description for the attribute
-	AttributeDescription formats.AlphaNumericString_Length1To256 `xml:"attributeDescription,omitempty"`
+	AttributeDescription string `xml:"attributeDescription,omitempty"`  // minOccurs="0"
 }
 
 type CodedAttributeInformationType_66047C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A CodedAttributeInformationType_66047C"`
 
 	// provides the attribute Type
-	AttributeType formats.AlphaNumericString_Length1To3 `xml:"attributeType,omitempty"`
+	AttributeType string `xml:"attributeType"`
 
 	// provides a description for the attribute
-	AttributeDescription formats.AlphaNumericString_Length1To500 `xml:"attributeDescription,omitempty"`
+	AttributeDescription string `xml:"attributeDescription,omitempty"`  // minOccurs="0"
 }
 
 type CodedAttributeType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A CodedAttributeType"`
 
 	// provides details for the Attribute
-	AttributeDetails *CodedAttributeInformationType `xml:"attributeDetails,omitempty"`
+	AttributeDetails []*CodedAttributeInformationType `xml:"attributeDetails"`  // maxOccurs="99"
 }
 
 type CodedAttributeType_39223S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A CodedAttributeType_39223S"`
 
 	// provides details for the Attribute
-	AttributeDetails *CodedAttributeInformationType_66047C `xml:"attributeDetails,omitempty"`
-
-	DummyNET *DummyNET `xml:"Dummy.NET,omitempty"`
+	AttributeDetails []*CodedAttributeInformationType_66047C `xml:"attributeDetails"`  // maxOccurs="5"
 }
 
-type DummyNET struct{}
-
 type CompanyIdentificationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A CompanyIdentificationTypeI"`
 
 	// Carrier code
-	CarrierCode formats.AlphaNumericString_Length1To3 `xml:"carrierCode,omitempty"`
+	CarrierCode string `xml:"carrierCode,omitempty"`  // minOccurs="0"
+}
+
+type CompanyIdentificationTypeI_222513C struct {
+
+	// Carrier owner fo the fare family
+	OtherCompany string `xml:"otherCompany,omitempty"`  // minOccurs="0"
 }
 
 type ConnectionDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ConnectionDetailsTypeI"`
 
 	// Specify ARNK and surface segments  not included in the fare routing.
-	RoutingInformation formats.AlphaNumericString_Length1To4 `xml:"routingInformation,omitempty"`
+	RoutingInformation string `xml:"routingInformation,omitempty"`  // minOccurs="0"
 
 	// Type of connection for the flight
-	ConnexType formats.AlphaNumericString_Length1To1 `xml:"connexType,omitempty"`
+	ConnexType string `xml:"connexType,omitempty"`  // minOccurs="0"
 }
 
 type ConnectionTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ConnectionTypeI"`
 
 	// Connection details
-	ConnecDetails *ConnectionDetailsTypeI `xml:"connecDetails,omitempty"`
+	ConnecDetails *ConnectionDetailsTypeI `xml:"connecDetails"`
 }
 
 type ConversionRateDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ConversionRateDetailsTypeI"`
 
 	// Currency of the rate
-	CurrencyCode formats.AlphaNumericString_Length1To3 `xml:"currencyCode,omitempty"`
+	CurrencyCode string `xml:"currencyCode,omitempty"`  // minOccurs="0"
 
 	// Amount/percentage
-	Amount formats.NumericDecimal_Length1To11 `xml:"amount,omitempty"`
+	Amount *float64 `xml:"amount,omitempty"`  // minOccurs="0"
 }
 
 type ConversionRateTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ConversionRateTypeI"`
 
 	// First rate detail.
-	FirstRateDetail *ConversionRateDetailsTypeI `xml:"firstRateDetail,omitempty"`
+	FirstRateDetail *ConversionRateDetailsTypeI `xml:"firstRateDetail"`
 
 	// Second rate detail.
-	SecondRateDetail *ConversionRateDetailsTypeI `xml:"secondRateDetail,omitempty"`
+	SecondRateDetail *ConversionRateDetailsTypeI `xml:"secondRateDetail,omitempty"`  // minOccurs="0"
 }
 
 type CorporateFareIdentifiersTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A CorporateFareIdentifiersTypeI"`
 
-	FareQualifier formats.AlphaNumericString_Length1To3 `xml:"fareQualifier,omitempty"`
+	// Format limitations: an..3
+	FareQualifier string `xml:"fareQualifier,omitempty"`  // minOccurs="0"
 
-	CorporateID formats.AlphaNumericString_Length1To35 `xml:"corporateID,omitempty"`
+	// Format limitations: an..35
+	CorporateID []string `xml:"corporateID,omitempty"`  // minOccurs="0" maxOccurs="20"
 }
 
 type CorporateFareInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A CorporateFareInformationType"`
 
-	CorporateFareIdentifiers *CorporateFareIdentifiersTypeI `xml:"corporateFareIdentifiers,omitempty"`
+	CorporateFareIdentifiers []*CorporateFareIdentifiersTypeI `xml:"corporateFareIdentifiers"`  // maxOccurs="20"
 }
 
 type CouponDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A CouponDetailsType"`
 
 	// Tattoo + type of the product identifying the coupon.
-	ProductId *ReferenceInfoType `xml:"productId,omitempty"`
+	ProductId *ReferenceInfoType `xml:"productId"`
 
 	// Flight Connection Type
-	FlightConnectionType *TravelProductInformationType `xml:"flightConnectionType,omitempty"`
+	FlightConnectionType *TravelProductInformationType `xml:"flightConnectionType,omitempty"`  // minOccurs="0"
 }
 
 type CouponInformationDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A CouponInformationDetailsTypeI"`
 
 	// Coupon number
-	CpnNumber formats.AlphaNumericString_Length1To6 `xml:"cpnNumber,omitempty"`
+	CpnNumber string `xml:"cpnNumber"`
 }
 
 type CouponInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A CouponInformationTypeI"`
 
 	// Details on coupon
-	CouponDetails *CouponInformationDetailsTypeI `xml:"couponDetails,omitempty"`
+	CouponDetails *CouponInformationDetailsTypeI `xml:"couponDetails"`
 
 	// Details on coupon
-	OtherCouponDetails *CouponInformationDetailsTypeI `xml:"otherCouponDetails,omitempty"`
+	OtherCouponDetails []*CouponInformationDetailsTypeI `xml:"otherCouponDetails,omitempty"`  // minOccurs="0" maxOccurs="3"
 }
 
 type DataInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A DataInformationTypeI"`
 
 	// fee attribute
-	Indicator formats.AlphaNumericString_Length1To3 `xml:"indicator,omitempty"`
+	Indicator string `xml:"indicator,omitempty"`  // minOccurs="0"
 }
 
 type DataTypeInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A DataTypeInformationTypeI"`
 
 	// fee subcode
-	Type formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`
+	Type string `xml:"type"`
 }
 
 type DiscountAndPenaltyInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A DiscountAndPenaltyInformationTypeI"`
 
 	// Used to specify penalty information
-	PenDisData *DiscountPenaltyMonetaryInformationTypeI_29792C `xml:"penDisData,omitempty"`
+	PenDisData *DiscountPenaltyMonetaryInformationTypeI_29792C `xml:"penDisData,omitempty"`  // minOccurs="0"
 }
 
 type DiscountAndPenaltyInformationTypeI_6128S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A DiscountAndPenaltyInformationTypeI_6128S"`
 
 	// Qualify the type of information.  Penalties are not passenger associated and are pure monetary information. Discount are passenger associated but only discount code is specified.
-	InfoQualifier formats.AlphaNumericString_Length1To3 `xml:"infoQualifier,omitempty"`
+	InfoQualifier string `xml:"infoQualifier,omitempty"`  // minOccurs="0"
 
 	// Used to specify penalty information.
-	PenDisData *DiscountPenaltyMonetaryInformationTypeI `xml:"penDisData,omitempty"`
-}
-
-type DiscountPenaltyInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A DiscountPenaltyInformationTypeI"`
-
-	// Discount off type.
-	ZapOffType formats.AlphaNumericString_Length1To3 `xml:"zapOffType,omitempty"`
-
-	// Discount amount
-	ZapOffAmount formats.NumericDecimal_Length1To11 `xml:"zapOffAmount,omitempty"`
-
-	// Discount percentage.
-	ZapOffPercentage formats.NumericInteger_Length1To8 `xml:"zapOffPercentage,omitempty"`
+	PenDisData []*DiscountPenaltyMonetaryInformationTypeI `xml:"penDisData,omitempty"`  // minOccurs="0" maxOccurs="9"
 }
 
 type DiscountPenaltyInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A DiscountPenaltyInformationType"`
 
-	FareQualifier formats.AMA_EDICodesetType_Length1to3 `xml:"fareQualifier,omitempty"`
+	// Used for codes in the AMADEUS code tables. Code Length is three alphanumeric characters.
+	FareQualifier string `xml:"fareQualifier,omitempty"`  // minOccurs="0"
+}
+
+type DiscountPenaltyInformationTypeI struct {
+
+	// Discount off type.
+	ZapOffType string `xml:"zapOffType"`
+
+	// Discount amount
+	ZapOffAmount *float64 `xml:"zapOffAmount,omitempty"`  // minOccurs="0"
+
+	// Discount percentage.
+	ZapOffPercentage *int32 `xml:"zapOffPercentage,omitempty"`  // minOccurs="0"
 }
 
 type DiscountPenaltyMonetaryInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A DiscountPenaltyMonetaryInformationTypeI"`
 
 	// Type of penalty.
-	PenaltyType formats.AlphaNumericString_Length1To3 `xml:"penaltyType,omitempty"`
+	PenaltyType string `xml:"penaltyType,omitempty"`  // minOccurs="0"
 
 	// The penalty amount can be described differently: amount/percentage.
-	PenaltyQualifier formats.AlphaNumericString_Length1To3 `xml:"penaltyQualifier,omitempty"`
+	PenaltyQualifier string `xml:"penaltyQualifier,omitempty"`  // minOccurs="0"
 
 	// Amount of the penalty.
-	PenaltyAmount formats.NumericDecimal_Length1To11 `xml:"penaltyAmount,omitempty"`
+	PenaltyAmount *float64 `xml:"penaltyAmount,omitempty"`  // minOccurs="0"
 
 	// This discount code is defined by the airlines. This cannot be coded as airlines might apply any combination of letters for their discounts.
-	DiscountCode formats.AlphaNumericString_Length1To6 `xml:"discountCode,omitempty"`
+	DiscountCode string `xml:"discountCode,omitempty"`  // minOccurs="0"
 
 	// Penalty currency code.
-	PenaltyCurrency formats.AlphaNumericString_Length1To3 `xml:"penaltyCurrency,omitempty"`
+	PenaltyCurrency string `xml:"penaltyCurrency,omitempty"`  // minOccurs="0"
 }
 
 type DiscountPenaltyMonetaryInformationTypeI_29792C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A DiscountPenaltyMonetaryInformationTypeI_29792C"`
 
 	// The amount Type can be a percentage or an amount
-	PenaltyQualifier formats.AlphaNumericString_Length1To3 `xml:"penaltyQualifier,omitempty"`
+	PenaltyQualifier string `xml:"penaltyQualifier,omitempty"`  // minOccurs="0"
 
 	// specify the value
-	PenaltyAmount formats.NumericDecimal_Length1To18 `xml:"penaltyAmount,omitempty"`
+	PenaltyAmount *float64 `xml:"penaltyAmount,omitempty"`  // minOccurs="0"
 
 	// penalty currency code
-	PenaltyCurrency formats.AlphaNumericString_Length1To3 `xml:"penaltyCurrency,omitempty"`
+	PenaltyCurrency string `xml:"penaltyCurrency,omitempty"`  // minOccurs="0"
 }
 
 type DummySegmentTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A DummySegmentTypeI"`
 }
 
 type DutyTaxFeeAccountDetailTypeU struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A DutyTaxFeeAccountDetailTypeU"`
 
 	// Iso country of the tax
-	IsoCountry formats.AlphaNumericString_Length1To3 `xml:"isoCountry,omitempty"`
+	IsoCountry string `xml:"isoCountry"`
 }
 
 type DutyTaxFeeDetailsTypeU struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A DutyTaxFeeDetailsTypeU"`
 
 	// Tax data qualifier
-	TaxQualifier formats.AlphaNumericString_Length1To1 `xml:"taxQualifier,omitempty"`
+	TaxQualifier string `xml:"taxQualifier"`
 
 	// Tax type identification
-	TaxIdentification *DutyTaxFeeTypeDetailsTypeU `xml:"taxIdentification,omitempty"`
+	TaxIdentification *DutyTaxFeeTypeDetailsTypeU `xml:"taxIdentification"`
 
 	// Type of the tax
-	TaxType *DutyTaxFeeAccountDetailTypeU `xml:"taxType,omitempty"`
+	TaxType *DutyTaxFeeAccountDetailTypeU `xml:"taxType,omitempty"`  // minOccurs="0"
 
 	// Nature of the tax
-	TaxNature formats.AlphaNumericString_Length1To3 `xml:"taxNature,omitempty"`
+	TaxNature string `xml:"taxNature,omitempty"`  // minOccurs="0"
 
 	// Exempt tax indicator. If an tax is Exempted no amount is provided for this tax.
-	TaxExempt formats.AlphaNumericString_Length1To3 `xml:"taxExempt,omitempty"`
+	TaxExempt string `xml:"taxExempt,omitempty"`  // minOccurs="0"
 }
 
 type DutyTaxFeeTypeDetailsTypeU struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A DutyTaxFeeTypeDetailsTypeU"`
 
 	// Tax type identifier
-	TaxIdentifier formats.AlphaNumericString_Length1To3 `xml:"taxIdentifier,omitempty"`
+	TaxIdentifier string `xml:"taxIdentifier"`
 }
 
 type ErrorGroupType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ErrorGroupType"`
 
 	// The details of error/warning code.
-	ErrorOrWarningCodeDetails *ApplicationErrorInformationType_84497S `xml:"errorOrWarningCodeDetails,omitempty"`
+	ErrorOrWarningCodeDetails *ApplicationErrorInformationType_84497S `xml:"errorOrWarningCodeDetails"`
 
 	// The desciption of warning or error.
-	ErrorWarningDescription *FreeTextInformationType `xml:"errorWarningDescription,omitempty"`
+	ErrorWarningDescription *FreeTextInformationType `xml:"errorWarningDescription,omitempty"`  // minOccurs="0"
 }
 
 type ExcessBaggageTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ExcessBaggageTypeI"`
 
 	// Baggage allowance information details
-	BagAllowanceDetails *BaggageDetailsTypeI `xml:"bagAllowanceDetails,omitempty"`
+	BagAllowanceDetails *BaggageDetailsTypeI `xml:"bagAllowanceDetails,omitempty"`  // minOccurs="0"
 }
 
 type FareComponentDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A FareComponentDetailsType"`
 
-	// fare Component identification
-	FareComponentID *ItemNumberType `xml:"fareComponentID,omitempty"`
+	FareComponentID *ItemNumberType `xml:"fareComponentID"`
 
-	// Market information related to fare component
-	MarketFareComponent *TravelProductInformationTypeI `xml:"marketFareComponent,omitempty"`
+	// Market information related to the fare component or to the bound.
+	MarketFareComponent *TravelProductInformationTypeI `xml:"marketFareComponent,omitempty"`  // minOccurs="0"
 
-	// Monetary Information
-	MonetaryInformation *MonetaryInformationType_157196S `xml:"monetaryInformation,omitempty"`
+	// Monetary Information.
+	MonetaryInformation *MonetaryInformationType `xml:"monetaryInformation,omitempty"`  // minOccurs="0"
 
 	// Component Class information
-	ComponentClassInfo *PricingOrTicketingSubsequentType `xml:"componentClassInfo,omitempty"`
+	ComponentClassInfo *PricingOrTicketingSubsequentType `xml:"componentClassInfo,omitempty"`  // minOccurs="0"
 
 	// Fare Qualifier Detail
-	FareQualifiersDetail *FareQualifierDetailsType `xml:"fareQualifiersDetail,omitempty"`
+	FareQualifiersDetail *FareQualifierDetailsType `xml:"fareQualifiersDetail,omitempty"`  // minOccurs="0"
 
-	CouponDetailsGroup *CouponDetailsType `xml:"couponDetailsGroup,omitempty"`
+	// Details of the fare family used for this fare component
+	FareFamilyDetails *FareFamilyType `xml:"fareFamilyDetails,omitempty"`  // minOccurs="0"
+
+	// Carrier owner of the fare family
+	FareFamilyOwner *TransportIdentifierType_156079S `xml:"fareFamilyOwner,omitempty"`  // minOccurs="0"
+
+	// Used to specify coupons included in the fare component or in the bound.
+	CouponDetailsGroup []*CouponDetailsType `xml:"couponDetailsGroup"`  // maxOccurs="99"
 }
 
 type FareDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A FareDetailsType"`
 
 	// fare indicators
-	FareCategory formats.AMA_EDICodesetType_Length1to3 `xml:"fareCategory,omitempty"`
+	FareCategory string `xml:"fareCategory,omitempty"`  // minOccurs="0"
+}
+
+type FareFamilyDetailsType struct {
+
+	// Commercial fare Family Short name
+	CommercialFamily string `xml:"commercialFamily"`
+}
+
+type FareFamilyType struct {
+
+	// Fare Family Short Name
+	FareFamilyname string `xml:"fareFamilyname,omitempty"`  // minOccurs="0"
+
+	// HIERARCHICAL ORDER WITHIN FARE FAMILY
+	Hierarchy *int32 `xml:"hierarchy,omitempty"`  // minOccurs="0"
+
+	// Indicates Commercial Fare Family Short names
+	CommercialFamilyDetails []*FareFamilyDetailsType `xml:"commercialFamilyDetails,omitempty"`  // minOccurs="0" maxOccurs="20"
 }
 
 type FareInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A FareInformationType"`
 
-	FareDetails *FareDetailsType `xml:"fareDetails,omitempty"`
-}
-
-type FareQualifierDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A FareQualifierDetailsTypeI"`
-
-	// Type of movement for this segment to take into account by Fare Quote to calculate the fare.
-	MovementType formats.AlphaNumericString_Length1To3 `xml:"movementType,omitempty"`
-
-	// Fare basis detail
-	FareBasisDetails *AdditionalFareQualifierDetailsTypeI `xml:"fareBasisDetails,omitempty"`
-
-	// Discount data for zap off to apply to price calculation.
-	ZapOffDetails *DiscountPenaltyInformationTypeI `xml:"zapOffDetails,omitempty"`
+	FareDetails *FareDetailsType `xml:"fareDetails,omitempty"`  // minOccurs="0"
 }
 
 type FareQualifierDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A FareQualifierDetailsType"`
 
-	DiscountDetails *DiscountPenaltyInformationType `xml:"discountDetails,omitempty"`
+	DiscountDetails []*DiscountPenaltyInformationType `xml:"discountDetails,omitempty"`  // minOccurs="0" maxOccurs="9"
+}
+
+type FareQualifierDetailsTypeI struct {
+
+	// Type of movement for this segment to take into account by Fare Quote to calculate the fare.
+	MovementType string `xml:"movementType,omitempty"`  // minOccurs="0"
+
+	// Fare basis detail
+	FareBasisDetails *AdditionalFareQualifierDetailsTypeI `xml:"fareBasisDetails,omitempty"`  // minOccurs="0"
+
+	// Discount data for zap off to apply to price calculation.
+	ZapOffDetails *DiscountPenaltyInformationTypeI `xml:"zapOffDetails,omitempty"`  // minOccurs="0"
 }
 
 type FreeTextDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A FreeTextDetailsType"`
 
-	TextSubjectQualifier formats.AlphaNumericString_Length1To3 `xml:"textSubjectQualifier,omitempty"`
+	// Format limitations: an..3
+	TextSubjectQualifier string `xml:"textSubjectQualifier"`
 
-	InformationType formats.AlphaNumericString_Length1To4 `xml:"informationType,omitempty"`
+	// Format limitations: an..4
+	InformationType string `xml:"informationType,omitempty"`  // minOccurs="0"
 
-	Status formats.AlphaNumericString_Length1To3 `xml:"status,omitempty"`
+	// Format limitations: an..3
+	Status string `xml:"status,omitempty"`  // minOccurs="0"
 
-	CompanyId formats.AlphaNumericString_Length1To35 `xml:"companyId,omitempty"`
+	// Format limitations: an..35
+	CompanyId string `xml:"companyId,omitempty"`  // minOccurs="0"
 
-	Language formats.AlphaNumericString_Length1To3 `xml:"language,omitempty"`
+	// Format limitations: an..3
+	Language string `xml:"language,omitempty"`  // minOccurs="0"
 
-	Source formats.AlphaNumericString_Length1To3 `xml:"source,omitempty"`
+	// Format limitations: an..3
+	Source string `xml:"source"`
 
-	Encoding formats.AlphaNumericString_Length1To3 `xml:"encoding,omitempty"`
+	// Format limitations: an..3
+	Encoding string `xml:"encoding"`
 }
 
 type FreeTextInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A FreeTextInformationType"`
 
-	FreeTextDetails *FreeTextDetailsType `xml:"freeTextDetails,omitempty"`
+	FreeTextDetails *FreeTextDetailsType `xml:"freeTextDetails,omitempty"`  // minOccurs="0"
 
 	// Free text and message sequence numbers of the remarks.
-	FreeText formats.AlphaNumericString_Length1To199 `xml:"freeText,omitempty"`
+	FreeText []string `xml:"freeText"`  // maxOccurs="99"
 }
 
 type FreeTextQualificationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A FreeTextQualificationTypeI"`
 
-	TextSubjectQualifier formats.AlphaNumericString_Length1To3 `xml:"textSubjectQualifier,omitempty"`
+	// Format limitations: an..3
+	TextSubjectQualifier string `xml:"textSubjectQualifier"`
 }
 
 type InteractiveFreeTextTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A InteractiveFreeTextTypeI"`
 
-	FreeTextQualification *FreeTextQualificationTypeI `xml:"freeTextQualification,omitempty"`
+	FreeTextQualification *FreeTextQualificationTypeI `xml:"freeTextQualification,omitempty"`  // minOccurs="0"
 
-	FreeText formats.AlphaNumericString_Length1To10 `xml:"freeText,omitempty"`
+	// Format limitations: an..10
+	FreeText string `xml:"freeText"`
 }
 
 type InteractiveFreeTextTypeI_6759S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A InteractiveFreeTextTypeI_6759S"`
 
 	// Free flow text describing the error
-	ErrorFreeText formats.AlphaNumericString_Length1To70 `xml:"errorFreeText,omitempty"`
+	ErrorFreeText string `xml:"errorFreeText,omitempty"`  // minOccurs="0"
 }
 
 type ItemNumberIdentificationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ItemNumberIdentificationType"`
 
-	Number formats.AlphaNumericString_Length1To35 `xml:"number,omitempty"`
+	// Item identification: number of the fare component or of the bound.
+	Number string `xml:"number,omitempty"`  // minOccurs="0"
+
+	// Item type: fare component (FC) or bound (BND).
+	Type string `xml:"type,omitempty"`  // minOccurs="0"
 }
 
 type ItemNumberType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ItemNumberType"`
 
-	ItemNumberDetails *ItemNumberIdentificationType `xml:"itemNumberDetails,omitempty"`
+	// Item identification: number of the fare component or of the bound.
+	ItemNumberDetails []*ItemNumberIdentificationType `xml:"itemNumberDetails"`  // maxOccurs="99"
 }
 
 type ItemReferencesAndVersionsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ItemReferencesAndVersionsType"`
 
 	// Identification details : order number
-	SequenceSection *UniqueIdDescriptionType `xml:"sequenceSection,omitempty"`
+	SequenceSection *UniqueIdDescriptionType `xml:"sequenceSection,omitempty"`  // minOccurs="0"
 }
 
 type ItemReferencesAndVersionsType_94584S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ItemReferencesAndVersionsType_94584S"`
 
 	// qualifies the type of the reference used. Code set to define
-	ReferenceType formats.AlphaNumericString_Length1To3 `xml:"referenceType,omitempty"`
+	ReferenceType string `xml:"referenceType,omitempty"`  // minOccurs="0"
 
 	// Tattoo number
-	UniqueReference formats.NumericInteger_Length1To5 `xml:"uniqueReference,omitempty"`
+	UniqueReference *int32 `xml:"uniqueReference,omitempty"`  // minOccurs="0"
 }
 
 type LocationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A LocationTypeI"`
 
-	TrueLocationId formats.AlphaNumericString_Length1To25 `xml:"trueLocationId,omitempty"`
+	// Format limitations: an..25
+	TrueLocationId string `xml:"trueLocationId,omitempty"`  // minOccurs="0"
 }
 
 type LocationTypeI_47688C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A LocationTypeI_47688C"`
 
 	// Code of the city.
-	CityCode formats.AlphaString_Length1To3 `xml:"cityCode,omitempty"`
+	CityCode string `xml:"cityCode,omitempty"`  // minOccurs="0"
 }
 
 type MileageTimeDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A MileageTimeDetailsTypeI"`
 
 	// mileage total associated to the TST
-	TotalMileage formats.NumericInteger_Length1To8 `xml:"totalMileage,omitempty"`
-}
-
-type MonetaryInformationDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A MonetaryInformationDetailsTypeI"`
-
-	// Qualify the type of fare defined in this composite
-	FareDataQualifier formats.AlphaNumericString_Length1To3 `xml:"fareDataQualifier,omitempty"`
-
-	// Fare data amount
-	FareAmount formats.AlphaNumericString_Length1To11 `xml:"fareAmount,omitempty"`
-
-	// Fare data currency code
-	FareCurrency formats.AlphaNumericString_Length1To3 `xml:"fareCurrency,omitempty"`
-
-	// Location of the fare data (PFCs specific)
-	FareLocation formats.AlphaNumericString_Length3To3 `xml:"fareLocation,omitempty"`
-}
-
-type MonetaryInformationDetailsTypeI_37257C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A MonetaryInformationDetailsTypeI_37257C"`
-
-	// Type qualifier
-	TypeQualifier formats.AlphaNumericString_Length1To3 `xml:"typeQualifier,omitempty"`
-
-	// amount
-	Amount formats.AlphaNumericString_Length1To35 `xml:"amount,omitempty"`
-
-	// currency
-	Currency formats.AlphaNumericString_Length1To3 `xml:"currency,omitempty"`
-
-	// location
-	Location formats.AlphaNumericString_Length1To25 `xml:"location,omitempty"`
-}
-
-type MonetaryInformationDetailsTypeI_63727C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A MonetaryInformationDetailsTypeI_63727C"`
-
-	// Qualifier
-	TypeQualifier formats.AlphaNumericString_Length1To3 `xml:"typeQualifier,omitempty"`
-
-	// Amount
-	Amount formats.AlphaNumericString_Length1To12 `xml:"amount,omitempty"`
-
-	// Currency
-	Currency formats.AlphaNumericString_Length1To3 `xml:"currency,omitempty"`
-
-	// Location
-	Location formats.AlphaNumericString_Length1To3 `xml:"location,omitempty"`
+	TotalMileage int32 `xml:"totalMileage"`
 }
 
 type MonetaryInformationDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A MonetaryInformationDetailsType"`
 
-	TypeQualifier formats.AlphaNumericString_Length1To3 `xml:"typeQualifier,omitempty"`
+	// Format limitations: an..3
+	TypeQualifier string `xml:"typeQualifier"`
 
 	// Amount
-	Amount formats.AlphaNumericString_Length1To35 `xml:"amount,omitempty"`
+	Amount string `xml:"amount,omitempty"`  // minOccurs="0"
 
 	// Currency
-	Currency formats.AlphaNumericString_Length1To3 `xml:"currency,omitempty"`
+	Currency string `xml:"currency,omitempty"`  // minOccurs="0"
 }
 
-type MonetaryInformationDetailsType_223826C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A MonetaryInformationDetailsType_223826C"`
+type MonetaryInformationDetailsTypeI struct {
 
-	FareDataQualifier formats.AlphaNumericString_Length1To3 `xml:"fareDataQualifier,omitempty"`
+	// Qualify the type of fare defined in this composite
+	FareDataQualifier string `xml:"fareDataQualifier"`
 
-	// Amount
-	FareAmount formats.AlphaNumericString_Length1To11 `xml:"fareAmount,omitempty"`
+	// Fare data amount
+	FareAmount string `xml:"fareAmount,omitempty"`  // minOccurs="0"
 
-	// Currency
-	FareCurrency formats.AlphaNumericString_Length1To3 `xml:"fareCurrency,omitempty"`
+	// Fare data currency code
+	FareCurrency string `xml:"fareCurrency,omitempty"`  // minOccurs="0"
+
+	// Location of the fare data (PFCs specific)
+	FareLocation string `xml:"fareLocation,omitempty"`  // minOccurs="0"
+}
+
+type MonetaryInformationDetailsTypeI_37257C struct {
+
+	// Type qualifier
+	TypeQualifier string `xml:"typeQualifier"`
+
+	// amount
+	Amount string `xml:"amount"`
+
+	// currency
+	Currency string `xml:"currency,omitempty"`  // minOccurs="0"
 
 	// location
-	FareLocation formats.AlphaNumericString_Length3To3 `xml:"fareLocation,omitempty"`
+	Location string `xml:"location,omitempty"`  // minOccurs="0"
 }
 
-type MonetaryInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A MonetaryInformationTypeI"`
+type MonetaryInformationDetailsTypeI_63727C struct {
 
-	// Main fare data infomation, can b thee base or  the total fare information which are mandatory  anyway
-	FareDataMainInformation *MonetaryInformationDetailsTypeI `xml:"fareDataMainInformation,omitempty"`
+	// Qualifier
+	TypeQualifier string `xml:"typeQualifier"`
 
-	// Supplementary fare data information
-	FareDataSupInformation *MonetaryInformationDetailsTypeI `xml:"fareDataSupInformation,omitempty"`
+	// Amount
+	Amount string `xml:"amount,omitempty"`  // minOccurs="0"
+
+	// Currency
+	Currency string `xml:"currency,omitempty"`  // minOccurs="0"
+
+	// Location
+	Location string `xml:"location,omitempty"`  // minOccurs="0"
 }
 
-type MonetaryInformationTypeI_20897S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A MonetaryInformationTypeI_20897S"`
+type MonetaryInformationDetailsType_223832C struct {
 
-	// monetaryDetails
-	MonetaryDetails *MonetaryInformationDetailsTypeI_37257C `xml:"monetaryDetails,omitempty"`
+	// Format limitations: an..3
+	FareDataQualifier string `xml:"fareDataQualifier"`
 
-	OtherMonetaryDetails *MonetaryInformationDetailsTypeI_37257C `xml:"otherMonetaryDetails,omitempty"`
-}
+	// Amount
+	FareAmount string `xml:"fareAmount,omitempty"`  // minOccurs="0"
 
-type MonetaryInformationTypeI_39230S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A MonetaryInformationTypeI_39230S"`
+	// Currency
+	FareCurrency string `xml:"fareCurrency,omitempty"`  // minOccurs="0"
 
-	// Monetary info
-	MonetaryDetails *MonetaryInformationDetailsTypeI_63727C `xml:"monetaryDetails,omitempty"`
+	// location
+	FareLocation string `xml:"fareLocation,omitempty"`  // minOccurs="0"
 }
 
 type MonetaryInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A MonetaryInformationType"`
-
-	FareDataMainInformation *MonetaryInformationDetailsType_223826C `xml:"fareDataMainInformation,omitempty"`
-
-	FareDataSupInformation *MonetaryInformationDetailsType_223826C `xml:"fareDataSupInformation,omitempty"`
-}
-
-type MonetaryInformationType_157196S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A MonetaryInformationType_157196S"`
 
 	// Monetary information per fare component
-	MonetaryDetails *MonetaryInformationDetailsType `xml:"monetaryDetails,omitempty"`
+	MonetaryDetails *MonetaryInformationDetailsType `xml:"monetaryDetails"`
 
 	// Other monetary information per fare component
-	OtherMonetaryDetails *MonetaryInformationDetailsType `xml:"otherMonetaryDetails,omitempty"`
+	OtherMonetaryDetails []*MonetaryInformationDetailsType `xml:"otherMonetaryDetails,omitempty"`  // minOccurs="0" maxOccurs="19"
+}
+
+type MonetaryInformationTypeI struct {
+
+	// Main fare data infomation, can b thee base or  the total fare information which are mandatory  anyway
+	FareDataMainInformation *MonetaryInformationDetailsTypeI `xml:"fareDataMainInformation"`
+
+	// Supplementary fare data information
+	FareDataSupInformation []*MonetaryInformationDetailsTypeI `xml:"fareDataSupInformation,omitempty"`  // minOccurs="0" maxOccurs="19"
+}
+
+type MonetaryInformationTypeI_20897S struct {
+
+	// monetaryDetails
+	MonetaryDetails *MonetaryInformationDetailsTypeI_37257C `xml:"monetaryDetails"`
+
+	OtherMonetaryDetails []*MonetaryInformationDetailsTypeI_37257C `xml:"otherMonetaryDetails,omitempty"`  // minOccurs="0" maxOccurs="5"
+}
+
+type MonetaryInformationTypeI_39230S struct {
+
+	// Monetary info
+	MonetaryDetails []*MonetaryInformationDetailsTypeI_63727C `xml:"monetaryDetails"`  // maxOccurs="20"
+}
+
+type MonetaryInformationType_187640S struct {
+
+	FareDataMainInformation *MonetaryInformationDetailsType_223832C `xml:"fareDataMainInformation"`
+
+	FareDataSupInformation []*MonetaryInformationDetailsType_223832C `xml:"fareDataSupInformation,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 type OriginAndDestinationDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A OriginAndDestinationDetailsTypeI"`
 
 	// Code of the city.
-	CityCode formats.AlphaNumericString_Length1To4 `xml:"cityCode,omitempty"`
+	CityCode []string `xml:"cityCode"`  // maxOccurs="2"
 }
 
 type PricingOrTicketingSubsequentType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A PricingOrTicketingSubsequentType"`
 
 	// RATE OR TARIFF CLASS INFORMATION
-	FareBasisDetails *RateTariffClassInformationType `xml:"fareBasisDetails,omitempty"`
+	FareBasisDetails *RateTariffClassInformationType `xml:"fareBasisDetails,omitempty"`  // minOccurs="0"
 }
 
 type PricingTicketingSubsequentTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A PricingTicketingSubsequentTypeI"`
 
 	// Information on TST type.
-	TstInformation *RateTariffClassInformationTypeI `xml:"tstInformation,omitempty"`
+	TstInformation *RateTariffClassInformationTypeI `xml:"tstInformation"`
 
 	// International sales indicator
-	SalesIndicator formats.AlphaString_Length1To2 `xml:"salesIndicator,omitempty"`
+	SalesIndicator string `xml:"salesIndicator,omitempty"`  // minOccurs="0"
 
 	// Fare calculation mode indicator. This indicator specifies the type fare.
-	Fcmi formats.AlphaNumericString_Length1To1 `xml:"fcmi,omitempty"`
+	Fcmi string `xml:"fcmi"`
 
 	// Information of original fare used to create TST. The TST is created from Best Fare ( possible or available).
-	BestFareType formats.AlphaNumericString_Length1To3 `xml:"bestFareType,omitempty"`
+	BestFareType string `xml:"bestFareType,omitempty"`  // minOccurs="0"
 }
 
 type ProductIdentificationDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ProductIdentificationDetailsTypeI"`
 
 	// OPEN or AIR are the two identifications accepted.  OPEN means the segment described here is an open segment. AIR means that it is a valid AIR segment.
-	Identification formats.AlphaNumericString_Length1To6 `xml:"identification,omitempty"`
+	Identification string `xml:"identification"`
 
 	// to describe the transportation class.
-	BookingClass formats.AlphaNumericString_Length1To17 `xml:"bookingClass,omitempty"`
+	BookingClass string `xml:"bookingClass,omitempty"`  // minOccurs="0"
 
 	// Class of service to use in order to price the extra segment.
-	ClassOfService formats.AlphaString_Length1To1 `xml:"classOfService,omitempty"`
+	ClassOfService string `xml:"classOfService,omitempty"`  // minOccurs="0"
 }
 
 type ProductTypeDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ProductTypeDetailsType"`
 
 	// TST Connection Type
-	FlightIndicator formats.AlphaNumericString_Length1To1 `xml:"flightIndicator,omitempty"`
-}
-
-type RateTariffClassInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A RateTariffClassInformationTypeI"`
-
-	// Indicator qualifying the type of TST (basically manual or automatic)
-	TstIndicator formats.AlphaNumericString_Length1To1 `xml:"tstIndicator,omitempty"`
+	FlightIndicator string `xml:"flightIndicator"`
 }
 
 type RateTariffClassInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A RateTariffClassInformationType"`
 
 	// Fare Basis Code
-	RateTariffClass formats.AlphaNumericString_Length1To35 `xml:"rateTariffClass,omitempty"`
+	RateTariffClass string `xml:"rateTariffClass,omitempty"`  // minOccurs="0"
 
 	// Ticket Designator
-	OtherRateTariffClass formats.AlphaNumericString_Length1To35 `xml:"otherRateTariffClass,omitempty"`
+	OtherRateTariffClass string `xml:"otherRateTariffClass,omitempty"`  // minOccurs="0"
+}
+
+type RateTariffClassInformationTypeI struct {
+
+	// Indicator qualifying the type of TST (basically manual or automatic)
+	TstIndicator string `xml:"tstIndicator"`
 }
 
 type ReferenceInfoType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ReferenceInfoType"`
 
-	ReferenceDetails *ReferencingDetailsType `xml:"referenceDetails,omitempty"`
+	ReferenceDetails *ReferencingDetailsType `xml:"referenceDetails"`
 }
 
 type ReferenceInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ReferenceInformationTypeI"`
 
 	// Passenger/segment/TST/fare reference details
-	RefDetails *ReferencingDetailsTypeI `xml:"refDetails,omitempty"`
-}
-
-type ReferencingDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ReferencingDetailsTypeI"`
-
-	// Qualifyer of the reference (Pax/Seg/Tst/Fare tattoo)
-	RefQualifier formats.AlphaNumericString_Length1To3 `xml:"refQualifier,omitempty"`
-
-	// Passenger/segment/TST/fare tattoo reference number
-	RefNumber formats.NumericInteger_Length1To5 `xml:"refNumber,omitempty"`
+	RefDetails []*ReferencingDetailsTypeI `xml:"refDetails,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 type ReferencingDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ReferencingDetailsType"`
 
-	Type formats.AlphaNumericString_Length1To10 `xml:"type,omitempty"`
+	// Format limitations: an..10
+	Type string `xml:"type"`
 
-	Value formats.AlphaNumericString_Length1To60 `xml:"value,omitempty"`
+	// Format limitations: an..60
+	Value string `xml:"value"`
+}
+
+type ReferencingDetailsTypeI struct {
+
+	// Qualifyer of the reference (Pax/Seg/Tst/Fare tattoo)
+	RefQualifier string `xml:"refQualifier,omitempty"`  // minOccurs="0"
+
+	// Passenger/segment/TST/fare tattoo reference number
+	RefNumber *int32 `xml:"refNumber,omitempty"`  // minOccurs="0"
 }
 
 type ReservationControlInformationDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ReservationControlInformationDetailsTypeI"`
 
 	// Record locator.
-	ControlNumber formats.AlphaNumericString_Length1To20 `xml:"controlNumber,omitempty"`
+	ControlNumber string `xml:"controlNumber"`
 }
 
 type ReservationControlInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A ReservationControlInformationTypeI"`
 
 	// Reservation control information
-	ReservationInformation *ReservationControlInformationDetailsTypeI `xml:"reservationInformation,omitempty"`
+	ReservationInformation *ReservationControlInformationDetailsTypeI `xml:"reservationInformation"`
 }
 
 type SelectionDetailsInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A SelectionDetailsInformationTypeI"`
 
-	Option formats.AlphaNumericString_Length1To2 `xml:"option,omitempty"`
+	// Format limitations: an..2
+	Option string `xml:"option"`
 }
 
 type SelectionDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A SelectionDetailsTypeI"`
 
-	SelectionDetails *SelectionDetailsInformationTypeI `xml:"selectionDetails,omitempty"`
+	SelectionDetails *SelectionDetailsInformationTypeI `xml:"selectionDetails"`
 }
 
 type SpecificDataInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A SpecificDataInformationTypeI"`
 
 	// Carrier fee code
-	DataTypeInformation *DataTypeInformationTypeI `xml:"dataTypeInformation,omitempty"`
+	DataTypeInformation *DataTypeInformationTypeI `xml:"dataTypeInformation"`
 
 	// Carrier fee application code  (NI, NR, CM, NC)
-	DataInformation *DataInformationTypeI `xml:"dataInformation,omitempty"`
+	DataInformation []*DataInformationTypeI `xml:"dataInformation,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 type StructuredDateTimeInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A StructuredDateTimeInformationType"`
 
 	// This data element can be used to provide the semantic of the information provided. Examples : - Impacted period - Departure date - Estimated arrival date and time
-	BusinessSemantic formats.AlphaNumericString_Length1To3 `xml:"businessSemantic,omitempty"`
+	BusinessSemantic string `xml:"businessSemantic,omitempty"`  // minOccurs="0"
 
 	// Convey date and/or time.
-	DateTime *StructuredDateTimeType `xml:"dateTime,omitempty"`
+	DateTime *StructuredDateTimeType `xml:"dateTime,omitempty"`  // minOccurs="0"
 }
 
 type StructuredDateTimeType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A StructuredDateTimeType"`
 
 	// Year number. The format is a little long for short term usage but it can be reduced by implementation if required.
-	Year formats.NumericInteger_Length1To6 `xml:"year,omitempty"`
+	Year *int32 `xml:"year,omitempty"`  // minOccurs="0"
 
 	// Month number in the year ( begins to 1 )
-	Month formats.Month_mM `xml:"month,omitempty"`
+	Month string `xml:"month,omitempty"`  // minOccurs="0"
 
 	// Day number in the month ( begins to 1 )
-	Day formats.Day_nN `xml:"day,omitempty"`
+	Day string `xml:"day,omitempty"`  // minOccurs="0"
 }
 
 type TaxDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A TaxDetailsTypeI"`
 
 	// Tax Amount
-	Rate formats.AlphaNumericString_Length1To17 `xml:"rate,omitempty"`
+	Rate string `xml:"rate,omitempty"`  // minOccurs="0"
 
 	// ISO code identifying Country
-	CountryCode formats.AlphaNumericString_Length1To3 `xml:"countryCode,omitempty"`
+	CountryCode string `xml:"countryCode,omitempty"`  // minOccurs="0"
 
 	// ISO code identifying currency
-	CurrencyCode formats.AlphaNumericString_Length1To3 `xml:"currencyCode,omitempty"`
+	CurrencyCode string `xml:"currencyCode,omitempty"`  // minOccurs="0"
 
 	// Tax designator code
-	Type formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`
+	Type string `xml:"type,omitempty"`  // minOccurs="0"
 
 	// tax designator code.
-	SecondType formats.AlphaNumericString_Length1To3 `xml:"secondType,omitempty"`
+	SecondType string `xml:"secondType,omitempty"`  // minOccurs="0"
 }
 
 type TaxTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A TaxTypeI"`
 
 	// Tax details
-	TaxDetails *TaxDetailsTypeI `xml:"taxDetails,omitempty"`
-
-	DummyNET *DummyNET `xml:"Dummy.NET,omitempty"`
+	TaxDetails []*TaxDetailsTypeI `xml:"taxDetails,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 type TicketNumberDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A TicketNumberDetailsTypeI"`
 
 	// Ticket number
-	Number formats.AlphaNumericString_Length1To35 `xml:"number,omitempty"`
+	Number string `xml:"number"`
 
 	// ticket type
-	Type formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`
+	Type string `xml:"type,omitempty"`  // minOccurs="0"
 }
 
 type TicketNumberTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A TicketNumberTypeI"`
 
 	// Details on the document
-	DocumentDetails *TicketNumberDetailsTypeI `xml:"documentDetails,omitempty"`
+	DocumentDetails *TicketNumberDetailsTypeI `xml:"documentDetails"`
 }
 
 type TransportIdentifierType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A TransportIdentifierType"`
 
 	// Information related to validating carrier.
-	CarrierInformation *CompanyIdentificationTypeI `xml:"carrierInformation,omitempty"`
+	CarrierInformation *CompanyIdentificationTypeI `xml:"carrierInformation,omitempty"`  // minOccurs="0"
 }
 
-type TravelProductInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A TravelProductInformationTypeI"`
+type TransportIdentifierType_156079S struct {
 
-	BoardPointDetails *LocationTypeI `xml:"boardPointDetails,omitempty"`
-
-	OffpointDetails *LocationTypeI `xml:"offpointDetails,omitempty"`
-}
-
-type TravelProductInformationTypeI_26322S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A TravelProductInformationTypeI_26322S"`
-
-	// City of departure for this extra segment.
-	DepartureCity *LocationTypeI_47688C `xml:"departureCity,omitempty"`
-
-	// City of arrival for this extra segment.
-	ArrivalCity *LocationTypeI_47688C `xml:"arrivalCity,omitempty"`
-
-	// Airline detail information of the extra segment.
-	AirlineDetail *CompanyIdentificationTypeI `xml:"airlineDetail,omitempty"`
-
-	// Segment detail information.
-	SegmentDetail *ProductIdentificationDetailsTypeI `xml:"segmentDetail,omitempty"`
-
-	// Ticketing status for this segment. Relevant only in case of reply.
-	TicketingStatus formats.AlphaNumericString_Length1To2 `xml:"ticketingStatus,omitempty"`
+	CompanyIdentification *CompanyIdentificationTypeI_222513C `xml:"companyIdentification,omitempty"`  // minOccurs="0"
 }
 
 type TravelProductInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A TravelProductInformationType"`
 
-	BoardPointDetails *LocationTypeI `xml:"boardPointDetails,omitempty"`
+	BoardPointDetails *LocationTypeI `xml:"boardPointDetails,omitempty"`  // minOccurs="0"
 
-	OffpointDetails *LocationTypeI `xml:"offpointDetails,omitempty"`
+	OffpointDetails *LocationTypeI `xml:"offpointDetails,omitempty"`  // minOccurs="0"
 
 	// TST Connection Type
-	FlightTypeDetails *ProductTypeDetailsType `xml:"flightTypeDetails,omitempty"`
+	FlightTypeDetails *ProductTypeDetailsType `xml:"flightTypeDetails,omitempty"`  // minOccurs="0"
+}
+
+type TravelProductInformationTypeI struct {
+
+	BoardPointDetails *LocationTypeI `xml:"boardPointDetails,omitempty"`  // minOccurs="0"
+
+	OffpointDetails *LocationTypeI `xml:"offpointDetails,omitempty"`  // minOccurs="0"
+}
+
+type TravelProductInformationTypeI_26322S struct {
+
+	// City of departure for this extra segment.
+	DepartureCity *LocationTypeI_47688C `xml:"departureCity,omitempty"`  // minOccurs="0"
+
+	// City of arrival for this extra segment.
+	ArrivalCity *LocationTypeI_47688C `xml:"arrivalCity,omitempty"`  // minOccurs="0"
+
+	// Airline detail information of the extra segment.
+	AirlineDetail *CompanyIdentificationTypeI `xml:"airlineDetail,omitempty"`  // minOccurs="0"
+
+	// Segment detail information.
+	SegmentDetail *ProductIdentificationDetailsTypeI `xml:"segmentDetail,omitempty"`  // minOccurs="0"
+
+	// Ticketing status for this segment. Relevant only in case of reply.
+	TicketingStatus string `xml:"ticketingStatus,omitempty"`  // minOccurs="0"
 }
 
 type UniqueIdDescriptionType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TPCBRR_12_4_1A UniqueIdDescriptionType"`
 
 	// Number specifying the ordering information of the item described within a group.
-	SequenceNumber formats.NumericInteger_Length1To3 `xml:"sequenceNumber,omitempty"`
+	SequenceNumber *int32 `xml:"sequenceNumber,omitempty"`  // minOccurs="0"
 }

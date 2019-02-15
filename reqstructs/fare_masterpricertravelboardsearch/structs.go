@@ -3,2203 +3,2037 @@ package fare_masterpricertravelboardsearch
 import (
 	"encoding/xml"
 
-	"github.com/tmconsulting/amadeus-ws-go/formats"
+	"github.com/tmconsulting/amadeus-golang-sdk/formats"
 )
 
 type FareMasterPricerTravelBoardSearch struct {
 	XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A Fare_MasterPricerTravelBoardSearch"`
 
-	// Number of seats , recommendations.
-	NumberOfUnit *NumberOfUnitsType `xml:"numberOfUnit,omitempty"`
+	// Number of seats, recommendations.
+	NumberOfUnit *NumberOfUnitsType `xml:"numberOfUnit,omitempty"`  // minOccurs="0"
 
 	// Global options
-	GlobalOptions *AttributeType `xml:"globalOptions,omitempty"`
+	GlobalOptions *AttributeType `xml:"globalOptions,omitempty"`  // minOccurs="0"
 
 	// Traveler Details
-	PaxReference *TravellerReferenceInformationType `xml:"paxReference,omitempty"`
+	PaxReference []*TravellerReferenceInformationType `xml:"paxReference,omitempty"`  // minOccurs="0" maxOccurs="6"
 
 	// Customer references
-	CustomerRef *ConsumerReferenceInformationType `xml:"customerRef,omitempty"`
+	CustomerRef *ConsumerReferenceInformationType `xml:"customerRef,omitempty"`  // minOccurs="0"
 
 	// Fee with different payment forms  by passenger.
-	FormOfPaymentByPassenger *FOPRepresentationType `xml:"formOfPaymentByPassenger,omitempty"`
+	FormOfPaymentByPassenger []*FOPRepresentationType `xml:"formOfPaymentByPassenger,omitempty"`  // minOccurs="0" maxOccurs="60"
 
 	// Solution Family
-	SolutionFamily *FareInformationType `xml:"solutionFamily,omitempty"`
+	SolutionFamily []*FareInformationType `xml:"solutionFamily,omitempty"`  // minOccurs="0" maxOccurs="20"
 
 	// Passenger info group  (9 ADT + 9 IN)
-	PassengerInfoGrp *GroupPassengerDetailsType `xml:"passengerInfoGrp,omitempty"`
+	PassengerInfoGrp []*GroupPassengerDetailsType `xml:"passengerInfoGrp,omitempty"`  // minOccurs="0" maxOccurs="9"
 
-	FareFamilies *FareFamilies `xml:"fareFamilies,omitempty"`
+	FareFamilies []*FareFamilies `xml:"fareFamilies,omitempty"`  // minOccurs="0" maxOccurs="20"
 
-	FareOptions *FareOptions `xml:"fareOptions,omitempty"`
+	FareOptions *FareOptions `xml:"fareOptions,omitempty"`  // minOccurs="0"
 
 	// Indicates Price to beat
-	PriceToBeat *MonetaryInformationType `xml:"priceToBeat,omitempty"`
+	PriceToBeat *MonetaryInformationType `xml:"priceToBeat,omitempty"`  // minOccurs="0"
 
 	// Tax Details
-	TaxInfo *TaxType `xml:"taxInfo,omitempty"`
+	TaxInfo []*TaxType `xml:"taxInfo,omitempty"`  // minOccurs="0" maxOccurs="9"
 
 	// Details of a Flight : Direct, Non stop...
-	TravelFlightInfo *TravelFlightInformationType_185853S `xml:"travelFlightInfo,omitempty"`
+	TravelFlightInfo *TravelFlightInformationType_185853S `xml:"travelFlightInfo,omitempty"`  // minOccurs="0"
 
-	ValueSearch *ValueSearchCriteriaType `xml:"valueSearch,omitempty"`
+	ValueSearch []*ValueSearchCriteriaType `xml:"valueSearch,omitempty"`  // minOccurs="0" maxOccurs="99"
 
-	Itinerary *Itinerary `xml:"itinerary,omitempty"`
+	Itinerary []*Itinerary `xml:"itinerary,omitempty"`  // minOccurs="0" maxOccurs="18"
 
-	TicketChangeInfo *TicketChangeInfo `xml:"ticketChangeInfo,omitempty"`
+	TicketChangeInfo *TicketChangeInfo `xml:"ticketChangeInfo,omitempty"`  // minOccurs="0"
 
-	CombinationFareFamilies *CombinationFareFamilies `xml:"combinationFareFamilies,omitempty"`
+	CombinationFareFamilies []*CombinationFareFamilies `xml:"combinationFareFamilies,omitempty"`  // minOccurs="0" maxOccurs="2000"
 
-	FeeOption *FeeOption `xml:"feeOption,omitempty"`
+	FeeOption []*FeeOption `xml:"feeOption,omitempty"`  // minOccurs="0" maxOccurs="9"
 
-	OfficeIdDetails *OfficeIdDetails `xml:"officeIdDetails,omitempty"`
+	OfficeIdDetails []*OfficeIdDetails `xml:"officeIdDetails,omitempty"`  // minOccurs="0" maxOccurs="20"
 }
 
 type FareFamilies struct {
 
 	// Segment used to target Commercial Fare Family.
-	FamilyInformation *FareFamilyType `xml:"familyInformation,omitempty"`
+	FamilyInformation *FareFamilyType `xml:"familyInformation"`
 
 	// Description of Fare Family Criteria.
-	FamilyCriteria *FareFamilyCriteriaType `xml:"familyCriteria,omitempty"`
+	FamilyCriteria *FareFamilyCriteriaType `xml:"familyCriteria,omitempty"`  // minOccurs="0"
 
-	FareFamilySegment *FareFamilySegment `xml:"fareFamilySegment,omitempty"`
+	FareFamilySegment []*FareFamilySegment `xml:"fareFamilySegment,omitempty"`  // minOccurs="0" maxOccurs="6"
 
-	OtherPossibleCriteria *OtherPossibleCriteria `xml:"otherPossibleCriteria,omitempty"`
+	OtherPossibleCriteria []*OtherPossibleCriteria `xml:"otherPossibleCriteria,omitempty"`  // minOccurs="0" maxOccurs="20"
 }
 
 type FareFamilySegment struct {
 
 	// Requested segment reference
-	ReferenceInfo *ReferenceInfoType `xml:"referenceInfo,omitempty"`
+	ReferenceInfo *ReferenceInfoType `xml:"referenceInfo"`
 
 	// Description of fare family criteria.
-	FamilyCriteria *FareFamilyCriteriaType `xml:"familyCriteria,omitempty"`
+	FamilyCriteria *FareFamilyCriteriaType `xml:"familyCriteria,omitempty"`  // minOccurs="0"
 }
 
 type OtherPossibleCriteria struct {
 
 	// Logical link with other criteria.
-	LogicalLink *BooleanExpressionRuleType `xml:"logicalLink,omitempty"`
+	LogicalLink *BooleanExpressionRuleType `xml:"logicalLink"`
 
 	// Description of fare family criteria.
-	FamilyCriteria *FareFamilyCriteriaType `xml:"familyCriteria,omitempty"`
+	FamilyCriteria *FareFamilyCriteriaType `xml:"familyCriteria,omitempty"`  // minOccurs="0"
 
-	FareFamilySegment *FareFamilySegment `xml:"fareFamilySegment,omitempty"`
+	FareFamilySegment []*FareFamilySegment `xml:"fareFamilySegment,omitempty"`  // minOccurs="0" maxOccurs="6"
 }
 
 type FareOptions struct {
 
 	// Pricing and ticketing details.
-	PricingTickInfo *PricingTicketingDetailsType `xml:"pricingTickInfo,omitempty"`
+	PricingTickInfo *PricingTicketingDetailsType `xml:"pricingTickInfo"`
 
 	// Corporate name/number used to target fares
-	Corporate *CorporateIdentificationType `xml:"corporate,omitempty"`
+	Corporate *CorporateIdentificationType `xml:"corporate,omitempty"`  // minOccurs="0"
 
 	// Ticketing price scheme.
-	TicketingPriceScheme *TicketingPriceSchemeType `xml:"ticketingPriceScheme,omitempty"`
+	TicketingPriceScheme *TicketingPriceSchemeType `xml:"ticketingPriceScheme,omitempty"`  // minOccurs="0"
 
 	// PSR number
-	FeeIdDescription *CodedAttributeType `xml:"feeIdDescription,omitempty"`
+	FeeIdDescription *CodedAttributeType `xml:"feeIdDescription,omitempty"`  // minOccurs="0"
 
 	// Used to force the currency of pricing
-	ConversionRate *ConversionRateType `xml:"conversionRate,omitempty"`
+	ConversionRate *ConversionRateType `xml:"conversionRate,omitempty"`  // minOccurs="0"
 
 	// Form of payment information.
-	FormOfPayment *FormOfPaymentTypeI `xml:"formOfPayment,omitempty"`
+	FormOfPayment *FormOfPaymentTypeI `xml:"formOfPayment,omitempty"`  // minOccurs="0"
 
 	// Frequent traveller information
-	FrequentTravellerInfo *FrequentTravellerIdentificationCodeType_177150S `xml:"frequentTravellerInfo,omitempty"`
+	FrequentTravellerInfo *FrequentTravellerIdentificationCodeType_177150S `xml:"frequentTravellerInfo,omitempty"`  // minOccurs="0"
 
 	// Monetary and cabin information.
-	MonetaryCabinInfo *MonetaryAndCabinInformationType `xml:"monetaryCabinInfo,omitempty"`
+	MonetaryCabinInfo *MonetaryAndCabinInformationType `xml:"monetaryCabinInfo,omitempty"`  // minOccurs="0"
 }
 
 type Itinerary struct {
 
 	// Indicates reference of the requested segment
-	RequestedSegmentRef *OriginAndDestinationRequestType `xml:"requestedSegmentRef,omitempty"`
+	RequestedSegmentRef *OriginAndDestinationRequestType `xml:"requestedSegmentRef"`
 
 	// Specification of the requested departure point
-	DepartureLocalization *DepartureLocationType `xml:"departureLocalization,omitempty"`
+	DepartureLocalization *DepartureLocationType `xml:"departureLocalization,omitempty"`  // minOccurs="0"
 
 	// Specification of the requested arrival point
-	ArrivalLocalization *ArrivalLocalizationType `xml:"arrivalLocalization,omitempty"`
+	ArrivalLocalization *ArrivalLocalizationType `xml:"arrivalLocalization,omitempty"`  // minOccurs="0"
 
 	// Details on requested date and time plus range of date trip duration
-	TimeDetails *DateAndTimeInformationType_181295S `xml:"timeDetails,omitempty"`
+	TimeDetails *DateAndTimeInformationType_181295S `xml:"timeDetails,omitempty"`  // minOccurs="0"
 
 	// Specify Flight options.
-	FlightInfo *TravelFlightInformationType_165053S `xml:"flightInfo,omitempty"`
+	FlightInfo *TravelFlightInformationType_165053S `xml:"flightInfo,omitempty"`  // minOccurs="0"
 
-	ValueSearch *ValueSearchCriteriaType `xml:"valueSearch,omitempty"`
+	ValueSearch []*ValueSearchCriteriaType `xml:"valueSearch,omitempty"`  // minOccurs="0" maxOccurs="99"
 
-	GroupOfFlights *GroupOfFlights `xml:"groupOfFlights,omitempty"`
+	GroupOfFlights []*GroupOfFlights `xml:"groupOfFlights,omitempty"`  // minOccurs="0" maxOccurs="6"
 
-	FlightInfoPNR *FlightInfoPNR `xml:"flightInfoPNR,omitempty"`
+	FlightInfoPNR []*FlightInfoPNR `xml:"flightInfoPNR,omitempty"`  // minOccurs="0" maxOccurs="4"
 
 	// Action identification for the requested segment
-	RequestedSegmentAction *ActionIdentificationType `xml:"requestedSegmentAction,omitempty"`
+	RequestedSegmentAction *ActionIdentificationType `xml:"requestedSegmentAction,omitempty"`  // minOccurs="0"
 
 	// Coded attributes
-	Attributes *CodedAttributeType_181239S `xml:"attributes,omitempty"`
+	Attributes *CodedAttributeType_181239S `xml:"attributes,omitempty"`  // minOccurs="0"
 }
 
 type GroupOfFlights struct {
 
 	// To indicate parameters for proposed flight group.
-	PropFlightGrDetail *ProposedSegmentType `xml:"propFlightGrDetail,omitempty"`
+	PropFlightGrDetail *ProposedSegmentType `xml:"propFlightGrDetail"`
 
 	// Indicates Price to beat
-	PriceToBeat *MonetaryInformationType `xml:"priceToBeat,omitempty"`
+	PriceToBeat *MonetaryInformationType `xml:"priceToBeat,omitempty"`  // minOccurs="0"
 
-	FlightDetails *FlightDetails `xml:"flightDetails,omitempty"`
+	FlightDetails []*FlightDetails `xml:"flightDetails"`  // maxOccurs="4"
 }
 
 type FlightDetails struct {
 
 	// Specification of details on the flight and posting availability
-	FlightInformation *TravelProductType `xml:"flightInformation,omitempty"`
+	FlightInformation *TravelProductType `xml:"flightInformation"`
 
 	// returns booking class and availability context
-	AvlInfo *FlightProductInformationType `xml:"avlInfo,omitempty"`
+	AvlInfo []*FlightProductInformationType `xml:"avlInfo,omitempty"`  // minOccurs="0" maxOccurs="6"
 
 	// Details on Flight date, time and location of technical stop or change of gauge
-	TechnicalStop *DateAndTimeInformationType `xml:"technicalStop,omitempty"`
+	TechnicalStop []*DateAndTimeInformationType `xml:"technicalStop,omitempty"`  // minOccurs="0" maxOccurs="5"
 
 	// Code Share Agreement description for current flight.
-	CommercialAgreement *CommercialAgreementsType_78540S `xml:"commercialAgreement,omitempty"`
+	CommercialAgreement *CommercialAgreementsType_78540S `xml:"commercialAgreement,omitempty"`  // minOccurs="0"
 
 	// Additional Info about flight, such as Reference number, and several options
-	AddInfo *HeaderInformationTypeI `xml:"addInfo,omitempty"`
+	AddInfo *HeaderInformationTypeI `xml:"addInfo,omitempty"`  // minOccurs="0"
 
 	// Terminal, Equipment and EFT Details. If a Total EFT of the Travel Solution is requested then we will have 2 occurrences of the terminalEquipmentDetails attached to the first leg flightInformation: the 1st occurence will give the EFT of the leg, the 2nd occurrence will give the total EFT of the Travel Solution.
-	TerminalEquipmentDetails *AdditionalProductDetailsTypeI `xml:"terminalEquipmentDetails,omitempty"`
+	TerminalEquipmentDetails []*AdditionalProductDetailsTypeI `xml:"terminalEquipmentDetails,omitempty"`  // minOccurs="0" maxOccurs="2"
 
 	// PNR flight reservation info
-	ReservationInfo *PassengerItineraryInformationType `xml:"reservationInfo,omitempty"`
+	ReservationInfo *PassengerItineraryInformationType `xml:"reservationInfo,omitempty"`  // minOccurs="0"
 
 	// Indicates Price to beat
-	PriceToBeat *MonetaryInformationType `xml:"priceToBeat,omitempty"`
+	PriceToBeat *MonetaryInformationType `xml:"priceToBeat,omitempty"`  // minOccurs="0"
 }
 
 type FlightInfoPNR struct {
 
 	// Travel Response Details: - Board/Off aiports - Flight number - Part of the journey - Day difference between Board and off  - Departure/Arrival dates - Departure/Arrival times
-	TravelResponseDetails *TravelProductInformationTypeI `xml:"travelResponseDetails,omitempty"`
+	TravelResponseDetails *TravelProductInformationTypeI `xml:"travelResponseDetails"`
 
 	// Time Table Effective/Discontinue dates and frequency of operating Travel Solution
-	TimeTableDate *StructuredPeriodInformationType `xml:"timeTableDate,omitempty"`
+	TimeTableDate *StructuredPeriodInformationType `xml:"timeTableDate,omitempty"`  // minOccurs="0"
 
 	// Terminal, Equipment and EFT Details. If a Total EFT of the Travel Solution is requested then we will have 2 occurrences of the terminalEquipmentDetails attached to the first leg travelResponseDetails: the 1st occurrence will give the EFT of the leg, the 2nd occurrence will give the total EFT of the Travel Solution.
-	TerminalEquipmentDetails *AdditionalProductDetailsTypeI `xml:"terminalEquipmentDetails,omitempty"`
+	TerminalEquipmentDetails []*AdditionalProductDetailsTypeI `xml:"terminalEquipmentDetails,omitempty"`  // minOccurs="0" maxOccurs="2"
 
 	// Codeshare data
-	CodeshareData *CommercialAgreementsType `xml:"codeshareData,omitempty"`
+	CodeshareData *CommercialAgreementsType `xml:"codeshareData,omitempty"`  // minOccurs="0"
 
 	// Disclosure message from an operating carrier.
-	Disclosure *FreeTextInformationType `xml:"disclosure,omitempty"`
+	Disclosure *FreeTextInformationType `xml:"disclosure,omitempty"`  // minOccurs="0"
 
 	// Stops Details
-	StopDetails *RoutingInformationTypeI `xml:"stopDetails,omitempty"`
+	StopDetails *RoutingInformationTypeI `xml:"stopDetails,omitempty"`  // minOccurs="0"
 
 	// Traffic restriction information
-	TrafficRestrictionData *TrafficRestrictionTypeI `xml:"trafficRestrictionData,omitempty"`
+	TrafficRestrictionData *TrafficRestrictionTypeI `xml:"trafficRestrictionData,omitempty"`  // minOccurs="0"
 
 	// PNR flight reservation info
-	ReservationInfo *PassengerItineraryInformationType `xml:"reservationInfo,omitempty"`
+	ReservationInfo *PassengerItineraryInformationType `xml:"reservationInfo,omitempty"`  // minOccurs="0"
 
-	IncidentalStopInfo *IncidentalStopInfo `xml:"incidentalStopInfo,omitempty"`
+	IncidentalStopInfo []*IncidentalStopInfo `xml:"incidentalStopInfo,omitempty"`  // minOccurs="0" maxOccurs="8"
 }
 
 type IncidentalStopInfo struct {
 
 	// Incidental stop date/time information
-	DateTimeInfo *DateAndTimeInformationTypeI `xml:"dateTimeInfo,omitempty"`
+	DateTimeInfo *DateAndTimeInformationTypeI `xml:"dateTimeInfo"`
 }
 
 type TicketChangeInfo struct {
 
 	// Ticket nb details.
-	TicketNumberDetails *TicketNumberTypeI `xml:"ticketNumberDetails,omitempty"`
+	TicketNumberDetails *TicketNumberTypeI `xml:"ticketNumberDetails"`
 
-	TicketRequestedSegments *TicketRequestedSegments `xml:"ticketRequestedSegments,omitempty"`
+	TicketRequestedSegments []*TicketRequestedSegments `xml:"ticketRequestedSegments,omitempty"`  // minOccurs="0" maxOccurs="6"
 }
 
 type TicketRequestedSegments struct {
 
 	// Action identification.
-	ActionIdentification *ActionIdentificationType `xml:"actionIdentification,omitempty"`
+	ActionIdentification *ActionIdentificationType `xml:"actionIdentification"`
 
 	// Connected cities in changed ticket requested segment.
-	ConnectPointDetails *ConnectionTypeI `xml:"connectPointDetails,omitempty"`
+	ConnectPointDetails *ConnectionTypeI `xml:"connectPointDetails,omitempty"`  // minOccurs="0"
 }
 
 type CombinationFareFamilies struct {
 
 	// Specification of the item number
-	ItemFFCNumber *ItemNumberType `xml:"itemFFCNumber,omitempty"`
+	ItemFFCNumber *ItemNumberType `xml:"itemFFCNumber"`
 
 	// Number of units.
-	NbOfUnits *NumberOfUnitsType_80154S `xml:"nbOfUnits,omitempty"`
+	NbOfUnits *NumberOfUnitsType_80154S `xml:"nbOfUnits,omitempty"`  // minOccurs="0"
 
 	// Requested segment reference
-	ReferenceInfo *ReferenceInfoType `xml:"referenceInfo,omitempty"`
+	ReferenceInfo []*ReferenceInfoType `xml:"referenceInfo,omitempty"`  // minOccurs="0" maxOccurs="6"
 }
 
 type FeeOption struct {
 
 	// Nature of the fee (OB,OC,..)
-	FeeTypeInfo *SelectionDetailsType `xml:"feeTypeInfo,omitempty"`
+	FeeTypeInfo *SelectionDetailsType `xml:"feeTypeInfo"`
 
 	// Associated rate tax.
-	RateTax *MonetaryInformationType_80162S `xml:"rateTax,omitempty"`
+	RateTax *MonetaryInformationType_80162S `xml:"rateTax,omitempty"`  // minOccurs="0"
 
-	FeeDetails *FeeDetails `xml:"feeDetails,omitempty"`
+	FeeDetails []*FeeDetails `xml:"feeDetails,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 type FeeDetails struct {
 
 	// Fee information
-	FeeInfo *SpecificDataInformationType `xml:"feeInfo,omitempty"`
+	FeeInfo *SpecificDataInformationType `xml:"feeInfo"`
 
 	// Associated amounts : amounts to take into account to calculate fee.
-	AssociatedAmounts *MonetaryInformationTypeI `xml:"associatedAmounts,omitempty"`
+	AssociatedAmounts *MonetaryInformationTypeI `xml:"associatedAmounts,omitempty"`  // minOccurs="0"
 
-	FeeDescriptionGrp *FeeDescriptionGrp `xml:"feeDescriptionGrp,omitempty"`
+	FeeDescriptionGrp *FeeDescriptionGrp `xml:"feeDescriptionGrp,omitempty"`  // minOccurs="0"
 }
 
 type FeeDescriptionGrp struct {
 
 	// Specification of the item number
-	ItemNumberInfo *ItemNumberType_80866S `xml:"itemNumberInfo,omitempty"`
+	ItemNumberInfo *ItemNumberType_80866S `xml:"itemNumberInfo"`
 
 	// Attributes  (SSR code EMD, RFIC, SSIM)
-	ServiceAttributesInfo *AttributeType_61377S `xml:"serviceAttributesInfo,omitempty"`
+	ServiceAttributesInfo *AttributeType_61377S `xml:"serviceAttributesInfo,omitempty"`  // minOccurs="0"
 
 	// Other service information (service description, ...)
-	ServiceDescriptionInfo *SpecialRequirementsDetailsType `xml:"serviceDescriptionInfo,omitempty"`
+	ServiceDescriptionInfo *SpecialRequirementsDetailsType `xml:"serviceDescriptionInfo,omitempty"`  // minOccurs="0"
 }
 
 type OfficeIdDetails struct {
 
 	// Office Id Information
-	OfficeIdInformation *UserIdentificationType `xml:"officeIdInformation,omitempty"`
+	OfficeIdInformation *UserIdentificationType `xml:"officeIdInformation"`
 
 	// Number of units.
-	NbOfUnits *NumberOfUnitsType_80154S `xml:"nbOfUnits,omitempty"`
+	NbOfUnits *NumberOfUnitsType_80154S `xml:"nbOfUnits,omitempty"`  // minOccurs="0"
 
 	// UID option
-	UidOption *CodedAttributeType_78500S `xml:"uidOption,omitempty"`
+	UidOption *CodedAttributeType_78500S `xml:"uidOption,omitempty"`  // minOccurs="0"
 
 	// Pricing and ticketing details.
-	PricingTickInfo *PricingTicketingDetailsType `xml:"pricingTickInfo,omitempty"`
+	PricingTickInfo *PricingTicketingDetailsType `xml:"pricingTickInfo,omitempty"`  // minOccurs="0"
 
 	// Corporate fare information
-	CorporateFareInfo *CorporateFareInformationType `xml:"corporateFareInfo,omitempty"`
+	CorporateFareInfo *CorporateFareInformationType `xml:"corporateFareInfo,omitempty"`  // minOccurs="0"
 
 	// Details of a Flight : Direct, Non stop...
-	TravelFlightInfo *TravelFlightInformationType `xml:"travelFlightInfo,omitempty"`
+	TravelFlightInfo *TravelFlightInformationType `xml:"travelFlightInfo,omitempty"`  // minOccurs="0"
 
-	AirlineDistributionDetails *AirlineDistributionDetails `xml:"airlineDistributionDetails,omitempty"`
+	AirlineDistributionDetails []*AirlineDistributionDetails `xml:"airlineDistributionDetails,omitempty"`  // minOccurs="0" maxOccurs="6"
 }
 
 type AirlineDistributionDetails struct {
 
 	// Indicates reference of the requested segment
-	RequestedSegmentRef *OriginAndDestinationRequestType `xml:"requestedSegmentRef,omitempty"`
+	RequestedSegmentRef *OriginAndDestinationRequestType `xml:"requestedSegmentRef"`
 
 	// Specify Flight options.
-	FlightInfo *TravelFlightInformationType `xml:"flightInfo,omitempty"`
+	FlightInfo *TravelFlightInformationType `xml:"flightInfo,omitempty"`  // minOccurs="0"
 }
+
+//
+// Complex structs
+//
 
 type ActionIdentificationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ActionIdentificationType"`
 
 	// Action request code
-	ActionRequestCode formats.AlphaNumericString_Length1To3 `xml:"actionRequestCode,omitempty"`
+	ActionRequestCode formats.AlphaNumericString_Length1To3 `xml:"actionRequestCode"`
 
-	ProductDetails *ProductIdentificationDetailsTypeI_50878C `xml:"productDetails,omitempty"`
-}
-
-type AdditionalProductDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A AdditionalProductDetailsTypeI"`
-
-	// Flight details
-	LegDetails *AdditionalProductTypeI `xml:"legDetails,omitempty"`
-
-	// Departure station
-	DepartureStationInfo *StationInformationTypeI `xml:"departureStationInfo,omitempty"`
-
-	ArrivalStationInfo *StationInformationTypeI `xml:"arrivalStationInfo,omitempty"`
-
-	// Ground Time Details when connection
-	MileageTimeDetails *MileageTimeDetailsTypeI `xml:"mileageTimeDetails,omitempty"`
+	ProductDetails *ProductIdentificationDetailsTypeI_50878C `xml:"productDetails,omitempty"`  // minOccurs="0"
 }
 
 type AdditionalProductDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A AdditionalProductDetailsType"`
 
 	// Type of aircraft
-	EquipmentType formats.AlphaNumericString_Length1To3 `xml:"equipmentType,omitempty"`
+	EquipmentType formats.AlphaNumericString_Length1To3 `xml:"equipmentType,omitempty"`  // minOccurs="0"
 
 	// Day number of the week
-	OperatingDay formats.AlphaNumericString_Length1To7 `xml:"operatingDay,omitempty"`
+	OperatingDay formats.AlphaNumericString_Length1To7 `xml:"operatingDay,omitempty"`  // minOccurs="0"
 
 	// Number of stops made in a journey if different from 0
-	TechStopNumber formats.NumericInteger_Length1To2 `xml:"techStopNumber,omitempty"`
+	TechStopNumber *formats.NumericInteger_Length1To2 `xml:"techStopNumber,omitempty"`  // minOccurs="0"
 
 	// Location places of the stops
-	LocationId formats.AlphaString_Length3To5 `xml:"locationId,omitempty"`
+	LocationId []formats.AlphaString_Length3To5 `xml:"locationId,omitempty"`  // minOccurs="0" maxOccurs="3"
+}
+
+type AdditionalProductDetailsTypeI struct {
+
+	// Flight details
+	LegDetails *AdditionalProductTypeI `xml:"legDetails,omitempty"`  // minOccurs="0"
+
+	// Departure station
+	DepartureStationInfo *StationInformationTypeI `xml:"departureStationInfo,omitempty"`  // minOccurs="0"
+
+	ArrivalStationInfo *StationInformationTypeI `xml:"arrivalStationInfo,omitempty"`  // minOccurs="0"
+
+	// Ground Time Details when connection
+	MileageTimeDetails *MileageTimeDetailsTypeI `xml:"mileageTimeDetails,omitempty"`  // minOccurs="0"
 }
 
 type AdditionalProductTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A AdditionalProductTypeI"`
 
 	// Equipment type
-	Equipment formats.AlphaNumericString_Length1To3 `xml:"equipment,omitempty"`
+	Equipment formats.AlphaNumericString_Length1To3 `xml:"equipment,omitempty"`  // minOccurs="0"
 
 	// Elaps flying time of the leg
-	Duration formats.NumericInteger_Length1To6 `xml:"duration,omitempty"`
+	Duration *formats.NumericInteger_Length1To6 `xml:"duration,omitempty"`  // minOccurs="0"
 
 	// COG indicator
-	ComplexingFlightIndicator formats.AlphaNumericString_Length1To1 `xml:"complexingFlightIndicator,omitempty"`
+	ComplexingFlightIndicator formats.AlphaNumericString_Length1To1 `xml:"complexingFlightIndicator,omitempty"`  // minOccurs="0"
 }
 
 type AgentIdentificationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A AgentIdentificationType"`
 
 	// Contains ARC number
-	ArcNumber formats.AlphaNumericString_Length1To12 `xml:"arcNumber,omitempty"`
+	ArcNumber formats.AlphaNumericString_Length1To12 `xml:"arcNumber,omitempty"`  // minOccurs="0"
 
 	// ERSP number of the Office or Customer
-	ErspNumber formats.AlphaNumericString_Length1To12 `xml:"erspNumber,omitempty"`
+	ErspNumber formats.AlphaNumericString_Length1To12 `xml:"erspNumber,omitempty"`  // minOccurs="0"
 
 	// IATA Number
-	IataNumber formats.AlphaNumericString_Length1To12 `xml:"iataNumber,omitempty"`
+	IataNumber formats.AlphaNumericString_Length1To12 `xml:"iataNumber,omitempty"`  // minOccurs="0"
 }
 
 type ArithmeticEvaluationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ArithmeticEvaluationType"`
 
 	// Boolean operator
-	CodeOperator formats.AlphaNumericString_Length1To3 `xml:"codeOperator,omitempty"`
+	CodeOperator formats.AlphaNumericString_Length1To3 `xml:"codeOperator,omitempty"`  // minOccurs="0"
 }
 
 type ArrivalLocalizationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ArrivalLocalizationType"`
 
 	// Details on the location of the arrival point
-	ArrivalPointDetails *ArrivalLocationDetailsType `xml:"arrivalPointDetails,omitempty"`
+	ArrivalPointDetails *ArrivalLocationDetailsType `xml:"arrivalPointDetails,omitempty"`  // minOccurs="0"
 
 	// Arrival multi city option
-	ArrivalMultiCity *MultiCityOptionType `xml:"arrivalMultiCity,omitempty"`
+	ArrivalMultiCity []*MultiCityOptionType `xml:"arrivalMultiCity,omitempty"`  // minOccurs="0" maxOccurs="20"
 
 	// Attribute details
-	AttributeDetails *CodedAttributeInformationType_139508C `xml:"attributeDetails,omitempty"`
+	AttributeDetails []*CodedAttributeInformationType_139508C `xml:"attributeDetails,omitempty"`  // minOccurs="0" maxOccurs="20"
 }
 
 type ArrivalLocationDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ArrivalLocationDetailsType"`
 
 	// For Radius: This is the length of the requested radius around the location of destination.
-	Distance formats.NumericInteger_Length1To3 `xml:"distance,omitempty"`
+	Distance *formats.NumericInteger_Length1To3 `xml:"distance,omitempty"`  // minOccurs="0"
 
 	// Distance unit qualifier for radius
-	DistanceUnit formats.AlphaNumericString_Length0To3 `xml:"distanceUnit,omitempty"`
+	DistanceUnit formats.AlphaNumericString_Length0To3 `xml:"distanceUnit,omitempty"`  // minOccurs="0"
 
 	// ATA/IATA airport/city code of arrival  In case of SP request from a PNR, this field is empty.
-	LocationId formats.AlphaString_Length3To5 `xml:"locationId,omitempty"`
+	LocationId formats.AlphaString_Length3To5 `xml:"locationId,omitempty"`  // minOccurs="0"
 
 	// Request from no PNR A = consider the locationID specified as an airport (used only when ambiguous) C = consider the locationId as a city  (used only when ambiguous) A and C are not used in case of a request from PNR  Request from a PNR with Radius option: O = radius applies to the origin of the PNR segments D = radius applies to the destination of the PNR segments
-	AirportCityQualifier formats.AlphaString_Length1To1 `xml:"airportCityQualifier,omitempty"`
+	AirportCityQualifier formats.AlphaString_Length1To1 `xml:"airportCityQualifier,omitempty"`  // minOccurs="0"
 
 	// Latitude in degrees (decimal format) with hemisphere N=north S=south
-	Latitude formats.AlphaNumericString_Length6To6 `xml:"latitude,omitempty"`
+	Latitude formats.AlphaNumericString_Length6To6 `xml:"latitude,omitempty"`  // minOccurs="0"
 
 	// Longitude in degrees (decimal format) with hemisphere E=east, W=west
-	Longitude formats.AlphaNumericString_Length6To6 `xml:"longitude,omitempty"`
+	Longitude formats.AlphaNumericString_Length6To6 `xml:"longitude,omitempty"`  // minOccurs="0"
 }
 
 type ArrivalLocationDetailsType_120834C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ArrivalLocationDetailsType_120834C"`
 
 	// For Radius: This is the length of the requested radius around the location of origin.
-	Distance formats.NumericInteger_Length1To3 `xml:"distance,omitempty"`
+	Distance *formats.NumericInteger_Length1To3 `xml:"distance,omitempty"`  // minOccurs="0"
 
 	// Distance unit qualifier for radius
-	DistanceUnit formats.AlphaNumericString_Length1To3 `xml:"distanceUnit,omitempty"`
+	DistanceUnit formats.AlphaNumericString_Length1To3 `xml:"distanceUnit,omitempty"`  // minOccurs="0"
 
 	// ATA/IATA airport/city code of arrival  In case of SP request from a PNR, this field is empty.
-	LocationId formats.AlphaString_Length3To5 `xml:"locationId,omitempty"`
+	LocationId formats.AlphaString_Length3To5 `xml:"locationId,omitempty"`  // minOccurs="0"
 
 	// Request from no PNR A = consider the locationID specified as an airport (used only when ambiguous) C = consider the locationId as a city  (used only when ambiguous) A and C are not used in case of a request from PNR  Request from a PNR with Radius option: O = radius applies to the origin of the PNR segments D = radius applies to the destination of the PNR segments
-	AirportCityQualifier formats.AlphaString_Length1To1 `xml:"airportCityQualifier,omitempty"`
+	AirportCityQualifier formats.AlphaString_Length1To1 `xml:"airportCityQualifier,omitempty"`  // minOccurs="0"
 
 	// Latitude in degrees (decimal format) with hemisphere N=north S=south
-	Latitude formats.AlphaNumericString_Length6To6 `xml:"latitude,omitempty"`
+	Latitude formats.AlphaNumericString_Length6To6 `xml:"latitude,omitempty"`  // minOccurs="0"
 
 	// Longitude in degrees (decimal format) with hemisphere E=east, W=west
-	Longitude formats.AlphaNumericString_Length6To6 `xml:"longitude,omitempty"`
+	Longitude formats.AlphaNumericString_Length6To6 `xml:"longitude,omitempty"`  // minOccurs="0"
 }
 
 type AttributeInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A AttributeInformationType"`
 
 	// Code of options
-	Option formats.AlphaNumericString_Length1To3 `xml:"option,omitempty"`
+	Option formats.AlphaNumericString_Length1To3 `xml:"option"`
 
 	// Mandatory when alternate date option is used (ALT), must be set to plus (P) or minus (M) a number of days around the original PNR segment dates. E.g.: M1 (for minus 1 day) or P100 (for plus 100 days)
-	OptionInformation formats.AlphaNumericString_Length1To35 `xml:"optionInformation,omitempty"`
+	OptionInformation formats.AlphaNumericString_Length1To35 `xml:"optionInformation,omitempty"`  // minOccurs="0"
 }
 
 type AttributeInformationType_97181C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A AttributeInformationType_97181C"`
 
 	// Attribute type
-	AttributeType formats.AlphaNumericString_Length1To25 `xml:"attributeType,omitempty"`
+	AttributeType formats.AlphaNumericString_Length1To25 `xml:"attributeType"`
 
 	// Attribute description
-	AttributeDescription formats.AlphaNumericString_Length1To256 `xml:"attributeDescription,omitempty"`
+	AttributeDescription formats.AlphaNumericString_Length1To256 `xml:"attributeDescription,omitempty"`  // minOccurs="0"
 }
 
 type AttributeType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A AttributeType"`
 
 	// Option parameters
-	SelectionDetails *AttributeInformationType `xml:"selectionDetails,omitempty"`
+	SelectionDetails []*AttributeInformationType `xml:"selectionDetails"`  // maxOccurs="10"
 }
 
 type AttributeType_61377S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A AttributeType_61377S"`
 
 	// Criteria Set Type
-	AttributeQualifier formats.AlphaNumericString_Length1To3 `xml:"attributeQualifier,omitempty"`
+	AttributeQualifier formats.AlphaNumericString_Length1To3 `xml:"attributeQualifier,omitempty"`  // minOccurs="0"
 
 	// Criteria details
-	AttributeDetails *AttributeInformationType_97181C `xml:"attributeDetails,omitempty"`
+	AttributeDetails []*AttributeInformationType_97181C `xml:"attributeDetails"`  // maxOccurs="99"
 }
 
 type BooleanExpressionRuleType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A BooleanExpressionRuleType"`
 
 	// Boolean expression associated to the decision rule.
-	BooleanExpression *ArithmeticEvaluationType `xml:"booleanExpression,omitempty"`
+	BooleanExpression *ArithmeticEvaluationType `xml:"booleanExpression"`
 }
 
 type CabinClassDesignationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CabinClassDesignationType"`
 
 	// Cabin designator.
-	CabinDesignator formats.AlphaNumericString_Length1To1 `xml:"cabinDesignator,omitempty"`
+	CabinDesignator formats.AlphaNumericString_Length1To1 `xml:"cabinDesignator"`
 }
 
 type CabinIdentificationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CabinIdentificationType"`
 
 	// Cabin qualifier. For Star Pricer,MD stands for Mandatory Cabin qualifier.  For other products no qualifier stands for Mandatory Cabin.
-	CabinQualifier formats.AlphaNumericString_Length1To2 `xml:"cabinQualifier,omitempty"`
+	CabinQualifier formats.AlphaNumericString_Length1To2 `xml:"cabinQualifier,omitempty"`  // minOccurs="0"
 
 	// Cabin
-	Cabin formats.AlphaString_Length0To1 `xml:"cabin,omitempty"`
+	Cabin []formats.AlphaString_Length0To1 `xml:"cabin"`  // maxOccurs="3"
 }
 
 type CabinIdentificationType_233500C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CabinIdentificationType_233500C"`
 
 	// Cabin qualifier. For Star Pricer,MD stands for Mandatory Cabin qualifier.  For other products no qualifier stands for Mandatory Cabin.
-	CabinQualifier formats.AlphaNumericString_Length1To2 `xml:"cabinQualifier,omitempty"`
+	CabinQualifier formats.AlphaNumericString_Length1To2 `xml:"cabinQualifier,omitempty"`  // minOccurs="0"
 
 	// Cabin
-	Cabin formats.AlphaString_Length0To1 `xml:"cabin,omitempty"`
+	Cabin []formats.AlphaString_Length0To1 `xml:"cabin,omitempty"`  // minOccurs="0" maxOccurs="5"
 }
 
 type CabinProductDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CabinProductDetailsType"`
 
 	// Reservation booking designator - RBD
-	Rbd formats.AlphaString_Length1To1 `xml:"rbd,omitempty"`
+	Rbd formats.AlphaString_Length1To1 `xml:"rbd"`
 
 	// Reservation Booking Modifier
-	BookingModifier formats.AMA_EDICodesetType_Length1 `xml:"bookingModifier,omitempty"`
+	BookingModifier formats.AMA_EDICodesetType_Length1 `xml:"bookingModifier,omitempty"`  // minOccurs="0"
 
 	// Indicates the cabin related to the Booking code
-	Cabin formats.AlphaString_Length1To1 `xml:"cabin,omitempty"`
+	Cabin formats.AlphaString_Length1To1 `xml:"cabin,omitempty"`  // minOccurs="0"
 
 	// Availibility status : posting level
-	AvlStatus formats.AMA_EDICodesetType_Length1to3 `xml:"avlStatus,omitempty"`
+	AvlStatus formats.AMA_EDICodesetType_Length1to3 `xml:"avlStatus,omitempty"`  // minOccurs="0"
 }
 
 type CodedAttributeInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CodedAttributeInformationType"`
 
 	// Attribute type identification
-	AttributeType formats.AlphaNumericString_Length1To5 `xml:"attributeType,omitempty"`
+	AttributeType formats.AlphaNumericString_Length1To5 `xml:"attributeType"`
 
 	// Attribute Description
-	AttributeDescription formats.AlphaNumericString_Length1To20 `xml:"attributeDescription,omitempty"`
+	AttributeDescription formats.AlphaNumericString_Length1To20 `xml:"attributeDescription,omitempty"`  // minOccurs="0"
 }
 
 type CodedAttributeInformationType_120742C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CodedAttributeInformationType_120742C"`
 
 	// Name.
-	Name formats.AlphaNumericString_Length1To5 `xml:"name,omitempty"`
+	Name formats.AlphaNumericString_Length1To5 `xml:"name"`
 
 	// Value.
-	Value formats.AlphaNumericString_Length1To20 `xml:"value,omitempty"`
+	Value []formats.AlphaNumericString_Length1To20 `xml:"value,omitempty"`  // minOccurs="0" maxOccurs="10"
 }
 
 type CodedAttributeInformationType_139508C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CodedAttributeInformationType_139508C"`
 
 	// Attribute type
-	Type formats.AlphaNumericString_Length1To5 `xml:"type,omitempty"`
+	Type formats.AlphaNumericString_Length1To5 `xml:"type,omitempty"`  // minOccurs="0"
 
 	// Value.
-	Value formats.AlphaNumericString_Length1To20 `xml:"value,omitempty"`
+	Value []formats.AlphaNumericString_Length1To20 `xml:"value,omitempty"`  // minOccurs="0" maxOccurs="10"
 }
 
 type CodedAttributeInformationType_247828C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CodedAttributeInformationType_247828C"`
 
-	AttributeType formats.AlphaNumericString_Length1To5 `xml:"attributeType,omitempty"`
+	AttributeType formats.AlphaNumericString_Length1To5 `xml:"attributeType"`
 
 	// Attribute description
-	AttributeDescription formats.AlphaNumericString_Length1To10 `xml:"attributeDescription,omitempty"`
+	AttributeDescription formats.AlphaNumericString_Length1To10 `xml:"attributeDescription,omitempty"`  // minOccurs="0"
 }
 
 type CodedAttributeInformationType_247829C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CodedAttributeInformationType_247829C"`
 
 	// Type of fee/reduction
-	FeeType formats.AlphaNumericString_Length1To5 `xml:"feeType,omitempty"`
+	FeeType formats.AlphaNumericString_Length1To5 `xml:"feeType"`
 
 	// Fee Id Number
-	FeeIdNumber formats.AlphaNumericString_Length1To50 `xml:"feeIdNumber,omitempty"`
+	FeeIdNumber formats.AlphaNumericString_Length1To50 `xml:"feeIdNumber"`
 }
 
 type CodedAttributeInformationType_254574C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CodedAttributeInformationType_254574C"`
 
 	// Attribute type
-	AttributeType formats.AlphaNumericString_Length1To5 `xml:"attributeType,omitempty"`
+	AttributeType formats.AlphaNumericString_Length1To5 `xml:"attributeType"`
 
 	// Attribute description
-	AttributeDescription formats.AlphaNumericString_Length1To50 `xml:"attributeDescription,omitempty"`
+	AttributeDescription formats.AlphaNumericString_Length1To50 `xml:"attributeDescription,omitempty"`  // minOccurs="0"
 }
 
 type CodedAttributeType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CodedAttributeType"`
 
 	// Fee/reduction Id
-	FeeId *CodedAttributeInformationType_247829C `xml:"feeId,omitempty"`
+	FeeId []*CodedAttributeInformationType_247829C `xml:"feeId,omitempty"`  // minOccurs="0" maxOccurs="20"
 }
 
 type CodedAttributeType_181239S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CodedAttributeType_181239S"`
 
 	// Attribute details
-	AttributeDetails *CodedAttributeInformationType_254574C `xml:"attributeDetails,omitempty"`
+	AttributeDetails []*CodedAttributeInformationType_254574C `xml:"attributeDetails"`  // maxOccurs="9"
 }
 
 type CodedAttributeType_78500S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CodedAttributeType_78500S"`
 
 	// Atrribute details.
-	AttributeDetails *CodedAttributeInformationType `xml:"attributeDetails,omitempty"`
+	AttributeDetails []*CodedAttributeInformationType `xml:"attributeDetails"`  // maxOccurs="20"
 }
 
 type CommercialAgreementsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CommercialAgreementsType"`
 
 	// Codeshare Details
-	CodeshareDetails *CompanyRoleIdentificationType `xml:"codeshareDetails,omitempty"`
+	CodeshareDetails *CompanyRoleIdentificationType `xml:"codeshareDetails"`
 
 	// Other codeshare details
-	OtherCodeshareDetails *CompanyRoleIdentificationType `xml:"otherCodeshareDetails,omitempty"`
+	OtherCodeshareDetails []*CompanyRoleIdentificationType `xml:"otherCodeshareDetails,omitempty"`  // minOccurs="0" maxOccurs="8"
 }
 
 type CommercialAgreementsType_78540S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CommercialAgreementsType_78540S"`
 
 	// Codeshare Details
-	CodeshareDetails *CompanyRoleIdentificationType_120761C `xml:"codeshareDetails,omitempty"`
+	CodeshareDetails *CompanyRoleIdentificationType_120761C `xml:"codeshareDetails,omitempty"`  // minOccurs="0"
 
 	// Other codeshare details
-	OtherCodeshareDetails *CompanyRoleIdentificationType_120761C `xml:"otherCodeshareDetails,omitempty"`
+	OtherCodeshareDetails []*CompanyRoleIdentificationType_120761C `xml:"otherCodeshareDetails,omitempty"`  // minOccurs="0" maxOccurs="9"
 }
+
+type CompanyIdentificationType struct {}
 
 type CompanyIdentificationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CompanyIdentificationTypeI"`
 
 	// Carrier code
-	MarketingCompany formats.AlphaNumericString_Length2To3 `xml:"marketingCompany,omitempty"`
-}
-
-type CompanyIdentificationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CompanyIdentificationType"`
+	MarketingCompany formats.AlphaNumericString_Length2To3 `xml:"marketingCompany"`
 }
 
 type CompanyIdentificationType_120719C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CompanyIdentificationType_120719C"`
 
 	// Item description identification.
-	CarrierQualifier formats.AlphaNumericString_Length0To1 `xml:"carrierQualifier,omitempty"`
+	CarrierQualifier formats.AlphaNumericString_Length0To1 `xml:"carrierQualifier"`
 
 	// carrier id
-	CarrierId formats.AlphaNumericString_Length2To3 `xml:"carrierId,omitempty"`
+	CarrierId []formats.AlphaNumericString_Length2To3 `xml:"carrierId"`  // maxOccurs="99"
 }
 
 type CompanyIdentificationType_195544C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CompanyIdentificationType_195544C"`
 
 	// Marketing carrier
-	MarketingCarrier formats.AlphaNumericString_Length2To3 `xml:"marketingCarrier,omitempty"`
+	MarketingCarrier formats.AlphaNumericString_Length2To3 `xml:"marketingCarrier"`
 
 	// Operating carrier
-	OperatingCarrier formats.AlphaNumericString_Length2To3 `xml:"operatingCarrier,omitempty"`
+	OperatingCarrier formats.AlphaNumericString_Length2To3 `xml:"operatingCarrier,omitempty"`  // minOccurs="0"
 }
 
 type CompanyIdentificationType_233548C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CompanyIdentificationType_233548C"`
 
 	// Item description identification.
-	CarrierQualifier formats.AlphaNumericString_Length0To1 `xml:"carrierQualifier,omitempty"`
+	CarrierQualifier formats.AlphaNumericString_Length0To1 `xml:"carrierQualifier"`
 
 	// carrier id
-	CarrierId formats.AlphaNumericString_Length2To3 `xml:"carrierId,omitempty"`
+	CarrierId []formats.AlphaNumericString_Length2To3 `xml:"carrierId"`  // maxOccurs="999"
 }
 
 type CompanyRoleIdentificationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CompanyRoleIdentificationType"`
 
 	// Codeshare qualifier
-	TransportStageQualifier formats.AlphaString_Length1To1 `xml:"transportStageQualifier,omitempty"`
+	TransportStageQualifier formats.AlphaString_Length1To1 `xml:"transportStageQualifier"`
 
 	// company identification
-	AirlineDesignator formats.AlphaNumericString_Length2To3 `xml:"airlineDesignator,omitempty"`
+	AirlineDesignator formats.AlphaNumericString_Length2To3 `xml:"airlineDesignator,omitempty"`  // minOccurs="0"
 
 	// flight number
-	FlightNumber formats.NumericInteger_Length1To4 `xml:"flightNumber,omitempty"`
+	FlightNumber *formats.NumericInteger_Length1To4 `xml:"flightNumber,omitempty"`  // minOccurs="0"
 
 	// suffix
-	OperationalSuffix formats.AlphaString_Length1To1 `xml:"operationalSuffix,omitempty"`
+	OperationalSuffix formats.AlphaString_Length1To1 `xml:"operationalSuffix,omitempty"`  // minOccurs="0"
 }
 
 type CompanyRoleIdentificationType_120761C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CompanyRoleIdentificationType_120761C"`
 
 	// Type of code share agreement.
-	CodeShareType formats.AlphaString_Length1To1 `xml:"codeShareType,omitempty"`
+	CodeShareType formats.AlphaString_Length1To1 `xml:"codeShareType,omitempty"`  // minOccurs="0"
 
 	// company identification
-	AirlineDesignator formats.AlphaNumericString_Length2To3 `xml:"airlineDesignator,omitempty"`
+	AirlineDesignator formats.AlphaNumericString_Length2To3 `xml:"airlineDesignator,omitempty"`  // minOccurs="0"
 
 	// flight number
-	FlightNumber formats.NumericInteger_Length1To4 `xml:"flightNumber,omitempty"`
+	FlightNumber *formats.NumericInteger_Length1To4 `xml:"flightNumber,omitempty"`  // minOccurs="0"
 }
 
 type ConnectPointDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ConnectPointDetailsType"`
 
 	// Exclusion identification
-	ExclusionIdentifier formats.AlphaString_Length0To1 `xml:"exclusionIdentifier,omitempty"`
+	ExclusionIdentifier formats.AlphaString_Length0To1 `xml:"exclusionIdentifier"`
 
 	// Place or Location identification
-	LocationId formats.AlphaString_Length3To5 `xml:"locationId,omitempty"`
+	LocationId formats.AlphaString_Length3To5 `xml:"locationId"`
 
 	// Airport/city qualifier
-	AirportCityQualifier formats.AlphaString_Length1To1 `xml:"airportCityQualifier,omitempty"`
+	AirportCityQualifier formats.AlphaString_Length1To1 `xml:"airportCityQualifier,omitempty"`  // minOccurs="0"
 }
 
 type ConnectPointDetailsType_195492C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ConnectPointDetailsType_195492C"`
 
 	// Inclusion identification
-	InclusionIdentifier formats.AlphaNumericString_Length0To1 `xml:"inclusionIdentifier,omitempty"`
+	InclusionIdentifier formats.AlphaNumericString_Length0To1 `xml:"inclusionIdentifier"`
 
 	// Place or Location identification
-	LocationId formats.AlphaString_Length3To5 `xml:"locationId,omitempty"`
+	LocationId formats.AlphaString_Length3To5 `xml:"locationId"`
 
 	// Airport/city qualifier
-	AirportCityQualifier formats.AlphaString_Length1To1 `xml:"airportCityQualifier,omitempty"`
+	AirportCityQualifier formats.AlphaString_Length1To1 `xml:"airportCityQualifier,omitempty"`  // minOccurs="0"
 }
 
 type ConnectionDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ConnectionDetailsTypeI"`
 
 	// Location
-	Location formats.AlphaNumericString_Length1To3 `xml:"location,omitempty"`
+	Location formats.AlphaNumericString_Length1To3 `xml:"location"`
 }
 
 type ConnectionTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ConnectionTypeI"`
 
 	// Connection details.
-	ConnectionDetails *ConnectionDetailsTypeI `xml:"connectionDetails,omitempty"`
+	ConnectionDetails []*ConnectionDetailsTypeI `xml:"connectionDetails"`  // maxOccurs="17"
 }
 
 type ConsumerReferenceIdentificationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ConsumerReferenceIdentificationTypeI"`
 
-	ReferenceQualifier formats.AlphaNumericString_Length1To3 `xml:"referenceQualifier,omitempty"`
+	ReferenceQualifier formats.AlphaNumericString_Length1To3 `xml:"referenceQualifier"`
 
-	ReferenceNumber formats.AlphaNumericString_Length1To35 `xml:"referenceNumber,omitempty"`
+	ReferenceNumber formats.AlphaNumericString_Length1To35 `xml:"referenceNumber,omitempty"`  // minOccurs="0"
 
-	ReferencePartyName formats.AlphaNumericString_Length1To35 `xml:"referencePartyName,omitempty"`
+	ReferencePartyName formats.AlphaNumericString_Length1To35 `xml:"referencePartyName,omitempty"`  // minOccurs="0"
 
-	TravellerReferenceNbr formats.AlphaNumericString_Length1To10 `xml:"travellerReferenceNbr,omitempty"`
+	TravellerReferenceNbr formats.AlphaNumericString_Length1To10 `xml:"travellerReferenceNbr,omitempty"`  // minOccurs="0"
 }
 
 type ConsumerReferenceInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ConsumerReferenceInformationType"`
 
 	// Customer references
-	CustomerReferences *ConsumerReferenceIdentificationTypeI `xml:"customerReferences,omitempty"`
+	CustomerReferences []*ConsumerReferenceIdentificationTypeI `xml:"customerReferences"`  // maxOccurs="20"
 }
 
 type ConversionRateDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ConversionRateDetailsType"`
 
 	// Conversion type
-	ConversionType formats.AlphaNumericString_Length1To3 `xml:"conversionType,omitempty"`
+	ConversionType formats.AlphaNumericString_Length1To3 `xml:"conversionType,omitempty"`  // minOccurs="0"
 
 	// Currency
-	Currency formats.AlphaString_Length1To3 `xml:"currency,omitempty"`
+	Currency formats.AlphaString_Length1To3 `xml:"currency"`
 }
 
 type ConversionRateType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ConversionRateType"`
 
 	// Detail of conversion rate of First Monetary Unit
-	ConversionRateDetail *ConversionRateDetailsType `xml:"conversionRateDetail,omitempty"`
+	ConversionRateDetail []*ConversionRateDetailsType `xml:"conversionRateDetail"`  // maxOccurs="2"
 }
 
 type CorporateFareIdentifiersType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CorporateFareIdentifiersType"`
 
 	// Indicates the type of corporate fares requested
-	FareQualifier formats.AlphaNumericString_Length1To3 `xml:"fareQualifier,omitempty"`
+	FareQualifier formats.AlphaNumericString_Length1To3 `xml:"fareQualifier,omitempty"`  // minOccurs="0"
 
 	// Corporate contract number or name
-	IdentifyNumber formats.AlphaNumericString_Length1To35 `xml:"identifyNumber,omitempty"`
+	IdentifyNumber []formats.AlphaNumericString_Length1To35 `xml:"identifyNumber,omitempty"`  // minOccurs="0" maxOccurs="20"
 }
 
 type CorporateFareInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CorporateFareInformationType"`
 
 	// Corporate fare identifiers
-	CorporateFareIdentifiers *CorporateFareIdentifiersType `xml:"corporateFareIdentifiers,omitempty"`
+	CorporateFareIdentifiers *CorporateFareIdentifiersType `xml:"corporateFareIdentifiers,omitempty"`  // minOccurs="0"
 }
 
 type CorporateIdentificationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CorporateIdentificationType"`
 
 	// Corporate identity
-	CorporateId *CorporateIdentityType `xml:"corporateId,omitempty"`
+	CorporateId []*CorporateIdentityType `xml:"corporateId,omitempty"`  // minOccurs="0" maxOccurs="20"
 }
 
 type CorporateIdentityType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CorporateIdentityType"`
 
 	// Indicates if 1A corporate (RC) or Unifare corporate (RW) requested.
-	CorporateQualifier formats.AlphaNumericString_Length0To3 `xml:"corporateQualifier,omitempty"`
+	CorporateQualifier formats.AlphaNumericString_Length0To3 `xml:"corporateQualifier"`
 
 	// Corporate contract number or name
-	Identity formats.AlphaNumericString_Length1To20 `xml:"identity,omitempty"`
+	Identity []formats.AlphaNumericString_Length1To20 `xml:"identity"`  // maxOccurs="9"
 }
 
 type CriteriaiDetaislType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A CriteriaiDetaislType"`
 
-	Type formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`
+	Type formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`  // minOccurs="0"
 
-	Value formats.AlphaNumericString_Length1To18 `xml:"value,omitempty"`
+	Value formats.AlphaNumericString_Length1To18 `xml:"value,omitempty"`  // minOccurs="0"
 
-	Attribute formats.AlphaNumericString_Length1To9 `xml:"attribute,omitempty"`
+	Attribute []formats.AlphaNumericString_Length1To9 `xml:"attribute,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 type DataInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A DataInformationType"`
 
 	// Ancillary services options
-	Indicator formats.AlphaNumericString_Length1To3 `xml:"indicator,omitempty"`
+	Indicator formats.AlphaNumericString_Length1To3 `xml:"indicator,omitempty"`  // minOccurs="0"
 }
 
 type DataTypeInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A DataTypeInformationType"`
 
 	// Carrier fee code
-	SubType formats.AlphaNumericString_Length1To3 `xml:"subType,omitempty"`
+	SubType formats.AlphaNumericString_Length1To3 `xml:"subType"`
 
 	// Status (automated, manually added, exempted). Default is automated
-	Option formats.AlphaNumericString_Length1To3 `xml:"option,omitempty"`
-}
-
-type DateAndTimeDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A DateAndTimeDetailsTypeI"`
-
-	// Toidentify type of time Arrival/Departure
-	TimeQualifier formats.AlphaNumericString_Length1To3 `xml:"timeQualifier,omitempty"`
-
-	// Date
-	Date formats.Date_DDMMYY `xml:"date,omitempty"`
-
-	// Time
-	Time formats.Time24_HHMM `xml:"time,omitempty"`
-
-	// Time window size in hours
-	TimeWindow formats.AlphaNumericString_Length1To3 `xml:"timeWindow,omitempty"`
-}
-
-type DateAndTimeDetailsTypeI_120740C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A DateAndTimeDetailsTypeI_120740C"`
-
-	// Date time period qualifier
-	Qualifier formats.AlphaNumericString_Length1To3 `xml:"qualifier,omitempty"`
-
-	// First Date
-	Date formats.Date_DDMMYY `xml:"date,omitempty"`
-
-	// First Time
-	Time formats.Time24_HHMM `xml:"time,omitempty"`
-
-	// .
-	Qualifier2 formats.AlphaNumericString_Length1To3 `xml:"qualifier2,omitempty"`
-
-	Reserved1 formats.AlphaNumericString_Length1To3 `xml:"reserved1,omitempty"`
-
-	Reserved2 formats.AlphaNumericString_Length3To5 `xml:"reserved2,omitempty"`
+	Option formats.AlphaNumericString_Length1To3 `xml:"option,omitempty"`  // minOccurs="0"
 }
 
 type DateAndTimeDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A DateAndTimeDetailsType"`
 
 	// Trip Duration type(Plus,Minus,Combined)
-	FlexibilityQualifier formats.AlphaNumericString_Length1To3 `xml:"flexibilityQualifier,omitempty"`
+	FlexibilityQualifier formats.AlphaNumericString_Length1To3 `xml:"flexibilityQualifier,omitempty"`  // minOccurs="0"
 
 	// Number of days added or/and retrieved to the trip duration
-	TripInterval formats.NumericInteger_Length1To6 `xml:"tripInterval,omitempty"`
+	TripInterval *formats.NumericInteger_Length1To6 `xml:"tripInterval,omitempty"`  // minOccurs="0"
 
 	// Period between date of departure and date of arrival
-	TripDuration formats.NumericInteger_Length1To4 `xml:"tripDuration,omitempty"`
+	TripDuration *formats.NumericInteger_Length1To4 `xml:"tripDuration,omitempty"`  // minOccurs="0"
+}
+
+type DateAndTimeDetailsTypeI struct {
+
+	// Toidentify type of time Arrival/Departure
+	TimeQualifier formats.AlphaNumericString_Length1To3 `xml:"timeQualifier,omitempty"`  // minOccurs="0"
+
+	// Date
+	Date formats.Date_DDMMYY `xml:"date,omitempty"`  // minOccurs="0"
+
+	// Time
+	Time formats.Time24_HHMM `xml:"time,omitempty"`  // minOccurs="0"
+
+	// Time window size in hours
+	TimeWindow formats.AlphaNumericString_Length1To3 `xml:"timeWindow,omitempty"`  // minOccurs="0"
+}
+
+type DateAndTimeDetailsTypeI_120740C struct {
+
+	// Date time period qualifier
+	Qualifier formats.AlphaNumericString_Length1To3 `xml:"qualifier,omitempty"`  // minOccurs="0"
+
+	// First Date
+	Date formats.Date_DDMMYY `xml:"date,omitempty"`  // minOccurs="0"
+
+	// First Time
+	Time formats.Time24_HHMM `xml:"time,omitempty"`  // minOccurs="0"
+
+	// .
+	Qualifier2 formats.AlphaNumericString_Length1To3 `xml:"qualifier2,omitempty"`  // minOccurs="0"
+
+	Reserved1 formats.AlphaNumericString_Length1To3 `xml:"reserved1,omitempty"`  // minOccurs="0"
+
+	Reserved2 formats.AlphaNumericString_Length3To5 `xml:"reserved2,omitempty"`  // minOccurs="0"
 }
 
 type DateAndTimeDetailsType_120762C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A DateAndTimeDetailsType_120762C"`
 
 	// Date time period qualifier
-	DateQualifier formats.AlphaNumericString_Length1To3 `xml:"dateQualifier,omitempty"`
+	DateQualifier formats.AlphaNumericString_Length1To3 `xml:"dateQualifier,omitempty"`  // minOccurs="0"
 
 	// First Date
-	Date formats.Date_DDMMYY `xml:"date,omitempty"`
+	Date formats.Date_DDMMYY `xml:"date,omitempty"`  // minOccurs="0"
 
 	// First Time
-	FirstTime formats.Time24_HHMM `xml:"firstTime,omitempty"`
+	FirstTime formats.Time24_HHMM `xml:"firstTime,omitempty"`  // minOccurs="0"
 
 	// Movement type.
-	EquipementType formats.AlphaNumericString_Length1To3 `xml:"equipementType,omitempty"`
+	EquipementType formats.AlphaNumericString_Length1To3 `xml:"equipementType,omitempty"`  // minOccurs="0"
 
 	// Place/location identification.
-	LocationId formats.AlphaNumericString_Length3To5 `xml:"locationId,omitempty"`
+	LocationId formats.AlphaNumericString_Length3To5 `xml:"locationId,omitempty"`  // minOccurs="0"
 }
 
 type DateAndTimeDetailsType_254619C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A DateAndTimeDetailsType_254619C"`
 
 	// To identify type of range (Plus,Minus or combined)
-	RangeQualifier formats.AlphaNumericString_Length1To3 `xml:"rangeQualifier,omitempty"`
+	RangeQualifier formats.AlphaNumericString_Length1To3 `xml:"rangeQualifier,omitempty"`  // minOccurs="0"
 
 	// Range of dates : Number of Days preceding or/and Following the request departure date
-	DayInterval formats.NumericInteger_Length1To6 `xml:"dayInterval,omitempty"`
+	DayInterval *formats.NumericInteger_Length1To6 `xml:"dayInterval,omitempty"`  // minOccurs="0"
 
 	// Time at destination (local)
-	TimeAtdestination formats.Time24_HHMM `xml:"timeAtdestination,omitempty"`
-}
-
-type DateAndTimeInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A DateAndTimeInformationTypeI"`
-
-	// DATE AND TIME DETAILS.
-	DateTimeDetails *DateAndTimeDetailsTypeI_120740C `xml:"dateTimeDetails,omitempty"`
+	TimeAtdestination formats.Time24_HHMM `xml:"timeAtdestination,omitempty"`  // minOccurs="0"
 }
 
 type DateAndTimeInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A DateAndTimeInformationType"`
 
 	// Details on date and time
-	StopDetails *DateAndTimeDetailsType_120762C `xml:"stopDetails,omitempty"`
-
-	DummyNET *DummyNET `xml:"Dummy.NET,omitempty"`
+	StopDetails []*DateAndTimeDetailsType_120762C `xml:"stopDetails"`  // maxOccurs="2"
 }
 
-type DummyNET struct{}
+type DateAndTimeInformationTypeI struct {
+
+	// DATE AND TIME DETAILS.
+	DateTimeDetails []*DateAndTimeDetailsTypeI_120740C `xml:"dateTimeDetails,omitempty"`  // minOccurs="0" maxOccurs="2"
+}
 
 type DateAndTimeInformationType_181295S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A DateAndTimeInformationType_181295S"`
 
 	// Details on date and Time
-	FirstDateTimeDetail *DateAndTimeDetailsTypeI `xml:"firstDateTimeDetail,omitempty"`
+	FirstDateTimeDetail *DateAndTimeDetailsTypeI `xml:"firstDateTimeDetail"`
 
 	// Details of the Requested Range of Dates
-	RangeOfDate *DateAndTimeDetailsType_254619C `xml:"rangeOfDate,omitempty"`
+	RangeOfDate *DateAndTimeDetailsType_254619C `xml:"rangeOfDate,omitempty"`  // minOccurs="0"
 
 	// Details of the trip duration
-	TripDetails *DateAndTimeDetailsType `xml:"tripDetails,omitempty"`
+	TripDetails *DateAndTimeDetailsType `xml:"tripDetails,omitempty"`  // minOccurs="0"
 }
 
 type DateTimePeriodDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A DateTimePeriodDetailsTypeI"`
 
 	// Qualifier
-	Qualifier formats.AlphaNumericString_Length1To3 `xml:"qualifier,omitempty"`
+	Qualifier formats.AlphaNumericString_Length1To3 `xml:"qualifier"`
 
 	// Value
-	Value formats.AlphaNumericString_Length1To35 `xml:"value,omitempty"`
+	Value formats.AlphaNumericString_Length1To35 `xml:"value,omitempty"`  // minOccurs="0"
 }
 
 type DepartureLocationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A DepartureLocationType"`
 
 	// Details on localization of the departure point
-	DeparturePoint *ArrivalLocationDetailsType_120834C `xml:"departurePoint,omitempty"`
+	DeparturePoint *ArrivalLocationDetailsType_120834C `xml:"departurePoint,omitempty"`  // minOccurs="0"
 
 	// Departure multi city option
-	DepMultiCity *MultiCityOptionType `xml:"depMultiCity,omitempty"`
+	DepMultiCity []*MultiCityOptionType `xml:"depMultiCity,omitempty"`  // minOccurs="0" maxOccurs="20"
 
 	// To specify a series or a range of PNR segments
-	FirstPnrSegmentRef *PNRSegmentReferenceType `xml:"firstPnrSegmentRef,omitempty"`
+	FirstPnrSegmentRef *PNRSegmentReferenceType `xml:"firstPnrSegmentRef,omitempty"`  // minOccurs="0"
 
 	// Attribute details
-	AttributeDetails *CodedAttributeInformationType_139508C `xml:"attributeDetails,omitempty"`
+	AttributeDetails []*CodedAttributeInformationType_139508C `xml:"attributeDetails,omitempty"`  // minOccurs="0" maxOccurs="20"
 }
 
 type FOPRepresentationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FOPRepresentationType"`
 
 	// Form of payment information.
-	FormOfPaymentDetails *FormOfPaymentTypeI `xml:"formOfPaymentDetails,omitempty"`
+	FormOfPaymentDetails *FormOfPaymentTypeI `xml:"formOfPaymentDetails"`
 
 	// Fee/Reduction Passenger reference.
-	PassengerFeeReference *ItemReferencesAndVersionsType `xml:"passengerFeeReference,omitempty"`
+	PassengerFeeReference *ItemReferencesAndVersionsType `xml:"passengerFeeReference,omitempty"`  // minOccurs="0"
 }
 
 type FareDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FareDetailsType"`
 
 	// Qualifier
-	Qualifier formats.AMA_EDICodesetType_Length1to3 `xml:"qualifier,omitempty"`
+	Qualifier formats.AMA_EDICodesetType_Length1to3 `xml:"qualifier,omitempty"`  // minOccurs="0"
 
 	// Rate
-	Rate formats.NumericInteger_Length1To8 `xml:"rate,omitempty"`
+	Rate *formats.NumericInteger_Length1To8 `xml:"rate,omitempty"`  // minOccurs="0"
 
 	// Country
-	Country formats.AlphaNumericString_Length1To3 `xml:"country,omitempty"`
+	Country formats.AlphaNumericString_Length1To3 `xml:"country,omitempty"`  // minOccurs="0"
 
 	// Fare Category
-	FareCategory formats.AMA_EDICodesetType_Length1to3 `xml:"fareCategory,omitempty"`
+	FareCategory formats.AMA_EDICodesetType_Length1to3 `xml:"fareCategory,omitempty"`  // minOccurs="0"
 }
 
 type FareFamilyCriteriaType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FareFamilyCriteriaType"`
 
 	// Fare publishing carrier.
-	CarrierId formats.AlphaNumericString_Length1To3 `xml:"carrierId,omitempty"`
+	CarrierId []formats.AlphaNumericString_Length1To3 `xml:"carrierId,omitempty"`  // minOccurs="0" maxOccurs="20"
 
 	// Reservation booking designator.
-	Rdb formats.AlphaString_Length1To2 `xml:"rdb,omitempty"`
+	Rdb []formats.AlphaString_Length1To2 `xml:"rdb,omitempty"`  // minOccurs="0" maxOccurs="20"
 
 	// Fare family info.
-	FareFamilyInfo *FareQualifierInformationType `xml:"fareFamilyInfo,omitempty"`
+	FareFamilyInfo *FareQualifierInformationType `xml:"fareFamilyInfo,omitempty"`  // minOccurs="0"
 
 	// Fare product detail.
-	FareProductDetail *FareProductDetailsType `xml:"fareProductDetail,omitempty"`
+	FareProductDetail []*FareProductDetailsType `xml:"fareProductDetail,omitempty"`  // minOccurs="0" maxOccurs="20"
 
 	// Corporate information.
-	CorporateInfo *MultipleIdentificationNumbersTypeI `xml:"corporateInfo,omitempty"`
+	CorporateInfo []*MultipleIdentificationNumbersTypeI `xml:"corporateInfo,omitempty"`  // minOccurs="0" maxOccurs="20"
 
 	// Indicates flight cabin details.
-	CabinProduct *CabinClassDesignationType `xml:"cabinProduct,omitempty"`
+	CabinProduct []*CabinClassDesignationType `xml:"cabinProduct,omitempty"`  // minOccurs="0" maxOccurs="6"
 
 	// Cabin processing option.
-	CabinProcessingIdentifier formats.AlphaNumericString_Length1To3 `xml:"cabinProcessingIdentifier,omitempty"`
+	CabinProcessingIdentifier formats.AlphaNumericString_Length1To3 `xml:"cabinProcessingIdentifier,omitempty"`  // minOccurs="0"
 
 	// Product date or time.
-	DateTimeDetails *ProductDateTimeTypeI_194583C `xml:"dateTimeDetails,omitempty"`
+	DateTimeDetails []*ProductDateTimeTypeI_194583C `xml:"dateTimeDetails,omitempty"`  // minOccurs="0" maxOccurs="20"
 
 	// Other criteria.
-	OtherCriteria *CodedAttributeInformationType_120742C `xml:"otherCriteria,omitempty"`
+	OtherCriteria []*CodedAttributeInformationType_120742C `xml:"otherCriteria,omitempty"`  // minOccurs="0" maxOccurs="20"
 }
 
 type FareFamilyDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FareFamilyDetailsType"`
 
 	// Commercial fare Family Short name
-	CommercialFamily formats.AlphaNumericString_Length1To10 `xml:"commercialFamily,omitempty"`
+	CommercialFamily formats.AlphaNumericString_Length1To10 `xml:"commercialFamily"`
 }
 
 type FareFamilyType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FareFamilyType"`
 
 	// Fare Family Reference Number
-	RefNumber formats.NumericInteger_Length1To3 `xml:"refNumber,omitempty"`
+	RefNumber *formats.NumericInteger_Length1To3 `xml:"refNumber,omitempty"`  // minOccurs="0"
 
 	// Fare Family Short Name
-	FareFamilyname formats.AlphaNumericString_Length1To10 `xml:"fareFamilyname,omitempty"`
+	FareFamilyName formats.AlphaNumericString_Length1To10 `xml:"fareFamilyname,omitempty"`  // minOccurs="0"
 
 	// HIERARCHICAL ORDER WITHIN FARE FAMILY
-	Hierarchy formats.NumericInteger_Length1To4 `xml:"hierarchy,omitempty"`
+	Hierarchy *formats.NumericInteger_Length1To4 `xml:"hierarchy,omitempty"`  // minOccurs="0"
 
 	// Indicates Commercial Fare Family Short names
-	CommercialFamilyDetails *FareFamilyDetailsType `xml:"commercialFamilyDetails,omitempty"`
-}
-
-type FareInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FareInformationTypeI"`
-
-	// PTC (Full Codeset List described in ATPCo Documentation B11109 Appendix A)
-	ValueQualifier formats.AlphaNumericString_Length1To3 `xml:"valueQualifier,omitempty"`
-
-	// age
-	Value formats.NumericInteger_Length1To15 `xml:"value,omitempty"`
+	CommercialFamilyDetails []*FareFamilyDetailsType `xml:"commercialFamilyDetails,omitempty"`  // minOccurs="0" maxOccurs="20"
 }
 
 type FareInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FareInformationType"`
 
 	// Value Qualifier
-	ValueQualifier formats.AMA_EDICodesetType_Length1to3 `xml:"valueQualifier,omitempty"`
+	ValueQualifier formats.AMA_EDICodesetType_Length1to3 `xml:"valueQualifier,omitempty"`  // minOccurs="0"
 
 	// Value
-	Value formats.NumericInteger_Length1To15 `xml:"value,omitempty"`
+	Value *formats.NumericInteger_Length1To15 `xml:"value,omitempty"`  // minOccurs="0"
 
 	// Fare Details
-	FareDetails *FareDetailsType `xml:"fareDetails,omitempty"`
+	FareDetails *FareDetailsType `xml:"fareDetails,omitempty"`  // minOccurs="0"
 
 	// Identity Number
-	IdentityNumber formats.AlphaNumericString_Length1To35 `xml:"identityNumber,omitempty"`
+	IdentityNumber formats.AlphaNumericString_Length1To35 `xml:"identityNumber,omitempty"`  // minOccurs="0"
 
 	// Fare Type Grouping
-	FareTypeGrouping *FareTypeGroupingInformationType `xml:"fareTypeGrouping,omitempty"`
+	FareTypeGrouping *FareTypeGroupingInformationType `xml:"fareTypeGrouping,omitempty"`  // minOccurs="0"
 
 	// Rate Category
-	RateCategory formats.AlphaNumericString_Length1To35 `xml:"rateCategory,omitempty"`
+	RateCategory formats.AlphaNumericString_Length1To35 `xml:"rateCategory,omitempty"`  // minOccurs="0"
+}
+
+type FareInformationTypeI struct {
+
+	// PTC (Full Codeset List described in ATPCo Documentation B11109 Appendix A)
+	ValueQualifier formats.AlphaNumericString_Length1To3 `xml:"valueQualifier,omitempty"`  // minOccurs="0"
+
+	// age
+	Value *formats.NumericInteger_Length1To15 `xml:"value,omitempty"`  // minOccurs="0"
 }
 
 type FareProductDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FareProductDetailsType"`
 
 	// Fare basis code
-	FareBasis formats.AlphaNumericString_Length0To18 `xml:"fareBasis,omitempty"`
+	FareBasis formats.AlphaNumericString_Length0To18 `xml:"fareBasis,omitempty"`  // minOccurs="0"
 
 	// Type of fare
-	FareType formats.AlphaNumericString_Length0To3 `xml:"fareType,omitempty"`
+	FareType []formats.AlphaNumericString_Length0To3 `xml:"fareType,omitempty"`  // minOccurs="0" maxOccurs="3"
 }
 
 type FareQualifierInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FareQualifierInformationType"`
 
 	// Fare family combinability.
-	FareFamilyQual formats.AlphaNumericString_Length0To3 `xml:"fareFamilyQual,omitempty"`
+	FareFamilyQual []formats.AlphaNumericString_Length0To3 `xml:"fareFamilyQual"`  // maxOccurs="9"
 }
 
 type FareTypeGroupingInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FareTypeGroupingInformationType"`
 
 	// Pricing Group
-	PricingGroup formats.AlphaNumericString_Length1To35 `xml:"pricingGroup,omitempty"`
+	PricingGroup formats.AlphaNumericString_Length1To35 `xml:"pricingGroup,omitempty"`  // minOccurs="0"
 }
 
 type FlightProductInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FlightProductInformationType"`
 
 	// Indicates flight cabin details
-	CabinProduct *CabinProductDetailsType `xml:"cabinProduct,omitempty"`
+	CabinProduct []*CabinProductDetailsType `xml:"cabinProduct,omitempty"`  // minOccurs="0" maxOccurs="26"
 
 	// To specify additional characteristics.
-	ContextDetails *ProductTypeDetailsType_205137C `xml:"contextDetails,omitempty"`
+	ContextDetails *ProductTypeDetailsType_205137C `xml:"contextDetails,omitempty"`  // minOccurs="0"
 }
 
 type FormOfPaymentDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FormOfPaymentDetailsTypeI"`
 
 	// Form of payment identification
-	Type formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`
+	Type formats.AlphaNumericString_Length1To3 `xml:"type"`
 
 	// amount to be charged on this form
-	ChargedAmount formats.NumericDecimal_Length1To12 `xml:"chargedAmount,omitempty"`
+	ChargedAmount *formats.NumericDecimal_Length1To12 `xml:"chargedAmount,omitempty"`  // minOccurs="0"
 
 	// Reference number
-	CreditCardNumber formats.AlphaNumericString_Length1To20 `xml:"creditCardNumber,omitempty"`
+	CreditCardNumber formats.AlphaNumericString_Length1To20 `xml:"creditCardNumber,omitempty"`  // minOccurs="0"
 }
 
 type FormOfPaymentTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FormOfPaymentTypeI"`
 
 	// FORM OF PAYMENT DETAILS
-	FormOfPaymentDetails *FormOfPaymentDetailsTypeI `xml:"formOfPaymentDetails,omitempty"`
+	FormOfPaymentDetails []*FormOfPaymentDetailsTypeI `xml:"formOfPaymentDetails,omitempty"`  // minOccurs="0" maxOccurs="9"
 }
 
 type FreeTextDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FreeTextDetailsType"`
 
 	// Qualifier of the free text. Always literal in our usage.
-	TextSubjectQualifier formats.AlphaNumericString_Length1To3 `xml:"textSubjectQualifier,omitempty"`
+	TextSubjectQualifier formats.AlphaNumericString_Length1To3 `xml:"textSubjectQualifier"`
 
 	// Type of the free text. Always 7 for our usage.
-	InformationType formats.AlphaNumericString_Length1To4 `xml:"informationType,omitempty"`
+	InformationType formats.AlphaNumericString_Length1To4 `xml:"informationType,omitempty"`  // minOccurs="0"
 
 	// Source of the information.
-	Source formats.AlphaNumericString_Length1To3 `xml:"source,omitempty"`
+	Source formats.AlphaNumericString_Length1To3 `xml:"source"`
 
 	// Encoding method used.
-	Encoding formats.AlphaNumericString_Length1To3 `xml:"encoding,omitempty"`
+	Encoding formats.AlphaNumericString_Length1To3 `xml:"encoding"`
 }
 
 type FreeTextInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FreeTextInformationType"`
 
 	// Details for the free text message
-	FreeTextDetails *FreeTextDetailsType `xml:"freeTextDetails,omitempty"`
+	FreeTextDetails *FreeTextDetailsType `xml:"freeTextDetails"`
 
 	// Free text corresponding to the DEI 127 data.
-	FreeText formats.AlphaNumericString_Length1To70 `xml:"freeText,omitempty"`
+	FreeText formats.AlphaNumericString_Length1To70 `xml:"freeText"`
 }
 
 type FrequencyType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FrequencyType"`
 
 	// Indicate if the sequence number represents days of the week or days of the month.
-	Qualifier formats.AlphaNumericString_Length1To3 `xml:"qualifier,omitempty"`
+	Qualifier formats.AlphaNumericString_Length1To3 `xml:"qualifier"`
 
 	// Used to represent days of the week. 1 is monday and 7 is sunday.
-	Value formats.NumericInteger_Length1To1 `xml:"value,omitempty"`
+	Value []*formats.NumericInteger_Length1To1 `xml:"value,omitempty"`  // minOccurs="0" maxOccurs="7"
 }
 
 type FrequentTravellerIdentificationCodeType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FrequentTravellerIdentificationCodeType"`
 
 	// Frequent Traveller Info
-	FrequentTravellerDetails *FrequentTravellerIdentificationType `xml:"frequentTravellerDetails,omitempty"`
+	FrequentTravellerDetails []*FrequentTravellerIdentificationType `xml:"frequentTravellerDetails"`  // maxOccurs="99"
 }
 
 type FrequentTravellerIdentificationCodeType_177150S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FrequentTravellerIdentificationCodeType_177150S"`
 
 	// Frequent traveller details
-	FrequentTravellerDetails *FrequentTravellerIdentificationType_249074C `xml:"frequentTravellerDetails,omitempty"`
+	FrequentTravellerDetails []*FrequentTravellerIdentificationType_249074C `xml:"frequentTravellerDetails"`  // maxOccurs="99"
 }
 
 type FrequentTravellerIdentificationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FrequentTravellerIdentificationType"`
 
 	// Carrier where the FQTV is registered.
-	Carrier formats.AlphaNumericString_Length1To35 `xml:"carrier,omitempty"`
+	Carrier formats.AlphaNumericString_Length1To35 `xml:"carrier,omitempty"`  // minOccurs="0"
 
-	Number formats.AlphaNumericString_Length1To28 `xml:"number,omitempty"`
+	Number formats.AlphaNumericString_Length1To28 `xml:"number,omitempty"`  // minOccurs="0"
 
 	// Specifies which traveller in the TIF segment the frequent traveller number applies (same as 9944 in TIF).
-	CustomerReference formats.AlphaNumericString_Length1To10 `xml:"customerReference,omitempty"`
+	CustomerReference formats.AlphaNumericString_Length1To10 `xml:"customerReference,omitempty"`  // minOccurs="0"
 
 	// status code: 'OK' if the frequent flyer card has been validated
-	Status formats.AlphaNumericString_Length1To3 `xml:"status,omitempty"`
+	Status formats.AlphaNumericString_Length1To3 `xml:"status,omitempty"`  // minOccurs="0"
 
 	// To specify a Tier linked to the FQTV
-	TierLevel formats.AlphaNumericString_Length1To35 `xml:"tierLevel,omitempty"`
+	TierLevel formats.AlphaNumericString_Length1To35 `xml:"tierLevel,omitempty"`  // minOccurs="0"
 
 	// For example : priority code
-	PriorityCode formats.AlphaNumericString_Length1To12 `xml:"priorityCode,omitempty"`
+	PriorityCode formats.AlphaNumericString_Length1To12 `xml:"priorityCode,omitempty"`  // minOccurs="0"
 
 	// For example : Level description
-	TierDescription formats.AlphaNumericString_Length1To35 `xml:"tierDescription,omitempty"`
+	TierDescription formats.AlphaNumericString_Length1To35 `xml:"tierDescription,omitempty"`  // minOccurs="0"
 
 	// For example : Company code of alliance
-	CompanyCode formats.AlphaNumericString_Length1To35 `xml:"companyCode,omitempty"`
+	CompanyCode formats.AlphaNumericString_Length1To35 `xml:"companyCode,omitempty"`  // minOccurs="0"
 
-	CustomerValue formats.NumericInteger_Length1To4 `xml:"customerValue,omitempty"`
+	CustomerValue *formats.NumericInteger_Length1To4 `xml:"customerValue,omitempty"`  // minOccurs="0"
 
 	// To specify the product/account number qualifier. (e.g. 2=Corporate Frequent Flyer).
-	Type formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`
+	Type formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`  // minOccurs="0"
 }
 
 type FrequentTravellerIdentificationType_249074C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A FrequentTravellerIdentificationType_249074C"`
 
 	// carrier
-	Carrier formats.AlphaNumericString_Length1To3 `xml:"carrier,omitempty"`
+	Carrier formats.AlphaNumericString_Length1To3 `xml:"carrier"`
 
 	// Frequent traveller number
-	Number formats.AlphaNumericString_Length1To25 `xml:"number,omitempty"`
+	Number formats.AlphaNumericString_Length1To25 `xml:"number,omitempty"`  // minOccurs="0"
 
 	// Customer reference
-	CustomerReference formats.AlphaNumericString_Length1To10 `xml:"customerReference,omitempty"`
+	CustomerReference formats.AlphaNumericString_Length1To10 `xml:"customerReference,omitempty"`  // minOccurs="0"
 
 	// Tier level
-	TierLevel formats.AlphaNumericString_Length1To35 `xml:"tierLevel,omitempty"`
+	TierLevel formats.AlphaNumericString_Length1To35 `xml:"tierLevel,omitempty"`  // minOccurs="0"
 
 	// Priority code
-	PriorityCode formats.AlphaNumericString_Length1To12 `xml:"priorityCode,omitempty"`
+	PriorityCode formats.AlphaNumericString_Length1To12 `xml:"priorityCode,omitempty"`  // minOccurs="0"
 
 	// Tier description
-	TierDescription formats.AlphaNumericString_Length1To35 `xml:"tierDescription,omitempty"`
+	TierDescription formats.AlphaNumericString_Length1To35 `xml:"tierDescription,omitempty"`  // minOccurs="0"
 
 	// To specify the product/account number qualifier. (e.g. 2=Corporate Frequent Flyer).
-	Type formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`
+	Type formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`  // minOccurs="0"
 }
 
 type GroupPassengerDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A GroupPassengerDetailsType"`
 
 	// Trigger
-	PassengerReference *SegmentRepetitionControlTypeI `xml:"passengerReference,omitempty"`
+	PassengerReference *SegmentRepetitionControlTypeI `xml:"passengerReference"`
 
-	PsgDetailsInfo *PsgDetailsInfo `xml:"psgDetailsInfo,omitempty"`
+	// pricing option at passenger level
+	PsgDetailsInfo []*PsgDetailsInfo `xml:"psgDetailsInfo,omitempty"`  // minOccurs="0" maxOccurs="2"
 }
 
 type PsgDetailsInfo struct {
 
 	// PTC/Discount Code age
-	DiscountPtc *FareInformationTypeI `xml:"discountPtc,omitempty"`
+	DiscountPtc *FareInformationTypeI `xml:"discountPtc"`
 
 	// Tier level information
-	FlequentFlyerDetails *FrequentTravellerIdentificationCodeType `xml:"flequentFlyerDetails,omitempty"`
+	FlequentFlyerDetails *FrequentTravellerIdentificationCodeType `xml:"flequentFlyerDetails,omitempty"`  // minOccurs="0"
 }
 
 type HeaderInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A HeaderInformationTypeI"`
 
 	// Status
-	Status formats.AlphaNumericString_Length1To3 `xml:"status,omitempty"`
+	Status []formats.AlphaNumericString_Length1To3 `xml:"status,omitempty"`  // minOccurs="0" maxOccurs="2"
 
 	// Date and Time info
-	DateTimePeriodDetails *DateTimePeriodDetailsTypeI `xml:"dateTimePeriodDetails,omitempty"`
+	DateTimePeriodDetails *DateTimePeriodDetailsTypeI `xml:"dateTimePeriodDetails,omitempty"`  // minOccurs="0"
 
 	// Reference number
-	ReferenceNumber formats.AlphaNumericString_Length1To35 `xml:"referenceNumber,omitempty"`
+	ReferenceNumber formats.AlphaNumericString_Length1To35 `xml:"referenceNumber,omitempty"`  // minOccurs="0"
 
 	// Contains product identification such as UIC code...
-	ProductIdentification formats.AlphaNumericString_Length1To35 `xml:"productIdentification,omitempty"`
+	ProductIdentification []formats.AlphaNumericString_Length1To35 `xml:"productIdentification,omitempty"`  // minOccurs="0" maxOccurs="2"
 }
 
 type ItemNumberIdentificationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ItemNumberIdentificationType"`
 
 	// Fare family combination number
-	Number formats.AlphaNumericString_Length1To4 `xml:"number,omitempty"`
+	Number formats.AlphaNumericString_Length1To4 `xml:"number,omitempty"`  // minOccurs="0"
 
 	// Type
-	Type formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`
+	Type formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`  // minOccurs="0"
 
 	// Qualifier
-	Qualifier formats.AlphaNumericString_Length1To3 `xml:"qualifier,omitempty"`
+	Qualifier formats.AlphaNumericString_Length1To3 `xml:"qualifier,omitempty"`  // minOccurs="0"
 
 	// Responsible agency
-	ResponsibleAgency formats.AlphaNumericString_Length1To3 `xml:"responsibleAgency,omitempty"`
+	ResponsibleAgency formats.AlphaNumericString_Length1To3 `xml:"responsibleAgency,omitempty"`  // minOccurs="0"
 }
 
 type ItemNumberType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ItemNumberType"`
 
 	// Indicates the fare family combination number
-	ItemNumberId *ItemNumberIdentificationType `xml:"itemNumberId,omitempty"`
+	ItemNumberId *ItemNumberIdentificationType `xml:"itemNumberId"`
 }
 
 type ItemNumberType_80866S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ItemNumberType_80866S"`
 
 	// Item number details
-	ItemNumberDetails *ItemNumberIdentificationType `xml:"itemNumberDetails,omitempty"`
+	ItemNumberDetails *ItemNumberIdentificationType `xml:"itemNumberDetails"`
 }
 
 type ItemReferencesAndVersionsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ItemReferencesAndVersionsType"`
 
 	// Reference Qualifier.
-	PassengerFeeRefType formats.AlphaNumericString_Length1To3 `xml:"passengerFeeRefType,omitempty"`
+	PassengerFeeRefType formats.AlphaNumericString_Length1To3 `xml:"passengerFeeRefType,omitempty"`  // minOccurs="0"
 
 	// Reference number.
-	PassengerFeeRefNumber formats.NumericInteger_Length1To3 `xml:"passengerFeeRefNumber,omitempty"`
+	PassengerFeeRefNumber *formats.NumericInteger_Length1To3 `xml:"passengerFeeRefNumber,omitempty"`  // minOccurs="0"
 
 	// Unique id description.
-	OtherCharacteristics *UniqueIdDescriptionType `xml:"otherCharacteristics,omitempty"`
+	OtherCharacteristics *UniqueIdDescriptionType `xml:"otherCharacteristics,omitempty"`  // minOccurs="0"
 }
 
 type ItineraryDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ItineraryDetailsType"`
 
 	// Airport/City Qualifier: the passenger wants to depart/arrive from/to the same airport or city in the specified requested segment
-	AirportCityQualifier formats.AlphaString_Length1To1 `xml:"airportCityQualifier,omitempty"`
+	AirportCityQualifier formats.AlphaString_Length1To1 `xml:"airportCityQualifier"`
 
 	// Requested segment number
-	SegmentNumber formats.NumericInteger_Length1To3 `xml:"segmentNumber,omitempty"`
+	SegmentNumber formats.NumericInteger_Length1To3 `xml:"segmentNumber"`
 }
 
 type LocationDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A LocationDetailsTypeI"`
 
 	// Place or Location identification
-	LocationId formats.AlphaString_Length3To5 `xml:"locationId,omitempty"`
+	LocationId formats.AlphaString_Length3To5 `xml:"locationId"`
 
 	// Country, coded
-	Country formats.AlphaNumericString_Length1To3 `xml:"country,omitempty"`
+	Country formats.AlphaNumericString_Length1To3 `xml:"country,omitempty"`  // minOccurs="0"
 }
 
 type LocationIdentificationDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A LocationIdentificationDetailsType"`
 
 	// 3 characters ATA/IATA airport/city code
-	LocationId formats.AlphaString_Length3To5 `xml:"locationId,omitempty"`
+	LocationId formats.AlphaString_Length3To5 `xml:"locationId"`
 
 	// Airport/city qualifier: the requested point is an airport when ambiguity exists (e.g. HOU)
-	AirportCityQualifier formats.AlphaString_Length1To1 `xml:"airportCityQualifier,omitempty"`
+	AirportCityQualifier formats.AlphaString_Length1To1 `xml:"airportCityQualifier,omitempty"`  // minOccurs="0"
 
 	// Terminal information
-	Terminal formats.AlphaNumericString_Length1To5 `xml:"terminal,omitempty"`
+	Terminal formats.AlphaNumericString_Length1To5 `xml:"terminal,omitempty"`  // minOccurs="0"
 }
 
 type LocationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A LocationTypeI"`
 
 	// Departure or Arrival IATA airport code
-	TrueLocationId formats.AlphaString_Length3To3 `xml:"trueLocationId,omitempty"`
+	TrueLocationId formats.AlphaString_Length3To3 `xml:"trueLocationId"`
 }
 
 type MileageTimeDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A MileageTimeDetailsTypeI"`
 
 	// Ground Time in minutes at Board point (connection with incoming flight)
-	ElapsedGroundTime formats.NumericInteger_Length1To4 `xml:"elapsedGroundTime,omitempty"`
+	ElapsedGroundTime *formats.NumericInteger_Length1To4 `xml:"elapsedGroundTime,omitempty"`  // minOccurs="0"
 }
 
 type MonetaryAndCabinInformationDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A MonetaryAndCabinInformationDetailsType"`
 
 	// Amount qualifier.
-	AmountType formats.AlphaNumericString_Length0To3 `xml:"amountType,omitempty"`
+	AmountType formats.AlphaNumericString_Length0To3 `xml:"amountType,omitempty"`  // minOccurs="0"
 
 	// Amount
-	Amount formats.NumericDecimal_Length1To18 `xml:"amount,omitempty"`
+	Amount formats.NumericDecimal_Length1To18 `xml:"amount"`
 
 	// ISO currency code
-	Currency formats.AlphaNumericString_Length1To3 `xml:"currency,omitempty"`
+	Currency formats.AlphaNumericString_Length1To3 `xml:"currency,omitempty"`  // minOccurs="0"
 
 	// Airport/city code
-	LocationId formats.AlphaString_Length3To5 `xml:"locationId,omitempty"`
+	LocationId formats.AlphaString_Length3To5 `xml:"locationId,omitempty"`  // minOccurs="0"
 
 	// Cabin class designator
-	CabinClassDesignator formats.AlphaString_Length1To1 `xml:"cabinClassDesignator,omitempty"`
+	CabinClassDesignator []formats.AlphaString_Length1To1 `xml:"cabinClassDesignator,omitempty"`  // minOccurs="0" maxOccurs="9"
 }
 
 type MonetaryAndCabinInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A MonetaryAndCabinInformationType"`
 
 	// Monetary and cabin information.
-	MoneyAndCabinInfo *MonetaryAndCabinInformationDetailsType `xml:"moneyAndCabinInfo,omitempty"`
+	MoneyAndCabinInfo []*MonetaryAndCabinInformationDetailsType `xml:"moneyAndCabinInfo,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 type MonetaryInformationDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A MonetaryInformationDetailsTypeI"`
 
 	// Monetary amount type qualifier, coded
-	Qualifier formats.AlphaNumericString_Length1To3 `xml:"qualifier,omitempty"`
+	Qualifier formats.AlphaNumericString_Length1To3 `xml:"qualifier,omitempty"`  // minOccurs="0"
 
 	// Allowance or charge number
-	Amount formats.NumericInteger_Length1To18 `xml:"amount,omitempty"`
+	Amount formats.NumericInteger_Length1To18 `xml:"amount"`
 
 	// Currency, coded
-	Currency formats.AlphaNumericString_Length1To3 `xml:"currency,omitempty"`
+	Currency formats.AlphaNumericString_Length1To3 `xml:"currency,omitempty"`  // minOccurs="0"
 }
 
 type MonetaryInformationDetailsTypeI_194597C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A MonetaryInformationDetailsTypeI_194597C"`
 
 	// Monetary amount type qualifier, coded
-	Qualifier formats.AlphaNumericString_Length1To3 `xml:"qualifier,omitempty"`
+	Qualifier formats.AlphaNumericString_Length1To3 `xml:"qualifier,omitempty"`  // minOccurs="0"
 
 	// Allowance or charge number
-	Amount formats.NumericInteger_Length1To18 `xml:"amount,omitempty"`
+	Amount formats.NumericInteger_Length1To18 `xml:"amount"`
 
 	// Currency, coded
-	Currency formats.AlphaNumericString_Length1To3 `xml:"currency,omitempty"`
+	Currency formats.AlphaNumericString_Length1To3 `xml:"currency,omitempty"`  // minOccurs="0"
 
 	// Place or Location identification
-	LocationId formats.AlphaString_Length3To3 `xml:"locationId,omitempty"`
+	LocationId formats.AlphaString_Length3To3 `xml:"locationId,omitempty"`  // minOccurs="0"
 }
 
 type MonetaryInformationDetailsTypeI_65140C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A MonetaryInformationDetailsTypeI_65140C"`
 
 	// Qualifier
-	TypeQualifier formats.AlphaNumericString_Length1To3 `xml:"typeQualifier,omitempty"`
+	TypeQualifier formats.AlphaNumericString_Length1To3 `xml:"typeQualifier"`
 
 	// Amount
-	Amount formats.AlphaNumericString_Length1To12 `xml:"amount,omitempty"`
+	Amount formats.AlphaNumericString_Length1To12 `xml:"amount,omitempty"`  // minOccurs="0"
 
 	// Currency
-	Currency formats.AlphaNumericString_Length1To3 `xml:"currency,omitempty"`
+	Currency formats.AlphaNumericString_Length1To3 `xml:"currency,omitempty"`  // minOccurs="0"
 }
 
 type MonetaryInformationDetailsTypeI_65141C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A MonetaryInformationDetailsTypeI_65141C"`
 
 	// Qualifier
-	TypeQualifier formats.AlphaNumericString_Length1To3 `xml:"typeQualifier,omitempty"`
+	TypeQualifier formats.AlphaNumericString_Length1To3 `xml:"typeQualifier"`
 
 	// Amount
-	Amount formats.AlphaNumericString_Length1To12 `xml:"amount,omitempty"`
+	Amount formats.AlphaNumericString_Length1To12 `xml:"amount,omitempty"`  // minOccurs="0"
 
 	// Currency
-	Currency formats.AlphaNumericString_Length1To3 `xml:"currency,omitempty"`
+	Currency formats.AlphaNumericString_Length1To3 `xml:"currency,omitempty"`  // minOccurs="0"
 
 	// Location
-	Location formats.AlphaNumericString_Length1To3 `xml:"location,omitempty"`
-}
-
-type MonetaryInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A MonetaryInformationTypeI"`
-
-	// Monetary info
-	MonetaryDetails *MonetaryInformationDetailsTypeI_65141C `xml:"monetaryDetails,omitempty"`
+	Location formats.AlphaNumericString_Length1To3 `xml:"location,omitempty"`  // minOccurs="0"
 }
 
 type MonetaryInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A MonetaryInformationType"`
 
 	// MONEY INFORMATION
-	MoneyInfo *MonetaryInformationDetailsTypeI `xml:"moneyInfo,omitempty"`
+	MoneyInfo *MonetaryInformationDetailsTypeI `xml:"moneyInfo"`
 
 	// MONEY INFORMATION
-	AdditionalMoneyInfo *MonetaryInformationDetailsTypeI_194597C `xml:"additionalMoneyInfo,omitempty"`
+	AdditionalMoneyInfo []*MonetaryInformationDetailsTypeI_194597C `xml:"additionalMoneyInfo,omitempty"`  // minOccurs="0" maxOccurs="19"
+}
+
+type MonetaryInformationTypeI struct {
+
+	// Monetary info
+	MonetaryDetails []*MonetaryInformationDetailsTypeI_65141C `xml:"monetaryDetails"`  // maxOccurs="20"
 }
 
 type MonetaryInformationType_80162S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A MonetaryInformationType_80162S"`
 
 	// Monetary info
-	MonetaryDetails *MonetaryInformationDetailsTypeI_65140C `xml:"monetaryDetails,omitempty"`
+	MonetaryDetails []*MonetaryInformationDetailsTypeI_65140C `xml:"monetaryDetails"`  // maxOccurs="20"
 }
 
 type MultiCityOptionType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A MultiCityOptionType"`
 
 	// ATA/IATA airport/city code of arrival multi city option enable to define until 20 airports/cities
-	LocationId formats.AlphaString_Length3To5 `xml:"locationId,omitempty"`
+	LocationId formats.AlphaString_Length3To5 `xml:"locationId"`
 
 	// Requested arrival point is an airport or a city (default is city and used only when ambiguity)
-	AirportCityQualifier formats.AlphaString_Length1To1 `xml:"airportCityQualifier,omitempty"`
+	AirportCityQualifier formats.AlphaString_Length1To1 `xml:"airportCityQualifier,omitempty"`  // minOccurs="0"
 }
 
 type MultipleIdentificationNumbersTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A MultipleIdentificationNumbersTypeI"`
 
 	// Corporate number or ALL.
-	CorporateNumberIdentifier formats.AlphaNumericString_Length1To12 `xml:"corporateNumberIdentifier,omitempty"`
+	CorporateNumberIdentifier formats.AlphaNumericString_Length1To12 `xml:"corporateNumberIdentifier,omitempty"`  // minOccurs="0"
 
 	// Corporate name.
-	CorporateName formats.AlphaNumericString_Length1To20 `xml:"corporateName,omitempty"`
-}
-
-type NumberOfUnitDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A NumberOfUnitDetailsTypeI"`
-
-	// Number of Units
-	NumberOfUnits formats.NumericInteger_Length1To3 `xml:"numberOfUnits,omitempty"`
-
-	// Number of unit qualifier
-	TypeOfUnit formats.AlphaNumericString_Length1To3 `xml:"typeOfUnit,omitempty"`
+	CorporateName formats.AlphaNumericString_Length1To20 `xml:"corporateName,omitempty"`  // minOccurs="0"
 }
 
 type NumberOfUnitDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A NumberOfUnitDetailsType"`
 
 	// Number of Units
-	NumberOfUnits formats.NumericInteger_Length1To4 `xml:"numberOfUnits,omitempty"`
+	NumberOfUnits *formats.NumericInteger_Length1To4 `xml:"numberOfUnits,omitempty"`  // minOccurs="0"
 
 	// Number of unit qualifier
-	TypeOfUnit formats.AlphaNumericString_Length1To3 `xml:"typeOfUnit,omitempty"`
+	TypeOfUnit formats.AlphaNumericString_Length1To3 `xml:"typeOfUnit"`
+}
+
+type NumberOfUnitDetailsTypeI struct {
+
+	// Number of Units
+	NumberOfUnits formats.NumericInteger_Length1To3 `xml:"numberOfUnits"`
+
+	// Number of unit qualifier
+	TypeOfUnit formats.AlphaNumericString_Length1To3 `xml:"typeOfUnit"`
 }
 
 type NumberOfUnitDetailsType_260583C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A NumberOfUnitDetailsType_260583C"`
 
 	// Number of Units
-	NumberOfUnits formats.NumericInteger_Length1To6 `xml:"numberOfUnits,omitempty"`
+	NumberOfUnits formats.NumericInteger_Length1To6 `xml:"numberOfUnits"`
 
 	// Number of unit qualifier
-	TypeOfUnit formats.AlphaNumericString_Length1To3 `xml:"typeOfUnit,omitempty"`
+	TypeOfUnit formats.AlphaNumericString_Length1To3 `xml:"typeOfUnit"`
 }
 
 type NumberOfUnitsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A NumberOfUnitsType"`
 
 	// NUMBER OF UNIT DETAILS
-	UnitNumberDetail *NumberOfUnitDetailsType_260583C `xml:"unitNumberDetail,omitempty"`
+	UnitNumberDetail []*NumberOfUnitDetailsType_260583C `xml:"unitNumberDetail"`  // maxOccurs="20"
 }
 
 type NumberOfUnitsType_80154S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A NumberOfUnitsType_80154S"`
 
 	// NUMBER OF UNIT DETAILS
-	UnitNumberDetail *NumberOfUnitDetailsType `xml:"unitNumberDetail,omitempty"`
+	UnitNumberDetail []*NumberOfUnitDetailsType `xml:"unitNumberDetail"`  // maxOccurs="20"
 }
 
 type OriginAndDestinationRequestType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A OriginAndDestinationRequestType"`
 
 	// Requested segment number
-	SegRef formats.NumericInteger_Length1To2 `xml:"segRef,omitempty"`
+	SegRef formats.NumericInteger_Length1To2 `xml:"segRef"`
 
 	// Forces arrival or departure, from/to the same airport/city
-	LocationForcing *ItineraryDetailsType `xml:"locationForcing,omitempty"`
+	LocationForcing []*ItineraryDetailsType `xml:"locationForcing,omitempty"`  // minOccurs="0" maxOccurs="2"
 }
 
 type OriginatorIdentificationDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A OriginatorIdentificationDetailsTypeI"`
 
 	// Office Name.
-	OfficeName formats.NumericInteger_Length1To9 `xml:"officeName,omitempty"`
+	OfficeName *formats.NumericInteger_Length1To9 `xml:"officeName,omitempty"`  // minOccurs="0"
 
 	// Agent Sign In .
-	AgentSignin formats.AlphaNumericString_Length1To9 `xml:"agentSignin,omitempty"`
+	AgentSignin formats.AlphaNumericString_Length1To9 `xml:"agentSignin,omitempty"`  // minOccurs="0"
 
 	// Confidential Office Name.
-	ConfidentialOffice formats.AlphaNumericString_Length1To9 `xml:"confidentialOffice,omitempty"`
+	ConfidentialOffice formats.AlphaNumericString_Length1To9 `xml:"confidentialOffice,omitempty"`  // minOccurs="0"
 
 	// Other Office Name
-	OtherOffice formats.AlphaNumericString_Length1To9 `xml:"otherOffice,omitempty"`
+	OtherOffice formats.AlphaNumericString_Length1To9 `xml:"otherOffice,omitempty"`  // minOccurs="0"
 }
 
 type PNRSegmentReferenceType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A PNRSegmentReferenceType"`
 
 	// For a request from PNR:  this is the reference number of a PNR air segment. In case a range of PNR segments is specified (eg. segments 2-5), then it is the 1st of the range, the last being in ARR.
-	PnrSegmentTattoo formats.NumericInteger_Length0To35 `xml:"pnrSegmentTattoo,omitempty"`
+	PnrSegmentTattoo *formats.NumericInteger_Length0To35 `xml:"pnrSegmentTattoo,omitempty"`  // minOccurs="0"
 
-	PnrSegmentQualifier formats.AlphaString_Length1To1 `xml:"pnrSegmentQualifier,omitempty"`
+	PnrSegmentQualifier formats.AlphaString_Length1To1 `xml:"pnrSegmentQualifier,omitempty"`  // minOccurs="0"
 }
 
 type PassengerItineraryInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A PassengerItineraryInformationType"`
 
 	// .
-	Booking formats.AlphaString_Length1To1 `xml:"booking,omitempty"`
+	Booking formats.AlphaString_Length1To1 `xml:"booking,omitempty"`  // minOccurs="0"
 
 	// .
-	Identifier formats.AlphaNumericString_Length1To1 `xml:"identifier,omitempty"`
+	Identifier formats.AlphaNumericString_Length1To1 `xml:"identifier,omitempty"`  // minOccurs="0"
 
 	// .
-	Status formats.AlphaNumericString_Length1To3 `xml:"status,omitempty"`
+	Status formats.AlphaNumericString_Length1To3 `xml:"status,omitempty"`  // minOccurs="0"
 
 	// .
-	ItemNumber formats.NumericInteger_Length1To3 `xml:"itemNumber,omitempty"`
+	ItemNumber *formats.NumericInteger_Length1To3 `xml:"itemNumber,omitempty"`  // minOccurs="0"
 
 	// .
-	DateTimeDetails *ProductDateTimeType `xml:"dateTimeDetails,omitempty"`
+	DateTimeDetails *ProductDateTimeType `xml:"dateTimeDetails,omitempty"`  // minOccurs="0"
 
 	// .
-	Designator formats.AlphaString_Length1To1 `xml:"designator,omitempty"`
+	Designator formats.AlphaString_Length1To1 `xml:"designator,omitempty"`  // minOccurs="0"
 
 	// .
-	MovementType formats.AlphaNumericString_Length1To3 `xml:"movementType,omitempty"`
+	MovementType formats.AlphaNumericString_Length1To3 `xml:"movementType,omitempty"`  // minOccurs="0"
 
 	// .
-	ProductTypeDetails *ProductTypeDetailsType `xml:"productTypeDetails,omitempty"`
+	ProductTypeDetails *ProductTypeDetailsType `xml:"productTypeDetails,omitempty"`  // minOccurs="0"
 }
 
 type PricingTicketingDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A PricingTicketingDetailsType"`
 
 	// Pricing ticketing Details.
-	PricingTicketing *PricingTicketingInformationType `xml:"pricingTicketing,omitempty"`
+	PricingTicketing *PricingTicketingInformationType `xml:"pricingTicketing,omitempty"`  // minOccurs="0"
 
 	// PRODUCT DATE OR TIME
-	TicketingDate *ProductDateTimeTypeI_194598C `xml:"ticketingDate,omitempty"`
+	TicketingDate *ProductDateTimeTypeI_194598C `xml:"ticketingDate,omitempty"`  // minOccurs="0"
 
 	// COMPANY IDENTIFICATION
-	CompanyId *CompanyIdentificationType `xml:"companyId,omitempty"`
+	CompanyId *CompanyIdentificationType `xml:"companyId,omitempty"`  // minOccurs="0"
 
 	// LOCATION DETAILS
-	SellingPoint *LocationDetailsTypeI `xml:"sellingPoint,omitempty"`
+	SellingPoint *LocationDetailsTypeI `xml:"sellingPoint,omitempty"`  // minOccurs="0"
 
 	// LOCATION DETAILS
-	TicketingPoint *LocationDetailsTypeI `xml:"ticketingPoint,omitempty"`
+	TicketingPoint *LocationDetailsTypeI `xml:"ticketingPoint,omitempty"`  // minOccurs="0"
 
 	// Used to Target Transborder Fares
-	JourneyOriginPoint *LocationDetailsTypeI `xml:"journeyOriginPoint,omitempty"`
+	JourneyOriginPoint *LocationDetailsTypeI `xml:"journeyOriginPoint,omitempty"`  // minOccurs="0"
 
 	// Contains the ARC,IATA and ERSP numbers
-	CorporateId *AgentIdentificationType `xml:"corporateId,omitempty"`
+	CorporateId *AgentIdentificationType `xml:"corporateId,omitempty"`  // minOccurs="0"
 }
 
 type PricingTicketingInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A PricingTicketingInformationType"`
 
 	// Price type qualifier
-	PriceType formats.AlphaNumericString_Length0To3 `xml:"priceType,omitempty"`
-}
-
-type ProductDateTimeTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ProductDateTimeTypeI"`
-
-	// Departure date in YYYYMMDD format
-	DepartureDate formats.Date_YYYYMMDD `xml:"departureDate,omitempty"`
-
-	// Departure time
-	DepartureTime formats.Time24_HHMM `xml:"departureTime,omitempty"`
-
-	// Arrival date
-	ArrivalDate formats.Date_YYYYMMDD `xml:"arrivalDate,omitempty"`
-
-	// Arrival time
-	ArrivalTime formats.Time24_HHMM `xml:"arrivalTime,omitempty"`
-
-	// Day difference between Departure date of the leg and date of reference (Departure or Arrival date specified in the SDI)
-	DateVariation formats.NumericInteger_Length1To1 `xml:"dateVariation,omitempty"`
-}
-
-type ProductDateTimeTypeI_194583C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ProductDateTimeTypeI_194583C"`
-
-	// Ticketing Purchase Date
-	Date formats.Date_DDMMYY `xml:"date,omitempty"`
-
-	// Ticketing purchase date
-	OtherDate formats.Date_DDMMYY `xml:"otherDate,omitempty"`
-}
-
-type ProductDateTimeTypeI_194598C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ProductDateTimeTypeI_194598C"`
-
-	// First date
-	Date formats.Date_DDMMYY `xml:"date,omitempty"`
-
-	// Half round trip combination.
-	RtcDate formats.Date_DDMMYY `xml:"rtcDate,omitempty"`
+	PriceType []formats.AlphaNumericString_Length0To3 `xml:"priceType"`  // maxOccurs="50"
 }
 
 type ProductDateTimeType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ProductDateTimeType"`
 
 	// .
-	Date formats.Date_DDMMYY `xml:"date,omitempty"`
+	Date formats.Date_DDMMYY `xml:"date"`
 
 	// .
-	Time formats.Time24_HHMM `xml:"time,omitempty"`
+	Time formats.Time24_HHMM `xml:"time,omitempty"`  // minOccurs="0"
+}
+
+type ProductDateTimeTypeI struct {
+
+	// Departure date in YYYYMMDD format
+	DepartureDate formats.Date_YYYYMMDD `xml:"departureDate,omitempty"`  // minOccurs="0"
+
+	// Departure time
+	DepartureTime formats.Time24_HHMM `xml:"departureTime,omitempty"`  // minOccurs="0"
+
+	// Arrival date
+	ArrivalDate formats.Date_YYYYMMDD `xml:"arrivalDate,omitempty"`  // minOccurs="0"
+
+	// Arrival time
+	ArrivalTime formats.Time24_HHMM `xml:"arrivalTime,omitempty"`  // minOccurs="0"
+
+	// Day difference between Departure date of the leg and date of reference (Departure or Arrival date specified in the SDI)
+	DateVariation *formats.NumericInteger_Length1To1 `xml:"dateVariation,omitempty"`  // minOccurs="0"
+}
+
+type ProductDateTimeTypeI_194583C struct {
+
+	// Ticketing Purchase Date
+	Date formats.Date_DDMMYY `xml:"date"`
+
+	// Ticketing purchase date
+	OtherDate formats.Date_DDMMYY `xml:"otherDate,omitempty"`  // minOccurs="0"
+}
+
+type ProductDateTimeTypeI_194598C struct {
+
+	// First date
+	Date formats.Date_DDMMYY `xml:"date"`
+
+	// Half round trip combination.
+	RtcDate formats.Date_DDMMYY `xml:"rtcDate,omitempty"`  // minOccurs="0"
 }
 
 type ProductDateTimeType_195546C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ProductDateTimeType_195546C"`
 
 	// Departure date
-	DateOfDeparture formats.Date_DDMMYY `xml:"dateOfDeparture,omitempty"`
+	DateOfDeparture formats.Date_DDMMYY `xml:"dateOfDeparture"`
 
 	// Departure time
-	TimeOfDeparture formats.Time24_HHMM `xml:"timeOfDeparture,omitempty"`
+	TimeOfDeparture formats.Time24_HHMM `xml:"timeOfDeparture,omitempty"`  // minOccurs="0"
 
 	// Arrival date
-	DateOfArrival formats.Date_DDMMYY `xml:"dateOfArrival,omitempty"`
+	DateOfArrival formats.Date_DDMMYY `xml:"dateOfArrival,omitempty"`  // minOccurs="0"
 
 	// Arrival time
-	TimeOfArrival formats.Time24_HHMM `xml:"timeOfArrival,omitempty"`
+	TimeOfArrival formats.Time24_HHMM `xml:"timeOfArrival,omitempty"`  // minOccurs="0"
 
 	// Arrival date compared to departure date, only if different from 0
-	DateVariation formats.NumericInteger_Length1To1 `xml:"dateVariation,omitempty"`
+	DateVariation *formats.NumericInteger_Length1To1 `xml:"dateVariation,omitempty"`  // minOccurs="0"
 }
 
 type ProductFacilitiesType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ProductFacilitiesType"`
 
 	// Yes-No indicator whether Last Seat Available
-	LastSeatAvailable formats.AlphaString_Length1To1 `xml:"lastSeatAvailable,omitempty"`
+	LastSeatAvailable formats.AlphaString_Length1To1 `xml:"lastSeatAvailable,omitempty"`  // minOccurs="0"
 
 	// Level of access
-	LevelOfAccess formats.AlphaNumericString_Length1To3 `xml:"levelOfAccess,omitempty"`
+	LevelOfAccess formats.AlphaNumericString_Length1To3 `xml:"levelOfAccess,omitempty"`  // minOccurs="0"
 
 	// Yes-No indicator whether electronic ticketing
-	ElectronicTicketing formats.AlphaString_Length1To1 `xml:"electronicTicketing,omitempty"`
+	ElectronicTicketing formats.AlphaString_Length1To1 `xml:"electronicTicketing,omitempty"`  // minOccurs="0"
 
 	// Product identification suffix
-	OperationalSuffix formats.AlphaString_Length1To1 `xml:"operationalSuffix,omitempty"`
+	OperationalSuffix formats.AlphaString_Length1To1 `xml:"operationalSuffix,omitempty"`  // minOccurs="0"
 
 	// Define whether a flight has been polled or not
-	ProductDetailQualifier formats.AlphaNumericString_Length1To3 `xml:"productDetailQualifier,omitempty"`
+	ProductDetailQualifier formats.AlphaNumericString_Length1To3 `xml:"productDetailQualifier,omitempty"`  // minOccurs="0"
 
 	// Add some flight restrictions (See code set list)
-	FlightCharacteristic formats.AlphaNumericString_Length1To3 `xml:"flightCharacteristic,omitempty"`
+	FlightCharacteristic []formats.AlphaNumericString_Length1To3 `xml:"flightCharacteristic,omitempty"`  // minOccurs="0" maxOccurs="9"
 }
 
 type ProductIdentificationDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ProductIdentificationDetailsTypeI"`
 
 	// Flight number
-	FlightNumber formats.NumericInteger_Length1To4 `xml:"flightNumber,omitempty"`
+	FlightNumber formats.NumericInteger_Length1To4 `xml:"flightNumber"`
 
 	// Flight suffix
-	OperationalSuffix formats.AlphaString_Length1To1 `xml:"operationalSuffix,omitempty"`
+	OperationalSuffix formats.AlphaString_Length1To1 `xml:"operationalSuffix,omitempty"`  // minOccurs="0"
 }
 
 type ProductIdentificationDetailsTypeI_50878C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ProductIdentificationDetailsTypeI_50878C"`
 
-	FlightNumber formats.AlphaNumericString_Length1To5 `xml:"flightNumber,omitempty"`
+	FlightNumber formats.AlphaNumericString_Length1To5 `xml:"flightNumber"`
 
-	BookingClass formats.AlphaNumericString_Length1To2 `xml:"bookingClass,omitempty"`
+	BookingClass formats.AlphaNumericString_Length1To2 `xml:"bookingClass,omitempty"`  // minOccurs="0"
 
-	OperationalSuffix formats.AlphaNumericString_Length1To3 `xml:"operationalSuffix,omitempty"`
+	OperationalSuffix formats.AlphaNumericString_Length1To3 `xml:"operationalSuffix,omitempty"`  // minOccurs="0"
 
-	Modifier formats.AlphaNumericString_Length1To7 `xml:"modifier,omitempty"`
+	Modifier []formats.AlphaNumericString_Length1To7 `xml:"modifier,omitempty"`  // minOccurs="0" maxOccurs="3"
 }
 
 type ProductLocationDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ProductLocationDetailsTypeI"`
 
 	// airport
-	Station formats.AlphaString_Length3To3 `xml:"station,omitempty"`
-}
-
-type ProductTypeDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ProductTypeDetailsTypeI"`
-
-	// Part of the journey (C,E,S), Codeshare service (A), Technical stop at off point in a Direct (TSD), Technical stop at off point in a COG (TSC), E-Ticket candidate (ET), Prohibited Countries (RPC, WPC)
-	FlightIndicator formats.AlphaString_Length1To3 `xml:"flightIndicator,omitempty"`
+	Station formats.AlphaString_Length3To3 `xml:"station,omitempty"`  // minOccurs="0"
 }
 
 type ProductTypeDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ProductTypeDetailsType"`
 
 	// .
-	SequenceNumber formats.AlphaNumericString_Length1To6 `xml:"sequenceNumber,omitempty"`
+	SequenceNumber formats.AlphaNumericString_Length1To6 `xml:"sequenceNumber,omitempty"`  // minOccurs="0"
 
 	// PNR availability context
-	AvailabilityContext formats.AlphaNumericString_Length1To6 `xml:"availabilityContext,omitempty"`
+	AvailabilityContext formats.AlphaNumericString_Length1To6 `xml:"availabilityContext,omitempty"`  // minOccurs="0"
+}
+
+type ProductTypeDetailsTypeI struct {
+
+	// Part of the journey (C,E,S), Codeshare service (A), Technical stop at off point in a Direct (TSD), Technical stop at off point in a COG (TSC), E-Ticket candidate (ET), Prohibited Countries (RPC, WPC)
+	FlightIndicator []formats.AlphaString_Length1To3 `xml:"flightIndicator"`  // maxOccurs="5"
 }
 
 type ProductTypeDetailsType_120801C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ProductTypeDetailsType_120801C"`
 
 	// Type of flight
-	FlightType formats.AlphaNumericString_Length1To2 `xml:"flightType,omitempty"`
+	FlightType []formats.AlphaNumericString_Length1To2 `xml:"flightType,omitempty"`  // minOccurs="0" maxOccurs="9"
 }
 
 type ProductTypeDetailsType_205137C struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ProductTypeDetailsType_205137C"`
 
 	// indicates whether the flight is domestic or international
-	Avl formats.AlphaNumericString_Length1To6 `xml:"avl,omitempty"`
+	Avl []formats.AlphaNumericString_Length1To6 `xml:"avl"`  // maxOccurs="9"
 }
 
 type ProposedSegmentDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ProposedSegmentDetailsType"`
 
 	// Flight proposal reference
-	Ref formats.AlphaNumericString_Length1To6 `xml:"ref,omitempty"`
+	Ref formats.AlphaNumericString_Length1To6 `xml:"ref,omitempty"`  // minOccurs="0"
 
 	// Elapse Flying Time
-	UnitQualifier formats.AlphaNumericString_Length1To3 `xml:"unitQualifier,omitempty"`
+	UnitQualifier formats.AlphaNumericString_Length1To3 `xml:"unitQualifier,omitempty"`  // minOccurs="0"
 }
 
 type ProposedSegmentType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ProposedSegmentType"`
 
 	// Parameters for proposed flight group
-	FlightProposal *ProposedSegmentDetailsType `xml:"flightProposal,omitempty"`
+	FlightProposal []*ProposedSegmentDetailsType `xml:"flightProposal"`  // maxOccurs="9"
 
 	// Flight characteristics.
-	FlightCharacteristic formats.AlphaNumericString_Length0To3 `xml:"flightCharacteristic,omitempty"`
+	FlightCharacteristic formats.AlphaNumericString_Length0To3 `xml:"flightCharacteristic,omitempty"`  // minOccurs="0"
 
 	// Majority cabin
-	MajCabin formats.AlphaString_Length1To1 `xml:"majCabin,omitempty"`
+	MajCabin formats.AlphaString_Length1To1 `xml:"majCabin,omitempty"`  // minOccurs="0"
 }
 
 type ReferenceInfoType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ReferenceInfoType"`
 
 	// Referencing details
-	ReferencingDetail *ReferencingDetailsType `xml:"referencingDetail,omitempty"`
-
-	DummyNET *DummyNET `xml:"Dummy.NET,omitempty"`
+	ReferencingDetail []*ReferencingDetailsType `xml:"referencingDetail,omitempty"`  // minOccurs="0" maxOccurs="9"
 }
 
 type ReferencingDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ReferencingDetailsType"`
 
 	// Segment reference qualifier
-	RefQualifier formats.AlphaNumericString_Length1To3 `xml:"refQualifier,omitempty"`
+	RefQualifier formats.AlphaNumericString_Length1To3 `xml:"refQualifier,omitempty"`  // minOccurs="0"
 
 	// Flight or flight group reference
-	RefNumber formats.NumericInteger_Length0To3 `xml:"refNumber,omitempty"`
+	RefNumber formats.NumericInteger_Length0To3 `xml:"refNumber"`
 }
 
 type RoutingInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A RoutingInformationTypeI"`
 
 	// Stops details
-	RoutingDetails *ProductLocationDetailsTypeI `xml:"routingDetails,omitempty"`
+	RoutingDetails []*ProductLocationDetailsTypeI `xml:"routingDetails,omitempty"`  // minOccurs="0" maxOccurs="9"
 }
 
 type SegmentRepetitionControlDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A SegmentRepetitionControlDetailsTypeI"`
 
 	// traveller number
-	Quantity formats.NumericInteger_Length1To15 `xml:"quantity,omitempty"`
+	Quantity *formats.NumericInteger_Length1To15 `xml:"quantity,omitempty"`  // minOccurs="0"
 }
 
 type SegmentRepetitionControlTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A SegmentRepetitionControlTypeI"`
 
 	// Segment control details
-	SegmentControlDetails *SegmentRepetitionControlDetailsTypeI `xml:"segmentControlDetails,omitempty"`
-}
-
-type SelectionDetailsInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A SelectionDetailsInformationTypeI"`
-
-	Option formats.AlphaNumericString_Length1To3 `xml:"option,omitempty"`
-
-	OptionInformation formats.AlphaNumericString_Length1To35 `xml:"optionInformation,omitempty"`
+	SegmentControlDetails []*SegmentRepetitionControlDetailsTypeI `xml:"segmentControlDetails,omitempty"`  // minOccurs="0" maxOccurs="9"
 }
 
 type SelectionDetailsInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A SelectionDetailsInformationType"`
 
 	// Carrier fee type
-	Type formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`
+	Type formats.AlphaNumericString_Length1To3 `xml:"type"`
 
 	// Carrier fee status
-	OptionInformation formats.AlphaNumericString_Length1To3 `xml:"optionInformation,omitempty"`
+	OptionInformation formats.AlphaNumericString_Length1To3 `xml:"optionInformation,omitempty"`  // minOccurs="0"
+}
+
+type SelectionDetailsInformationTypeI struct {
+
+	Option formats.AlphaNumericString_Length1To3 `xml:"option"`
+
+	OptionInformation formats.AlphaNumericString_Length1To35 `xml:"optionInformation,omitempty"`  // minOccurs="0"
 }
 
 type SelectionDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A SelectionDetailsType"`
 
 	// Carrier fees options
-	CarrierFeeDetails *SelectionDetailsInformationType `xml:"carrierFeeDetails,omitempty"`
+	CarrierFeeDetails *SelectionDetailsInformationType `xml:"carrierFeeDetails"`
 
-	OtherSelectionDetails *SelectionDetailsInformationTypeI `xml:"otherSelectionDetails,omitempty"`
+	OtherSelectionDetails []*SelectionDetailsInformationTypeI `xml:"otherSelectionDetails,omitempty"`  // minOccurs="0" maxOccurs="98"
 }
 
 type SpecialRequirementsDataDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A SpecialRequirementsDataDetailsType"`
 
 	// SSR seat characteristic
-	SeatCharacteristics formats.AlphaNumericString_Length1To2 `xml:"seatCharacteristics,omitempty"`
-
-	DummyNET *DummyNET `xml:"Dummy.NET,omitempty"`
+	SeatCharacteristics []formats.AlphaNumericString_Length1To2 `xml:"seatCharacteristics,omitempty"`  // minOccurs="0" maxOccurs="5"
 }
 
 type SpecialRequirementsDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A SpecialRequirementsDetailsType"`
 
 	// To specify the Service Requirement of the customer
-	ServiceRequirementsInfo *SpecialRequirementsTypeDetailsType `xml:"serviceRequirementsInfo,omitempty"`
+	ServiceRequirementsInfo *SpecialRequirementsTypeDetailsType `xml:"serviceRequirementsInfo"`
 
 	// Seat details
-	SeatDetails *SpecialRequirementsDataDetailsType `xml:"seatDetails,omitempty"`
+	SeatDetails []*SpecialRequirementsDataDetailsType `xml:"seatDetails,omitempty"`  // minOccurs="0" maxOccurs="999"
 }
 
 type SpecialRequirementsTypeDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A SpecialRequirementsTypeDetailsType"`
 
 	// To specify the Service Classification of the Service Requirement.
-	ServiceClassification formats.AlphaNumericString_Length1To4 `xml:"serviceClassification,omitempty"`
+	ServiceClassification formats.AlphaNumericString_Length1To4 `xml:"serviceClassification"`
 
 	// Status
-	ServiceStatus formats.AlphaNumericString_Length1To3 `xml:"serviceStatus,omitempty"`
+	ServiceStatus formats.AlphaNumericString_Length1To3 `xml:"serviceStatus,omitempty"`  // minOccurs="0"
 
 	// To specify the number of items involved
-	ServiceNumberOfInstances formats.NumericInteger_Length1To15 `xml:"serviceNumberOfInstances,omitempty"`
+	ServiceNumberOfInstances *formats.NumericInteger_Length1To15 `xml:"serviceNumberOfInstances,omitempty"`  // minOccurs="0"
 
 	// To specify to which marketing carrier the service applies
-	ServiceMarketingCarrier formats.AlphaNumericString_Length1To3 `xml:"serviceMarketingCarrier,omitempty"`
+	ServiceMarketingCarrier formats.AlphaNumericString_Length1To3 `xml:"serviceMarketingCarrier,omitempty"`  // minOccurs="0"
 
 	// Specify the Service group
-	ServiceGroup formats.AlphaNumericString_Length1To3 `xml:"serviceGroup,omitempty"`
+	ServiceGroup formats.AlphaNumericString_Length1To3 `xml:"serviceGroup,omitempty"`  // minOccurs="0"
 
 	// Specify the Service Sub-Group
-	ServiceSubGroup formats.AlphaNumericString_Length1To3 `xml:"serviceSubGroup,omitempty"`
+	ServiceSubGroup formats.AlphaNumericString_Length1To3 `xml:"serviceSubGroup,omitempty"`  // minOccurs="0"
 
 	// Free Text attached to the Service.
-	ServiceFreeText formats.AlphaNumericString_Length1To70 `xml:"serviceFreeText,omitempty"`
+	ServiceFreeText []formats.AlphaNumericString_Length1To70 `xml:"serviceFreeText,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 type SpecificDataInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A SpecificDataInformationType"`
 
 	// Carrier fee description
-	DataTypeInformation *DataTypeInformationType `xml:"dataTypeInformation,omitempty"`
+	DataTypeInformation *DataTypeInformationType `xml:"dataTypeInformation"`
 
 	// Data information
-	DataInformation *DataInformationType `xml:"dataInformation,omitempty"`
+	DataInformation []*DataInformationType `xml:"dataInformation,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 type StationInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A StationInformationTypeI"`
 
 	// Departure terminal
-	Terminal formats.AlphaNumericString_Length1To3 `xml:"terminal,omitempty"`
+	Terminal formats.AlphaNumericString_Length1To3 `xml:"terminal,omitempty"`  // minOccurs="0"
 }
 
 type StructuredDateTimeType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A StructuredDateTimeType"`
 
 	// Year number. The format is a little long for short term usage but it can be reduced by implementation if required.
-	Year formats.NumericInteger_Length4To4 `xml:"year,omitempty"`
+	Year *formats.NumericInteger_Length4To4 `xml:"year,omitempty"`  // minOccurs="0"
 
 	// Month number in the year ( begins to 1 )
-	Month formats.NumericInteger_Length1To2 `xml:"month,omitempty"`
+	Month *formats.NumericInteger_Length1To2 `xml:"month,omitempty"`  // minOccurs="0"
 
 	// Day number in the month ( begins to 1 )
-	Day formats.NumericInteger_Length1To2 `xml:"day,omitempty"`
+	Day *formats.NumericInteger_Length1To2 `xml:"day,omitempty"`  // minOccurs="0"
 }
 
 type StructuredPeriodInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A StructuredPeriodInformationType"`
 
 	// Effective date of period of operation
-	BeginDateTime *StructuredDateTimeType `xml:"beginDateTime,omitempty"`
+	BeginDateTime *StructuredDateTimeType `xml:"beginDateTime,omitempty"`  // minOccurs="0"
 
 	// Discontinue date of period of operation
-	EndDateTime *StructuredDateTimeType `xml:"endDateTime,omitempty"`
+	EndDateTime *StructuredDateTimeType `xml:"endDateTime,omitempty"`  // minOccurs="0"
 
 	// It is used with a period to give a restriction for days impacted. It permits for example to indicate on which days, a flight operates.
-	Frequency *FrequencyType `xml:"frequency,omitempty"`
+	Frequency *FrequencyType `xml:"frequency,omitempty"`  // minOccurs="0"
 }
 
 type TaxDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A TaxDetailsTypeI"`
 
 	// Duty/tax/fee rate
-	Rate formats.AlphaNumericString_Length1To18 `xml:"rate,omitempty"`
+	Rate formats.AlphaNumericString_Length1To18 `xml:"rate,omitempty"`  // minOccurs="0"
 
 	// Country, coded
-	Country formats.AlphaNumericString_Length1To3 `xml:"country,omitempty"`
+	Country formats.AlphaNumericString_Length1To3 `xml:"country,omitempty"`  // minOccurs="0"
 
 	// Currency, coded
-	Currency formats.AlphaNumericString_Length1To3 `xml:"currency,omitempty"`
+	Currency formats.AlphaNumericString_Length1To3 `xml:"currency,omitempty"`  // minOccurs="0"
 
 	// Duty/Tax fee type, coded
-	Type formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`
+	Type formats.AlphaNumericString_Length1To3 `xml:"type,omitempty"`  // minOccurs="0"
 
 	// Amount type qualifier, coded
-	AmountQualifier formats.AlphaNumericString_Length1To3 `xml:"amountQualifier,omitempty"`
+	AmountQualifier formats.AlphaNumericString_Length1To3 `xml:"amountQualifier,omitempty"`  // minOccurs="0"
 }
 
 type TaxType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A TaxType"`
 
 	// Duty tax fee category, coded
-	WithholdTaxSurcharge formats.AlphaNumericString_Length1To3 `xml:"withholdTaxSurcharge,omitempty"`
+	WithholdTaxSurcharge formats.AlphaNumericString_Length1To3 `xml:"withholdTaxSurcharge,omitempty"`  // minOccurs="0"
 
 	// TAX DETAILS
-	TaxDetail *TaxDetailsTypeI `xml:"taxDetail,omitempty"`
+	TaxDetail []*TaxDetailsTypeI `xml:"taxDetail,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 type TicketNumberDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A TicketNumberDetailsTypeI"`
 
-	Number formats.AlphaNumericString_Length1To35 `xml:"number,omitempty"`
+	Number formats.AlphaNumericString_Length1To35 `xml:"number,omitempty"`  // minOccurs="0"
 }
 
 type TicketNumberTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A TicketNumberTypeI"`
 
-	DocumentDetails *TicketNumberDetailsTypeI `xml:"documentDetails,omitempty"`
+	DocumentDetails []*TicketNumberDetailsTypeI `xml:"documentDetails"`  // maxOccurs="99"
 }
 
 type TicketingPriceSchemeType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A TicketingPriceSchemeType"`
 
 	// PSR (Price Scheme Reference): unique reference of the price scheme as a 8 digit number.
-	ReferenceNumber formats.AlphaNumericString_Length1To35 `xml:"referenceNumber,omitempty"`
+	ReferenceNumber formats.AlphaNumericString_Length1To35 `xml:"referenceNumber"`
 
 	// Price Scheme Name
-	Name formats.AlphaNumericString_Length1To35 `xml:"name,omitempty"`
+	Name formats.AlphaNumericString_Length1To35 `xml:"name,omitempty"`  // minOccurs="0"
 
 	// Price Scheme Status. Is the price scheme valid for service fee calculation ?
-	Status formats.AlphaNumericString_Length1To3 `xml:"status,omitempty"`
+	Status formats.AlphaNumericString_Length1To3 `xml:"status,omitempty"`  // minOccurs="0"
 
 	// free flow description of the price scheme
-	Description formats.AlphaNumericString_Length1To250 `xml:"description,omitempty"`
+	Description formats.AlphaNumericString_Length1To250 `xml:"description,omitempty"`  // minOccurs="0"
 }
 
 type TrafficRestrictionDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A TrafficRestrictionDetailsTypeI"`
 
 	// Traffic Restriction code
-	Code formats.AlphaNumericString_Length1To3 `xml:"code,omitempty"`
+	Code formats.AlphaNumericString_Length1To3 `xml:"code,omitempty"`  // minOccurs="0"
 }
 
 type TrafficRestrictionTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A TrafficRestrictionTypeI"`
 
 	// Traffic Restriction Details
-	TrafficRestrictionDetails *TrafficRestrictionDetailsTypeI `xml:"trafficRestrictionDetails,omitempty"`
+	TrafficRestrictionDetails []*TrafficRestrictionDetailsTypeI `xml:"trafficRestrictionDetails,omitempty"`  // minOccurs="0" maxOccurs="5"
 }
 
 type TravelFlightInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A TravelFlightInformationType"`
 
 	// Cabin identification
-	CabinId *CabinIdentificationType `xml:"cabinId,omitempty"`
+	CabinId *CabinIdentificationType `xml:"cabinId,omitempty"`  // minOccurs="0"
 
 	// Company Identification
-	CompanyIdentity *CompanyIdentificationType_120719C `xml:"companyIdentity,omitempty"`
+	CompanyIdentity []*CompanyIdentificationType_120719C `xml:"companyIdentity,omitempty"`  // minOccurs="0" maxOccurs="20"
 
 	// Type of flight details
-	FlightDetail *ProductTypeDetailsType_120801C `xml:"flightDetail,omitempty"`
+	FlightDetail *ProductTypeDetailsType_120801C `xml:"flightDetail,omitempty"`  // minOccurs="0"
 
 	// Details of included  connecting points
-	InclusionDetail *ConnectPointDetailsType_195492C `xml:"inclusionDetail,omitempty"`
+	InclusionDetail []*ConnectPointDetailsType_195492C `xml:"inclusionDetail,omitempty"`  // minOccurs="0" maxOccurs="20"
 
 	// Further connection details
-	ExclusionDetail *ConnectPointDetailsType `xml:"exclusionDetail,omitempty"`
+	ExclusionDetail []*ConnectPointDetailsType `xml:"exclusionDetail,omitempty"`  // minOccurs="0" maxOccurs="2"
 
 	// Nb of connections for each requested segment of the journey.
-	UnitNumberDetail *NumberOfUnitDetailsTypeI `xml:"unitNumberDetail,omitempty"`
+	UnitNumberDetail []*NumberOfUnitDetailsTypeI `xml:"unitNumberDetail,omitempty"`  // minOccurs="0" maxOccurs="9"
 }
 
 type TravelFlightInformationType_165053S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A TravelFlightInformationType_165053S"`
 
 	// Cabin identification
-	CabinId *CabinIdentificationType_233500C `xml:"cabinId,omitempty"`
+	CabinId *CabinIdentificationType_233500C `xml:"cabinId,omitempty"`  // minOccurs="0"
 
 	// Company Identification
-	CompanyIdentity *CompanyIdentificationType_120719C `xml:"companyIdentity,omitempty"`
+	CompanyIdentity []*CompanyIdentificationType_120719C `xml:"companyIdentity,omitempty"`  // minOccurs="0" maxOccurs="20"
 
 	// Type of flight details
-	FlightDetail *ProductTypeDetailsType_120801C `xml:"flightDetail,omitempty"`
+	FlightDetail *ProductTypeDetailsType_120801C `xml:"flightDetail,omitempty"`  // minOccurs="0"
 
 	// Details of included connect point
-	InclusionDetail *ConnectPointDetailsType_195492C `xml:"inclusionDetail,omitempty"`
+	InclusionDetail []*ConnectPointDetailsType_195492C `xml:"inclusionDetail,omitempty"`  // minOccurs="0" maxOccurs="20"
 
 	// Further connection details
-	ExclusionDetail *ConnectPointDetailsType `xml:"exclusionDetail,omitempty"`
+	ExclusionDetail []*ConnectPointDetailsType `xml:"exclusionDetail,omitempty"`  // minOccurs="0" maxOccurs="20"
 
 	// Nb of connections allowed at requested segment level.
-	UnitNumberDetail *NumberOfUnitDetailsTypeI `xml:"unitNumberDetail,omitempty"`
+	UnitNumberDetail []*NumberOfUnitDetailsTypeI `xml:"unitNumberDetail,omitempty"`  // minOccurs="0" maxOccurs="20"
 }
 
 type TravelFlightInformationType_185853S struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A TravelFlightInformationType_185853S"`
 
 	// Cabin identification
-	CabinId *CabinIdentificationType_233500C `xml:"cabinId,omitempty"`
+	CabinId *CabinIdentificationType_233500C `xml:"cabinId,omitempty"`  // minOccurs="0"
 
 	// Company Identification
-	CompanyIdentity *CompanyIdentificationType_233548C `xml:"companyIdentity,omitempty"`
+	CompanyIdentity []*CompanyIdentificationType_233548C `xml:"companyIdentity,omitempty"`  // minOccurs="0" maxOccurs="20"
 
 	// Type of flight details
-	FlightDetail *ProductTypeDetailsType_120801C `xml:"flightDetail,omitempty"`
+	FlightDetail *ProductTypeDetailsType_120801C `xml:"flightDetail,omitempty"`  // minOccurs="0"
 
 	// Details of included connect point
-	InclusionDetail *ConnectPointDetailsType_195492C `xml:"inclusionDetail,omitempty"`
+	InclusionDetail []*ConnectPointDetailsType_195492C `xml:"inclusionDetail,omitempty"`  // minOccurs="0" maxOccurs="20"
 
 	// Further connection details
-	ExclusionDetail *ConnectPointDetailsType `xml:"exclusionDetail,omitempty"`
+	ExclusionDetail []*ConnectPointDetailsType `xml:"exclusionDetail,omitempty"`  // minOccurs="0" maxOccurs="20"
 
 	// Added departed flights flag
-	UnitNumberDetail *NumberOfUnitDetailsTypeI `xml:"unitNumberDetail,omitempty"`
+	UnitNumberDetail []*NumberOfUnitDetailsTypeI `xml:"unitNumberDetail,omitempty"`  // minOccurs="0" maxOccurs="20"
 }
 
 type TravelProductInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A TravelProductInformationTypeI"`
 
 	// Flight Date
-	FlightDate *ProductDateTimeTypeI `xml:"flightDate,omitempty"`
+	FlightDate *ProductDateTimeTypeI `xml:"flightDate,omitempty"`  // minOccurs="0"
 
 	// Board point
-	BoardPointDetails *LocationTypeI `xml:"boardPointDetails,omitempty"`
+	BoardPointDetails *LocationTypeI `xml:"boardPointDetails"`
 
 	// Off point
-	OffpointDetails *LocationTypeI `xml:"offpointDetails,omitempty"`
+	OffpointDetails *LocationTypeI `xml:"offpointDetails"`
 
 	// Flight Carrier
-	CompanyDetails *CompanyIdentificationTypeI `xml:"companyDetails,omitempty"`
+	CompanyDetails *CompanyIdentificationTypeI `xml:"companyDetails"`
 
 	// Flight identification
-	FlightIdentification *ProductIdentificationDetailsTypeI `xml:"flightIdentification,omitempty"`
+	FlightIdentification *ProductIdentificationDetailsTypeI `xml:"flightIdentification,omitempty"`  // minOccurs="0"
 
 	// Identify flight part of the journey
-	FlightTypeDetails *ProductTypeDetailsTypeI `xml:"flightTypeDetails,omitempty"`
+	FlightTypeDetails *ProductTypeDetailsTypeI `xml:"flightTypeDetails,omitempty"`  // minOccurs="0"
 }
 
 type TravelProductType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A TravelProductType"`
 
 	// Date and time of departure and arrival
-	ProductDateTime *ProductDateTimeType_195546C `xml:"productDateTime,omitempty"`
+	ProductDateTime *ProductDateTimeType_195546C `xml:"productDateTime"`
 
 	// Location of departure and arrival
-	Location *LocationIdentificationDetailsType `xml:"location,omitempty"`
+	Location []*LocationIdentificationDetailsType `xml:"location"`  // maxOccurs="2"
 
 	// Company identification
-	CompanyId *CompanyIdentificationType_195544C `xml:"companyId,omitempty"`
+	CompanyId *CompanyIdentificationType_195544C `xml:"companyId,omitempty"`  // minOccurs="0"
 
 	// Flight number or trainNumber
-	FlightOrtrainNumber formats.AlphaNumericString_Length1To8 `xml:"flightOrtrainNumber,omitempty"`
+	FlightOrtrainNumber formats.AlphaNumericString_Length1To8 `xml:"flightOrtrainNumber,omitempty"`  // minOccurs="0"
 
 	// Product details
-	ProductDetail *AdditionalProductDetailsType `xml:"productDetail,omitempty"`
+	ProductDetail *AdditionalProductDetailsType `xml:"productDetail,omitempty"`  // minOccurs="0"
 
 	// Additional product details
-	AddProductDetail *ProductFacilitiesType `xml:"addProductDetail,omitempty"`
+	AddProductDetail *ProductFacilitiesType `xml:"addProductDetail,omitempty"`  // minOccurs="0"
 
 	// Attribute details
-	AttributeDetails *CodedAttributeInformationType_247828C `xml:"attributeDetails,omitempty"`
+	AttributeDetails []*CodedAttributeInformationType_247828C `xml:"attributeDetails,omitempty"`  // minOccurs="0" maxOccurs="20"
 }
 
 type TravellerDetailsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A TravellerDetailsType"`
 
 	// Direct reference of passenger assigned by requesting system.
-	Ref formats.NumericInteger_Length1To3 `xml:"ref,omitempty"`
+	Ref formats.NumericInteger_Length1To3 `xml:"ref"`
 
 	// Traveller is an infant
-	InfantIndicator formats.NumericInteger_Length1To1 `xml:"infantIndicator,omitempty"`
+	InfantIndicator *formats.NumericInteger_Length1To1 `xml:"infantIndicator,omitempty"`  // minOccurs="0"
 }
 
 type TravellerReferenceInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A TravellerReferenceInformationType"`
 
 	// Requested passenger type
-	Ptc formats.AlphaNumericString_Length1To6 `xml:"ptc,omitempty"`
+	Ptc []formats.AlphaNumericString_Length1To6 `xml:"ptc,omitempty"`  // minOccurs="0" maxOccurs="3"
 
 	// Traveller details
-	Traveller *TravellerDetailsType `xml:"traveller,omitempty"`
+	Traveller []*TravellerDetailsType `xml:"traveller"`  // maxOccurs="9"
 }
 
 type UniqueIdDescriptionType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A UniqueIdDescriptionType"`
 
 	// Reference qualifier.
-	PassengerFeeRefQualif formats.AlphaNumericString_Length1To3 `xml:"passengerFeeRefQualif,omitempty"`
+	PassengerFeeRefQualif formats.AlphaNumericString_Length1To3 `xml:"passengerFeeRefQualif,omitempty"`  // minOccurs="0"
 }
 
-// UserIdentificationType ...
 type UserIdentificationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A UserIdentificationType"`
 
 	// Originator Identification Details
-	OfficeIdentification *OriginatorIdentificationDetailsTypeI `xml:"officeIdentification,omitempty"`
+	OfficeIdentification *OriginatorIdentificationDetailsTypeI `xml:"officeIdentification,omitempty"`  // minOccurs="0"
 
 	// Used to specify which kind of info is given in DE 9900.
-	OfficeType formats.AlphaNumericString_Length1To1 `xml:"officeType,omitempty"`
+	OfficeType formats.AlphaNumericString_Length1To1 `xml:"officeType,omitempty"`  // minOccurs="0"
 
 	// The code given to an agent by the originating reservation system.
-	OfficeCode formats.AlphaNumericString_Length1To30 `xml:"officeCode,omitempty"`
+	OfficeCode formats.AlphaNumericString_Length1To30 `xml:"officeCode,omitempty"`  // minOccurs="0"
 }
 
 type ValueSearchCriteriaType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/FMPTBQ_14_3_1A ValueSearchCriteriaType"`
 
-	CriteriaName formats.AlphaNumericString_Length1To50 `xml:"criteriaName,omitempty"`
+	CriteriaName formats.AlphaNumericString_Length1To50 `xml:"criteriaName,omitempty"`  // minOccurs="0"
 
-	CriteriaCode formats.AlphaNumericString_Length1To3 `xml:"criteriaCode,omitempty"`
+	CriteriaCode formats.AlphaNumericString_Length1To3 `xml:"criteriaCode,omitempty"`  // minOccurs="0"
 
-	Value formats.AlphaNumericString_Length1To18 `xml:"value,omitempty"`
+	Value formats.AlphaNumericString_Length1To18 `xml:"value,omitempty"`  // minOccurs="0"
 
-	CriteriaDetails *CriteriaiDetaislType `xml:"criteriaDetails,omitempty"`
+	CriteriaDetails []*CriteriaiDetaislType `xml:"criteriaDetails,omitempty"`  // minOccurs="0" maxOccurs="10"
 }

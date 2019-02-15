@@ -1,67 +1,78 @@
-# Amadeus WS connector
+# Amadeus WBS SDK
 
 This package contains structures, forms, functions and SOAP handler for Amadeus WS.
 
 ## SOAP Methods implemented
 
-This package was made as proof of concept and for now have only Sessions handling and Command Cryptic methods.
-It will be developed if it will be interested for people...
+The following versions of services are currently implemented:
 
-## Using
+* Air_FlightInfo (05.1)
+* Air_SellFromRecommendation (05.2)
+* Command_Cryptic (07.3)
+* DocIssuance_IssueTicket (09.1)
+* Fare_CheckRules (07.1)
+* Fare_ConvertCurrency (08.1)
+* Fare_InformativeBestPricingWithoutPNR (12.4)
+* Fare_InformativePricingWithoutPNR (12.4)
+* Fare_MasterPricerCalendar (14.3, 12.2)
+* Fare_MasterPricerTravelBoardSearch (16.3, 14.3, 12.3)
+* Fare_PricePNRWithBookingClass (14.1, 12.4)
+* PNR_AddMultiElements (11.3)
+* PNR_Cancel (11.3)
+* PNR_Retrieve (11.3)
+* Queue_CountPlanner (03.1)
+* Queue_CountTotal (03.1)
+* Queue_List (11.1)
+* Queue_MoveItem (03.1)
+* Queue_PlacePNR (03.1)
+* Queue_RemoveItem (03.1)
+* Security_Authenticate (06.1)
+* Security_SignOut (04.1)
+* Ticket_CreateTSTFromPricing (04.1)
+* Ticket_CreditCardCheck (06.1)
+* Ticket_DeleteTST (04.1)
+* Ticket_DisplayTST (07.1)
 
-```golang
+## Installation
+
+It is go gettable
+
+    $ go get github.com/tmconsulting/amadeus-golang-sdk
+
+```go
 package main
 
 import (
-	"fmt"
-	"log"
-
-	"github.com/tmconsulting/amadeus-ws-go"
-	"github.com/tmconsulting/amadeus-ws-go/formats"
-	sa "github.com/tmconsulting/amadeus-ws-go/reqstructs/security_authenticate"
+	amadeusSdk "github.com/tmconsulting/amadeus-golang-sdk"
 )
+...
+```
 
-func main() {
-	sess := authenticate("OfficeId")
+## Usage examples
 
-	fmt.Println(sess)
-}
+There are several usage examples in `./example` folder. Try it out.
 
-func authenticate(officeId string) *amadeus.Session {
-	service := amadeus.NewAmadeusWebServicesPT("https://test.webservices.amadeus.com", true, "WSAPId", &amadeus.BasicAuth{})
-	response, session, err := service.SecurityAuthenticate(&sa.SecurityAuthenticate{
-		UserIdentifier: &sa.UserIdentificationType{
-			OriginIdentification: &sa.OriginatorIdentificationDetailsTypeI{
-				SourceOffice: formats.AlphaNumericString_Length1To9(officeId),
-			},
-			Originator:         formats.AlphaNumericString_Length1To30("Originator"),
-			OriginatorTypeCode: formats.AlphaNumericString_Length1To1("U"),
-		},
-		DutyCode: &sa.ReferenceInformationTypeI{
-			DutyCodeDetails: &sa.ReferencingDetailsTypeI{
-				ReferenceQualifier:  formats.AlphaNumericString_Length1To3("DUT"),
-				ReferenceIdentifier: formats.AlphaNumericString_Length1To35("SU"),
-			},
-		},
-		SystemDetails: &sa.SystemDetailsInfoType{
-			OrganizationDetails: &sa.SystemDetailsTypeI{
-				OrganizationId: formats.AlphaNumericString_Length1To35("OrganizationId"),
-			},
-		},
-		PasswordInfo: &sa.BinaryDataType{
-			DataLength: formats.NumericInteger_Length1To15(8),
-			DataType:   formats.AlphaNumericString_Length1To1("E"),
-			BinaryData: formats.AlphaNumericString_Length1To99999("Base64EncodedPassword"),
-		},
-	})
-	if err != nil {
-		log.Fatal(err)
-	}
+## Tests
 
-	if response.ErrorSection != nil {
-		log.Fatal(string(*response.ErrorSection.InteractiveFreeText.FreeText))
-	}
+There are no tests yet. :( Feel free to help us to change this situation!
 
-	return session
-}
- ```
+## Contribution
+
+Contribution, in any kind of way, is highly welcome!
+It doesn't matter if you are not able to write code.
+Creating issues or holding talks and help other people to use 
+[amadeus-golang-sdk](https://github.com/tmconsulting/amadeus-golang-sdk) is contribution, too!
+
+A few examples:
+
+* Correct typos in the README / documentation
+* Reporting bugs
+* Implement a new feature or endpoint
+* Sharing the love if like to use [amadeus-golang-sdk](https://github.com/tmconsulting/amadeus-golang-sdk) and help people 
+to get use to it
+
+If you are new to pull requests, checkout [Collaborating on projects using issues and pull requests / Creating a pull request](https://help.github.com/articles/creating-a-pull-request/).
+
+## License
+
+SDK is released under the [MIT License](./LICENSE).

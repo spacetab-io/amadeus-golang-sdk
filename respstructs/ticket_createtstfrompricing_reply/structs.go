@@ -1,114 +1,105 @@
 package ticket_createtstfrompricing_reply
 
-import (
-	"encoding/xml"
-
-	"github.com/kidem/amadeus-ws-go/formats"
-)
+//import "encoding/xml"
 
 type TicketCreateTSTFromPricingReply struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/TAUTCR_04_1_1A Ticket_CreateTSTFromPricingReply"`
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/TAUTCR_04_1_1A Ticket_CreateTSTFromPricingReply"`
 
-	ApplicationError *ApplicationError `xml:"applicationError,omitempty"`
+	ApplicationError *ApplicationError `xml:"applicationError,omitempty"`  // minOccurs="0"
 
 	// PNR record locator information for this transaction. This PNR record locator is used for tracing purpose.
-	PnrLocatorData *ReservationControlInformationTypeI `xml:"pnrLocatorData,omitempty"`
+	PnrLocatorData *ReservationControlInformationTypeI `xml:"pnrLocatorData,omitempty"`  // minOccurs="0"
 
-	TstList *TstList `xml:"tstList,omitempty"`
-}
-
-type TstList struct {
-
-	// TST tattoo number created by the transaction.
-	TstReference *ItemReferencesAndVersionsType `xml:"tstReference,omitempty"`
-
-	// Reference information on passengers.
-	PaxInformation *ReferenceInformationTypeI `xml:"paxInformation,omitempty"`
+	TstList []*TstList `xml:"tstList,omitempty"`  // minOccurs="0" maxOccurs="1980"
 }
 
 type ApplicationError struct {
 
 	// General error information returned by ticketing application
-	ApplicationErrorInfo *ApplicationErrorInformationType `xml:"applicationErrorInfo,omitempty"`
+	ApplicationErrorInfo *ApplicationErrorInformationType `xml:"applicationErrorInfo"`
 
 	// Description in free flow text of the error returned by ticketing application
-	ErrorText *InteractiveFreeTextTypeI `xml:"errorText,omitempty"`
+	ErrorText *InteractiveFreeTextTypeI `xml:"errorText,omitempty"`  // minOccurs="0"
 }
 
+type TstList struct {
+
+	// TST tattoo number created by the transaction.
+	TstReference *ItemReferencesAndVersionsType `xml:"tstReference"`
+
+	// Reference information on passengers.
+	PaxInformation *ReferenceInformationTypeI `xml:"paxInformation,omitempty"`  // minOccurs="0"
+}
+
+//
+// Complex structs
+//
+
 type ApplicationErrorDetailType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TAUTCR_04_1_1A ApplicationErrorDetailType"`
 
 	// Code identifying the data validation error condition.
-	ApplicationErrorCode formats.AlphaNumericString_Length1To5 `xml:"applicationErrorCode,omitempty"`
+	ApplicationErrorCode string `xml:"applicationErrorCode"`
 
 	// Identification of a code list.
-	CodeListQualifier formats.AlphaNumericString_Length1To3 `xml:"codeListQualifier,omitempty"`
+	CodeListQualifier string `xml:"codeListQualifier,omitempty"`  // minOccurs="0"
 
 	// Code identifying the agency responsible for a code list.
-	CodeListResponsibleAgency formats.AlphaNumericString_Length1To3 `xml:"codeListResponsibleAgency,omitempty"`
+	CodeListResponsibleAgency string `xml:"codeListResponsibleAgency,omitempty"`  // minOccurs="0"
 }
 
 type ApplicationErrorInformationType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TAUTCR_04_1_1A ApplicationErrorInformationType"`
 
 	// Application error details.
-	ApplicationErrorDetail *ApplicationErrorDetailType `xml:"applicationErrorDetail,omitempty"`
+	ApplicationErrorDetail *ApplicationErrorDetailType `xml:"applicationErrorDetail"`
 }
 
 type InteractiveFreeTextTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TAUTCR_04_1_1A InteractiveFreeTextTypeI"`
 
 	// Free flow text describing the error
-	ErrorFreeText formats.AlphaNumericString_Length1To70 `xml:"errorFreeText,omitempty"`
+	ErrorFreeText string `xml:"errorFreeText,omitempty"`  // minOccurs="0"
 }
 
 type ItemReferencesAndVersionsType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TAUTCR_04_1_1A ItemReferencesAndVersionsType"`
 
 	// qualifies the type of the reference used. Code set to define
-	ReferenceType formats.AlphaNumericString_Length1To3 `xml:"referenceType,omitempty"`
+	ReferenceType string `xml:"referenceType,omitempty"`  // minOccurs="0"
 
 	// Tattoo number (It is in fact the Tst Display Number)
-	UniqueReference formats.NumericInteger_Length1To5 `xml:"uniqueReference,omitempty"`
+	UniqueReference *int32 `xml:"uniqueReference,omitempty"`  // minOccurs="0"
 
 	// Gives the TST ID number
-	IDDescription *UniqueIdDescriptionType `xml:"iDDescription,omitempty"`
+	IDDescription *UniqueIdDescriptionType `xml:"iDDescription,omitempty"`  // minOccurs="0"
 }
 
 type ReferenceInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TAUTCR_04_1_1A ReferenceInformationTypeI"`
 
 	// Passenger/segment/TST reference details
-	RefDetails *ReferencingDetailsTypeI `xml:"refDetails,omitempty"`
+	RefDetails []*ReferencingDetailsTypeI `xml:"refDetails,omitempty"`  // minOccurs="0" maxOccurs="99"
 }
 
 type ReferencingDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TAUTCR_04_1_1A ReferencingDetailsTypeI"`
 
 	// Qualifyer of the reference (Pax/Seg/Tst)
-	RefQualifier formats.AlphaNumericString_Length1To3 `xml:"refQualifier,omitempty"`
+	RefQualifier string `xml:"refQualifier,omitempty"`  // minOccurs="0"
 
 	// Passenger/segment/TST reference number
-	RefNumber formats.NumericInteger_Length1To5 `xml:"refNumber,omitempty"`
+	RefNumber *int32 `xml:"refNumber,omitempty"`  // minOccurs="0"
 }
 
 type ReservationControlInformationDetailsTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TAUTCR_04_1_1A ReservationControlInformationDetailsTypeI"`
 
 	// Record locator.
-	ControlNumber formats.AlphaNumericString_Length1To20 `xml:"controlNumber,omitempty"`
+	ControlNumber string `xml:"controlNumber"`
 }
 
 type ReservationControlInformationTypeI struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TAUTCR_04_1_1A ReservationControlInformationTypeI"`
 
 	// Reservation control information
-	ReservationInformation *ReservationControlInformationDetailsTypeI `xml:"reservationInformation,omitempty"`
+	ReservationInformation *ReservationControlInformationDetailsTypeI `xml:"reservationInformation"`
 }
 
 type UniqueIdDescriptionType struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/TAUTCR_04_1_1A UniqueIdDescriptionType"`
 
 	// The TST Id Number : The Id number allows to determine a TST in the single manner.
-	IDSequenceNumber formats.NumericInteger_Length1To11 `xml:"iDSequenceNumber,omitempty"`
+	IDSequenceNumber int32 `xml:"iDSequenceNumber"`
 }

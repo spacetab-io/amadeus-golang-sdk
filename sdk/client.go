@@ -341,7 +341,7 @@ func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply i
 	savebuf := buffer.Bytes()
 
 	//support.LogsPush(attr, savebuf)
-	err := cli.Hooks.Fire("log_request", soapAction, string(savebuf))
+	err := cli.Hooks.Fire("out", soapAction, string(savebuf))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to fire hook log_request: %v\n", err)
 	}
@@ -404,7 +404,7 @@ func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply i
 	//attrResponse := *attr
 	//attrResponse.Layer = receiver.Layer4
 	//support.LogsPush(&attrResponse, rawbody)
-	err = cli.Hooks.Fire("log_response", soapAction, string(rawbody))
+	err = cli.Hooks.Fire("inc", soapAction, string(rawbody))
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to fire hook log_response: %v\n", err)
 	}

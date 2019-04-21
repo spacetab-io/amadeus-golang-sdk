@@ -34,6 +34,8 @@ func tearUp() {
 	passwordRaw = os.Getenv("PASSWORD_RAW")
 	officeId = os.Getenv("OFFICE_ID")
 
+	log.Printf("url: %s\noriginator: %s\npasswordRaw: %s\nofficeId: %s", url, originator, passwordRaw, officeId)
+
 	ls := stdoutLogger.Init()
 	l = logger.NewLogger(ls)
 
@@ -51,7 +53,7 @@ func TestNewSKD(t *testing.T) {
 
 		amadeusSDK := NewSKD(client)
 
-		response, _, err := amadeusSDK.CommandCryptic("AN20MAYMOWLED/ALH")
+		response, err := amadeusSDK.CommandCryptic("AN20MAYMOWLED/ALH")
 		if !assert.NoError(t, err) {
 			t.FailNow()
 		}

@@ -7,6 +7,7 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/ama/ticketIgnoreRefund/v03.0"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/ama/ticketInitRefund/v03.0"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/ama/ticketProcessRefund/v03.0"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/commandCryptic"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/commandCryptic/v07.3"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/docIssuance/issueTicket/v09.1"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/checkRules/v07.1/request"
@@ -63,7 +64,7 @@ type AmadeusSDK interface {
 	TicketDisplayTSTV071(query *Ticket_DisplayTSTRequest_v07_1.Request) (*Ticket_DisplayTSTResponse_v07_1.Response, *sdk.ResponseSOAPHeader, error)
 	FareInformativePricingWithoutPNRV124(query *Fare_InformativePricingWithoutPNR_v12_4.Request) (*Fare_InformativePricingWithoutPNRReply_v12_4.Response, *sdk.ResponseSOAPHeader, error)
 	FareCheckRulesV071(query *Fare_CheckRulesRequest_v07_1.Request) (*Fare_CheckRulesResponse_v07_1.Response, *sdk.ResponseSOAPHeader, error)
-	CommandCrypticV073(query *CommandCryptic_v07_3.Request) (*CommandCryptic_v07_3.Response, *sdk.ResponseSOAPHeader, error)
+	CommandCrypticV073(query *CommandCryptic_v07_3.Request) (*CommandCryptic_v07_3.Response, error)
 
 	// Session
 	SecuritySignOutV041() (*SecuritySignOut_v04_1.Response, *sdk.ResponseSOAPHeader, error)
@@ -108,7 +109,7 @@ type Service interface {
 	PNRRetrieve(query *PNR_Retrieve_v11_3.Request) (*PNR_Reply_v11_3.Response, *sdk.ResponseSOAPHeader, error)
 	TicketDisplayTST(query *Ticket_DisplayTSTRequest_v07_1.Request) (*Ticket_DisplayTSTResponse_v07_1.Response, *sdk.ResponseSOAPHeader, error)
 	FareCheckRules(query *Fare_CheckRulesRequest_v07_1.Request) (*Fare_CheckRulesResponse_v07_1.Response, *sdk.ResponseSOAPHeader, error)
-	CommandCryptic(msg string) (*CommandCryptic_v07_3.Response, *sdk.ResponseSOAPHeader, error)
+	CommandCryptic(msg string) (*commandCryptic.Response, error)
 
 	// Session
 	SecuritySignOut() (*SecuritySignOut_v04_1.Response, *sdk.ResponseSOAPHeader, error)

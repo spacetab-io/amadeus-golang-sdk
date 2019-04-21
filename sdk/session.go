@@ -1,120 +1,73 @@
-package amadeus_sdk
+package sdk
 
 import (
-	"encoding/xml"
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk/security/signOut/v04_1_query"
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk/security/signOut/v04_1_reply"
-	"github.com/tmconsulting/amadeus-golang-sdk/utils"
-	"strings"
+	"errors"
+
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/security/signOut/v04.1"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/session/v03.0"
 )
 
-const (
-	Start = iota
-	End
-	Rollback
-	InSeries
-	Continuation
-	Subsequent
-)
-
-var TransactionStatusCode = [...]string{
-	"Start",        // This is the first message within a transaction.
-	"End",          // This is the last message within a transaction.
-	"Rollback",     // This indicates that all messages within the current transaction must be ignored.
-	"InSeries",     // This is any message that is not the first or last message within a transaction.
-	"Continuation", // Specifies that this is a followup request asking for more of what was requested in the previous request.
-	"Subsequent",   // This request message is a subsequent request based on the previous message sent in this transaction.
+func (client *AmadeusClient) SecuritySignOutV041() (*SecuritySignOut_v04_1.Response, *ResponseSOAPHeader, error) {
+	var query SecuritySignOut_v04_1.Request
+	var reply SecuritySignOut_v04_1.Response
+	header, err := client.service.Call(soapUrl, "VLSSOQ_04_1_1A", &query, &reply, client)
+	return &reply, header, err
 }
 
-type Session struct {
-	// This attributes defines the status code of the session in a stateful flow.
-	TransactionStatusCode string `xml:"TransactionStatusCode,attr,omitempty"`
-
-	// This element defines the identifier part of the SessionId.
-	SessionId string `xml:"SessionId,omitempty"`
-
-	// This element defines the sequence number of the SessionId.
-	SequenceNumber int `xml:"SequenceNumber,omitempty"`
-
-	// This element defines the SecurityToken of the SessionId.
-	SecurityToken string `xml:"SecurityToken,omitempty"`
-}
-
-type RequestSession struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/2010/06/Session_v3 Session"`
-
-	*Session
-}
-
-const (
-	ActSessionSecuritySignOut = "VLSSOQ_04_1_1A"
-)
-
-func (client *AmadeusClient) SecuritySignOutV041() (*Security_SignOutReply_v04_1.SecuritySignOutReply, *ResponseSOAP4Header, error) {
-	var soapAction = ActSessionSecuritySignOut
-	var query = new(Security_SignOut_v04_1.SecuritySignOut)
-	var reply = new(Security_SignOutReply_v04_1.SecuritySignOutReply)
-	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
-	if err != nil {
-		return nil, header, err
-	}
-	return reply, header, nil
-}
-
-func CreateSession() *Session {
-	return &Session{
-		TransactionStatusCode: TransactionStatusCode[Start],
+func CreateSession() *Session_v03_0.Session {
+	return &Session_v03_0.Session{
+		TransactionStatusCode: Session_v03_0.TransactionStatusCode[Session_v03_0.Start],
 	}
 }
 
-func (client *AmadeusClient) GetSession() *Session {
-	return client.session
+func (client *AmadeusClient) GetSession() *Session_v03_0.Session {
+	return client.Session
 }
 
-func (client *AmadeusClient) IncSequenceNumber(header *ResponseSOAP4Header) {
+func (client *AmadeusClient) IncSessionSequenceNumber(header *ResponseSOAPHeader) {
 	if header != nil {
-		client.session = &header.Session
+		client.Session = &header.Session
 	}
-	client.session.SequenceNumber++
+	client.Session.SequenceNumber++
 }
 
-func (client *AmadeusClient) SessionIsClosed() bool {
-	if client == nil || client.session == nil || client.session.TransactionStatusCode == TransactionStatusCode[End] {
+func (client *AmadeusClient) CheckIfSessionIsClosed() bool {
+	if client == nil || client.Session == nil || client.Session.TransactionStatusCode == Session_v03_0.TransactionStatusCode[Session_v03_0.End] {
 		return true
 	}
 	return false
 }
 
 func (client *AmadeusClient) SetSessionEndTransaction() bool {
-	if client == nil || client.session == nil || client.session.TransactionStatusCode == TransactionStatusCode[End] {
+	if client == nil || client.Session == nil || client.Session.TransactionStatusCode == Session_v03_0.TransactionStatusCode[Session_v03_0.End] {
 		return false
 	}
-	client.session.TransactionStatusCode = TransactionStatusCode[End]
+	client.Session.TransactionStatusCode = Session_v03_0.TransactionStatusCode[Session_v03_0.End]
 	return true
 }
 
-func (client *AmadeusClient) UpdateSession(session *Session) bool {
+func (client *AmadeusClient) UpdateSessionV030(session *Session_v03_0.Session) bool {
 	if client == nil {
 		return false
 	}
-	client.session = session
+	client.Session = session
 	return true
 }
 
-func (client *AmadeusClient) CloseSession() (reply *Security_SignOutReply_v04_1.SecuritySignOutReply, err error) {
+func (client *AmadeusClient) CloseSessionV041() (*SecuritySignOut_v04_1.Response, error) {
 	if client == nil || client.service == nil {
-		return
+		return nil, errors.New("nil client or service")
 	}
-	if client.session != nil && client.session.TransactionStatusCode != TransactionStatusCode[End] {
-		var header *ResponseSOAP4Header
-		client.session.TransactionStatusCode = TransactionStatusCode[End]
-		reply, header, err = client.SecuritySignOutV041()
+
+	if client.Session != nil && client.Session.TransactionStatusCode != Session_v03_0.TransactionStatusCode[Session_v03_0.End] {
+		client.Session.TransactionStatusCode = Session_v03_0.TransactionStatusCode[Session_v03_0.End]
+		reply, header, err := client.SecuritySignOutV041()
 		if err == nil {
-			client.session = nil
+			client.Session = nil
 		} else {
-			client.session = &header.Session
+			client.Session = &header.Session
 		}
+		return reply, err
 	}
-	return
+	return nil, errors.New("can't close session: Session is nil or Session.TransactionStatusCode == End")
 }

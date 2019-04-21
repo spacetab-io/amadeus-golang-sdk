@@ -1,79 +1,42 @@
-package amadeus_sdk
+package sdk
 
 import (
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk/air/sellFromRecommendation/v05_2_query"
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk/air/sellFromRecommendation/v05_2_reply"
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk/fare/pricePNRWithBookingClass/v14_1_query"
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk/fare/pricePNRWithBookingClass/v14_1_reply"
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk/pnr/addMultiElements/v11_3_query"
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk/pnr/cancel/v11_3_query"
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk/pnr/reply/v11_3"
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk/ticket/createTSTFromPricing/v04_1_query"
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk/ticket/createTSTFromPricing/v04_1_reply"
-	"github.com/tmconsulting/amadeus-golang-sdk/utils"
-	"strings"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/air/sellFromRecommendation/v05.2/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/air/sellFromRecommendation/v05.2/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/pricePNRWithBookingClass/v14.1/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/pricePNRWithBookingClass/v14.1/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/addMultiElements/v11.3"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/cancel/v11.3"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/reply/v11.3"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/createTSTFromPricing/v04.1"
 )
 
-const (
-	ActBookAirSellFromRecommendation    = "ITAREQ_05_2_IA"
-	ActBookPNRAddMultiElements          = "PNRADD_11_3_1A"
-	ActBookFarePricePNRWithBookingClass = "TPCBRQ_14_1_1A"
-	ActBookTicketCreateTSTFromPricing   = "TAUTCQ_04_1_1A"
-	ActBookPNRCancel                    = "PNRXCL_11_3_1A"
-)
-
-func (client *AmadeusClient) AirSellFromRecommendationV052(query *Air_SellFromRecommendation_v05_2.AirSellFromRecommendation) (*Air_SellFromRecommendationReply_v05_2.AirSellFromRecommendationReply, *ResponseSOAP4Header, error) {
-	var soapAction = ActBookAirSellFromRecommendation
-	var reply = new(Air_SellFromRecommendationReply_v05_2.AirSellFromRecommendationReply)
-	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
-	//header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client.session)
-	if err != nil {
-		return nil, header, err
-	}
-	return reply, header, nil
+func (client *AmadeusClient) AirSellFromRecommendationV052(query *Air_SellFromRecommendationRequest_v05_2.Request) (*Air_SellFromRecommendationResponse_v05_2.Response, *ResponseSOAPHeader, error) {
+	var reply Air_SellFromRecommendationResponse_v05_2.Response
+	header, err := client.service.Call(soapUrl, "ITAREQ_05_2_IA", query, &reply, client)
+	return &reply, header, err
 }
 
-func (client *AmadeusClient) PNRAddMultiElementsV113(query *PNR_AddMultiElements_v11_3.PNRAddMultiElements) (*PNR_Reply_v11_3.PNRReply, *ResponseSOAP4Header, error) {
-	var soapAction = ActBookPNRAddMultiElements
-	var reply = new(PNR_Reply_v11_3.PNRReply)
-	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
-	if err != nil {
-		return nil, header, err
-	}
-	return reply, header, nil
+func (client *AmadeusClient) PNRAddMultiElementsV113(query *PNR_AddMultiElementsRequest_v11_3.Request) (*PNR_Reply_v11_3.Response, *ResponseSOAPHeader, error) {
+	var reply PNR_Reply_v11_3.Response
+	header, err := client.service.Call(soapUrl, "PNRADD_11_3_1A", query, &reply, client)
+	return &reply, header, err
 }
 
-func (client *AmadeusClient) FarePricePNRWithBookingClassV141(query *Fare_PricePNRWithBookingClass_v14_1.FarePricePNRWithBookingClass) (*Fare_PricePNRWithBookingClassReply_v14_1.FarePricePNRWithBookingClassReply, *ResponseSOAP4Header, error) {
-	var soapAction = ActBookFarePricePNRWithBookingClass
-	var reply = new(Fare_PricePNRWithBookingClassReply_v14_1.FarePricePNRWithBookingClassReply)
-	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
-	if err != nil {
-		return nil, header, err
-	}
-	return reply, header, nil
+func (client *AmadeusClient) FarePricePNRWithBookingClassV141(query *Fare_PricePNRWithBookingClassRequest_v14_1.Request) (*Fare_PricePNRWithBookingClassResponse_v14_1.Response, *ResponseSOAPHeader, error) {
+	var reply Fare_PricePNRWithBookingClassResponse_v14_1.Response
+	header, err := client.service.Call(soapUrl, "TPCBRQ_14_1_1A", query, &reply, client)
+	return &reply, header, err
 }
 
-func (client *AmadeusClient) TicketCreateTSTFromPricingV041(query *Ticket_CreateTSTFromPricing_v04_1.TicketCreateTSTFromPricing) (*Ticket_CreateTSTFromPricingReply_v04_1.TicketCreateTSTFromPricingReply, *ResponseSOAP4Header, error) {
-	var soapAction = ActBookTicketCreateTSTFromPricing
-	var reply = new(Ticket_CreateTSTFromPricingReply_v04_1.TicketCreateTSTFromPricingReply)
-	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
-	if err != nil {
-		return nil, header, err
-	}
-	return reply, header, nil
+func (client *AmadeusClient) TicketCreateTSTFromPricingV041(query *Ticket_CreateTSTFromPricing_v04_1.Request) (*Ticket_CreateTSTFromPricing_v04_1.Response, *ResponseSOAPHeader, error) {
+	var reply Ticket_CreateTSTFromPricing_v04_1.Response
+	header, err := client.service.Call(soapUrl, "TAUTCQ_04_1_1A", query, &reply, client)
+	return &reply, header, err
 }
 
-func (client *AmadeusClient) PNRCancelV113(query *PNR_Cancel_v11_3.PNRCancel) (*PNR_Reply_v11_3.PNRReply, *ResponseSOAP4Header, error) {
-	var soapAction = ActBookPNRCancel
-	var reply = new(PNR_Reply_v11_3.PNRReply)
-	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
-	if err != nil {
-		return nil, header, err
-	}
-	return reply, header, nil
+func (client *AmadeusClient) PNRCancelV113(query *PNR_Cancel_v11_3.Request) (*PNR_Reply_v11_3.Response, *ResponseSOAPHeader, error) {
+	var reply PNR_Reply_v11_3.Response
+	header, err := client.service.Call(soapUrl, "PNRXCL_11_3_1A", query, &reply, client)
+	return &reply, header, err
 }

@@ -1,4 +1,4 @@
-package amadeus_sdk
+package sdk
 
 import (
 	"bytes"
@@ -7,321 +7,86 @@ import (
 	"encoding/base64"
 	"encoding/xml"
 	"fmt"
-	"os"
-
 	"io/ioutil"
 	"net"
 	"net/http"
+	"os"
 	"time"
 
-	"github.com/tmconsulting/amadeus-golang-sdk/utils"
+	"github.com/tmconsulting/amadeus-golang-sdk/logger"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/session/v03.0"
 )
 
-var timeout = time.Duration(20 * time.Second)
+var timeout = 20 * time.Second
 
-const (
-	SoapNs = "http://schemas.xmlsoap.org/soap/envelope/"
-	XsiNs  = "http://www.w3.org/2001/XMLSchema-instance"
-	XsdNs  = "http://www.w3.org/2001/XMLSchema"
-	WasNs  = "http://www.w3.org/2005/08/addressing"
-
-	// Predefined WSS namespaces to be used in
-	WssNsWSSE         = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd"
-	WssNsWSU          = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
-	WssNsEncodingType = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary"
-	WssNsPasswordType = "http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordDigest"
-)
-
-type SOAPBody struct {
-	XMLName xml.Name `xml:"soap:Body"`
-
-	Fault   *SOAPFault  `xml:",omitempty"`
-	Content interface{} `xml:",omitempty"`
+type SOAP4Client struct {
+	Url       string
+	User      string
+	Pass      string
+	Agent     string
+	TLSEnable bool
+	Headers   []interface{}
+	Logger    logger.Service
 }
 
-type ResponseSOAPBody struct {
-	XMLName xml.Name `xml:"http://schemas.xmlsoap.org/soap/envelope/ Body"`
-
-	Fault   *SOAPFault  `xml:",omitempty"`
-	Content interface{} `xml:",omitempty"`
+func (s *SOAP4Client) AddHeader(header interface{}) {
+	s.Headers = append(s.Headers, header)
 }
 
-func (b *ResponseSOAPBody) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
-	if b.Content == nil {
-		return xml.UnmarshalError("Content must be a pointer to a struct")
-	}
-
-	var (
-		token    xml.Token
-		err      error
-		consumed bool
-	)
-
-Loop:
-	for {
-		if token, err = d.Token(); err != nil {
-			return err
-		}
-
-		if token == nil {
-			break
-		}
-
-		switch se := token.(type) {
-		case xml.StartElement:
-			if consumed {
-				return xml.UnmarshalError("Found multiple elements inside SOAP body; not wrapped-document/literal WS-I compliant")
-			} else if se.Name.Space == "http://schemas.xmlsoap.org/soap/envelope/" && se.Name.Local == "Fault" {
-				b.Fault = &SOAPFault{}
-				b.Content = nil
-
-				err = d.DecodeElement(b.Fault, &se)
-				if err != nil {
-					return err
-				}
-
-				consumed = true
-			} else {
-				if err = d.DecodeElement(b.Content, &se); err != nil {
-					return err
-				}
-
-				consumed = true
-			}
-		case xml.EndElement:
-			break Loop
-		}
-	}
-
-	return nil
+func (s *SOAP4Client) UpdateHeader(header interface{}) {
+	s.Headers = []interface{}{header}
 }
 
-type SOAPFault struct {
-	XMLName xml.Name `xml:"Fault"`
-
-	Code   string `xml:"faultcode,omitempty"`
-	String string `xml:"faultstring,omitempty"`
-	Actor  string `xml:"faultactor,omitempty"`
-	Detail string `xml:"detail,omitempty"`
-}
-
-func (f *SOAPFault) Error() string {
-	return f.String
-}
-
-type RequestSOAP4Envelope struct {
-	XMLName xml.Name `xml:"soap:Envelope"`
-
-	SOAPAttr string `xml:"xmlns:soap,attr"`
-	XSIAttr  string `xml:"xmlns:xsi,attr"`
-	XSDAttr  string `xml:"xmlns:xsd,attr"`
-
-	Header *RequsetSOAP4Header
-	Body   SOAPBody
-}
-
-type ResponseSOAP4Envelope struct {
-	// XMLName        xml.Name                     `xml:"http://schemas.xmlsoap.org/soap/envelope/ Envelope"`
-	Header ResponseSOAP4Header
-	Body   ResponseSOAPBody
-}
-
-type RequsetSOAP4Header struct {
-	XMLName xml.Name `xml:"soap:Header"`
-
-	WSAAttr string `xml:"xmlns:wsa,attr"`
-
-	To        string `xml:"wsa:To"`
-	Action    string `xml:"wsa:Action"`
-	MessageId string `xml:"wsa:MessageID"`
-
-	Security    *WSSSecurityHeader     // `xml:"wsse:Security"`
-	AMASecurity *AMASecurityHostedUser // `xml:"AMA_SecurityHostedUser"`
-	Session     *RequestSession        // `xml:"Session"`
-}
-
-type ResponseSOAP4Header struct {
-	// XMLName        xml.Name                     `xml:"http://schemas.xmlsoap.org/soap/envelope/ soap:Header"`
-
-	To        string         `xml:"To"`
-	From      AddressingFrom `xml:"From"`
-	Action    string         `xml:"Action"`
-	MessageId string         `xml:"MessageID"`
-	// RelatesTo      RelatesTo                    `xml:"RelatesTo"`
-	RelatesTo string  `xml:"RelatesTo"`
-	Session   Session `xml:"Session"`
-
-	Items []interface{} `xml:",omitempty"`
-}
-
-type WSSSecurityHeader struct {
-	XMLName xml.Name `xml:"wsse:Security"`
-
-	XmlNSWsse string `xml:"xmlns:wsse,attr"`
-	XmlNSWsu  string `xml:"xmlns:wsu,attr"`
-
-	MustUnderstand string `xml:"mustUnderstand,attr,omitempty"`
-
-	Token *WSSUsernameToken `xml:",omitempty"`
-}
-
-type WSSUsernameToken struct {
-	XMLName xml.Name `xml:"wsse:UsernameToken"`
-
-	Id string `xml:"wsu:Id,attr,omitempty"`
-
-	Username string       `xml:"wsse:Username"`
-	Nonce    *WSSNonce    // `xml:"wsse:Nonce"`
-	Password *WSSPassword // `xml:"wsse:Password"`
-	Created  string       `xml:"wsu:Created"`
-}
-
-type WSSNonce struct {
-	XMLName xml.Name `xml:"wsse:Nonce"`
-
-	EncodingType string `xml:"EncodingType,attr"`
-	Nonce        string `xml:",chardata"`
-}
-
-type WSSPassword struct {
-	XMLName xml.Name `xml:"wsse:Password"`
-
-	Type     string `xml:"Type,attr"`
-	Password string `xml:",chardata"`
-}
-
-type AMASecurityHostedUser struct {
-	XMLName xml.Name                    `xml:"http://xml.amadeus.com/2010/06/Security_v1 AMA_SecurityHostedUser"`
-	UserId  AMASecurityHostedUserUserID // `xml:"UserID"`
-}
-
-type AMASecurityHostedUserUserID struct {
-	XMLName xml.Name `xml:"UserID"`
-
-	AgentDutyCode  string `xml:"AgentDutyCode,attr"`
-	RequestorType  string `xml:"RequestorType,attr"`
-	PseudoCityCode string `xml:"PseudoCityCode,attr"`
-	POSType        string `xml:"POS_Type,attr"`
-}
-type SOAPHeader struct {
-	XMLName xml.Name      `xml:"soap:Header"`
-	Items   []interface{} `xml:",omitempty"`
-}
-
-type AddressingFrom struct {
-	// XMLName          xml.Name `xml:"wsa:From"`
-	Address string `xml:"Address"`
-}
-
-// type RelatesTo struct {
-// 	XMLName          xml.Name `xml:"wsa:RelatesTo"`
-// 	RelationshipType string   `xml:"RelationshipType,attr"`			// "http://www.w3.org/2005/08/addressing/reply"
-// 	MessageId        string   `xml:",chardata"`
-// }
-
-func HashedPassword(password string, nonceRaw string, timestamp string) string {
+func (s *SOAP4Client) GetHashedPassword(nonceRaw string, timestamp string) string {
 	// HashedPassword = Base64 ( SHA-1 ( nonce + created + SHA-1 ( password ) ) )
-	s := sha1.New()
-	s.Write([]byte(password))
-	pwd := string(s.Sum(nil))
-	s.Reset()
-	s.Write([]byte(nonceRaw + timestamp + pwd))
-	return base64.StdEncoding.EncodeToString(s.Sum(nil))
+	sha := sha1.New()
+	sha.Write([]byte(s.Pass))
+	pwd := string(sha.Sum(nil))
+	sha.Reset()
+	sha.Write([]byte(nonceRaw + timestamp + pwd))
+	return base64.StdEncoding.EncodeToString(sha.Sum(nil))
 }
 
-func NewWSSSecurityHeader(user, pass, mustUnderstand string) *WSSSecurityHeader {
-	nonce := utils.RandStringBytesMaskImprSrc(16)
+func (s *SOAP4Client) MakeNewWSSSecurityHeader() *WSSSecurityHeader {
+	nonce := RandStringBytesMaskImprSrc(16)
 	nonceBase64 := base64.StdEncoding.EncodeToString([]byte(nonce))
 	timestamp := time.Now().UTC().Format(time.RFC3339)
 
-	hdr := &WSSSecurityHeader{XmlNSWsse: WssNsWSSE, XmlNSWsu: WssNsWSU, MustUnderstand: mustUnderstand}
-	hdr.Token = &WSSUsernameToken{Id: "UsernameToken-" + utils.RandStringBytesMaskImprSrc(9), Username: user}
-	hdr.Token.Nonce = &WSSNonce{EncodingType: WssNsEncodingType, Nonce: nonceBase64}
-	hdr.Token.Password = &WSSPassword{Type: WssNsPasswordType, Password: HashedPassword(pass, nonce, timestamp)}
-	hdr.Token.Created = timestamp
-	return hdr
+	return &WSSSecurityHeader{
+		XmlNSWsse:      WssNsWSSE,
+		XmlNSWsu:       WssNsWSU,
+		MustUnderstand: "",
+		Token: &WSSUsernameToken{
+			Id:       "UsernameToken-" + RandStringBytesMaskImprSrc(9),
+			Username: s.User,
+			Nonce:    &WSSNonce{EncodingType: WssNsEncodingType, Nonce: nonceBase64},
+			Password: &WSSPassword{Type: WssNsPasswordType, Password: s.GetHashedPassword(nonce, timestamp)},
+			Created:  timestamp,
+		},
+	}
 }
 
-func NewAMASecurityHostedUser(agent string) *AMASecurityHostedUser {
+func (s *SOAP4Client) MakeNewAMASecurityHostedUser() *AMASecurityHostedUser {
 	return &AMASecurityHostedUser{UserId: AMASecurityHostedUserUserID{
 		AgentDutyCode:  "SU",
 		RequestorType:  "U",
-		PseudoCityCode: agent,
+		PseudoCityCode: s.Agent,
 		POSType:        "1",
 	}}
 }
 
-type SOAP4Client struct {
-	url     string
-	user    string
-	pass    string
-	agent   string
-	tls     bool
-	headers []interface{}
-}
-
-type WebServicePT struct {
-	client *SOAP4Client
-	// wsap   string
-}
-
-func CreateWebServicePTSOAP4Header(url, user, pass, agent string, tls bool) *WebServicePT {
-	return &WebServicePT{
-		client: NewSOAP4Client(url, user, pass, agent, tls),
-		// wsap:   wsap,
+func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply interface{}, amadeusClient *AmadeusClient) (*ResponseSOAPHeader, error) {
+	session := amadeusClient.Session
+	envelope := RequestSOAP4Envelope{
+		SOAPAttr: Ns, XSIAttr: XsiNs, XSDAttr: XsdNs,
+		Header: &RequestSOAP4Header{WSAAttr: WasNs, To: s.Url, Action: soapUrl + soapAction, MessageId: messageId},
 	}
-}
-
-func (service *WebServicePT) Call(soapUrl, soapAction, messageId string, query, reply interface{}, client *AmadeusClient) (header *ResponseSOAP4Header, err error) {
-	header, err = service.client.Call(soapUrl, soapAction, messageId, query, reply, client)
-	return
-}
-
-func (service *WebServicePT) AddHeader(header interface{}) {
-	service.client.AddHeader(header)
-}
-
-// Backwards-compatible function: use AddHeader instead
-func (service *WebServicePT) SetHeader(header interface{}) {
-	service.client.UpdateHeader(header)
-}
-
-func (service *WebServicePT) UpdateHeader(header interface{}) {
-	service.client.UpdateHeader(header)
-}
-
-func dialTimeout(network, addr string) (net.Conn, error) {
-	return net.DialTimeout(network, addr, timeout)
-}
-
-func NewSOAP4Client(url, user, pass, agent string, tls bool) *SOAP4Client {
-	return &SOAP4Client{
-		url:   url,
-		user:  user,
-		pass:  pass,
-		agent: agent,
-		tls:   tls,
-	}
-}
-
-func (s *SOAP4Client) AddHeader(header interface{}) {
-	s.headers = append(s.headers, header)
-}
-
-func (s *SOAP4Client) UpdateHeader(header interface{}) {
-	s.headers = []interface{}{header}
-}
-
-func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply interface{}, cli *AmadeusClient) (*ResponseSOAP4Header, error) {
-	session := cli.session
-	envelope := RequestSOAP4Envelope{SOAPAttr: SoapNs, XSIAttr: XsiNs, XSDAttr: XsdNs}
-	envelope.Header = &RequsetSOAP4Header{WSAAttr: WasNs, To: s.url, Action: soapUrl + soapAction, MessageId: messageId}
-	if session == nil || session.TransactionStatusCode == TransactionStatusCode[Start] {
-		envelope.Header.Security = NewWSSSecurityHeader(s.user, s.pass, "")
-		envelope.Header.AMASecurity = NewAMASecurityHostedUser(s.agent)
+	if session == nil || session.TransactionStatusCode == Session_v03_0.TransactionStatusCode[Session_v03_0.Start] {
+		envelope.Header.Security = s.MakeNewWSSSecurityHeader()
+		envelope.Header.AMASecurity = s.MakeNewAMASecurityHostedUser()
 	}
 	if session != nil {
-		envelope.Header.Session = &RequestSession{Session: session}
+		envelope.Header.Session = &Session_v03_0.RequestSession{Session: session}
 	}
 
 	envelope.Body.Content = query
@@ -340,13 +105,11 @@ func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply i
 	}
 	savebuf := buffer.Bytes()
 
-	//support.LogsPush(attr, savebuf)
-	err := cli.Hooks.Fire("out", soapAction, string(savebuf))
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to fire hook log_request: %v\n", err)
+	if err := s.Logger.Push("out", soapAction, string(savebuf)); err != nil {
+		_, _ = fmt.Fprintf(os.Stderr, "Failed to fire hook log_request: %v\n", err)
 	}
 
-	req, err := http.NewRequest("POST", s.url, buffer)
+	req, err := http.NewRequest("POST", s.Url, buffer)
 	if err != nil {
 		return nil, err
 	}
@@ -354,12 +117,12 @@ func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply i
 	req.Header.Add("Content-Type", "text/xml; charset=\"utf-8\"")
 	req.Header.Add("SOAPAction", soapUrl+soapAction)
 
-	req.Header.Set("User-Agent", "connector_amadeus-go/0.2")
+	req.Header.Set("User-Agent", "amadeus-golang-sdk")
 	req.Close = true
 
 	tr := &http.Transport{
 		TLSClientConfig: &tls.Config{
-			InsecureSkipVerify: s.tls,
+			InsecureSkipVerify: s.TLSEnable,
 		},
 		Dial: dialTimeout,
 	}
@@ -367,11 +130,11 @@ func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply i
 	numberOfAttempts := 3
 
 	var res *http.Response
-	client := &http.Client{
+	httpClient := &http.Client{
 		Transport: tr,
 		Timeout:   timeout,
 	}
-	res, err = client.Do(req)
+	res, err = httpClient.Do(req)
 	for err != nil {
 		time.Sleep(1 * time.Second)
 
@@ -380,11 +143,11 @@ func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply i
 		rc := ioutil.NopCloser(buffer)
 		req.Body = rc // .(io.ReadCloser)
 
-		client = &http.Client{
+		httpClient = &http.Client{
 			Transport: tr,
 			Timeout:   timeout,
 		}
-		res, err = client.Do(req)
+		res, err = httpClient.Do(req)
 
 		numberOfAttempts--
 		if numberOfAttempts == 0 {
@@ -401,12 +164,9 @@ func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply i
 		return nil, err
 	}
 
-	//attrResponse := *attr
-	//attrResponse.Layer = receiver.Layer4
-	//support.LogsPush(&attrResponse, rawbody)
-	err = cli.Hooks.Fire("inc", soapAction, string(rawbody))
+	err = s.Logger.Push("inc", soapAction, string(rawbody))
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to fire hook log_response: %v\n", err)
+		_, _ = fmt.Fprintf(os.Stderr, "Failed to fire hook log_response: %v\n", err)
 	}
 
 	respEnvelope := new(ResponseSOAP4Envelope)
@@ -423,4 +183,8 @@ func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply i
 	}
 
 	return &respEnvelope.Header, nil
+}
+
+func dialTimeout(network, addr string) (net.Conn, error) {
+	return net.DialTimeout(network, addr, timeout)
 }

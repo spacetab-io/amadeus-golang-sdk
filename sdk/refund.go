@@ -1,65 +1,47 @@
-package amadeus_sdk
+package sdk
 
 import (
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk/ama/ticketIgnoreRefund/v03_0"
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk/ama/ticketInitRefund/v03_0"
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk/ama/ticketProcessRefund/v03_0"
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk/ticket/processEDoc/v15_2_query"
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk/ticket/processEDoc/v15_2_reply"
-	"github.com/tmconsulting/amadeus-golang-sdk/utils"
-	"strings"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/ama/ticketIgnoreRefund/v03.0"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/ama/ticketInitRefund/v03.0"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/ama/ticketProcessRefund/v03.0"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/ignore/v04.1"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/salesReports/displayTransactionReport/v13.2"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/processEDoc/v15.2/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/processEDoc/v15.2/response"
 )
 
-const (
-	ActRefundAMATicketIgnoreRefund  = "Ticket_IgnoreRefund_3.0"
-	ActRefundAMATicketInitRefund    = "Ticket_InitRefund_3.0"
-	ActRefundAMATicketProcessRefund = "Ticket_ProcessRefund_3.0"
-	ActRefundTicketProcessEDoc      = "TATREQ_15_2_1A"
-)
-
-func (client *AmadeusClient) AMATicketIgnoreRefundV030(query *AMA_TicketIgnoreRefund_v03_0.AMATicketIgnoreRefundRQ) (*AMA_TicketIgnoreRefund_v03_0.AMATicketIgnoreRefundRS, *ResponseSOAP4Header, error) {
-	var url = "http://webservices.amadeus.com/"
-	var soapAction = ActRefundAMATicketIgnoreRefund
-	var reply = new(AMA_TicketIgnoreRefund_v03_0.AMATicketIgnoreRefundRS)
-	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(url, soapAction, messageId, query, reply, client)
-	if err != nil {
-		return nil, header, err
-	}
-	return reply, header, nil
+func (client *AmadeusClient) AMATicketIgnoreRefundV030(query *AMA_TicketIgnoreRefund_v03_0.Request) (*AMA_TicketIgnoreRefund_v03_0.Response, *ResponseSOAPHeader, error) {
+	var reply AMA_TicketIgnoreRefund_v03_0.Response
+	header, err := client.service.Call(amaUrl, "Ticket_IgnoreRefund_3.0", query, &reply, client)
+	return &reply, header, err
 }
 
-func (client *AmadeusClient) AMATicketInitRefundV030(query *AMA_TicketInitRefund_v03_0.AMATicketInitRefundRQ) (*AMA_TicketInitRefund_v03_0.AMATicketInitRefundRS, *ResponseSOAP4Header, error) {
-	var url = "http://webservices.amadeus.com/"
-	var soapAction = ActRefundAMATicketInitRefund
-	var reply = new(AMA_TicketInitRefund_v03_0.AMATicketInitRefundRS)
-	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(url, soapAction, messageId, query, reply, client)
-	if err != nil {
-		return nil, header, err
-	}
-	return reply, header, nil
+func (client *AmadeusClient) AMATicketInitRefundV030(query *AMA_TicketInitRefund_v03_0.Request) (*AMA_TicketInitRefund_v03_0.Response, *ResponseSOAPHeader, error) {
+	var reply AMA_TicketInitRefund_v03_0.Response
+	header, err := client.service.Call(amaUrl, "Ticket_InitRefund_3.0", query, &reply, client)
+	return &reply, header, err
 }
 
-func (client *AmadeusClient) AMATicketProcessRefundV030(query *AMA_TicketProcessRefund_v03_0.AMATicketProcessRefundRQ) (*AMA_TicketProcessRefund_v03_0.AMATicketProcessRefundRS, *ResponseSOAP4Header, error) {
-	var url = "http://webservices.amadeus.com/"
-	var soapAction = ActRefundAMATicketProcessRefund
-	var reply = new(AMA_TicketProcessRefund_v03_0.AMATicketProcessRefundRS)
-	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(url, soapAction, messageId, query, reply, client)
-	if err != nil {
-		return nil, header, err
-	}
-	return reply, header, nil
+func (client *AmadeusClient) AMATicketProcessRefundV030(query *AMA_TicketProcessRefund_v03_0.Request) (*AMA_TicketProcessRefund_v03_0.Response, *ResponseSOAPHeader, error) {
+	var reply AMA_TicketProcessRefund_v03_0.Response
+	header, err := client.service.Call(amaUrl, "Ticket_ProcessRefund_3.0", query, &reply, client)
+	return &reply, header, err
 }
 
-func (client *AmadeusClient) TicketProcessEDocV152(query *Ticket_ProcessEDoc_v15_2.TicketProcessEDoc) (*Ticket_ProcessEDocReply_v15_2.TicketProcessEDocReply, *ResponseSOAP4Header, error) {
-	var soapAction = ActRefundTicketProcessEDoc
-	var reply = new(Ticket_ProcessEDocReply_v15_2.TicketProcessEDocReply)
-	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
-	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
-	if err != nil {
-		return nil, header, err
-	}
-	return reply, header, nil
+func (client *AmadeusClient) TicketProcessEDocV152(query *Ticket_ProcessEDocRequest_v15_2.Request) (*Ticket_ProcessEDocResponse_v15_2.Response, *ResponseSOAPHeader, error) {
+	var reply Ticket_ProcessEDocResponse_v15_2.Response
+	header, err := client.service.Call(soapUrl, "TATREQ_15_2_1A", query, &reply, client)
+	return &reply, header, err
+}
+
+func (client *AmadeusClient) SalesReportsDisplayTransactionReportV132(query *SalesReports_DisplayTransactionReport_v13_2.Request) (*SalesReports_DisplayTransactionReport_v13_2.Response, *ResponseSOAPHeader, error) {
+	var reply SalesReports_DisplayTransactionReport_v13_2.Response
+	header, err := client.service.Call(soapUrl, "TSRTRQ_13_2_1A", query, &reply, client)
+	return &reply, header, err
+}
+
+func (client *AmadeusClient) PNRIgnoreV041(query *PNR_Ignore_v04_1.Request) (*PNR_Ignore_v04_1.Response, *ResponseSOAPHeader, error) {
+	var reply PNR_Ignore_v04_1.Response
+	header, err := client.service.Call(soapUrl, "CLTREQ_04_1_IA", query, &reply, client)
+	return &reply, header, err
 }

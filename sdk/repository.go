@@ -31,9 +31,6 @@ func CreateAmadeusClient(url, originator, passwordRaw, officeId string, lw logge
 }
 
 type AmadeusClient struct {
-	//service *soap4_0.WebServicesPTSOAP4Header
-	//Session *soap4_0.Session_v3
-	// messageIds		[]string
 	Session *Session_v03_0.Session
 	service *WebServicePT
 }

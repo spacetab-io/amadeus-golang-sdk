@@ -2,6 +2,7 @@ package service
 
 import (
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/commandCryptic"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/commandCryptic/v07.3"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/checkRules/v07.1/request"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/checkRules/v07.1/response"
@@ -23,7 +24,7 @@ func (s *service) FareCheckRules(query *Fare_CheckRulesRequest_v07_1.Request) (*
 	return s.sdk.FareCheckRulesV071(query)
 }
 
-func (s *service) CommandCryptic(msg string) (*CommandCryptic_v07_3.Response, *sdk.ResponseSOAPHeader, error) {
+func (s *service) CommandCryptic(msg string) (*commandCryptic.Response, error) {
 	q := &CommandCryptic_v07_3.Request{
 		MessageAction: &CommandCryptic_v07_3.MessageAction{
 			MessageFunctionDetails: &CommandCryptic_v07_3.MessageFunctionDetails{
@@ -31,5 +32,10 @@ func (s *service) CommandCryptic(msg string) (*CommandCryptic_v07_3.Response, *s
 			},
 		},
 	}
-	return s.sdk.CommandCrypticV073(q)
+	resp, err := s.sdk.CommandCrypticV073(q)
+	if err != nil {
+		return nil, err
+	}
+
+	return resp.ToCommon(), nil
 }

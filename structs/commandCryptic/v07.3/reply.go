@@ -1,4 +1,5 @@
 package CommandCryptic_v07_3 // hsfres073
+import "github.com/tmconsulting/amadeus-golang-sdk/structs/commandCryptic"
 
 //import "encoding/xml"
 
@@ -15,4 +16,20 @@ type MessageActionDetails struct {
 
 type LongTextString struct {
 	TextStringDetails string `xml:"textStringDetails"` // Format limitations: an..9999
+}
+
+func (r *Response) ToCommon() *commandCryptic.Response {
+	return &commandCryptic.Response{
+		MessageActionDetails: &commandCryptic.MessageActionDetails{
+			MessageFunctionDetails: &commandCryptic.MessageFunctionDetails{
+				BusinessFunction:          r.MessageActionDetails.MessageFunctionDetails.BusinessFunction,
+				MessageFunction:           r.MessageActionDetails.MessageFunctionDetails.MessageFunction,
+				AdditionalMessageFunction: r.MessageActionDetails.MessageFunctionDetails.AdditionalMessageFunction,
+			},
+			ResponseType: r.MessageActionDetails.ResponseType,
+		},
+		LongTextString: &commandCryptic.LongTextString{
+			TextStringDetails: r.LongTextString.TextStringDetails,
+		},
+	}
 }

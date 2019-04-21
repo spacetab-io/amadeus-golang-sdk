@@ -63,7 +63,7 @@ func main() {
 
  	amadeusSDK := service.NewSKD(client)
 
- 	response, _, err := amadeusSDK.CommandCryptic("AN20MAYMOWLED/ALH")
+ 	response, err := amadeusSDK.CommandCryptic("AN20MAYMOWLED/ALH")
  	if err != nil {
   	log.Fatalf("error: %v", err)
  	}

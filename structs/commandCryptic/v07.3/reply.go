@@ -19,15 +19,19 @@ type LongTextString struct {
 }
 
 func (r *Response) ToCommon() *commandCryptic.Response {
-	return &commandCryptic.Response{
-		MessageActionDetails: &commandCryptic.MessageActionDetails{
-			MessageFunctionDetails: &commandCryptic.MessageFunctionDetails{
+	mad := &commandCryptic.MessageActionDetails{}
+	if r.MessageActionDetails != nil {
+		if r.MessageActionDetails.MessageFunctionDetails != nil {
+			mad.MessageFunctionDetails = &commandCryptic.MessageFunctionDetails{
 				BusinessFunction:          r.MessageActionDetails.MessageFunctionDetails.BusinessFunction,
 				MessageFunction:           r.MessageActionDetails.MessageFunctionDetails.MessageFunction,
 				AdditionalMessageFunction: r.MessageActionDetails.MessageFunctionDetails.AdditionalMessageFunction,
-			},
-			ResponseType: r.MessageActionDetails.ResponseType,
-		},
+			}
+			mad.ResponseType = r.MessageActionDetails.ResponseType
+		}
+	}
+	return &commandCryptic.Response{
+		MessageActionDetails: mad,
 		LongTextString: &commandCryptic.LongTextString{
 			TextStringDetails: r.LongTextString.TextStringDetails,
 		},

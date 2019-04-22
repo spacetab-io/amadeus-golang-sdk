@@ -28,8 +28,11 @@ func (s *service) CommandCryptic(msg string) (*commandCryptic.Response, error) {
 	q := &CommandCryptic_v07_3.Request{
 		MessageAction: &CommandCryptic_v07_3.MessageAction{
 			MessageFunctionDetails: &CommandCryptic_v07_3.MessageFunctionDetails{
-				MessageFunction: msg,
+				MessageFunction: "F18",
 			},
+		},
+		LongTextString: &CommandCryptic_v07_3.LongTextString{
+			TextStringDetails: msg,
 		},
 	}
 	resp, err := s.sdk.CommandCrypticV073(q)

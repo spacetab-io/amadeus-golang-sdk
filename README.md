@@ -41,7 +41,7 @@ It is go gettable and go.mod powered
 ## Usage
 
 Prepare log writer realisation if you need to see outgoing and incoming xmls (null logging used if nil is passed) and 
-credentials to connect (url, originator, base64 password (!)). Initiate SDK and service:
+credentials to connect: url, originator, password (not in base64!). Initiate SDK and service:
 
 ```go
 package main

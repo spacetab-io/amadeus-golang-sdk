@@ -1,7 +1,6 @@
 package service
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"testing"
@@ -47,12 +46,9 @@ func TestNewSKD(t *testing.T) {
 
 		amadeusSDK := NewSKD(client)
 
-		response, err := amadeusSDK.CommandCryptic("AN20MAYMOWLED/ALH")
+		_, err := amadeusSDK.CommandCryptic("AN20MAYMOWLED/ALH")
 		if !assert.NoError(t, err) {
 			t.FailNow()
 		}
-		fmt.Printf("response: %v\n", response.LongTextString)
-
-		fmt.Printf("error: %v\n", err)
 	})
 }

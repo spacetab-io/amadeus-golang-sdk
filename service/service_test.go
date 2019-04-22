@@ -10,7 +10,6 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/tmconsulting/amadeus-golang-sdk/logger"
 	"github.com/tmconsulting/amadeus-golang-sdk/logger/stdoutLogger"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk"
 )
@@ -20,7 +19,6 @@ var (
 	originator  string
 	passwordRaw string
 	officeId    string
-	l           logger.Service
 )
 
 func tearUp() {
@@ -35,10 +33,6 @@ func tearUp() {
 	officeId = os.Getenv("OFFICE_ID")
 
 	log.Printf("url: %s\noriginator: %s\npasswordRaw: %s\nofficeId: %s", url, originator, passwordRaw, officeId)
-
-	ls := stdoutLogger.Init()
-	l = logger.NewLogger(ls)
-
 }
 
 func TestMain(m *testing.M) {
@@ -57,7 +51,7 @@ func TestNewSKD(t *testing.T) {
 		if !assert.NoError(t, err) {
 			t.FailNow()
 		}
-		fmt.Printf("response: %v\n", response)
+		fmt.Printf("response: %v\n", response.LongTextString)
 
 		fmt.Printf("error: %v\n", err)
 	})

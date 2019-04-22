@@ -25,6 +25,15 @@ func (s *service) FareCheckRules(query *Fare_CheckRulesRequest_v07_1.Request) (*
 }
 
 func (s *service) CommandCryptic(msg string) (*commandCryptic.Response, error) {
+	switch s.mm.CommandCryptic {
+	case CommandCrypticV073:
+		return commandCrypticV073(s, msg)
+	}
+
+	return nil, ErrNoRealisation
+}
+
+func commandCrypticV073(s *service, msg string) (*commandCryptic.Response, error) {
 	q := &CommandCryptic_v07_3.Request{
 		MessageAction: &CommandCryptic_v07_3.MessageAction{
 			MessageFunctionDetails: &CommandCryptic_v07_3.MessageFunctionDetails{

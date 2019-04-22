@@ -40,8 +40,9 @@ It is go gettable and go.mod powered
 
 ## Usage
 
-Prepare log writer realisation if you need to see outgoing and incoming xmls (null logging used if nil is passed) and 
-credentials to connect: url, originator, password (not in base64!). Initiate SDK and service:
+Prepare log writer realisation if you need to see outgoing and incoming xmls (null logging used if nil is passed), 
+ methods map that you want (and allowed by Amadeus) to run (use `GetLatestMethodsMap()` to use latest methods versions 
+ that are implemented) and credentials to connect: url, originator, password (not in base64!). Initiate SDK and service:
 
 ```go
 package main
@@ -61,7 +62,7 @@ func main() {
  	officeID := "BRUXX1111"
  	client := sdk.CreateAmadeusClient(url, originator, passwordRaw, officeID, stdoutLogger.Init())
 
- 	amadeusSDK := service.NewSKD(client)
+ 	amadeusSDK := service.NewSKD(client, service.GetLatestMethodsMap())
 
  	response, err := amadeusSDK.CommandCryptic("AN20MAYMOWLED/ALH")
  	if err != nil {
@@ -74,7 +75,8 @@ func main() {
 
 ## Testing
 
-Create test `.env` file from [test.env-example](test.env-example), or run with ENV variables `go test ./... -v`
+Create test `.env` file from [test.env-example](test.env-example), or run with ENV variables `make test` 
+(or `go test ./... -v`)
 
 ## Contribution
 

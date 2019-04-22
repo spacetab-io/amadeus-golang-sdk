@@ -1,6 +1,8 @@
 package service
 
 import (
+	"errors"
+
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/air/sellFromRecommendation/v05.2/request"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/air/sellFromRecommendation/v05.2/response"
@@ -41,8 +43,100 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/processEDoc/v15.2/response"
 )
 
-func NewSKD(sdk AmadeusSDK) Service {
-	return &service{sdk: sdk}
+// Methods versions sdk realisation
+const (
+	PNRRetrieveV113 = iota
+	TicketDisplayTSTV071
+	FareInformativePricingWithoutPNRV124
+	FareCheckRulesV071
+	CommandCrypticV073
+	SecuritySignOutV041
+	UpdateSessionV030
+	CloseSessionV041
+	FareMasterPricerTravelBoardSearchV143
+	FareMasterPricerTravelBoardSearchV163
+	FareInformativeBestPricingWithoutPNRV124
+	AirSellFromRecommendationV052
+	PNRAddMultiElementsV113
+	FarePricePNRWithBookingClassV141
+	TicketCreateTSTFromPricingV041
+	PNRCancelV113
+	DocIssuanceIssueTicketV091
+	SalesReportsDisplayQueryReportV101
+	TicketCancelDocumentV111
+	TicketDeleteTSTV041
+	AMATicketInitRefundV030
+	AMATicketIgnoreRefundV030
+	AMATicketProcessRefundV030
+	TicketProcessEDocV152
+	SalesReportsDisplayTransactionReportV132
+	PNRIgnoreV041
+)
+
+//MethodsMap Represents methods that have realisation in current version of sdk
+type MethodsMap struct {
+	PNRRetrieve                          int
+	TicketDisplayTST                     int
+	FareInformativePricingWithoutPNR     int
+	FareCheckRules                       int
+	CommandCryptic                       int
+	SecuritySignOut                      int
+	UpdateSession                        int
+	CloseSession                         int
+	FareMasterPricerTravelBoardSearch    int
+	FareInformativeBestPricingWithoutPNR int
+	AirSellFromRecommendation            int
+	PNRAddMultiElements                  int
+	FarePricePNRWithBookingClass         int
+	TicketCreateTSTFromPricing           int
+	PNRCancel                            int
+	DocIssuanceIssueTicket               int
+	SalesReportsDisplayQueryReport       int
+	TicketCancelDocument                 int
+	TicketDeleteTST                      int
+	AMATicketInitRefund                  int
+	AMATicketIgnoreRefund                int
+	AMATicketProcessRefund               int
+	TicketProcessEDoc                    int
+	SalesReportsDisplayTransactionReport int
+	PNRIgnore                            int
+}
+
+var ErrNoRealisation = errors.New("sorry, method has no realisation")
+
+//GetLatest Generates latest actual methods map
+func GetLatestMethodsMap() *MethodsMap {
+	return &MethodsMap{
+		PNRRetrieve:                          PNRRetrieveV113,
+		TicketDisplayTST:                     TicketDisplayTSTV071,
+		FareInformativePricingWithoutPNR:     FareInformativePricingWithoutPNRV124,
+		FareCheckRules:                       FareCheckRulesV071,
+		CommandCryptic:                       CommandCrypticV073,
+		SecuritySignOut:                      SecuritySignOutV041,
+		UpdateSession:                        UpdateSessionV030,
+		CloseSession:                         CloseSessionV041,
+		FareMasterPricerTravelBoardSearch:    FareMasterPricerTravelBoardSearchV143,
+		FareInformativeBestPricingWithoutPNR: FareInformativeBestPricingWithoutPNRV124,
+		AirSellFromRecommendation:            AirSellFromRecommendationV052,
+		PNRAddMultiElements:                  PNRAddMultiElementsV113,
+		FarePricePNRWithBookingClass:         FarePricePNRWithBookingClassV141,
+		TicketCreateTSTFromPricing:           TicketCreateTSTFromPricingV041,
+		PNRCancel:                            PNRCancelV113,
+		DocIssuanceIssueTicket:               DocIssuanceIssueTicketV091,
+		SalesReportsDisplayQueryReport:       SalesReportsDisplayQueryReportV101,
+		TicketCancelDocument:                 TicketCancelDocumentV111,
+		TicketDeleteTST:                      TicketDeleteTSTV041,
+		AMATicketInitRefund:                  AMATicketInitRefundV030,
+		AMATicketIgnoreRefund:                AMATicketIgnoreRefundV030,
+		AMATicketProcessRefund:               AMATicketProcessRefundV030,
+		TicketProcessEDoc:                    TicketProcessEDocV152,
+		SalesReportsDisplayTransactionReport: SalesReportsDisplayTransactionReportV132,
+		PNRIgnore:                            PNRIgnoreV041,
+	}
+}
+
+func NewSKD(sdk AmadeusSDK, methodsMap *MethodsMap) Service {
+	return &service{sdk: sdk, mm: methodsMap}
 }
 
 type Client struct {
@@ -55,6 +149,7 @@ type Client struct {
 }
 
 type service struct {
+	mm  *MethodsMap
 	sdk AmadeusSDK
 }
 
@@ -96,8 +191,8 @@ type AmadeusSDK interface {
 	TicketDeleteTSTV041(query *Ticket_DeleteTST_v04_1.Request) (*Ticket_DeleteTST_v04_1.Response, *sdk.ResponseSOAPHeader, error)
 
 	// Refund
-	AMATicketIgnoreRefundV030(query *AMA_TicketIgnoreRefund_v03_0.Request) (*AMA_TicketIgnoreRefund_v03_0.Response, *sdk.ResponseSOAPHeader, error)
 	AMATicketInitRefundV030(query *AMA_TicketInitRefund_v03_0.Request) (*AMA_TicketInitRefund_v03_0.Response, *sdk.ResponseSOAPHeader, error)
+	AMATicketIgnoreRefundV030(query *AMA_TicketIgnoreRefund_v03_0.Request) (*AMA_TicketIgnoreRefund_v03_0.Response, *sdk.ResponseSOAPHeader, error)
 	AMATicketProcessRefundV030(query *AMA_TicketProcessRefund_v03_0.Request) (*AMA_TicketProcessRefund_v03_0.Response, *sdk.ResponseSOAPHeader, error)
 	TicketProcessEDocV152(query *Ticket_ProcessEDocRequest_v15_2.Request) (*Ticket_ProcessEDocResponse_v15_2.Response, *sdk.ResponseSOAPHeader, error)
 	SalesReportsDisplayTransactionReportV132(query *SalesReports_DisplayTransactionReport_v13_2.Request) (*SalesReports_DisplayTransactionReport_v13_2.Response, *sdk.ResponseSOAPHeader, error)

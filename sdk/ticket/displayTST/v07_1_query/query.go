@@ -7,7 +7,7 @@ import (
 )
 
 type TicketDisplayTST struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/TTSTRQ_07_1_1A"`
+	XMLName xml.Name `xml:"http://xml.amadeus.com/TTSTRQ_07_1_1A Ticket_DisplayTST"`
 
 	// It can be: - 'ALL' - all TSTs are displayed; - 'SEL' - only the information corresponding to the TST/passenger selection is displayed.
 	DisplayMode *CodedAttributeType `xml:"displayMode"`

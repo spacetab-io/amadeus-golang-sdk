@@ -1,12 +1,12 @@
 package service
 
 import (
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk"
+	"github.com/tmconsulting/amadeus-golang-sdk/client"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/security/signOut/v04.1"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/session/v03.0"
 )
 
-func (s *service) SecuritySignOut() (*SecuritySignOut_v04_1.Response, *sdk.ResponseSOAPHeader, error) {
+func (s *service) SecuritySignOut() (*SecuritySignOut_v04_1.Response, *client.ResponseSOAPHeader, error) {
 	return s.sdk.SecuritySignOutV041()
 }
 
@@ -14,7 +14,7 @@ func (s *service) Session() *Session_v03_0.Session {
 	return s.sdk.GetSession()
 }
 
-func (s *service) IncSequenceNumber(header *sdk.ResponseSOAPHeader) {
+func (s *service) IncSequenceNumber(header *client.ResponseSOAPHeader) {
 	s.sdk.IncSessionSequenceNumber(header)
 }
 

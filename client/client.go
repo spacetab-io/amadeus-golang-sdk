@@ -1,4 +1,4 @@
-package sdk
+package client
 
 import (
 	"github.com/tmconsulting/amadeus-golang-sdk/logger"
@@ -11,23 +11,20 @@ var (
 	amaUrl  = "http://webservices.amadeus.com/"
 )
 
-func CreateAmadeusClient(url, originator, passwordRaw, officeId string, lw logger.LogWriter) *AmadeusClient {
-	if lw == nil {
-		lw = nilLogger.Init()
-	}
-	return &AmadeusClient{
+func New(opts ...Option) *AmadeusClient {
+	c := &AmadeusClient{
 		Session: CreateSession(),
 		service: &WebServicePT{
 			Client: &SOAP4Client{
-				Url:       url,
-				User:      originator,
-				Pass:      passwordRaw,
-				Agent:     officeId,
 				TLSEnable: true,
-				Logger:    logger.NewLogger(lw),
+				Logger:    logger.NewLogger(nilLogger.Init()),
 			},
 		},
 	}
+	for _, opt := range opts {
+		opt(c)
+	}
+	return c
 }
 
 type AmadeusClient struct {

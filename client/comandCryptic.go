@@ -1,4 +1,4 @@
-package sdk
+package client
 
 import (
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/commandCryptic/v07.3"

@@ -9,10 +9,10 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/tmconsulting/amadeus-golang-sdk/logger"
+	"github.com/tmconsulting/amadeus-golang-sdk/client"
+	l "github.com/tmconsulting/amadeus-golang-sdk/logger"
 	"github.com/tmconsulting/amadeus-golang-sdk/logger/nilLogger"
 	"github.com/tmconsulting/amadeus-golang-sdk/logger/stdoutLogger"
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk"
 )
 
 var (
@@ -20,7 +20,7 @@ var (
 	originator        string
 	passwordRaw       string
 	officeId          string
-	stdOutLog, nilLog logger.LogWriter
+	stdOutLog, logger l.LogWriter
 )
 
 func tearUp() {
@@ -33,7 +33,7 @@ func tearUp() {
 	originator = os.Getenv("ORIGINATOR")
 	passwordRaw = os.Getenv("PASSWORD_RAW")
 	officeId = os.Getenv("OFFICE_ID")
-	nilLog = nilLogger.Init()
+	logger = nilLogger.Init()
 	stdOutLog = stdoutLogger.Init()
 
 	log.Printf("url: %s\noriginator: %s\npasswordRaw: %s\nofficeId: %s", url, originator, passwordRaw, officeId)
@@ -47,9 +47,9 @@ func TestMain(m *testing.M) {
 
 func TestNewSKD(t *testing.T) {
 	t.Run("initiating test", func(t *testing.T) {
-		client := sdk.CreateAmadeusClient(url, originator, passwordRaw, officeId, nilLog)
+		cl := client.New(client.SetURL(url), client.SetUser(originator), client.SetPassword(passwordRaw), client.SetAgent(officeId), client.SetLogger(logger))
 
-		amadeusSDK := NewSKD(client, GetLatestMethodsMap())
+		amadeusSDK := New(cl)
 
 		_, err := amadeusSDK.CommandCryptic("AN20MAYMOWLED/ALH")
 		if !assert.NoError(t, err) {
@@ -57,12 +57,9 @@ func TestNewSKD(t *testing.T) {
 		}
 	})
 	t.Run("methods versions test", func(t *testing.T) {
-		client := sdk.CreateAmadeusClient(url, originator, passwordRaw, officeId, nilLog)
+		cl := client.New(client.SetURL(url), client.SetUser(originator), client.SetPassword(passwordRaw), client.SetAgent(officeId), client.SetLogger(logger))
 
-		var CommandCrypticV071 = 123
-		mm := GetLatestMethodsMap()
-		mm.CommandCryptic = CommandCrypticV071
-		amadeusSDK := NewSKD(client, mm)
+		amadeusSDK := New(cl, SetMethodVersion(CommandCryptic, MethodVersion(123)))
 
 		_, err := amadeusSDK.CommandCryptic("AN20MAYMOWLED/ALH")
 		if !assert.Error(t, err) {

@@ -1,6 +1,9 @@
 package service
 
 import (
+	"github.com/tmconsulting/amadeus-golang-sdk/logger/logrusLogger"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/formats"
+	PNR_Retrieve_v11_3 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3"
 	"log"
 	"os"
 	"testing"
@@ -16,11 +19,11 @@ import (
 )
 
 var (
-	url               string
-	originator        string
-	passwordRaw       string
-	officeId          string
-	stdOutLog, logger l.LogWriter
+	url                       string
+	originator                string
+	passwordRaw               string
+	officeId                  string
+	stdOutLog, logger, logrus l.LogWriter
 )
 
 func tearUp() {
@@ -35,6 +38,7 @@ func tearUp() {
 	officeId = os.Getenv("OFFICE_ID")
 	logger = nilLogger.Init()
 	stdOutLog = stdoutLogger.Init()
+	logrus = logrusLogger.Init()
 
 	log.Printf("url: %s\noriginator: %s\npasswordRaw: %s\nofficeId: %s", url, originator, passwordRaw, officeId)
 }
@@ -51,7 +55,7 @@ func TestNewSKD(t *testing.T) {
 
 		amadeusSDK := New(cl)
 
-		_, err := amadeusSDK.CommandCryptic("AN20MAYMOWLED/ALH")
+		_, err := amadeusSDK.CommandCryptic("AN20AUGMOWLED/ALH")
 		if !assert.NoError(t, err) {
 			t.FailNow()
 		}
@@ -63,6 +67,31 @@ func TestNewSKD(t *testing.T) {
 
 		_, err := amadeusSDK.CommandCryptic("AN20MAYMOWLED/ALH")
 		if !assert.Error(t, err) {
+			t.FailNow()
+		}
+	})
+
+	t.Run("PNR_Retrieve test", func(t *testing.T) {
+
+		cl := client.New(client.SetURL(url), client.SetUser(originator), client.SetPassword(passwordRaw), client.SetAgent(officeId), client.SetLogger(logrus))
+
+		amadeusSDK := New(cl)
+
+		controlNumber := "OVS9ZX"
+		request := PNR_Retrieve_v11_3.Request{
+			RetrievalFacts: &PNR_Retrieve_v11_3.RetrievalFacts{
+				Retrieve: &PNR_Retrieve_v11_3.RetrievePNRType{
+					Type: formats.NumericInteger_Length1To1(2),
+				},
+				ReservationOrProfileIdentifier: &PNR_Retrieve_v11_3.ReservationControlInformationType{
+					Reservation: &PNR_Retrieve_v11_3.ReservationControlInformationDetailsTypeI{
+						ControlNumber: formats.AlphaNumericString_Length1To20(controlNumber),
+					},
+				},
+			},
+		}
+		_, _, err := amadeusSDK.PNRRetrieve(&request)
+		if !assert.NoError(t, err) {
 			t.FailNow()
 		}
 	})

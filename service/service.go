@@ -26,7 +26,9 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/cancel/v11.3"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/ignore/v04.1"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/reply/v11.3"
+	PNR_Reply_v19_1 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/reply/v19.1"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3"
+	PNR_Retrieve_v19_1 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v19.1"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/salesReports/displayQueryReport/v10.1/request"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/salesReports/displayQueryReport/v10.1/response"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/salesReports/displayTransactionReport/v13.2"
@@ -70,6 +72,7 @@ type service struct {
 type AmadeusSDK interface {
 	// Information
 	PNRRetrieveV113(query *PNR_Retrieve_v11_3.Request) (*PNR_Reply_v11_3.Response, *client.ResponseSOAPHeader, error)
+	PNRRetrieveV191(query *PNR_Retrieve_v19_1.Request) (*PNR_Reply_v19_1.Response, *client.ResponseSOAPHeader, error)
 	TicketDisplayTSTV071(query *Ticket_DisplayTSTRequest_v07_1.Request) (*Ticket_DisplayTSTResponse_v07_1.Response, *client.ResponseSOAPHeader, error)
 	FareInformativePricingWithoutPNRV124(query *Fare_InformativePricingWithoutPNR_v12_4.Request) (*Fare_InformativePricingWithoutPNRReply_v12_4.Response, *client.ResponseSOAPHeader, error)
 	FareCheckRulesV071(query *Fare_CheckRulesRequest_v07_1.Request) (*Fare_CheckRulesResponse_v07_1.Response, *client.ResponseSOAPHeader, error)

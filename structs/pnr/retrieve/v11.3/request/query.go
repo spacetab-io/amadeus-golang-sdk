@@ -1,4 +1,4 @@
-package PNR_Retrieve_v19_1 // pnrret191
+package request // pnrret113
 
 import (
 	"encoding/xml"
@@ -7,7 +7,7 @@ import (
 )
 
 type Request struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/PNRRET_19_1_1A PNR_Retrieve"`
+	XMLName xml.Name `xml:"http://xml.amadeus.com/PNRRET_11_3_1A PNR_Retrieve"`
 
 	Settings *Settings `xml:"settings,omitempty"`
 

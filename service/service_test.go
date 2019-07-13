@@ -3,7 +3,7 @@ package service
 import (
 	"github.com/tmconsulting/amadeus-golang-sdk/logger/logrusLogger"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/formats"
-	PNR_Retrieve_v11_3 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3"
+	request2 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/request"
 	"log"
 	"os"
 	"testing"
@@ -78,13 +78,13 @@ func TestNewSKD(t *testing.T) {
 		amadeusSDK := New(cl)
 
 		controlNumber := "OVS9ZX"
-		request := PNR_Retrieve_v11_3.Request{
-			RetrievalFacts: &PNR_Retrieve_v11_3.RetrievalFacts{
-				Retrieve: &PNR_Retrieve_v11_3.RetrievePNRType{
+		request := request2.Request{
+			RetrievalFacts: &request2.RetrievalFacts{
+				Retrieve: &request2.RetrievePNRType{
 					Type: formats.NumericInteger_Length1To1(2),
 				},
-				ReservationOrProfileIdentifier: &PNR_Retrieve_v11_3.ReservationControlInformationType{
-					Reservation: &PNR_Retrieve_v11_3.ReservationControlInformationDetailsTypeI{
+				ReservationOrProfileIdentifier: &request2.ReservationControlInformationType{
+					Reservation: &request2.ReservationControlInformationDetailsTypeI{
 						ControlNumber: formats.AlphaNumericString_Length1To20(controlNumber),
 					},
 				},

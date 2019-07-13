@@ -25,10 +25,10 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/addMultiElements/v11.3"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/cancel/v11.3"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/ignore/v04.1"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/reply/v11.3"
-	PNR_Reply_v19_1 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/reply/v19.1"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3"
-	PNR_Retrieve_v19_1 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v19.1"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/response"
+	request2 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v19.1/request"
+	response2 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v19.1/response"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/salesReports/displayQueryReport/v10.1/request"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/salesReports/displayQueryReport/v10.1/response"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/salesReports/displayTransactionReport/v13.2"
@@ -71,8 +71,8 @@ type service struct {
 
 type AmadeusSDK interface {
 	// Information
-	PNRRetrieveV113(query *PNR_Retrieve_v11_3.Request) (*PNR_Reply_v11_3.Response, *client.ResponseSOAPHeader, error)
-	PNRRetrieveV191(query *PNR_Retrieve_v19_1.Request) (*PNR_Reply_v19_1.Response, *client.ResponseSOAPHeader, error)
+	PNRRetrieveV113(query *request.Request) (*response.Response, *client.ResponseSOAPHeader, error)
+	PNRRetrieveV191(query *request2.Request) (*response2.Response, *client.ResponseSOAPHeader, error)
 	TicketDisplayTSTV071(query *Ticket_DisplayTSTRequest_v07_1.Request) (*Ticket_DisplayTSTResponse_v07_1.Response, *client.ResponseSOAPHeader, error)
 	FareInformativePricingWithoutPNRV124(query *Fare_InformativePricingWithoutPNR_v12_4.Request) (*Fare_InformativePricingWithoutPNRReply_v12_4.Response, *client.ResponseSOAPHeader, error)
 	FareCheckRulesV071(query *Fare_CheckRulesRequest_v07_1.Request) (*Fare_CheckRulesResponse_v07_1.Response, *client.ResponseSOAPHeader, error)
@@ -94,10 +94,10 @@ type AmadeusSDK interface {
 
 	// Book
 	AirSellFromRecommendationV052(query *Air_SellFromRecommendationRequest_v05_2.Request) (*Air_SellFromRecommendationResponse_v05_2.Response, *client.ResponseSOAPHeader, error)
-	PNRAddMultiElementsV113(query *PNR_AddMultiElementsRequest_v11_3.Request) (*PNR_Reply_v11_3.Response, *client.ResponseSOAPHeader, error)
+	PNRAddMultiElementsV113(query *PNR_AddMultiElementsRequest_v11_3.Request) (*response.Response, *client.ResponseSOAPHeader, error)
 	FarePricePNRWithBookingClassV141(query *Fare_PricePNRWithBookingClassRequest_v14_1.Request) (*Fare_PricePNRWithBookingClassResponse_v14_1.Response, *client.ResponseSOAPHeader, error)
 	TicketCreateTSTFromPricingV041(query *Ticket_CreateTSTFromPricing_v04_1.Request) (*Ticket_CreateTSTFromPricing_v04_1.Response, *client.ResponseSOAPHeader, error)
-	PNRCancelV113(query *PNR_Cancel_v11_3.Request) (*PNR_Reply_v11_3.Response, *client.ResponseSOAPHeader, error)
+	PNRCancelV113(query *PNR_Cancel_v11_3.Request) (*response.Response, *client.ResponseSOAPHeader, error)
 
 	// Issue
 	DocIssuanceIssueTicketV091(query *DocIssuance_IssueTicket_v09_1.Request) (*DocIssuance_IssueTicket_v09_1.Response, *client.ResponseSOAPHeader, error)
@@ -118,7 +118,7 @@ type AmadeusSDK interface {
 
 type Service interface {
 	// Information
-	PNRRetrieve(query *PNR_Retrieve_v11_3.Request) (*PNR_Reply_v11_3.Response, *client.ResponseSOAPHeader, error)
+	PNRRetrieve(query *request.Request) (*response.Response, *client.ResponseSOAPHeader, error)
 	TicketDisplayTST(query *Ticket_DisplayTSTRequest_v07_1.Request) (*Ticket_DisplayTSTResponse_v07_1.Response, *client.ResponseSOAPHeader, error)
 	FareCheckRules(query *Fare_CheckRulesRequest_v07_1.Request) (*Fare_CheckRulesResponse_v07_1.Response, *client.ResponseSOAPHeader, error)
 	CommandCryptic(msg string) (*commandCryptic.Response, error)
@@ -139,12 +139,12 @@ type Service interface {
 
 	// Book
 	AirSellFromRecommendation(query *Air_SellFromRecommendationRequest_v05_2.Request) (*Air_SellFromRecommendationResponse_v05_2.Response, *client.ResponseSOAPHeader, error)
-	PNRAddMultiElements(query *PNR_AddMultiElementsRequest_v11_3.Request) (*PNR_Reply_v11_3.Response, *client.ResponseSOAPHeader, error)
+	PNRAddMultiElements(query *PNR_AddMultiElementsRequest_v11_3.Request) (*response.Response, *client.ResponseSOAPHeader, error)
 	FarePricePNRWithBookingClass(query *Fare_PricePNRWithBookingClassRequest_v14_1.Request) (*Fare_PricePNRWithBookingClassResponse_v14_1.Response, *client.ResponseSOAPHeader, error)
 	TicketCreateTSTFromPricing(query *Ticket_CreateTSTFromPricing_v04_1.Request) (*Ticket_CreateTSTFromPricing_v04_1.Response, *client.ResponseSOAPHeader, error)
 
 	// Cancellation
-	PNRCancel(query *PNR_Cancel_v11_3.Request) (*PNR_Reply_v11_3.Response, *client.ResponseSOAPHeader, error)
+	PNRCancel(query *PNR_Cancel_v11_3.Request) (*response.Response, *client.ResponseSOAPHeader, error)
 
 	// Issue
 	DocIssuanceIssueTicket(query *DocIssuance_IssueTicket_v09_1.Request) (*DocIssuance_IssueTicket_v09_1.Response, *client.ResponseSOAPHeader, error)

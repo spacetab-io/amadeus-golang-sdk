@@ -7,7 +7,7 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/pricePNRWithBookingClass/v14.1/request"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/pricePNRWithBookingClass/v14.1/response"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/addMultiElements/v11.3"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/reply/v11.3"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/response"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/createTSTFromPricing/v04.1"
 )
 
@@ -15,7 +15,7 @@ func (s *service) AirSellFromRecommendation(query *Air_SellFromRecommendationReq
 	return s.sdk.AirSellFromRecommendationV052(query)
 }
 
-func (s *service) PNRAddMultiElements(query *PNR_AddMultiElementsRequest_v11_3.Request) (*PNR_Reply_v11_3.Response, *client.ResponseSOAPHeader, error) {
+func (s *service) PNRAddMultiElements(query *PNR_AddMultiElementsRequest_v11_3.Request) (*response.Response, *client.ResponseSOAPHeader, error) {
 	return s.sdk.PNRAddMultiElementsV113(query)
 }
 

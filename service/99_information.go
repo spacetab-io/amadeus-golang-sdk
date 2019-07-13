@@ -6,13 +6,13 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/commandCryptic/v07.3"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/checkRules/v07.1/request"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/checkRules/v07.1/response"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/reply/v11.3"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/response"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/displayTST/v07.1/request"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/displayTST/v07.1/response"
 )
 
-func (s *service) PNRRetrieve(query *PNR_Retrieve_v11_3.Request) (*PNR_Reply_v11_3.Response, *client.ResponseSOAPHeader, error) {
+func (s *service) PNRRetrieve(query *request.Request) (*response.Response, *client.ResponseSOAPHeader, error) {
 	return s.sdk.PNRRetrieveV113(query)
 }
 

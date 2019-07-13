@@ -5,20 +5,20 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/checkRules/v07.1/response"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/informativePricingWithoutPNR/v12.4/request"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/informativePricingWithoutPNR/v12.4/response"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/reply/v11.3"
-	PNR_Reply_v19_1 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/reply/v19.1"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3"
-	PNR_Retrieve_v19_1 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v19.1"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/response"
+	request2 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v19.1/request"
+	response2 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v19.1/response"
 )
 
-func (client *AmadeusClient) PNRRetrieveV113(query *PNR_Retrieve_v11_3.Request) (*PNR_Reply_v11_3.Response, *ResponseSOAPHeader, error) {
-	var reply PNR_Reply_v11_3.Response
+func (client *AmadeusClient) PNRRetrieveV113(query *request.Request) (*response.Response, *ResponseSOAPHeader, error) {
+	var reply response.Response
 	header, err := client.service.Call(soapUrl, "PNRRET_11_3_1A", query, &reply, client)
 	return &reply, header, err
 }
 
-func (client *AmadeusClient) PNRRetrieveV191(query *PNR_Retrieve_v19_1.Request) (*PNR_Reply_v19_1.Response, *ResponseSOAPHeader, error) {
-	var reply PNR_Reply_v19_1.Response
+func (client *AmadeusClient) PNRRetrieveV191(query *request2.Request) (*response2.Response, *ResponseSOAPHeader, error) {
+	var reply response2.Response
 	header, err := client.service.Call(soapUrl, "PNRRET_19_1_1A", query, &reply, client)
 	return &reply, header, err
 }

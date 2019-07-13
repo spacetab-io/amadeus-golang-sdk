@@ -1,4 +1,4 @@
-package PNR_Reply_v11_3 // pnracc113
+package response // pnracc113
 
 //import "encoding/xml"
 

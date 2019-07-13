@@ -1,4 +1,4 @@
-package PNR_Reply_v19_1 // pnracc191
+package response // pnracc191
 
 //import "encoding/xml"
 

@@ -1,4 +1,8 @@
 package response // pnracc191
+import (
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve"
+	"github.com/tmconsulting/amadeus-golang-sdk/utils"
+)
 
 //import "encoding/xml"
 
@@ -7075,4 +7079,26 @@ type TransportationDetails struct {
 type VehiculeDetails struct {
 	// Conveys vehicule information (such as the vehicule occupancy)
 	VehiculeInfo *VehicleTypeU_25502S `xml:"vehiculeInfo"`
+}
+
+func (r *Response) ToCommon() *retrieve.Response {
+
+	var response retrieve.Response
+
+	for _, travellerInfo := range r.TravellerInfo {
+		for _, passengerData := range travellerInfo.PassengerData {
+			for _, passenger := range passengerData.TravellerInformation.Passenger {
+				response.TravellesInfo = append(response.TravellesInfo, retrieve.TravellerInfo{
+					FirstName:   passenger.FirstName,
+					LastName:    passengerData.TravellerInformation.Traveller.Surname,
+					Type:        retrieve.PaxType(passenger.Type),
+					DateOfBirth: utils.AmadeusDateConvert(passengerData.DateOfBirth.DateAndTimeDetails.Date, ""),
+					Quaifier:    travellerInfo.ElementManagementPassenger.Reference.Qualifier,
+					Number:      int(travellerInfo.ElementManagementPassenger.Reference.Number),
+				})
+			}
+		}
+	}
+
+	return &response
 }

@@ -2,8 +2,7 @@ package service
 
 import (
 	"github.com/tmconsulting/amadeus-golang-sdk/logger/logrusLogger"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/formats"
-	request2 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve"
 	"log"
 	"os"
 	"testing"
@@ -76,19 +75,10 @@ func TestNewSKD(t *testing.T) {
 		cl := client.New(client.SetURL(url), client.SetUser(originator), client.SetPassword(passwordRaw), client.SetAgent(officeId), client.SetLogger(logrus))
 
 		amadeusSDK := New(cl)
+		//amadeusSDK := New(cl, SetMethodVersion(PNRAddMultiElements, MethodVersion(PNRRetrieveV191)))
 
-		controlNumber := "OVS9ZX"
-		request := request2.Request{
-			RetrievalFacts: &request2.RetrievalFacts{
-				Retrieve: &request2.RetrievePNRType{
-					Type: formats.NumericInteger_Length1To1(2),
-				},
-				ReservationOrProfileIdentifier: &request2.ReservationControlInformationType{
-					Reservation: &request2.ReservationControlInformationDetailsTypeI{
-						ControlNumber: formats.AlphaNumericString_Length1To20(controlNumber),
-					},
-				},
-			},
+		request := retrieve.Request{
+			PNR: "OVS9ZX",
 		}
 
 		response, _, err := amadeusSDK.PNRRetrieve(&request)

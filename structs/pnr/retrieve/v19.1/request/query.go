@@ -2,8 +2,8 @@ package request // pnrret191
 
 import (
 	"encoding/xml"
-
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/formats"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve"
 )
 
 type Request struct {
@@ -203,4 +203,19 @@ type TravellerInformationType struct {
 type TravellerSurnameInformationTypeI struct {
 	// traveler last name or group name
 	Surname formats.AlphaString_Length1To57 `xml:"surname"`
+}
+
+func MakeRequest(request *retrieve.Request) *Request {
+	return &Request{
+		RetrievalFacts: &RetrievalFacts{
+			Retrieve: &RetrievePNRType{
+				Type: formats.NumericInteger_Length1To1(2),
+			},
+			ReservationOrProfileIdentifier: &ReservationControlInformationType{
+				Reservation: &ReservationControlInformationDetailsTypeI{
+					ControlNumber: formats.AlphaNumericString_Length1To20(request.PNR),
+				},
+			},
+		},
+	}
 }

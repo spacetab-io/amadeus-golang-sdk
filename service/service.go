@@ -25,10 +25,13 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/addMultiElements/v11.3"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/cancel/v11.3"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/ignore/v04.1"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/request"
+	PNR_Retrieve_v11_3 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/request"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/response"
-	request2 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v19.1/request"
-	response2 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v19.1/response"
+	PNR_Reply_v11_3 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/response"
+	PNR_Retrieve_v19_1 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v19.1/request"
+	PNR_Reply_v19_1 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v19.1/response"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/salesReports/displayQueryReport/v10.1/request"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/salesReports/displayQueryReport/v10.1/response"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/salesReports/displayTransactionReport/v13.2"
@@ -71,8 +74,8 @@ type service struct {
 
 type AmadeusSDK interface {
 	// Information
-	PNRRetrieveV113(query *request.Request) (*response.Response, *client.ResponseSOAPHeader, error)
-	PNRRetrieveV191(query *request2.Request) (*response2.Response, *client.ResponseSOAPHeader, error)
+	PNRRetrieveV113(query *PNR_Retrieve_v11_3.Request) (*PNR_Reply_v11_3.Response, *client.ResponseSOAPHeader, error)
+	PNRRetrieveV191(query *PNR_Retrieve_v19_1.Request) (*PNR_Reply_v19_1.Response, *client.ResponseSOAPHeader, error)
 	TicketDisplayTSTV071(query *Ticket_DisplayTSTRequest_v07_1.Request) (*Ticket_DisplayTSTResponse_v07_1.Response, *client.ResponseSOAPHeader, error)
 	FareInformativePricingWithoutPNRV124(query *Fare_InformativePricingWithoutPNR_v12_4.Request) (*Fare_InformativePricingWithoutPNRReply_v12_4.Response, *client.ResponseSOAPHeader, error)
 	FareCheckRulesV071(query *Fare_CheckRulesRequest_v07_1.Request) (*Fare_CheckRulesResponse_v07_1.Response, *client.ResponseSOAPHeader, error)
@@ -118,7 +121,7 @@ type AmadeusSDK interface {
 
 type Service interface {
 	// Information
-	PNRRetrieve(query *request.Request) (*response.Response, *client.ResponseSOAPHeader, error)
+	PNRRetrieve(query *request.Request) (*retrieve.Response, *client.ResponseSOAPHeader, error)
 	TicketDisplayTST(query *Ticket_DisplayTSTRequest_v07_1.Request) (*Ticket_DisplayTSTResponse_v07_1.Response, *client.ResponseSOAPHeader, error)
 	FareCheckRules(query *Fare_CheckRulesRequest_v07_1.Request) (*Fare_CheckRulesResponse_v07_1.Response, *client.ResponseSOAPHeader, error)
 	CommandCryptic(msg string) (*commandCryptic.Response, error)

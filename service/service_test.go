@@ -90,7 +90,9 @@ func TestNewSKD(t *testing.T) {
 				},
 			},
 		}
-		_, _, err := amadeusSDK.PNRRetrieve(&request)
+
+		response, _, err := amadeusSDK.PNRRetrieve(&request)
+		t.Logf("%+v\n", response)
 		if !assert.NoError(t, err) {
 			t.FailNow()
 		}

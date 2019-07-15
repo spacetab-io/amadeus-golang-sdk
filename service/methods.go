@@ -11,6 +11,7 @@ var ErrNoRealisation = errors.New("sorry, method has no realisation")
 // Methods versions sdk realisation
 const (
 	PNRRetrieveV113 MethodVersion = iota
+	PNRRetrieveV191
 	TicketDisplayTSTV071
 	FareInformativePricingWithoutPNRV124
 	FareCheckRulesV071

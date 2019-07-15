@@ -6,14 +6,28 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/commandCryptic/v07.3"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/checkRules/v07.1/request"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/checkRules/v07.1/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/response"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/displayTST/v07.1/request"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/displayTST/v07.1/response"
 )
 
-func (s *service) PNRRetrieve(query *request.Request) (*response.Response, *client.ResponseSOAPHeader, error) {
-	return s.sdk.PNRRetrieveV113(query)
+func (s *service) PNRRetrieve(query *request.Request) (*retrieve.Response, *client.ResponseSOAPHeader, error) {
+	switch s.mm[PNRRetrieve] {
+	case PNRRetrieveV113:
+		response, header, err := s.sdk.PNRRetrieveV113(query)
+		if response == nil {
+			return nil, header, err
+		}
+		return response.ToCommon(), header, err
+		//case PNRRetrieveV191:
+		//	response, header, err := s.sdk.PNRRetrieveV191(query)
+		//	if response == nil {
+		//		return nil, header, err
+		//	}
+		//	return response.ToCommon(), header, err
+	}
+	return nil, nil, nil
 }
 
 func (s *service) TicketDisplayTST(query *Ticket_DisplayTSTRequest_v07_1.Request) (*Ticket_DisplayTSTResponse_v07_1.Response, *client.ResponseSOAPHeader, error) {

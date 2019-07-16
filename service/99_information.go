@@ -7,8 +7,8 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/checkRules/v07.1/request"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/checkRules/v07.1/response"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve"
-	PNR_Retrieve_v11_3 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/request"
-	PNR_Retrieve_v19_1 "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v19.1/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v19.1/request"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/displayTST/v07.1/request"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/displayTST/v07.1/response"
 )
@@ -16,14 +16,14 @@ import (
 func (s *service) PNRRetrieve(query *PNR_Information.Request) (*PNR_Information.Response, *client.ResponseSOAPHeader, error) {
 	switch s.mm[PNRRetrieve] {
 	case PNRRetrieveV113:
-		query := PNR_Retrieve_v11_3.MakeRequest(query)
+		query := PNR_Retrieve_v11_3_request.MakeRequest(query)
 		response, header, err := s.sdk.PNRRetrieveV113(query)
 		if response == nil {
 			return nil, header, err
 		}
 		return response.ToCommon(), header, err
 	case PNRRetrieveV191:
-		query := PNR_Retrieve_v19_1.MakeRequest(query)
+		query := PNR_Retrieve_v19_1_request.MakeRequest(query)
 		response, header, err := s.sdk.PNRRetrieveV191(query)
 		if response == nil {
 			return nil, header, err

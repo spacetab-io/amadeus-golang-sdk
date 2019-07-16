@@ -7,7 +7,7 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/pricePNRWithBookingClass/v14.1/request"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/pricePNRWithBookingClass/v14.1/response"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/addMultiElements/v11.3"
-	PNR_Retrieve_v11_3_response "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/response"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/createTSTFromPricing/v04.1"
 )
 

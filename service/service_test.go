@@ -1,7 +1,6 @@
 package service
 
 import (
-	"github.com/tmconsulting/amadeus-golang-sdk/logger/logrusLogger"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve"
 	"log"
 	"os"
@@ -18,11 +17,11 @@ import (
 )
 
 var (
-	url                       string
-	originator                string
-	passwordRaw               string
-	officeId                  string
-	stdOutLog, logger, logrus l.LogWriter
+	url               string
+	originator        string
+	passwordRaw       string
+	officeId          string
+	stdOutLog, logger l.LogWriter
 )
 
 func tearUp() {
@@ -37,7 +36,6 @@ func tearUp() {
 	officeId = os.Getenv("OFFICE_ID")
 	logger = nilLogger.Init()
 	stdOutLog = stdoutLogger.Init()
-	logrus = logrusLogger.Init()
 
 	log.Printf("url: %s\noriginator: %s\npasswordRaw: %s\nofficeId: %s", url, originator, passwordRaw, officeId)
 }
@@ -72,7 +70,7 @@ func TestNewSKD(t *testing.T) {
 
 	t.Run("PNR_Retrieve test", func(t *testing.T) {
 
-		cl := client.New(client.SetURL(url), client.SetUser(originator), client.SetPassword(passwordRaw), client.SetAgent(officeId), client.SetLogger(logrus))
+		cl := client.New(client.SetURL(url), client.SetUser(originator), client.SetPassword(passwordRaw), client.SetAgent(officeId), client.SetLogger(logger))
 
 		amadeusSDK := New(cl)
 		//amadeusSDK := New(cl, SetMethodVersion(PNRAddMultiElements, MethodVersion(PNRRetrieveV191)))

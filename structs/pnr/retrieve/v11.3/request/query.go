@@ -1,4 +1,4 @@
-package request // pnrret113
+package PNR_Retrieve_v11_3_request
 
 import (
 	"encoding/xml"

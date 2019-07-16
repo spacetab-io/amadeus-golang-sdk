@@ -1,4 +1,5 @@
-package response // pnracc113
+package PNR_Retrieve_v11_3_response
+
 import (
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve"
 	"github.com/tmconsulting/amadeus-golang-sdk/utils"
@@ -7084,6 +7085,10 @@ type VehiculeDetails struct {
 func (r *Response) ToCommon() *retrieve.Response {
 
 	var response retrieve.Response
+
+	if r == nil {
+		return &response
+	}
 
 	for _, travellerInfo := range r.TravellerInfo {
 		for _, passengerData := range travellerInfo.PassengerData {

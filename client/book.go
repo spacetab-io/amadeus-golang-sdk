@@ -7,7 +7,7 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/pricePNRWithBookingClass/v14.1/response"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/addMultiElements/v11.3"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/cancel/v11.3"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/response"
+	PNR_Reply_v11_3_response "github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/response"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/createTSTFromPricing/v04.1"
 )
 
@@ -17,8 +17,8 @@ func (client *AmadeusClient) AirSellFromRecommendationV052(query *Air_SellFromRe
 	return &reply, header, err
 }
 
-func (client *AmadeusClient) PNRAddMultiElementsV113(query *PNR_AddMultiElementsRequest_v11_3.Request) (*response.Response, *ResponseSOAPHeader, error) {
-	var reply response.Response
+func (client *AmadeusClient) PNRAddMultiElementsV113(query *PNR_AddMultiElementsRequest_v11_3.Request) (*PNR_Reply_v11_3_response.Response, *ResponseSOAPHeader, error) {
+	var reply PNR_Reply_v11_3_response.Response
 	header, err := client.service.Call(soapUrl, "PNRADD_11_3_1A", query, &reply, client)
 	return &reply, header, err
 }
@@ -35,8 +35,8 @@ func (client *AmadeusClient) TicketCreateTSTFromPricingV041(query *Ticket_Create
 	return &reply, header, err
 }
 
-func (client *AmadeusClient) PNRCancelV113(query *PNR_Cancel_v11_3.Request) (*response.Response, *ResponseSOAPHeader, error) {
-	var reply response.Response
+func (client *AmadeusClient) PNRCancelV113(query *PNR_Cancel_v11_3.Request) (*PNR_Reply_v11_3_response.Response, *ResponseSOAPHeader, error) {
+	var reply PNR_Reply_v11_3_response.Response
 	header, err := client.service.Call(soapUrl, "PNRXCL_11_3_1A", query, &reply, client)
 	return &reply, header, err
 }

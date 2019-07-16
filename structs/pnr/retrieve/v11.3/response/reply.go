@@ -3,6 +3,8 @@ package PNR_Retrieve_v11_3_response
 import (
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve"
 	"github.com/tmconsulting/amadeus-golang-sdk/utils"
+	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/configuration"
+	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/utils/convert"
 )
 
 //import "encoding/xml"
@@ -7104,6 +7106,35 @@ func (r *Response) ToCommon() *PNR_Information.Response {
 			}
 		}
 	}
+
+	var segments []PNR_Information.Segment
+	for _, originDestinationDetails := range r.OriginDestinationDetails {
+		for _, itineraryInfo := range originDestinationDetails.ItineraryInfo {
+			if itineraryInfo.TravelProduct != nil {
+				departureDate := convert.AmadeusDateTimeConvert(itineraryInfo.TravelProduct.Product.DepDate, itineraryInfo.TravelProduct.Product.DepTime)
+				arrivalDate := convert.AmadeusDateTimeConvert(itineraryInfo.TravelProduct.Product.ArrDate, itineraryInfo.TravelProduct.Product.ArrTime)
+				segments = append(segments, PNR_Information.Segment{
+					DepartureDate: departureDate.Format(configuration.GetFormatDateTime()),
+					ArrivalDate:   arrivalDate.Format(configuration.GetFormatDateTime()),
+					FlightNumber:  itineraryInfo.TravelProduct.ProductDetails.Identification,
+					DepartureLocation: PNR_Information.Location{
+						AirportCode: itineraryInfo.TravelProduct.BoardpointDetail.CityCode,
+					},
+					ArrivalLocation: PNR_Information.Location{
+						AirportCode: itineraryInfo.TravelProduct.OffpointDetail.CityCode,
+					},
+					MarketingAirline: &PNR_Information.Airline{
+						CodeEng: itineraryInfo.ItineraryReservationInfo.Reservation.CompanyId,
+					},
+					Aircraft: &PNR_Information.Aircraft{
+						Code: &itineraryInfo.FlightDetail.ProductDetails.Equipment,
+					},
+				})
+			}
+		}
+	}
+
+	response.Segments = segments
 
 	return &response
 }

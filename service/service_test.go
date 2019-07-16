@@ -75,7 +75,7 @@ func TestNewSKD(t *testing.T) {
 		amadeusSDK := New(cl)
 		//amadeusSDK := New(cl, SetMethodVersion(PNRAddMultiElements, MethodVersion(PNRRetrieveV191)))
 
-		request := retrieve.Request{
+		request := PNR_Information.Request{
 			PNR: "OVS9ZX",
 		}
 

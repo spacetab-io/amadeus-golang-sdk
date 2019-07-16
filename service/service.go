@@ -119,7 +119,7 @@ type AmadeusSDK interface {
 
 type Service interface {
 	// Information
-	PNRRetrieve(query *retrieve.Request) (*retrieve.Response, *client.ResponseSOAPHeader, error)
+	PNRRetrieve(query *PNR_Information.Request) (*PNR_Information.Response, *client.ResponseSOAPHeader, error)
 	TicketDisplayTST(query *Ticket_DisplayTSTRequest_v07_1.Request) (*Ticket_DisplayTSTResponse_v07_1.Response, *client.ResponseSOAPHeader, error)
 	FareCheckRules(query *Fare_CheckRulesRequest_v07_1.Request) (*Fare_CheckRulesResponse_v07_1.Response, *client.ResponseSOAPHeader, error)
 	CommandCryptic(msg string) (*commandCryptic.Response, error)

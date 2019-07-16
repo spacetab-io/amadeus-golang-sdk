@@ -13,7 +13,7 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/displayTST/v07.1/response"
 )
 
-func (s *service) PNRRetrieve(query *retrieve.Request) (*retrieve.Response, *client.ResponseSOAPHeader, error) {
+func (s *service) PNRRetrieve(query *PNR_Information.Request) (*PNR_Information.Response, *client.ResponseSOAPHeader, error) {
 	switch s.mm[PNRRetrieve] {
 	case PNRRetrieveV113:
 		query := PNR_Retrieve_v11_3.MakeRequest(query)

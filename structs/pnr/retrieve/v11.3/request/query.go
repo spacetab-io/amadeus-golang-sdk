@@ -206,7 +206,7 @@ type TravellerSurnameInformationTypeI struct {
 	Surname formats.AlphaString_Length1To57 `xml:"surname"`
 }
 
-func MakeRequest(request *retrieve.Request) *Request {
+func MakeRequest(request *PNR_Information.Request) *Request {
 	return &Request{
 		RetrievalFacts: &RetrievalFacts{
 			Retrieve: &RetrievePNRType{

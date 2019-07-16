@@ -1,5 +1,7 @@
 # Amadeus WBS SDK
 
+[![CircleCI](https://circleci.com/gh/tmconsulting/amadeus-golang-sdk/tree/temass-refactoringsts.svg?style=shield)](https://circleci.com/gh/tmconsulting/amadeus-golang-sdk/tree/tests) [![codecov](https://codecov.io/gh/tmconsulting/amadeus-golang-sdk/branch/mass-refactoring/graph/badge.svg)](https://codecov.io/gh/tmconsulting/amadeus-golang-sdk)
+
 This package contains structures, forms, functions and SOAP handler for Amadeus WS.
 
 ## Methods implementation progress

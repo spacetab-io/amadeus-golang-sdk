@@ -1,5 +1,7 @@
 # Amadeus WBS SDK
 
+[![CircleCI](https://circleci.com/gh/tmconsulting/amadeus-golang-sdk/tree/temass-refactoringsts.svg?style=shield)](https://circleci.com/gh/tmconsulting/amadeus-golang-sdk/tree/tests) [![codecov](https://codecov.io/gh/tmconsulting/amadeus-golang-sdk/branch/mass-refactoring/graph/badge.svg)](https://codecov.io/gh/tmconsulting/amadeus-golang-sdk)
+
 This package contains structures, forms, functions and SOAP handler for Amadeus WS.
 
 ## Methods implementation progress
@@ -26,6 +28,7 @@ This package contains structures, forms, functions and SOAP handler for Amadeus 
 - [ ] Queue_RemoveItem (03.1)
 - [x] Security_Authenticate (06.1)
 - [x] Security_SignOut (04.1)
+- [ ] Service_BookPriceService
 - [x] Ticket_CreateTSTFromPricing (04.1)
 - [ ] Ticket_CreditCardCheck (06.1)
 - [x] Ticket_DeleteTST (04.1)
@@ -36,47 +39,51 @@ This package contains structures, forms, functions and SOAP handler for Amadeus 
 
 It is go gettable and go.mod powered
 
-    $ go get github.com/tmconsulting/amadeus-golang-sdk@latest
+    $ go get github.com/tmconsulting/amadeus-golang-sdk@mass-refactoring
 
 ## Usage
 
-Prepare log writer realisation if you need to see outgoing and incoming xmls (null logging used if nil is passed), 
- methods map that you want (and allowed by Amadeus) to run (use `GetLatestMethodsMap()` to use latest methods versions 
- that are implemented) and credentials to connect: url, originator, password (not in base64!). Initiate SDK and service:
+Prepare log writer realisation if you need to see outgoing and incoming xmls (null logging used if nil is passed). 
+ Check methods version that will be used in SDK (use `GetLatestMethodsMap()` to use latest methods versions that are 
+ implemented). Ыуе credentials to connect: url, originator, password (not in base64!). Initiate SDK and service and use 
+ service methods:
 
 ```go
 package main
 
 import (
-	"log"
-	
-	"github.com/tmconsulting/amadeus-golang-sdk/logger/stdoutLogger"
-	"github.com/tmconsulting/amadeus-golang-sdk/sdk"
-	"github.com/tmconsulting/amadeus-golang-sdk/service"
+    "log"
+    
+    "github.com/tmconsulting/amadeus-golang-sdk/client"
+    "github.com/tmconsulting/amadeus-golang-sdk/service"
+    "github.com/tmconsulting/amadeus-golang-sdk/structs/commandCryptic"
 )
 
 func main() {
-	url := "https://nodeD1.test.webservices.amadeus.com/1ASIWXXXXXX"
- 	originator := "WSBENXXX"
- 	passwordRaw := "dGhlIHBhc3N3b3Jk"
- 	officeID := "BRUXX1111"
- 	client := sdk.CreateAmadeusClient(url, originator, passwordRaw, officeID, stdoutLogger.Init())
-
- 	amadeusSDK := service.NewSKD(client, service.GetLatestMethodsMap())
-
- 	response, err := amadeusSDK.CommandCryptic("AN20MAYMOWLED/ALH")
- 	if err != nil {
-  	log.Fatalf("error: %v", err)
- 	}
-  
- 	log.Printf("response: %v\n", response)
+    url := "https://nodeD1.test.webservices.amadeus.com/1ASIWXXXXXX"
+    originator := "WSBENXXX"
+    passwordRaw := "dGhlIHBhc3N3b3Jk"
+    officeID := "BRUXX1111"
+    
+    cl := client.New(client.SetURL(url), client.SetUser(originator), client.SetPassword(passwordRaw), client.SetAgent(officeID))
+    s := service.New(cl)
+    
+    resp, err := s.CommandCryptic("AN20DECMOWLED/ALH")
+    if err != nil {
+        panic(err)
+    }
+    
+    log.Printf("responses: %v\n", resp)
 }
 ```
 
 ## Testing
 
-Create test `.env` file from [test.env-example](test.env-example), or run with ENV variables `make test` 
-(or `go test ./... -v`)
+Run tests (`make test` or `go test ./... -v`) with ENV variabless:
+* URL
+* ORIGINATOR
+* PASSWORD_RAW
+* OFFICE_ID
 
 ## Contribution
 

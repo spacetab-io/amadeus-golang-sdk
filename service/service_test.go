@@ -6,8 +6,6 @@ import (
 	"os"
 	"testing"
 
-	"github.com/joho/godotenv"
-
 	"github.com/stretchr/testify/assert"
 
 	"github.com/tmconsulting/amadeus-golang-sdk/client"
@@ -25,11 +23,6 @@ var (
 )
 
 func tearUp() {
-	err := godotenv.Load("../.env")
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
 	url = os.Getenv("URL")
 	originator = os.Getenv("ORIGINATOR")
 	passwordRaw = os.Getenv("PASSWORD_RAW")

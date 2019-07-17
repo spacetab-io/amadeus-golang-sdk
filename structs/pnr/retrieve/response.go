@@ -24,9 +24,9 @@ type Segment struct {
 	SegmentId         string    `json:"-"`
 	FlightNumber      string    `json:"flight_number"`
 	DepartureLocation Location  `json:"departure"`
-	DepartureDate     string    `json:"departure_date"`
+	DepartureDate     time.Time `json:"departure_date"`
 	ArrivalLocation   Location  `json:"arrival"`
-	ArrivalDate       string    `json:"arrival_date"`
+	ArrivalDate       time.Time `json:"arrival_date"`
 	MarketingAirline  *Airline  `json:"marketing_airline"`
 	OperatingAirline  *Airline  `json:"operating_airline"`
 	ValidatingAirline *Airline  `json:"validating_airline,omitempty"`

@@ -73,10 +73,10 @@ func TestNewSKD(t *testing.T) {
 		cl := client.New(client.SetURL(url), client.SetUser(originator), client.SetPassword(passwordRaw), client.SetAgent(officeId), client.SetLogger(logger))
 
 		amadeusSDK := New(cl)
-		//amadeusSDK := New(cl, SetMethodVersion(PNRAddMultiElements, MethodVersion(PNRRetrieveV191)))
+		//amadeusSDK := New(cl, SetMethodVersion(PNRAddMultiElements, MethodVersion(PNRRetrieveV113)))
 
 		request := PNR_Information.Request{
-			PNR: "QB8CY2",
+			PNR: "QGEIWE",
 		}
 
 		response, _, err := amadeusSDK.PNRRetrieve(&request)

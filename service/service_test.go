@@ -1,6 +1,7 @@
 package service
 
 import (
+	search "github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve"
 	"log"
 	"os"
@@ -69,10 +70,26 @@ func TestNewSKD(t *testing.T) {
 		//amadeusSDK := New(cl, SetMethodVersion(PNRAddMultiElements, MethodVersion(PNRRetrieveV113)))
 
 		request := PNR_Information.Request{
-			PNR: "QGEIWE",
+			PNR: "RR3QXE",
 		}
 
 		response, _, err := amadeusSDK.PNRRetrieve(&request)
+		t.Logf("%+v\n", response)
+		if !assert.NoError(t, err) {
+			t.FailNow()
+		}
+	})
+
+	t.Run("Search test", func(t *testing.T) {
+
+		cl := client.New(client.SetURL(url), client.SetUser(originator), client.SetPassword(passwordRaw), client.SetAgent(officeId), client.SetLogger(stdOutLog))
+
+		amadeusSDK := New(cl)
+		//amadeusSDK := New(cl, SetMethodVersion(PNRAddMultiElements, MethodVersion(PNRRetrieveV113)))
+
+		request := search.Request{}
+
+		response, _, err := amadeusSDK.FareMasterPricerTravelBoardSearch(&request)
 		t.Logf("%+v\n", response)
 		if !assert.NoError(t, err) {
 			t.FailNow()

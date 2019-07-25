@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"strconv"
 	"time"
 )
@@ -34,4 +35,9 @@ func AmadeusDateTimeConvert(dateStr string, timeStr string) time.Time {
 		minute, _ = strconv.Atoi(timeStr[2:4])
 	}
 	return time.Date(year, time.Month(month), day, hour, minute, 0, 0, time.UTC)
+}
+
+func DateToAmadeusDate(date time.Time) string {
+	year := strconv.Itoa(date.Year())
+	return fmt.Sprintf("%02d%02d%s", date.Day(), date.Month(), year[2:4])
 }

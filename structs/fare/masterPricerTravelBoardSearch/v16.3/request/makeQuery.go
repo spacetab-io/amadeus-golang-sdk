@@ -1,12 +1,16 @@
 package Fare_MasterPricerTravelBoardSearchRequest_v16_3 // fmptbq143
 
-import search "github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch"
+import (
+	search "github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/formats"
+	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/utils/convert"
+)
 
 func MakeRequest(request *search.Request) *Request {
 
 	var query = Request{
 		NumberOfUnit: &NumberOfUnitsType{
-			UnitNumberDetail: []*NumberOfUnitDetailsType_260583C{
+			UnitNumberDetail: []*NumberOfUnitDetailsType_270113C{
 				{
 					NumberOfUnits: formats.NumericInteger_Length1To6(request.Passengers.ADT + request.Passengers.CHD),
 					TypeOfUnit:    formats.AlphaNumericString_Length1To3("PX"),
@@ -38,14 +42,14 @@ func MakeRequest(request *search.Request) *Request {
 					},
 				},
 			},
-			FeeIdDescription: &CodedAttributeType{
-				FeeId: []*CodedAttributeInformationType_247829C{
+			FeeIdDescription: &CodedAttributeType_199259S{
+				FeeId: []*CodedAttributeInformationType_277155C{
 					{FeeType: formats.AlphaNumericString_Length1To5("FFI"), FeeIdNumber: formats.AlphaNumericString_Length1To50("2")},
 					{FeeType: formats.AlphaNumericString_Length1To5("UPH"), FeeIdNumber: formats.AlphaNumericString_Length1To50("6")},
 				},
 			},
 		},
-		TravelFlightInfo: &TravelFlightInformationType_185853S{
+		TravelFlightInfo: &TravelFlightInformationType_199258S{
 			CabinId: &CabinIdentificationType_233500C{
 				CabinQualifier: formats.AlphaNumericString_Length1To2("MD"),
 				Cabin: []formats.AlphaString_Length0To1{

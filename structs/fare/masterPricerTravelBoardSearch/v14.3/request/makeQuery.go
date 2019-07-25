@@ -3,7 +3,7 @@ package Fare_MasterPricerTravelBoardSearchRequest_v14_3 // fmptbq143
 import (
 	search "github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/formats"
-	"gitlab.teamc.io/tm-consulting/tmc24/avia/layer3/amadeus-agent-go/utils/convert"
+	"github.com/tmconsulting/amadeus-golang-sdk/utils"
 )
 
 func MakeRequest(request *search.Request) *Request {
@@ -117,7 +117,7 @@ func MakeRequest(request *search.Request) *Request {
 			},
 			TimeDetails: &DateAndTimeInformationType_181295S{
 				FirstDateTimeDetail: &DateAndTimeDetailsTypeI{
-					Date: formats.Date_DDMMYY(convert.DateToAmadeusDate(i.DepartureDate)),
+					Date: formats.Date_DDMMYY(utils.DateToAmadeusDate(i.DepartureDate)),
 				},
 			},
 		}

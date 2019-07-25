@@ -19,6 +19,12 @@ func (s *service) FareMasterPricerTravelBoardSearch(query *search.Request) (*sea
 		if response == nil {
 			return nil, header, err
 		}
+
+		errResponse := response.CheckErrorReply()
+		if errResponse != nil {
+			return nil, header, errResponse
+		}
+
 		return response.ToCommon(), header, err
 	}
 	return nil, nil, nil

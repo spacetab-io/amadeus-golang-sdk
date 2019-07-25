@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 
@@ -87,10 +88,21 @@ func TestNewSKD(t *testing.T) {
 		amadeusSDK := New(cl)
 		//amadeusSDK := New(cl, SetMethodVersion(PNRAddMultiElements, MethodVersion(PNRRetrieveV113)))
 
-		request := search.Request{}
+		request := search.Request{
+			Itineraries: map[int]*search.Itinerary{
+				1: {
+					DepartureLocation: "MOW",
+					ArrivalLocation:   "LED",
+					DepartureDate:     time.Now().Add(10 * 24 * time.Hour), // add 10 days
+				},
+			},
+			Currency:   "RUB",
+			Passengers: search.Travellers{ADT: 2, CHD: 1, INF: 1},
+		}
 
 		response, _, err := amadeusSDK.FareMasterPricerTravelBoardSearch(&request)
-		t.Logf("%+v\n", response)
+		t.Logf("response: %+v\n", response)
+
 		if !assert.NoError(t, err) {
 			t.FailNow()
 		}

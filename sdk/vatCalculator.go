@@ -6,8 +6,7 @@ import (
 	"strings"
 )
 
-func (client *AmadeusClient) CalculateVAT(query *calculatevat.CalculateVAT) (*calculatevat.CalculateVATResponse, *ResponseSOAP4Header, error) {
-	//soapUrl := "http://amadeus.ru/"
+func (client *AmadeusClient) CalculateVAT(soapUrl string, query *calculatevat.CalculateVAT) (*calculatevat.CalculateVATResponse, *ResponseSOAP4Header, error) {
 	var soapAction = "CalculateVAT"
 	var reply = new(calculatevat.CalculateVATResponse)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))

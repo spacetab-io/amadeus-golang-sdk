@@ -12,7 +12,7 @@ type VATCalculationResult struct {
 }
 
 type TSTVATCalculationResults struct {
-	TSTVATCalculationResult []TSTVATCalculationResult `xml:"TSTVATCalculationResult"`
+	TSTVATCalculationResult TSTVATCalculationResult `xml:"TSTVATCalculationResult"`
 }
 
 // TSTVATCalculationResult was auto-generated from WSDL.

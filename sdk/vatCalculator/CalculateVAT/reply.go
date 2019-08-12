@@ -7,12 +7,8 @@ type CalculateVATResponse struct {
 
 // VATCalculationResult was auto-generated from WSDL.
 type VATCalculationResult struct {
-	VATCalculationData    []*TSTVATCalculationResults `xml:"VATCalculationData,omitempty" json:"VATCalculationData,omitempty" yaml:"VATCalculationData,omitempty"`
-	VATCalculationMessage *string                     `xml:"VATCalculationMessage,omitempty" json:"VATCalculationMessage,omitempty" yaml:"VATCalculationMessage,omitempty"`
-}
-
-type TSTVATCalculationResults struct {
-	TSTVATCalculationResult TSTVATCalculationResult `xml:"TSTVATCalculationResult"`
+	VATCalculationData    []*TSTVATCalculationResult `xml:"VATCalculationData,omitempty" json:"VATCalculationData,omitempty" yaml:"VATCalculationData,omitempty"`
+	VATCalculationMessage *string                    `xml:"VATCalculationMessage,omitempty" json:"VATCalculationMessage,omitempty" yaml:"VATCalculationMessage,omitempty"`
 }
 
 // TSTVATCalculationResult was auto-generated from WSDL.

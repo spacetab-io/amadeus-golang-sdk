@@ -7,17 +7,17 @@ type CalculateVATResponse struct {
 
 // VATCalculationResult was auto-generated from WSDL.
 type VATCalculationResult struct {
-	VATCalculationData    []TSTVATCalculationResult `xml:"VATCalculationData,omitempty" json:"VATCalculationData,omitempty" yaml:"VATCalculationData,omitempty"`
-	VATCalculationMessage *string                   `xml:"VATCalculationMessage,omitempty" json:"VATCalculationMessage,omitempty" yaml:"VATCalculationMessage,omitempty"`
+	VATCalculationData    []TSTVATCalculationResults `xml:"VATCalculationData,omitempty" json:"VATCalculationData,omitempty" yaml:"VATCalculationData,omitempty"`
+	VATCalculationMessage *string                    `xml:"VATCalculationMessage,omitempty" json:"VATCalculationMessage,omitempty" yaml:"VATCalculationMessage,omitempty"`
 }
 
-//type TSTVATCalculationResults struct {
-//	TSTVATCalculationResult TSTVATCalculationResult `xml:"TSTVATCalculationResult"`
-//}
+type TSTVATCalculationResults struct {
+	TSTVATCalculationResult TSTVATCalculationResult `xml:"TSTVATCalculationResult"`
+}
 
 // TSTVATCalculationResult was auto-generated from WSDL.
 type TSTVATCalculationResult struct {
-	VATTSTsID     string  `xml:"VATTSTsID,omitempty" json:"VATTSTsID,omitempty" yaml:"VATTSTsID,omitempty"`
+	VATTSTsID     string  `xml:"VATTSTsID" json:"VATTSTsID,omitempty" yaml:"VATTSTsID,omitempty"`
 	VATPAXexID    string  `xml:"VATPAXexID,omitempty" json:"VATPAXexID,omitempty" yaml:"VATPAXexID,omitempty"`
 	VATSegmentsID string  `xml:"VATSegmentsID,omitempty" json:"VATSegmentsID,omitempty" yaml:"VATSegmentsID,omitempty"`
 	VATCurrency   string  `xml:"VATCurrency,omitempty" json:"VATCurrency,omitempty" yaml:"VATCurrency,omitempty"`

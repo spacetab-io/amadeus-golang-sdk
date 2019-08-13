@@ -18,7 +18,7 @@ func (client *AmadeusClient) CalculateVAT(soapUrl string, query *calculatevat.Ca
 	return reply, header, nil
 }
 
-func (client *AmadeusClient) CalculateDetailVAT(soapUrl string, query *calculatevat.CalculateVAT) (*calculatedetailvat.CalculateDetailVATResponse, *ResponseSOAP4Header, error) {
+func (client *AmadeusClient) CalculateDetailVAT(soapUrl string, query *calculatedetailvat.CalculateDetailVAT) (*calculatedetailvat.CalculateDetailVATResponse, *ResponseSOAP4Header, error) {
 	var soapAction = "CalculateDetailVAT"
 	var reply = new(calculatedetailvat.CalculateDetailVATResponse)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))

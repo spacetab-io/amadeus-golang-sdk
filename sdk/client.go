@@ -315,7 +315,7 @@ func (s *SOAP4Client) UpdateHeader(header interface{}) {
 func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply interface{}, cli *AmadeusClient) (*ResponseSOAP4Header, error) {
 	session := cli.session
 	envelope := RequestSOAP4Envelope{SOAPAttr: SoapNs, XSIAttr: XsiNs, XSDAttr: XsdNs}
-	if soapUrl != "" {
+	if s.user != "" {
 		envelope.Header = &RequsetSOAP4Header{WSAAttr: WasNs, To: s.url, Action: soapUrl + soapAction, MessageId: messageId}
 		if session == nil || session.TransactionStatusCode == TransactionStatusCode[Start] {
 			envelope.Header.Security = NewWSSSecurityHeader(s.user, s.pass, "")

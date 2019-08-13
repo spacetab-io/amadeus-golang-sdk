@@ -7,7 +7,7 @@ import (
 )
 
 func (client *AmadeusClient) CalculateVAT(soapUrl string, query *calculatevat.CalculateVAT) (*calculatevat.CalculateVATResponse, *ResponseSOAP4Header, error) {
-	var soapAction = "CalculateVAT"
+	var soapAction = ""
 	var reply = new(calculatevat.CalculateVATResponse)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
 	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)

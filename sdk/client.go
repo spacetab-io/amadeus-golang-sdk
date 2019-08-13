@@ -315,10 +315,12 @@ func (s *SOAP4Client) UpdateHeader(header interface{}) {
 func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply interface{}, cli *AmadeusClient) (*ResponseSOAP4Header, error) {
 	session := cli.session
 	envelope := RequestSOAP4Envelope{SOAPAttr: SoapNs, XSIAttr: XsiNs, XSDAttr: XsdNs}
-	envelope.Header = &RequsetSOAP4Header{WSAAttr: WasNs, To: s.url, Action: soapUrl + soapAction, MessageId: messageId}
-	if session == nil || session.TransactionStatusCode == TransactionStatusCode[Start] {
-		envelope.Header.Security = NewWSSSecurityHeader(s.user, s.pass, "")
-		envelope.Header.AMASecurity = NewAMASecurityHostedUser(s.agent)
+	if soapUrl != "" {
+		envelope.Header = &RequsetSOAP4Header{WSAAttr: WasNs, To: s.url, Action: soapUrl + soapAction, MessageId: messageId}
+		if session == nil || session.TransactionStatusCode == TransactionStatusCode[Start] {
+			envelope.Header.Security = NewWSSSecurityHeader(s.user, s.pass, "")
+			envelope.Header.AMASecurity = NewAMASecurityHostedUser(s.agent)
+		}
 	}
 	if session != nil {
 		envelope.Header.Session = &RequestSession{Session: session}

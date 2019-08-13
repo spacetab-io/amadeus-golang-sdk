@@ -321,9 +321,10 @@ func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply i
 			envelope.Header.Security = NewWSSSecurityHeader(s.user, s.pass, "")
 			envelope.Header.AMASecurity = NewAMASecurityHostedUser(s.agent)
 		}
-	}
-	if session != nil {
-		envelope.Header.Session = &RequestSession{Session: session}
+
+		if session != nil {
+			envelope.Header.Session = &RequestSession{Session: session}
+		}
 	}
 
 	envelope.Body.Content = query

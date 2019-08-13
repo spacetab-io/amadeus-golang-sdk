@@ -7,8 +7,8 @@ type CalculateDetailVATResponse struct {
 
 // VATDetailCalculationResult was auto-generated from WSDL.
 type VATDetailCalculationResult struct {
-	VATDetailCalculationData []*TSTVATDetailCalculationResults `xml:"VATDetailCalculationData,omitempty" json:"VATDetailCalculationData,omitempty" yaml:"VATDetailCalculationData,omitempty"`
-	VATCalculationMessage    *string                           `xml:"VATCalculationMessage,omitempty" json:"VATCalculationMessage,omitempty" yaml:"VATCalculationMessage,omitempty"`
+	VATDetailCalculationData []TSTVATDetailCalculationResults `xml:"VATDetailCalculationData,omitempty" json:"VATDetailCalculationData,omitempty" yaml:"VATDetailCalculationData,omitempty"`
+	VATCalculationMessage    *string                          `xml:"VATCalculationMessage,omitempty" json:"VATCalculationMessage,omitempty" yaml:"VATCalculationMessage,omitempty"`
 }
 
 type TSTVATDetailCalculationResults struct {
@@ -17,10 +17,10 @@ type TSTVATDetailCalculationResults struct {
 
 // TSTVATDetailCalculationResult was auto-generated from WSDL.
 type TSTVATDetailCalculationResult struct {
-	VATTSTsID                  *string                            `xml:"VATTSTsID,omitempty" json:"VATTSTsID,omitempty" yaml:"VATTSTsID,omitempty"`
-	VATPAXexID                 *string                            `xml:"VATPAXexID,omitempty" json:"VATPAXexID,omitempty" yaml:"VATPAXexID,omitempty"`
-	VATSegmentsID              *string                            `xml:"VATSegmentsID,omitempty" json:"VATSegmentsID,omitempty" yaml:"VATSegmentsID,omitempty"`
-	VATDetailCalculationResult []*VATItemDetailCalculationResults `xml:"VATDetailCalculationResult,omitempty" json:"VATDetailCalculationResult,omitempty" yaml:"VATDetailCalculationResult,omitempty"`
+	VATTSTsID                  string                            `xml:"VATTSTsID,omitempty" json:"VATTSTsID,omitempty" yaml:"VATTSTsID,omitempty"`
+	VATPAXexID                 string                            `xml:"VATPAXexID,omitempty" json:"VATPAXexID,omitempty" yaml:"VATPAXexID,omitempty"`
+	VATSegmentsID              string                            `xml:"VATSegmentsID,omitempty" json:"VATSegmentsID,omitempty" yaml:"VATSegmentsID,omitempty"`
+	VATDetailCalculationResult []VATItemDetailCalculationResults `xml:"VATDetailCalculationResult,omitempty" json:"VATDetailCalculationResult,omitempty" yaml:"VATDetailCalculationResult,omitempty"`
 }
 
 type VATItemDetailCalculationResults struct {
@@ -29,9 +29,9 @@ type VATItemDetailCalculationResults struct {
 
 // VATItemDetailCalculationResult was auto-generated from WSDL.
 type VATItemDetailCalculationResult struct {
-	VATBaseType *string `xml:"VATBaseType,omitempty" json:"VATBaseType,omitempty" yaml:"VATBaseType,omitempty"`
-	VATBaseCode *string `xml:"VATBaseCode,omitempty" json:"VATBaseCode,omitempty" yaml:"VATBaseCode,omitempty"`
-	VATCurrency *string `xml:"VATCurrency,omitempty" json:"VATCurrency,omitempty" yaml:"VATCurrency,omitempty"`
+	VATBaseType string  `xml:"VATBaseType,omitempty" json:"VATBaseType,omitempty" yaml:"VATBaseType,omitempty"`
+	VATBaseCode string  `xml:"VATBaseCode,omitempty" json:"VATBaseCode,omitempty" yaml:"VATBaseCode,omitempty"`
+	VATCurrency string  `xml:"VATCurrency,omitempty" json:"VATCurrency,omitempty" yaml:"VATCurrency,omitempty"`
 	VATBase     float64 `xml:"VATBase" json:"VATBase" yaml:"VATBase"`
 	VATRate     float64 `xml:"VATRate" json:"VATRate" yaml:"VATRate"`
 	VATValue    float64 `xml:"VATValue" json:"VATValue" yaml:"VATValue"`

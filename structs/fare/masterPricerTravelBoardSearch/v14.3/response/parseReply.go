@@ -14,6 +14,14 @@ import (
 	"strings"
 )
 
+type InternalGroupOfFlights struct {
+	ItineraryID       int
+	GroupOfSegmentsID int
+	Flights           []*structsCommon.Flight
+	MajorityCarrier   string
+	Duration          int
+}
+
 func (r *Response) CheckErrorReply() error {
 
 	if r.ErrorMessage != nil {

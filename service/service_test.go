@@ -26,6 +26,7 @@ var (
 	passwordRaw       string
 	officeId          string
 	stdOutLog, logger l.LogWriter
+	config            configuration.ConfigType
 )
 
 func tearUp() {
@@ -35,6 +36,10 @@ func tearUp() {
 	officeId = os.Getenv("OFFICE_ID")
 	logger = nilLogger.Init()
 	stdOutLog = stdoutLogger.Init()
+
+	config.Formats.Time = "2006-01-02T15:04:05"
+	config.Formats.Date = "2006-01-02"
+	config.Provider = "amadeus"
 
 	log.Printf("url: %s\noriginator: %s\npasswordRaw: %s\nofficeId: %s", url, originator, passwordRaw, officeId)
 }
@@ -89,17 +94,7 @@ func TestNewSKD(t *testing.T) {
 
 		tearUp()
 
-		err := configuration.InitConfig()
-		if err != nil {
-			t.FailNow()
-		}
-
-		//url = configuration.Config.Amadeus.Connection.URL
-		//originator = configuration.Config.Amadeus.Connection.Originator
-		//passwordRaw = configuration.Config.Amadeus.Connection.PasswordRaw
-		//officeId = "MOWR228FG"
-
-		cl := client.New(client.SetURL(url), client.SetUser(originator), client.SetPassword(passwordRaw), client.SetAgent(officeId), client.SetLogger(stdOutLog))
+		cl := client.New(client.SetURL(url), client.SetUser(originator), client.SetPassword(passwordRaw), client.SetAgent(officeId), client.SetLogger(stdOutLog), client.SetConfig(config))
 
 		amadeusSDK := New(cl)
 		//amadeusSDK := New(cl, SetMethodVersion(PNRAddMultiElements, MethodVersion(PNRRetrieveV113)))

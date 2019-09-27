@@ -630,7 +630,7 @@ func ParseReply(request *search.SearchRequest, reply *Response) (*search.SearchR
 
 		var recommendation = &search.Recommendation{
 			ID:                recommendationID,
-			Provider:          configuration.Provider,
+			Provider:          configuration.Config.Provider,
 			Class:             recClass,
 			ItinerarySegments: routesSegments,
 			ValidatingAirline: structsCommon.Airline{},

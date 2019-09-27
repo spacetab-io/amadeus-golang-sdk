@@ -1,6 +1,9 @@
 package client
 
-import "github.com/tmconsulting/amadeus-golang-sdk/logger"
+import (
+	"github.com/tmconsulting/amadeus-golang-sdk/configuration"
+	"github.com/tmconsulting/amadeus-golang-sdk/logger"
+)
 
 // Option describes a functional option for configuring AmadeusClient.
 type Option func(client *AmadeusClient)
@@ -36,5 +39,11 @@ func SetAgent(officeID string) Option {
 func SetLogger(l logger.LogWriter) Option {
 	return func(c *AmadeusClient) {
 		c.service.Client.Logger = logger.NewLogger(l)
+	}
+}
+
+func SetConfig(config configuration.ConfigType) Option {
+	return func(c *AmadeusClient) {
+		configuration.Config = config
 	}
 }

@@ -1,0 +1,11 @@
+defaults:
+  queue:
+    kind: "pubsub" # pubsub, redis, ...
+    pubsub:
+      host: "localhost:8085" # for local pub/sup "localhost:8085"
+      project_id: "tmconsulting24"
+      topic: "provider-logs-dev"
+      subscription: "provider-logs-receiver-dev"
+      key: ""
+    redis:
+      host: ""

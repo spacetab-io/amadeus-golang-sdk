@@ -3,10 +3,10 @@ package Fare_MasterPricerTravelBoardSearchRequest_v14_3 // fmptbq143
 import (
 	search "github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/formats"
-	"github.com/tmconsulting/amadeus-golang-sdk/utils"
+	"github.com/tmconsulting/amadeus-golang-sdk/utils/convert"
 )
 
-func MakeRequest(request *search.Request) *Request {
+func MakeRequest(request *search.SearchRequest) *Request {
 
 	var query = Request{
 		NumberOfUnit: &NumberOfUnitsType{
@@ -110,29 +110,75 @@ func MakeRequest(request *search.Request) *Request {
 		})
 	}
 
-	for k, i := range request.Itineraries {
+	var routeCount = len(request.Itineraries)
+	var useMultiCity = false
+	//if routeCount > 3 && len(request.BaseClass) > 0 {
+	//	useMultiCity = true
+	//} else
+	if routeCount < 4 {
+		useMultiCity = true
+	}
+	for routeID := 1; routeID <= routeCount; routeID++ {
+		var route = request.Itineraries[routeID]
+		var firstDateTimeDetail = DateAndTimeDetailsTypeI{}
+		if route.DepartureDate.Error == nil {
+			firstDateTimeDetail.Date = formats.Date_DDMMYY(convert.DateToAmadeusDate(route.DepartureDate.Date))
+			if route.DepartureDate.TimeFlag {
+				firstDateTimeDetail.Time = formats.Time24_HHMM(convert.DateToAmadeusTime(route.DepartureDate.Date))
+				firstDateTimeDetail.TimeQualifier = formats.AlphaNumericString_Length1To3("TD")
+			}
+		} else if route.ArrivalDate.Error == nil {
+			firstDateTimeDetail.Date = formats.Date_DDMMYY(convert.DateToAmadeusDate(route.ArrivalDate.Date))
+			if route.ArrivalDate.TimeFlag {
+				firstDateTimeDetail.Time = formats.Time24_HHMM(convert.DateToAmadeusTime(route.ArrivalDate.Date))
+				firstDateTimeDetail.TimeQualifier = formats.AlphaNumericString_Length1To3("TA")
+			}
+		}
+
+		var departureLocation = route.DepartureLocation.AirportCode
+		if departureLocation == "" {
+			departureLocation = route.DepartureLocation.CityCode
+		}
+		var arrivalLocation = route.ArrivalLocation.AirportCode
+		if arrivalLocation == "" {
+			arrivalLocation = route.ArrivalLocation.CityCode
+		}
+
 		var itinerary = Itinerary{
 			RequestedSegmentRef: &OriginAndDestinationRequestType{
-				SegRef: formats.NumericInteger_Length1To2(k),
+				SegRef: formats.NumericInteger_Length1To2(routeID),
 			},
 			TimeDetails: &DateAndTimeInformationType_181295S{
-				FirstDateTimeDetail: &DateAndTimeDetailsTypeI{
-					Date: formats.Date_DDMMYY(utils.DateToAmadeusDate(i.DepartureDate)),
+				FirstDateTimeDetail: &firstDateTimeDetail,
+			},
+		}
+		if useMultiCity {
+			itinerary.DepartureLocalization = &DepartureLocationType{
+				DepMultiCity: []*MultiCityOptionType{
+					{
+						LocationId: formats.AlphaString_Length3To5(departureLocation),
+					},
 				},
-			},
+			}
+			itinerary.ArrivalLocalization = &ArrivalLocalizationType{
+				ArrivalMultiCity: []*MultiCityOptionType{
+					{
+						LocationId: formats.AlphaString_Length3To5(arrivalLocation),
+					},
+				},
+			}
+		} else {
+			itinerary.DepartureLocalization = &DepartureLocationType{
+				DeparturePoint: &ArrivalLocationDetailsType_120834C{
+					LocationId: formats.AlphaString_Length3To5(departureLocation),
+				},
+			}
+			itinerary.ArrivalLocalization = &ArrivalLocalizationType{
+				ArrivalPointDetails: &ArrivalLocationDetailsType{
+					LocationId: formats.AlphaString_Length3To5(arrivalLocation),
+				},
+			}
 		}
-
-		itinerary.DepartureLocalization = &DepartureLocationType{
-			DeparturePoint: &ArrivalLocationDetailsType_120834C{
-				LocationId: formats.AlphaString_Length3To5(i.DepartureLocation),
-			},
-		}
-		itinerary.ArrivalLocalization = &ArrivalLocalizationType{
-			ArrivalPointDetails: &ArrivalLocationDetailsType{
-				LocationId: formats.AlphaString_Length3To5(i.ArrivalLocation),
-			},
-		}
-
 		query.Itinerary = append(query.Itinerary, &itinerary)
 	}
 

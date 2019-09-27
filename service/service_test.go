@@ -1,6 +1,10 @@
 package service
 
 import (
+	"encoding/json"
+	"fmt"
+	"github.com/tmconsulting/amadeus-golang-sdk/configuration"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs"
 	search "github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve"
 	"log"
@@ -83,25 +87,70 @@ func TestNewSKD(t *testing.T) {
 
 	t.Run("Search test", func(t *testing.T) {
 
+		tearUp()
+
+		err := configuration.InitConfig()
+		if err != nil {
+			t.FailNow()
+		}
+
+		//url = configuration.Config.Amadeus.Connection.URL
+		//originator = configuration.Config.Amadeus.Connection.Originator
+		//passwordRaw = configuration.Config.Amadeus.Connection.PasswordRaw
+		//officeId = "MOWR228FG"
+
 		cl := client.New(client.SetURL(url), client.SetUser(originator), client.SetPassword(passwordRaw), client.SetAgent(officeId), client.SetLogger(stdOutLog))
 
 		amadeusSDK := New(cl)
 		//amadeusSDK := New(cl, SetMethodVersion(PNRAddMultiElements, MethodVersion(PNRRetrieveV113)))
 
-		request := search.Request{
+		itinerary := structs.Itinerary{
+			DepartureLocation: structs.Location{
+				AirportCode: "SVO",
+				CityCode:    "MOW",
+				CountryCode: "RU",
+				Type:        "city",
+			},
+			ArrivalLocation: structs.Location{
+				AirportCode: "LED",
+				CityCode:    "LED",
+				CountryCode: "RU",
+				Type:        "city",
+			},
+		}
+		request := search.SearchRequest{
+			ClientData: structs.ClientInfo{
+				OfficeID: "MOWR224PW",
+			},
+			BaseClass: []string{
+				"E",
+			},
+			Changes:     false,
+			WithBaggage: true,
+			TravelType:  "OW",
 			Itineraries: map[int]*search.Itinerary{
 				1: {
-					DepartureLocation: "MOW",
-					ArrivalLocation:   "LED",
-					DepartureDate:     time.Now().Add(10 * 24 * time.Hour), // add 10 days
+					Itinerary: &itinerary,
+					DepartureDate: structs.FlightDateTime{
+						Date: time.Now().Add(10 * 24 * time.Hour), // add 10 days
+					},
+					DepartureDateTill: structs.FlightDateTimeUniversal{
+						DateStr: time.Now().Add(11 * 24 * time.Hour).String(), // add 10 days
+					},
 				},
 			},
 			Currency:   "RUB",
-			Passengers: search.Travellers{ADT: 2, CHD: 1, INF: 1},
+			Passengers: structs.Travellers{ADT: 1, CHD: 0, INF: 0},
+			Airlines: []string{
+				"SU",
+			},
 		}
 
 		response, _, err := amadeusSDK.FareMasterPricerTravelBoardSearch(&request)
 		t.Logf("response: %+v\n", response)
+
+		aa, _ := json.Marshal(response)
+		fmt.Println("Search response: ", string(aa))
 
 		if !assert.NoError(t, err) {
 			t.FailNow()

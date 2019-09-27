@@ -135,7 +135,7 @@ type Service interface {
 	CloseSession() (reply *SecuritySignOut_v04_1.Response, err error)
 
 	// Search
-	FareMasterPricerTravelBoardSearch(query *search.Request) (*search.Response, *client.ResponseSOAPHeader, error)
+	FareMasterPricerTravelBoardSearch(query *search.SearchRequest) (*search.SearchResponse, *client.ResponseSOAPHeader, error)
 	FareInformativeBestPricingWithout(query *Fare_InformativeBestPricingWithoutPNRRequest_v12_4.Request) (*Fare_InformativeBestPricingWithoutPNRResponse_v12_4.Response, *client.ResponseSOAPHeader, error)
 	FareInformativePricingWithoutPNR(query *Fare_InformativePricingWithoutPNR_v12_4.Request) (*Fare_InformativePricingWithoutPNRReply_v12_4.Response, *client.ResponseSOAPHeader, error)
 

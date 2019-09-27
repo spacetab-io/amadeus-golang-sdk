@@ -11,11 +11,11 @@ import (
 	//"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch/v14.3/response"
 )
 
-func (s *service) FareMasterPricerTravelBoardSearch(query *search.Request) (*search.Response, *client.ResponseSOAPHeader, error) {
+func (s *service) FareMasterPricerTravelBoardSearch(query *search.SearchRequest) (*search.SearchResponse, *client.ResponseSOAPHeader, error) {
 	switch s.mm[FareMasterPricerTravelBoardSearch] {
 	case FareMasterPricerTravelBoardSearchV143:
-		query := Fare_MasterPricerTravelBoardSearchRequest_v14_3.MakeRequest(query)
-		response, header, err := s.sdk.FareMasterPricerTravelBoardSearchV143(query)
+		request := Fare_MasterPricerTravelBoardSearchRequest_v14_3.MakeRequest(query)
+		response, header, err := s.sdk.FareMasterPricerTravelBoardSearchV143(request)
 		if response == nil {
 			return nil, header, err
 		}
@@ -25,7 +25,8 @@ func (s *service) FareMasterPricerTravelBoardSearch(query *search.Request) (*sea
 			return nil, header, errResponse
 		}
 
-		return response.ToCommon(), header, err
+		reply, err := response.ToCommon(query)
+		return reply, header, err
 	}
 	return nil, nil, nil
 }

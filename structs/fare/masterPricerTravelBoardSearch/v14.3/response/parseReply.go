@@ -50,51 +50,11 @@ func ParseReply(request *search.SearchRequest, reply *Response) (*search.SearchR
 			}
 			segmentsRef = append(segmentsRef, groupOfSegmentsIds)
 		}
-		//if id, err := strconv.Atoi(recommendationID); err == nil {
-		//	recommendationIds = append(recommendationIds, id)
-		//}
+
 		groupsRef[recommendationID] = segmentsRef
 	}
-	//sort.Ints(recommendationIds)
 
-	//var excludedAirlineS7 = false
-	//var excludedAirlines []string
-	//var excludedAirlineS7 = true
-	//var excludedAirlines = []string{"BD", "EQ", "N4", "QH", "UT", "YK", "6X"}
-	//if len(request.AirlineList) == 1 {
-	//	if request.AirlineList[0] == "S7" {
-	//		excludedAirlineS7 = false
-	//	}
-	//	request.ResultOnlyS7 = true
-	//	excludedAirlines = []string{}
-	//} else {
-	//	for _, airline := range request.AirlineList {
-	//		if airline == "S7" {
-	//			excludedAirlineS7 = false
-	//		} else {
-	//			if exists, i := utils.InArray(airline, excludedAirlines); exists {
-	//				excludedAirlines = append(excludedAirlines[:i], excludedAirlines[i+1:]...)
-	//			}
-	//		}
-	//	}
-	//}
-	//if excludedAirlineS7 {
-	//	excludedAirlines = append(excludedAirlines, "S7")
-	//}
-	//for _, airline := range request.ExcludedAirlines {
-	//	if !utils.InArrayString(airline, excludedAirlines) {
-	//		excludedAirlines = append(excludedAirlines, airline)
-	//	}
-	//}
-
-	var itineraries, err = ParseListOfFlights(reply.FlightIndex, groupsRef, &FilterRules{
-		Itineraries: requestItineraries,
-		//RecommendationIds: recommendationIds,
-		//AllowMixing:       request.AllowMixing,
-		OnlyNonStopFlight: !request.Changes,
-		Airlines:          request.Airlines,
-		//ExcludedAirlines:  excludedAirlines,
-	}, request.BaseClass[0])
+	var itineraries, err = ParseListOfFlights(reply.FlightIndex, groupsRef, request.BaseClass[0])
 	if err != nil {
 		return nil, err
 	}
@@ -117,51 +77,7 @@ func ParseReply(request *search.SearchRequest, reply *Response) (*search.SearchR
 
 	//	Service fee information per passenger
 	var _, freeBagAllowances = parseServiceFeesGrp(reply.ServiceFeesGrp)
-
-	//// int = familyInformation[].RefNumber
-	//var fareFamily = make(map[int]*structsCommon.FareFamily)
-	//var fareFamilyServices = make(map[int][]*structsCommon.FareFamilyService)
-	//
-	////	Details of the fare families processed
-	//for _, familyInformation := range reply.FamilyInformation {
-	//	var number = int(familyInformation.RefNumber)
-	//	fareFamily[number] = &structsCommon.FareFamily{
-	//		Name: familyInformation.FareFamilyname,
-	//		Description: familyInformation.Description,
-	//	}
-	//	for _, familyInformationService := range familyInformation.Services {
-	//		if service, exists := services[familyInformationService.Reference]; exists {
-	//			//	Codeset for Status, coded (Ref: 4405 1A 14.1.1)
-	//			// CHA - At charge
-	//			// INC - Included
-	//			// NOF - Not offered
-	//			switch familyInformationService.Status {
-	//			case "INC":
-	//				service.Status = "Included"
-	//			case "CHA":
-	//				service.Status = "Charge"
-	//			case "NOF":
-	//				service.Status = "NotOffered"
-	//			}
-	//			fareFamilyServices[number] = append(fareFamilyServices[number], service)
-	//		}
-	//	}
-	//}
-
-	//var skipRecommendationIds []string
-	var skipSegmentIds, responseSegmentIds []string
-
-	var addSkipSegments = func(segmentIds []string) {
-		for _, segmentID := range segmentIds {
-			if utils.InArrayString(segmentID, responseSegmentIds) {
-				continue
-			}
-			if !utils.InArrayString(segmentID, skipSegmentIds) {
-				skipSegmentIds = append(skipSegmentIds, segmentID)
-			}
-		}
-	}
-
+	var responseSegmentIds []string
 	var recommendations []*search.Recommendation
 	var segments = make(map[string]*structsCommon.Flight)
 
@@ -169,13 +85,12 @@ func ParseReply(request *search.SearchRequest, reply *Response) (*search.SearchR
 	for _, recReply := range reply.Recommendation {
 		var recommendationID = recReply.ItemNumber.ItemNumberId.Number
 		var variantRef []map[int][]int
-		var flightsRef = make(map[int]map[int]*FilterGroupOfFlights)
+		var flightsRef = make(map[int]map[int]*InternalGroupOfFlights)
 		var baggageRef = make(map[int]int)
 		for variantIndex, segmentFlightRef := range recReply.SegmentFlightRef {
 			var itineraryID, baggageID = 1, 0
 			var groupOfSegmentsIds = make(map[int][]int)
 			groupOfSegmentsIds[itineraryID] = []int{}
-			var skip = false
 			for _, referencingDetail := range segmentFlightRef.ReferencingDetail {
 				var refNumber = int(referencingDetail.RefNumber)
 				switch referencingDetail.RefQualifier {
@@ -183,25 +98,15 @@ func ParseReply(request *search.SearchRequest, reply *Response) (*search.SearchR
 					//flightsRef[itineraryID] = append(flightsRef[itineraryID], refNumber)
 					groupOfSegmentsIds[itineraryID] = append(groupOfSegmentsIds[itineraryID], refNumber)
 
-					var itinerary = itineraries[itineraryID]
-					if group, exists := itinerary[refNumber]; exists {
-						if flightsRef[itineraryID] == nil {
-							flightsRef[itineraryID] = make(map[int]*FilterGroupOfFlights)
-						}
-						flightsRef[itineraryID][refNumber] = group
-					} else {
-						skip = true
+					group := itineraries[itineraryID][refNumber]
+					if flightsRef[itineraryID] == nil {
+						flightsRef[itineraryID] = make(map[int]*InternalGroupOfFlights)
 					}
+					flightsRef[itineraryID][refNumber] = group
 					itineraryID++
 				case "B":
 					baggageID = refNumber
 				}
-				if skip {
-					break
-				}
-			}
-			if skip {
-				continue
 			}
 			variantRef = append(variantRef, groupOfSegmentsIds)
 			if baggageID != 0 {
@@ -210,7 +115,6 @@ func ParseReply(request *search.SearchRequest, reply *Response) (*search.SearchR
 		}
 
 		if len(variantRef) == 0 {
-			//skipRecommendationIds = append(skipRecommendationIds, recommendationID)
 			continue
 		}
 
@@ -520,7 +424,6 @@ func ParseReply(request *search.SearchRequest, reply *Response) (*search.SearchR
 
 		//test
 		if len(adtFareGroups) == 0 {
-			//skipRecommendationIds = append(skipRecommendationIds, recommendationID)
 			continue
 		}
 
@@ -576,20 +479,7 @@ func ParseReply(request *search.SearchRequest, reply *Response) (*search.SearchR
 				validatingAirlineOverride = validatingAirlines[0]
 				validatingAirlines = []string{}
 			}
-		} // else {
-		//	interline = true  // !!!
-		//}
-
-		//if validatingAirlineOverride == "S7" {
-		//	if excludedAirlineS7 {
-		//		log.Println("skip recommendation, validatingAirline:", validatingAirlineOverride)
-		//		addSkipRec(recommendationID)
-		//		continue
-		//	}
-		//} else if request.ResultOnlyS7 {
-		//	addSkipRec(recommendationID)
-		//	continue
-		//}
+		}
 
 		var recSegmentIds []string
 
@@ -611,7 +501,6 @@ func ParseReply(request *search.SearchRequest, reply *Response) (*search.SearchR
 		}
 
 		var routesSegments = make(search.RoutesSegments)
-		var skipVariantIds []int
 		for itineraryID, itineraryVariants := range itineraryRef {
 			var itinerary, existsVariants = routesSegments[itineraryID]
 			if !existsVariants {
@@ -620,10 +509,6 @@ func ParseReply(request *search.SearchRequest, reply *Response) (*search.SearchR
 			var adtFareDetails = adtFareGroups[itineraryID]
 			var otherFareDetails = otherFareGroups[itineraryID]
 			for variantID, groupOfSegmentsIds := range itineraryVariants {
-				if utils.InArrayInt(variantID, skipVariantIds) {
-					continue
-				}
-				var skipVariant = false
 				for _, groupOfSegmentsID := range groupOfSegmentsIds {
 					var group = flightsRef[itineraryID][groupOfSegmentsID]
 					var variantSegmentID []string
@@ -649,27 +534,6 @@ func ParseReply(request *search.SearchRequest, reply *Response) (*search.SearchR
 								baggage = &structsCommon.BaggageType{
 									Unit: "PC",
 								}
-							}
-						}
-
-						// исключение вариантов, у которых багажа нет.
-						// Нужно было проверить на то, что в запросе не приходит nil (из-за omitempty — herb ,s jnjhdfnm pf nfre. djkmyjcnm!),
-						// а если не nil, то смотреть, что указано.
-						// Если стоит, что с багажом, а количество багажа == 0, то скипать предложение.
-						if request.WithBaggage == true && baggage.Value == 0 {
-							skipVariantIds = append(skipVariantIds, variantID)
-							skipVariant = true
-							break
-						}
-
-						// исключение по validating airlines
-						// не смотря на MandatoryCompanies() гдс выдаёт в том числе другие АК, если они попадаются на стыковочных перелетах
-						// Чтобы они вообще не попадались, отсеим их
-						// Если надо отсеять по оперирующему или маркетирующему перевозчику, воспользуйтесь CheckRulesCompanies()
-						for _, airline := range request.Airlines {
-							if validatingAirlineOverride != airline {
-								skipVariant = true
-								break
 							}
 						}
 
@@ -703,10 +567,7 @@ func ParseReply(request *search.SearchRequest, reply *Response) (*search.SearchR
 							PaxDetails: paxDetails,
 						})
 					}
-					if skipVariant {
-						addSkipSegments(variantSegmentID)
-						break
-					}
+
 					itinerary[variantID] = &search.RouteSegments{
 						GroupOfSegmentsID: groupOfSegmentsID,
 						ItinerarySegments: itinerarySegments,
@@ -719,17 +580,7 @@ func ParseReply(request *search.SearchRequest, reply *Response) (*search.SearchR
 			}
 		}
 
-		//test
-		if len(perPaxPricing) == 0 || len(routesSegments) == 0 {
-			//skipRecommendationIds = append(skipRecommendationIds, recommendationID)
-			addSkipSegments(recSegmentIds)
-			continue
-		}
-
 		for _, segmentID := range recSegmentIds {
-			if exists, i := utils.InArray(segmentID, skipSegmentIds); exists {
-				skipSegmentIds = append(skipSegmentIds[:i], skipSegmentIds[i+1:]...)
-			}
 			if !utils.InArrayString(segmentID, responseSegmentIds) {
 				responseSegmentIds = append(responseSegmentIds, segmentID)
 			}
@@ -879,25 +730,8 @@ func ParseReply(request *search.SearchRequest, reply *Response) (*search.SearchR
 		}
 	}
 
-	var skipRecommendationIds []string
 	for _, recommendation := range recommendations {
-		var flag = true
-		for _, testRecommendation := range result.Recommendations {
-			if testRecommendation == recommendation || recommendation.ID == testRecommendation.ID {
-				continue
-			}
-			if utils.InArrayString(recommendation.ID, skipRecommendationIds) {
-				continue
-			}
-			if testRecommendation.Combine(recommendation) {
-				skipRecommendationIds = append(skipRecommendationIds, recommendation.ID)
-				flag = false
-				break
-			}
-		}
-		if flag {
-			result.Recommendations = append(result.Recommendations, recommendation)
-		}
+		result.Recommendations = append(result.Recommendations, recommendation)
 	}
 
 	recommendations = cleanRecomendationsFromDuplicatedItinerarySegments(recommendations)
@@ -906,28 +740,20 @@ func ParseReply(request *search.SearchRequest, reply *Response) (*search.SearchR
 }
 
 // ParseListOfFlights Parse List Of Flights
-func ParseListOfFlights(listOfFlights []*FlightIndex, recommendationGroupsRef map[string][][]int, filterRules *FilterRules, baseclass string) (map[int]map[int]*FilterGroupOfFlights, error) {
+func ParseListOfFlights(listOfFlights []*FlightIndex, recommendationGroupsRef map[string][][]int, baseclass string) (map[int]map[int]*InternalGroupOfFlights, error) {
 
 	// (itineraryId) int = flightIndex[].RequestedSegmentRef.SegRef
 	// (groupOfSegmentsId) int = flightIndex[].GroupOfFlights[].PropFlightGrDetail.FlightProposal[].Ref
-	var itineraries = make(map[int]map[int]*FilterGroupOfFlights)
+	var itineraries = make(map[int]map[int]*InternalGroupOfFlights)
 
-	var itineraryEnd = len(listOfFlights) - 1
-	for itineraryIndex, flightIndex := range listOfFlights {
+	for _, flightIndex := range listOfFlights {
 		var flightNum = 1
 		var itineraryID = int(flightIndex.RequestedSegmentRef.SegRef)
-		var isDeparture = itineraryID == 1
-		var isArrival = itineraryIndex == itineraryEnd
 
 		// List of proposed segments per requested segment
 		for _, groupOfFlights := range flightIndex.GroupOfFlights {
-			if filterRules.OnlyNonStopFlight && len(groupOfFlights.FlightDetails) > 1 {
-				//skipFlightCount++
-				continue
-			}
-
 			var groupOfSegmentsID = -1
-			var variant = &FilterGroupOfFlights{
+			var variant = &InternalGroupOfFlights{
 				ItineraryID: itineraryID,
 			}
 
@@ -963,9 +789,8 @@ func ParseListOfFlights(listOfFlights []*FlightIndex, recommendationGroupsRef ma
 			}
 			variant.GroupOfSegmentsID = groupOfSegmentsID
 
-			var end = len(groupOfFlights.FlightDetails) - 1
 			// List of flight per proposed segment
-			for num, flightDetail := range groupOfFlights.FlightDetails {
+			for _, flightDetail := range groupOfFlights.FlightDetails {
 				var flight = &structsCommon.Flight{
 					SegmentID: fmt.Sprintf("amadeus_%d_%d_%s", itineraryID, flightNum, baseclass),
 				}
@@ -1001,35 +826,6 @@ func ParseListOfFlights(listOfFlights []*FlightIndex, recommendationGroupsRef ma
 				flight.Aircraft = &structsCommon.Aircraft{} // Type of aircraft
 				flight.Aircraft.Code = &flightDetail.FlightInformation.ProductDetail.EquipmentType
 
-				//if flightDetail.FlightInformation.AddProductDetail.ElectronicTicketing == "Y" {
-				//	flight.ETicket = true
-				//}
-
-				//
-				// <filter>
-				//
-
-				//if !filterRules.CheckRulesCompanies(flight) {
-				//	skipGroup = true
-				//	break
-				//}
-
-				if isDeparture && num == 0 {
-					if !filterRules.CheckRulesTimes(itineraryIndex, true, false, flight) {
-						break
-					}
-				}
-
-				if isArrival && num == end {
-					if !filterRules.CheckRulesTimes(itineraryIndex, false, true, flight) {
-						break
-					}
-				}
-
-				//
-				// </filter>
-				//
-
 				variant.Flights = append(variant.Flights, flight)
 				flightNum++
 			}
@@ -1041,7 +837,7 @@ func ParseListOfFlights(listOfFlights []*FlightIndex, recommendationGroupsRef ma
 			if dp, ok := itineraries[itineraryID]; ok {
 				dp[groupOfSegmentsID] = variant
 			} else {
-				dp = make(map[int]*FilterGroupOfFlights)
+				dp = make(map[int]*InternalGroupOfFlights)
 				dp[groupOfSegmentsID] = variant
 				itineraries[itineraryID] = dp
 			}
@@ -1049,11 +845,6 @@ func ParseListOfFlights(listOfFlights []*FlightIndex, recommendationGroupsRef ma
 		if _, ok := itineraries[itineraryID]; !ok {
 			return nil, nil
 		}
-	}
-
-	var itineraryMax = len(itineraries)
-	if itineraryMax != 0 && itineraryMax != len(filterRules.Itineraries) {
-		return nil, fmt.Errorf("number of itineraries in request (%d) differs from number of itineraries in response (%d)", len(filterRules.Itineraries), itineraryMax)
 	}
 
 	return itineraries, nil

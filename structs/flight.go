@@ -3,8 +3,6 @@ package structs
 import (
 	"encoding/json"
 	"time"
-
-	"github.com/tmconsulting/amadeus-golang-sdk/configuration"
 )
 
 // Flight structure
@@ -46,9 +44,9 @@ func (flight *Flight) MarshalJSON() ([]byte, error) {
 		//AircraftFullName:  flight.AircraftFullName,
 		FlightNumber:      flight.FlightNumber,
 		DepartureLocation: &flight.DepartureLocation,
-		DepartureDate:     flight.DepartureDate.Format(configuration.Config.Formats.Time),
+		DepartureDate:     flight.DepartureDate.Format(TimeFormat),
 		ArrivalLocation:   &flight.ArrivalLocation,
-		ArrivalDate:       flight.ArrivalDate.Format(configuration.Config.Formats.Time),
+		ArrivalDate:       flight.ArrivalDate.Format(TimeFormat),
 		MarketingAirline:  flight.MarketingAirline,
 		OperatingAirline:  flight.OperatingAirline,
 		//Codeshare:         flight.MarketingAirline != flight.OperatingAirline,
@@ -79,14 +77,14 @@ func (flight *Flight) UnmarshalJSON(data []byte) error {
 	flight.Aircraft = flight2.Aircraft
 	flight.FlightNumber = flight2.FlightNumber
 	flight.DepartureLocation = flight2.DepartureLocation
-	departureDate, err := time.Parse(configuration.Config.Formats.Time, flight2.DepartureDate)
+	departureDate, err := time.Parse(TimeFormat, flight2.DepartureDate)
 	if err != nil {
 		return err
 	}
 
 	flight.DepartureDate = departureDate
 	flight.ArrivalLocation = flight2.ArrivalLocation
-	arrivalDate, err := time.Parse(configuration.Config.Formats.Time, flight2.ArrivalDate)
+	arrivalDate, err := time.Parse(TimeFormat, flight2.ArrivalDate)
 	if err != nil {
 		return err
 	}

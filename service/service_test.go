@@ -3,7 +3,6 @@ package service
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/tmconsulting/amadeus-golang-sdk/configuration"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs"
 	search "github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch"
 	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve"
@@ -26,7 +25,6 @@ var (
 	passwordRaw       string
 	officeId          string
 	stdOutLog, logger l.LogWriter
-	config            configuration.ConfigType
 )
 
 func tearUp() {
@@ -36,10 +34,6 @@ func tearUp() {
 	officeId = os.Getenv("OFFICE_ID")
 	logger = nilLogger.Init()
 	stdOutLog = stdoutLogger.Init()
-
-	config.Formats.Time = "2006-01-02T15:04:05"
-	config.Formats.Date = "2006-01-02"
-	config.Provider = "amadeus"
 
 	log.Printf("url: %s\noriginator: %s\npasswordRaw: %s\nofficeId: %s", url, originator, passwordRaw, officeId)
 }
@@ -94,7 +88,7 @@ func TestNewSKD(t *testing.T) {
 
 		tearUp()
 
-		cl := client.New(client.SetURL(url), client.SetUser(originator), client.SetPassword(passwordRaw), client.SetAgent(officeId), client.SetLogger(stdOutLog), client.SetConfig(config))
+		cl := client.New(client.SetURL(url), client.SetUser(originator), client.SetPassword(passwordRaw), client.SetAgent(officeId), client.SetLogger(stdOutLog))
 
 		amadeusSDK := New(cl)
 		//amadeusSDK := New(cl, SetMethodVersion(PNRAddMultiElements, MethodVersion(PNRRetrieveV113)))

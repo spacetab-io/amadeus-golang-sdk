@@ -3,7 +3,6 @@ package Fare_MasterPricerTravelBoardSearchResponse_v14_3
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/tmconsulting/amadeus-golang-sdk/configuration"
 	structsCommon "github.com/tmconsulting/amadeus-golang-sdk/structs"
 	search "github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch"
 	"github.com/tmconsulting/amadeus-golang-sdk/utils"
@@ -401,7 +400,7 @@ func ParseReply(request *search.SearchRequest, reply *Response) (*search.SearchR
 							for _, description := range fare.PricingMessage.Description {
 								if len(description) == 7 {
 									if lastTicketDate, err := convert.AmadeusDateConvert(description); err == nil {
-										lastTicketStr := lastTicketDate.Format(configuration.Config.Formats.Time)
+										lastTicketStr := lastTicketDate.Format(structsCommon.TimeFormat)
 										if exists, _ := utils.InArray(lastTicketStr, lastTicketSlice); !exists {
 											lastTicketSlice = append(lastTicketSlice, lastTicketStr)
 										}
@@ -630,7 +629,7 @@ func ParseReply(request *search.SearchRequest, reply *Response) (*search.SearchR
 
 		var recommendation = &search.Recommendation{
 			ID:                recommendationID,
-			Provider:          configuration.Config.Provider,
+			Provider:          "amadeus",
 			Class:             recClass,
 			ItinerarySegments: routesSegments,
 			ValidatingAirline: structsCommon.Airline{},

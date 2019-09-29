@@ -59,56 +59,7 @@ func MakeRequest(request *search.SearchRequest) *Request {
 		},
 	}
 
-	paxID := 1
-	if request.Passengers.ADT > 0 {
-		var travellers []*TravellerDetailsType
-		for i := 0; i < request.Passengers.ADT; i++ {
-			travellers = append(travellers, &TravellerDetailsType{
-				Ref: formats.NumericInteger_Length1To3(paxID),
-			})
-			paxID++
-		}
-		query.PaxReference = append(query.PaxReference, &TravellerReferenceInformationType{
-			Ptc: []formats.AlphaNumericString_Length1To6{
-				"ADT",
-			},
-			Traveller: travellers,
-		})
-	}
-
-	if request.Passengers.CHD > 0 {
-		var travellers []*TravellerDetailsType
-		for i := 0; i < request.Passengers.CHD; i++ {
-			travellers = append(travellers, &TravellerDetailsType{
-				Ref: formats.NumericInteger_Length1To3(paxID),
-			})
-			paxID++
-		}
-		query.PaxReference = append(query.PaxReference, &TravellerReferenceInformationType{
-			Ptc: []formats.AlphaNumericString_Length1To6{
-				"CH",
-			},
-			Traveller: travellers,
-		})
-	}
-	if request.Passengers.INF > 0 {
-		paxInfID := 1
-		var travellers []*TravellerDetailsType
-		for i := 0; i < request.Passengers.INF; i++ {
-			infantIndicator := formats.NumericInteger_Length1To1(paxInfID)
-			travellers = append(travellers, &TravellerDetailsType{
-				Ref:             formats.NumericInteger_Length1To3(paxInfID),
-				InfantIndicator: &infantIndicator,
-			})
-			paxInfID++
-		}
-		query.PaxReference = append(query.PaxReference, &TravellerReferenceInformationType{
-			Ptc: []formats.AlphaNumericString_Length1To6{
-				"INF",
-			},
-			Traveller: travellers,
-		})
-	}
+	query.PaxReference = addTravelers(request)
 
 	var routeCount = len(request.Itineraries)
 	var useMultiCity = false
@@ -183,4 +134,34 @@ func MakeRequest(request *search.SearchRequest) *Request {
 	}
 
 	return &query
+}
+
+func addTravelers(request *search.SearchRequest) (paxReference []*TravellerReferenceInformationType) {
+
+	paxID := 1
+	addTravelet := func(pct string, pctCount int) {
+		if pctCount < 1 {
+			return
+		}
+
+		var travellers []*TravellerDetailsType
+		for i := 0; i < pctCount; i++ {
+			travellers = append(travellers, &TravellerDetailsType{
+				Ref: formats.NumericInteger_Length1To3(paxID),
+			})
+			paxID++
+		}
+		paxReference = append(paxReference, &TravellerReferenceInformationType{
+			Ptc: []formats.AlphaNumericString_Length1To6{
+				"ADT",
+			},
+			Traveller: travellers,
+		})
+	}
+
+	addTravelet("ADT", request.Passengers.ADT)
+	addTravelet("CHD", request.Passengers.CHD)
+	addTravelet("INF", request.Passengers.INF)
+
+	return paxReference
 }

@@ -139,29 +139,38 @@ func MakeRequest(request *search.SearchRequest) *Request {
 func addTravelers(request *search.SearchRequest) (paxReference []*TravellerReferenceInformationType) {
 
 	paxID := 1
-	addTravelet := func(pct string, pctCount int) {
+	addTraveler := func(ptc string, pctCount int) {
 		if pctCount < 1 {
 			return
 		}
 
+		if ptc == "INF" {
+			paxID = 1
+		}
+
 		var travellers []*TravellerDetailsType
 		for i := 0; i < pctCount; i++ {
-			travellers = append(travellers, &TravellerDetailsType{
+			traveller := &TravellerDetailsType{
 				Ref: formats.NumericInteger_Length1To3(paxID),
-			})
+			}
+			if ptc == "INF" {
+				infantIndicator := formats.NumericInteger_Length1To1(paxID)
+				traveller.InfantIndicator = &infantIndicator
+			}
+			travellers = append(travellers, traveller)
 			paxID++
 		}
 		paxReference = append(paxReference, &TravellerReferenceInformationType{
 			Ptc: []formats.AlphaNumericString_Length1To6{
-				"ADT",
+				formats.AlphaNumericString_Length1To6(ptc),
 			},
 			Traveller: travellers,
 		})
 	}
 
-	addTravelet("ADT", request.Passengers.ADT)
-	addTravelet("CHD", request.Passengers.CHD)
-	addTravelet("INF", request.Passengers.INF)
+	addTraveler("ADT", request.Passengers.ADT)
+	addTraveler("CHD", request.Passengers.CHD)
+	addTraveler("INF", request.Passengers.INF)
 
 	return paxReference
 }

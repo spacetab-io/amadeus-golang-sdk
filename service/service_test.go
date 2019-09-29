@@ -109,7 +109,7 @@ func TestNewSKD(t *testing.T) {
 		}
 		request := search.SearchRequest{
 			ClientData: structs.ClientInfo{
-				OfficeID: "MOWR224PW",
+				OfficeID: officeId,
 			},
 			BaseClass: []string{
 				"E",

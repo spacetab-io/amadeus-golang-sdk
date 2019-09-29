@@ -12,11 +12,11 @@ type ClientInfo struct {
 
 // UnmarshalJSON overrides UnmarshalJSON
 func (c *ClientInfo) UnmarshalJSON(data []byte) error {
-	type ClientInfo2 struct {
+	type ClientInfoInternal struct {
 		Var1 string `json:"amadeus_office_id"`
 		Var2 string `json:"office_id"`
 	}
-	var clientInfo ClientInfo2
+	var clientInfo ClientInfoInternal
 	if err := json.Unmarshal(data, &clientInfo); err != nil {
 		//logs.Log.WithError(err).Error("Error unmarshal json")
 		return err

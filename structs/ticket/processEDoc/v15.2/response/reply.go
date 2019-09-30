@@ -1,6 +1,6 @@
 package Ticket_ProcessEDocResponse_v15_2 // tatres152
 
-import "github.com/tmconsulting/amadeus-golang-sdk/structs/formats"
+import "github.com/tmconsulting/amadeus-golang-sdk/v2/structs/formats"
 
 type Response struct {
 	// XMLName xml.Name `xml:"http://xml.amadeus.com/TATRES_15_2_1A Ticket_ProcessEDocReply"`

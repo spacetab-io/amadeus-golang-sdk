@@ -4,7 +4,7 @@ import (
 	"encoding/xml"
 	"fmt"
 
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/session/v03.0"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/session/v03.0"
 )
 
 const (

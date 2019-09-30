@@ -1,16 +1,16 @@
 package service
 
 import (
-	"github.com/tmconsulting/amadeus-golang-sdk/client"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/commandCryptic"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/commandCryptic/v07.3"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/checkRules/v07.1/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/checkRules/v07.1/response"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v19.1/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/displayTST/v07.1/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/displayTST/v07.1/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/client"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/commandCryptic"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/commandCryptic/v07.3"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/checkRules/v07.1/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/checkRules/v07.1/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/pnr/retrieve"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/pnr/retrieve/v11.3/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/pnr/retrieve/v19.1/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ticket/displayTST/v07.1/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ticket/displayTST/v07.1/response"
 )
 
 func (s *service) PNRRetrieve(query *PNR_Information.Request) (*PNR_Information.Response, *client.ResponseSOAPHeader, error) {

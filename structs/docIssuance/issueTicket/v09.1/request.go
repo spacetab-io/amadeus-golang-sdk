@@ -3,7 +3,7 @@ package DocIssuance_IssueTicket_v09_1 // ttktiq091
 import (
 	"encoding/xml"
 
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/formats"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/formats"
 )
 
 type Request struct {

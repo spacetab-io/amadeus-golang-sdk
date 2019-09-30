@@ -3,7 +3,7 @@ package Ticket_DeleteTST_v04_1 // ttstdq041
 import (
 	"encoding/xml"
 
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/formats"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/formats"
 )
 
 type Request struct {

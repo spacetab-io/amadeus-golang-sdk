@@ -3,8 +3,8 @@ package client
 import (
 	"errors"
 
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/security/signOut/v04.1"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/session/v03.0"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/security/signOut/v04.1"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/session/v03.0"
 )
 
 func (client *AmadeusClient) SecuritySignOutV041() (*SecuritySignOut_v04_1.Response, *ResponseSOAPHeader, error) {

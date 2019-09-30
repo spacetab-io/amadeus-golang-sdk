@@ -3,8 +3,8 @@ package Fare_MasterPricerTravelBoardSearchRequest_v14_3
 import (
 	"encoding/xml"
 	"github.com/stretchr/testify/assert"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs"
-	search "github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs"
+	search "github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/masterPricerTravelBoardSearch"
 	"testing"
 )
 

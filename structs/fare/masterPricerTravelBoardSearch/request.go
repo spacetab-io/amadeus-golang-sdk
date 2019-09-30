@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs"
 	"strings"
 	"time"
 )

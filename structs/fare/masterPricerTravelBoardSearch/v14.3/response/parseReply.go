@@ -3,10 +3,10 @@ package Fare_MasterPricerTravelBoardSearchResponse_v14_3
 import (
 	"encoding/json"
 	"fmt"
-	structsCommon "github.com/tmconsulting/amadeus-golang-sdk/structs"
-	search "github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch"
-	"github.com/tmconsulting/amadeus-golang-sdk/utils"
-	"github.com/tmconsulting/amadeus-golang-sdk/utils/convert"
+	structsCommon "github.com/tmconsulting/amadeus-golang-sdk/v2/structs"
+	search "github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/masterPricerTravelBoardSearch"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/utils"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/utils/convert"
 
 	"sort"
 	"strconv"

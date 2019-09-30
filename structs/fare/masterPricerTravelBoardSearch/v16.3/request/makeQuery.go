@@ -1,9 +1,9 @@
 package Fare_MasterPricerTravelBoardSearchRequest_v16_3 // fmptbq143
 
 import (
-	search "github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/formats"
-	"github.com/tmconsulting/amadeus-golang-sdk/utils/convert"
+	search "github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/masterPricerTravelBoardSearch"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/formats"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/utils/convert"
 )
 
 func MakeRequest(request *search.SearchRequest) *Request {

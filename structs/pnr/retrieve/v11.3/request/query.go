@@ -2,7 +2,7 @@ package PNR_Retrieve_v11_3_request
 
 import (
 	"encoding/xml"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/formats"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/formats"
 )
 
 type Request struct {

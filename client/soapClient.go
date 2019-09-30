@@ -13,8 +13,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/tmconsulting/amadeus-golang-sdk/logger"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/session/v03.0"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/logger"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/session/v03.0"
 )
 
 var timeout = 20 * time.Second

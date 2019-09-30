@@ -1,8 +1,8 @@
 package PNR_Retrieve_v11_3_request
 
 import (
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/formats"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/formats"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/pnr/retrieve"
 )
 
 func MakeRequest(request *PNR_Information.Request) *Request {

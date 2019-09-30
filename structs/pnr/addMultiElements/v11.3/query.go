@@ -3,7 +3,7 @@ package PNR_AddMultiElementsRequest_v11_3 // pnradd113
 import (
 	"encoding/xml"
 
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/formats"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/formats"
 )
 
 type Request struct {

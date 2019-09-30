@@ -1,5 +1,5 @@
 package CommandCryptic_v07_3 // hsfres073
-import "github.com/tmconsulting/amadeus-golang-sdk/structs/commandCryptic"
+import "github.com/tmconsulting/amadeus-golang-sdk/v2/structs/commandCryptic"
 
 //import "encoding/xml"
 

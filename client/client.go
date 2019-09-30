@@ -1,9 +1,9 @@
 package client
 
 import (
-	"github.com/tmconsulting/amadeus-golang-sdk/logger"
-	"github.com/tmconsulting/amadeus-golang-sdk/logger/nilLogger"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/session/v03.0"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/logger"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/logger/nilLogger"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/session/v03.0"
 )
 
 var (

@@ -2,7 +2,7 @@ package search
 
 import (
 	"github.com/stretchr/testify/assert"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs"
 	"testing"
 	"time"
 )

@@ -1,8 +1,8 @@
 package PNR_Retrieve_v11_3_response
 
 import (
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve"
-	"github.com/tmconsulting/amadeus-golang-sdk/utils"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/pnr/retrieve"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/utils"
 )
 
 func (r *Response) ToCommon() *PNR_Information.Response {

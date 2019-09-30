@@ -3,9 +3,9 @@ package service
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs"
-	search "github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs"
+	search "github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/masterPricerTravelBoardSearch"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/pnr/retrieve"
 	"log"
 	"os"
 	"testing"
@@ -13,10 +13,10 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/tmconsulting/amadeus-golang-sdk/client"
-	l "github.com/tmconsulting/amadeus-golang-sdk/logger"
-	"github.com/tmconsulting/amadeus-golang-sdk/logger/nilLogger"
-	"github.com/tmconsulting/amadeus-golang-sdk/logger/stdoutLogger"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/client"
+	l "github.com/tmconsulting/amadeus-golang-sdk/v2/logger"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/logger/nilLogger"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/logger/stdoutLogger"
 )
 
 var (

@@ -1,12 +1,12 @@
 package client
 
 import (
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/salesReports/displayQueryReport/v10.1/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/salesReports/displayQueryReport/v10.1/response"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/cancelDocument/v11.1"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/deleteTST/v04.1"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/displayTST/v07.1/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/displayTST/v07.1/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/salesReports/displayQueryReport/v10.1/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/salesReports/displayQueryReport/v10.1/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ticket/cancelDocument/v11.1"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ticket/deleteTST/v04.1"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ticket/displayTST/v07.1/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ticket/displayTST/v07.1/response"
 )
 
 func (client *AmadeusClient) SalesReportsDisplayQueryReportV101(query *SalesReports_QueryReportRequest_v10_1.Request) (*SalesReports_QueryReportReply_v10_1.Response, *ResponseSOAPHeader, error) {

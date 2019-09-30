@@ -164,8 +164,6 @@ func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply i
 		return nil, err
 	}
 
-	fmt.Println("XML Response: ", string(rawbody))
-
 	err = s.Logger.Push("inc", soapAction, string(rawbody))
 	if err != nil {
 		_, _ = fmt.Fprintf(os.Stderr, "Failed to fire hook log_response: %v\n", err)

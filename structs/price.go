@@ -26,12 +26,10 @@ type Amount struct {
 // MarshalJSON overrides MarshalJSON
 func (price *Price) MarshalJSON() ([]byte, error) {
 	return json.Marshal(struct {
-		Total Amount `json:"total_amount"`
-		Base  Amount `json:"fare_amount"`
-		Tax   Amount `json:"tax_amount"`
-		Taxes []*Tax `json:"taxes,omitempty"`
-		//Fee		Amount		`json:"fee_amount"`
-		//Vats		[]*Vat		`json:"vats"`
+		Total  Amount      `json:"total_amount"`
+		Base   Amount      `json:"fare_amount"`
+		Tax    Amount      `json:"tax_amount"`
+		Taxes  []*Tax      `json:"taxes,omitempty"`
 		PerPax *PerPaxType `json:"pax_fare,omitempty"`
 	}{
 		Total: Amount{
@@ -95,32 +93,6 @@ type Pricing struct {
 
 // MarshalJSON overrides MarshalJSON
 func (pricing *Pricing) MarshalJSON() ([]byte, error) {
-	//if pricing.Type == "P" {
-	//	return json.Marshal(struct {
-	//		Pricing		*Pricing	`json:"pricing"`
-	//	}{
-	//		Pricing: &Pricing{
-	//			Currency: pricing.Currency,
-	//			Total:    pricing.Total,
-	//			Base:     pricing.Base,
-	//			Tax:      pricing.Tax,
-	//			Taxes:    pricing.Taxes,
-	//		},
-	//	})
-	//}
-	//return json.Marshal(struct {
-	//	Currency	string	`json:"currency,omitempty"`
-	//	Total		float64	`json:"total_amount"`
-	//	Base		float64	`json:"fare_amount"`
-	//	Tax			float64	`json:"tax_amount"`
-	//	Taxes		[]*Tax	`json:"taxes,omitempty"`
-	//}{
-	//	Currency: pricing.Currency,
-	//	Total:    pricing.Total,
-	//	Base:     pricing.Base,
-	//	Tax:      pricing.Tax,
-	//	Taxes:    pricing.Taxes,
-	//})
 	return json.Marshal(struct {
 		Total Amount `json:"total_amount"`
 		Base  Amount `json:"fare_amount"`
@@ -192,38 +164,6 @@ func (tax *Tax) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-//type Vat struct {
-//	Currency	string	`json:"currency"`
-//	Type		int		`json:"type"`
-//	Amount		float64	`json:"amount"`
-//}
-
-/*
-	"price": {
-		"total_amount": {
-			"amount": 250000,
-			"currency": "RUB"
-		},
-		"fare_amount": {
-			"amount": 100000,
-			"currency": "RUB"
-		},
-		"tax_amount": {
-			"amount": 150000,
-			"currency": "RUB"
-		},
-		"taxes": [
-			{
-				"costs": {
-					"amount": 150000,
-					"currency": "RUB"
-				},
-				"code": "ZZ"
-			}
-		]
-	}
-*/
-
 // PriceV2 ver 2
 type PriceV2 struct {
 	Total Amount   `json:"total_amount"`
@@ -259,8 +199,3 @@ type VatV2 struct {
 	Amount int64  `json:"amount"`
 	Base   string `json:"base"`
 }
-
-//type VatV2 struct {
-//	Amount					`json:"costs"`
-//	Type	int				`json:"type"`
-//}

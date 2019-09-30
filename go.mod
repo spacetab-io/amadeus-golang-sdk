@@ -1,4 +1,4 @@
-module github.com/tmconsulting/amadeus-golang-sdk
+module github.com/tmconsulting/amadeus-golang-sdk/v2
 
 go 1.12
 

@@ -46,6 +46,9 @@ func TestMain(m *testing.M) {
 
 func TestNewSKD(t *testing.T) {
 	t.Run("initiating test", func(t *testing.T) {
+
+		tearUp()
+
 		cl := client.New(client.SetURL(url), client.SetUser(originator), client.SetPassword(passwordRaw), client.SetAgent(officeId), client.SetLogger(logger))
 
 		amadeusSDK := New(cl)

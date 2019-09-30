@@ -97,19 +97,16 @@ func (request *SearchRequest) ValidateParams() (err error) {
 
 	if request.ClientData.OfficeID == "" {
 		err = errors.New("empty OfficeID")
-		fmt.Println(err)
 		return
 	}
 
 	if len(request.Itineraries) == 0 {
 		err = errors.New("empty Itineraries")
-		fmt.Println(err)
 		return
 	}
 
 	if request.TravelType == "" {
 		err = errors.New("empty TravelType")
-		fmt.Println(err)
 		return
 	}
 
@@ -125,19 +122,16 @@ func (request *SearchRequest) ValidateRoutes() (err error) {
 
 	if travelType == "OW" && routeCount != 1 {
 		err = errors.New("number of Itineraries for 'OW' should be equal to one")
-		fmt.Println(err)
 		return
 	}
 
 	if travelType == "RT" && routeCount != 2 {
 		err = errors.New("number of Itineraries for 'RT' should be equal to two")
-		fmt.Println(err)
 		return
 	}
 
 	if travelType == "CT" && routeCount < 2 {
 		err = errors.New("use TravelType == 'OW'")
-		fmt.Println(err)
 		return
 	}
 

@@ -104,7 +104,7 @@ func IsLetter(s string) bool {
 }
 
 // IsLatterAndDigit returns bool if s is Letter or digit
-func IsLatterAndDigit(s string) bool {
+func IsLetterAndDigit(s string) bool {
 	for _, r := range s {
 		if (r < 'a' || r > 'z') && (r < 'A' || r > 'Z') && !unicode.IsDigit(r) {
 			return false

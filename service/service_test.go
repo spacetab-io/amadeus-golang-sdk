@@ -93,8 +93,9 @@ func TestNewSKD(t *testing.T) {
 
 		cl := client.New(client.SetURL(url), client.SetUser(originator), client.SetPassword(passwordRaw), client.SetAgent(officeId), client.SetLogger(stdOutLog))
 
-		amadeusSDK := New(cl)
+		//amadeusSDK := New(cl)
 		//amadeusSDK := New(cl, SetMethodVersion(PNRAddMultiElements, MethodVersion(PNRRetrieveV113)))
+		amadeusSDK := New(cl, SetMethodVersion(FareMasterPricerTravelBoardSearch, MethodVersion(FareMasterPricerTravelBoardSearchV163)))
 
 		itinerary := structs.Itinerary{
 			DepartureLocation: structs.Location{

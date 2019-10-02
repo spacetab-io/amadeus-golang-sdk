@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch/v16.3/request"
 	"github.com/tmconsulting/amadeus-golang-sdk/v2/client"
 	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/informativeBestPricingWithoutPNR/v12.4/request"
 	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/informativeBestPricingWithoutPNR/v12.4/response"
@@ -16,6 +17,21 @@ func (s *service) FareMasterPricerTravelBoardSearch(query *search.SearchRequest)
 	case FareMasterPricerTravelBoardSearchV143:
 		request := Fare_MasterPricerTravelBoardSearchRequest_v14_3.MakeRequest(query)
 		response, header, err := s.sdk.FareMasterPricerTravelBoardSearchV143(request)
+		if response == nil {
+			return nil, header, err
+		}
+
+		errResponse := response.CheckErrorReply()
+		if errResponse != nil {
+			return nil, header, errResponse
+		}
+
+		reply, err := response.ToCommon(query)
+		return reply, header, err
+
+	case FareMasterPricerTravelBoardSearchV163:
+		request := Fare_MasterPricerTravelBoardSearchRequest_v16_3.MakeRequest(query)
+		response, header, err := s.sdk.FareMasterPricerTravelBoardSearchV163(request)
 		if response == nil {
 			return nil, header, err
 		}

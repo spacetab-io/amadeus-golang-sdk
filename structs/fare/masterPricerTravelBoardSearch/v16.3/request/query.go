@@ -3,7 +3,7 @@ package Fare_MasterPricerTravelBoardSearchRequest_v16_3 // fmptbq163
 import (
 	"encoding/xml"
 
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/formats"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/formats"
 )
 
 type Request struct {

@@ -1,7 +1,7 @@
 package client
 
 import (
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/commandCryptic/v07.3"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/commandCryptic/v07.3"
 )
 
 func (client *AmadeusClient) CommandCrypticV073(query *CommandCryptic_v07_3.Request) (*CommandCryptic_v07_3.Response, error) {

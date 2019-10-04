@@ -1,9 +1,9 @@
 package service
 
 import (
-	"github.com/tmconsulting/amadeus-golang-sdk/client"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/security/signOut/v04.1"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/session/v03.0"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/client"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/security/signOut/v04.1"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/session/v03.0"
 )
 
 func (s *service) SecuritySignOut() (*SecuritySignOut_v04_1.Response, *client.ResponseSOAPHeader, error) {

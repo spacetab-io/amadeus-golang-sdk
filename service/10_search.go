@@ -1,17 +1,50 @@
 package service
 
 import (
-	"github.com/tmconsulting/amadeus-golang-sdk/client"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/informativeBestPricingWithoutPNR/v12.4/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/informativeBestPricingWithoutPNR/v12.4/response"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/informativePricingWithoutPNR/v12.4/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/informativePricingWithoutPNR/v12.4/response"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch/v14.3/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch/v14.3/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch/v16.3/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/client"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/informativeBestPricingWithoutPNR/v12.4/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/informativeBestPricingWithoutPNR/v12.4/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/informativePricingWithoutPNR/v12.4/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/informativePricingWithoutPNR/v12.4/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/masterPricerTravelBoardSearch"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/masterPricerTravelBoardSearch/v14.3/request"
+	//"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/masterPricerTravelBoardSearch/v14.3/response"
 )
 
-func (s *service) FareMasterPricerTravelBoardSearch(query *Fare_MasterPricerTravelBoardSearchRequest_v14_3.Request) (*Fare_MasterPricerTravelBoardSearchResponse_v14_3.Response, *client.ResponseSOAPHeader, error) {
-	return s.sdk.FareMasterPricerTravelBoardSearchV143(query)
+func (s *service) FareMasterPricerTravelBoardSearch(query *search.SearchRequest) (*search.SearchResponse, *client.ResponseSOAPHeader, error) {
+	switch s.mm[FareMasterPricerTravelBoardSearch] {
+	case FareMasterPricerTravelBoardSearchV143:
+		request := Fare_MasterPricerTravelBoardSearchRequest_v14_3.MakeRequest(query)
+		response, header, err := s.sdk.FareMasterPricerTravelBoardSearchV143(request)
+		if response == nil {
+			return nil, header, err
+		}
+
+		errResponse := response.CheckErrorReply()
+		if errResponse != nil {
+			return nil, header, errResponse
+		}
+
+		reply, err := response.ToCommon(query)
+		return reply, header, err
+
+	case FareMasterPricerTravelBoardSearchV163:
+		request := Fare_MasterPricerTravelBoardSearchRequest_v16_3.MakeRequest(query)
+		response, header, err := s.sdk.FareMasterPricerTravelBoardSearchV163(request)
+		if response == nil {
+			return nil, header, err
+		}
+
+		errResponse := response.CheckErrorReply()
+		if errResponse != nil {
+			return nil, header, errResponse
+		}
+
+		reply, err := response.ToCommon(query)
+		return reply, header, err
+	}
+	return nil, nil, nil
 }
 
 func (s *service) FareInformativeBestPricingWithout(query *Fare_InformativeBestPricingWithoutPNRRequest_v12_4.Request) (*Fare_InformativeBestPricingWithoutPNRResponse_v12_4.Response, *client.ResponseSOAPHeader, error) {

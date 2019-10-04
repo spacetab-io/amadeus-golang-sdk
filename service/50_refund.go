@@ -1,14 +1,14 @@
 package service
 
 import (
-	"github.com/tmconsulting/amadeus-golang-sdk/client"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ama/ticketIgnoreRefund/v03.0"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ama/ticketInitRefund/v03.0"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ama/ticketProcessRefund/v03.0"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/ignore/v04.1"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/salesReports/displayTransactionReport/v13.2"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/processEDoc/v15.2/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/processEDoc/v15.2/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/client"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ama/ticketIgnoreRefund/v03.0"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ama/ticketInitRefund/v03.0"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ama/ticketProcessRefund/v03.0"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/pnr/ignore/v04.1"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/salesReports/displayTransactionReport/v13.2"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ticket/processEDoc/v15.2/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ticket/processEDoc/v15.2/response"
 )
 
 func (s *service) RefundInit(query *AMA_TicketInitRefund_v03_0.Request) (*AMA_TicketInitRefund_v03_0.Response, *client.ResponseSOAPHeader, error) {

@@ -1,6 +1,8 @@
 package client
 
-import "github.com/tmconsulting/amadeus-golang-sdk/logger"
+import (
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/logger"
+)
 
 // Option describes a functional option for configuring AmadeusClient.
 type Option func(client *AmadeusClient)

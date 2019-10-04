@@ -1,12 +1,12 @@
 package client
 
 import (
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/informativeBestPricingWithoutPNR/v12.4/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/informativeBestPricingWithoutPNR/v12.4/response"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch/v14.3/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch/v14.3/response"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch/v16.3/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch/v16.3/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/informativeBestPricingWithoutPNR/v12.4/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/informativeBestPricingWithoutPNR/v12.4/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/masterPricerTravelBoardSearch/v14.3/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/masterPricerTravelBoardSearch/v14.3/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/masterPricerTravelBoardSearch/v16.3/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/masterPricerTravelBoardSearch/v16.3/response"
 )
 
 func (client *AmadeusClient) FareMasterPricerTravelBoardSearchV143(query *Fare_MasterPricerTravelBoardSearchRequest_v14_3.Request) (*Fare_MasterPricerTravelBoardSearchResponse_v14_3.Response, *ResponseSOAPHeader, error) {

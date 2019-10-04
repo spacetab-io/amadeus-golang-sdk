@@ -3,7 +3,7 @@ package Fare_InformativePricingWithoutPNR_v12_4 // tipnrq124
 import (
 	"encoding/xml"
 
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/formats"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/formats"
 )
 
 type Request struct {

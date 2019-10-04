@@ -1,44 +1,48 @@
 package service
 
 import (
-	"github.com/tmconsulting/amadeus-golang-sdk/client"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/air/sellFromRecommendation/v05.2/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/air/sellFromRecommendation/v05.2/response"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ama/ticketIgnoreRefund/v03.0"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ama/ticketInitRefund/v03.0"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ama/ticketProcessRefund/v03.0"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/commandCryptic"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/commandCryptic/v07.3"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/docIssuance/issueTicket/v09.1"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/checkRules/v07.1/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/checkRules/v07.1/response"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/informativeBestPricingWithoutPNR/v12.4/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/informativeBestPricingWithoutPNR/v12.4/response"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/informativePricingWithoutPNR/v12.4/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/informativePricingWithoutPNR/v12.4/response"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch/v14.3/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch/v14.3/response"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch/v16.3/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/masterPricerTravelBoardSearch/v16.3/response"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/pricePNRWithBookingClass/v14.1/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/pricePNRWithBookingClass/v14.1/response"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/addMultiElements/v11.3"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/cancel/v11.3"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/ignore/v04.1"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/reply/v11.3"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/salesReports/displayQueryReport/v10.1/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/salesReports/displayQueryReport/v10.1/response"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/salesReports/displayTransactionReport/v13.2"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/security/signOut/v04.1"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/session/v03.0"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/cancelDocument/v11.1"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/createTSTFromPricing/v04.1"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/deleteTST/v04.1"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/displayTST/v07.1/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/displayTST/v07.1/response"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/processEDoc/v15.2/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/processEDoc/v15.2/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/client"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/air/sellFromRecommendation/v05.2/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/air/sellFromRecommendation/v05.2/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ama/ticketIgnoreRefund/v03.0"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ama/ticketInitRefund/v03.0"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ama/ticketProcessRefund/v03.0"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/commandCryptic"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/commandCryptic/v07.3"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/docIssuance/issueTicket/v09.1"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/checkRules/v07.1/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/checkRules/v07.1/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/informativeBestPricingWithoutPNR/v12.4/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/informativeBestPricingWithoutPNR/v12.4/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/informativePricingWithoutPNR/v12.4/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/informativePricingWithoutPNR/v12.4/response"
+	search "github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/masterPricerTravelBoardSearch"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/masterPricerTravelBoardSearch/v14.3/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/masterPricerTravelBoardSearch/v14.3/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/masterPricerTravelBoardSearch/v16.3/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/masterPricerTravelBoardSearch/v16.3/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/pricePNRWithBookingClass/v14.1/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/pricePNRWithBookingClass/v14.1/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/pnr/addMultiElements/v11.3"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/pnr/cancel/v11.3"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/pnr/ignore/v04.1"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/pnr/retrieve"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/pnr/retrieve/v11.3/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/pnr/retrieve/v11.3/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/pnr/retrieve/v19.1/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/pnr/retrieve/v19.1/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/salesReports/displayQueryReport/v10.1/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/salesReports/displayQueryReport/v10.1/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/salesReports/displayTransactionReport/v13.2"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/security/signOut/v04.1"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/session/v03.0"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ticket/cancelDocument/v11.1"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ticket/createTSTFromPricing/v04.1"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ticket/deleteTST/v04.1"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ticket/displayTST/v07.1/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ticket/displayTST/v07.1/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ticket/processEDoc/v15.2/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ticket/processEDoc/v15.2/response"
 )
 
 type Client struct {
@@ -69,7 +73,8 @@ type service struct {
 
 type AmadeusSDK interface {
 	// Information
-	PNRRetrieveV113(query *PNR_Retrieve_v11_3.Request) (*PNR_Reply_v11_3.Response, *client.ResponseSOAPHeader, error)
+	PNRRetrieveV113(query *PNR_Retrieve_v11_3_request.Request) (*PNR_Retrieve_v11_3_response.Response, *client.ResponseSOAPHeader, error)
+	PNRRetrieveV191(query *PNR_Retrieve_v19_1_request.Request) (*PNR_Retrieve_v19_1_response.Response, *client.ResponseSOAPHeader, error)
 	TicketDisplayTSTV071(query *Ticket_DisplayTSTRequest_v07_1.Request) (*Ticket_DisplayTSTResponse_v07_1.Response, *client.ResponseSOAPHeader, error)
 	FareInformativePricingWithoutPNRV124(query *Fare_InformativePricingWithoutPNR_v12_4.Request) (*Fare_InformativePricingWithoutPNRReply_v12_4.Response, *client.ResponseSOAPHeader, error)
 	FareCheckRulesV071(query *Fare_CheckRulesRequest_v07_1.Request) (*Fare_CheckRulesResponse_v07_1.Response, *client.ResponseSOAPHeader, error)
@@ -91,10 +96,10 @@ type AmadeusSDK interface {
 
 	// Book
 	AirSellFromRecommendationV052(query *Air_SellFromRecommendationRequest_v05_2.Request) (*Air_SellFromRecommendationResponse_v05_2.Response, *client.ResponseSOAPHeader, error)
-	PNRAddMultiElementsV113(query *PNR_AddMultiElementsRequest_v11_3.Request) (*PNR_Reply_v11_3.Response, *client.ResponseSOAPHeader, error)
+	PNRAddMultiElementsV113(query *PNR_AddMultiElementsRequest_v11_3.Request) (*PNR_Retrieve_v11_3_response.Response, *client.ResponseSOAPHeader, error)
 	FarePricePNRWithBookingClassV141(query *Fare_PricePNRWithBookingClassRequest_v14_1.Request) (*Fare_PricePNRWithBookingClassResponse_v14_1.Response, *client.ResponseSOAPHeader, error)
 	TicketCreateTSTFromPricingV041(query *Ticket_CreateTSTFromPricing_v04_1.Request) (*Ticket_CreateTSTFromPricing_v04_1.Response, *client.ResponseSOAPHeader, error)
-	PNRCancelV113(query *PNR_Cancel_v11_3.Request) (*PNR_Reply_v11_3.Response, *client.ResponseSOAPHeader, error)
+	PNRCancelV113(query *PNR_Cancel_v11_3.Request) (*PNR_Retrieve_v11_3_response.Response, *client.ResponseSOAPHeader, error)
 
 	// Issue
 	DocIssuanceIssueTicketV091(query *DocIssuance_IssueTicket_v09_1.Request) (*DocIssuance_IssueTicket_v09_1.Response, *client.ResponseSOAPHeader, error)
@@ -115,7 +120,7 @@ type AmadeusSDK interface {
 
 type Service interface {
 	// Information
-	PNRRetrieve(query *PNR_Retrieve_v11_3.Request) (*PNR_Reply_v11_3.Response, *client.ResponseSOAPHeader, error)
+	PNRRetrieve(query *PNR_Information.Request) (*PNR_Information.Response, *client.ResponseSOAPHeader, error)
 	TicketDisplayTST(query *Ticket_DisplayTSTRequest_v07_1.Request) (*Ticket_DisplayTSTResponse_v07_1.Response, *client.ResponseSOAPHeader, error)
 	FareCheckRules(query *Fare_CheckRulesRequest_v07_1.Request) (*Fare_CheckRulesResponse_v07_1.Response, *client.ResponseSOAPHeader, error)
 	CommandCryptic(msg string) (*commandCryptic.Response, error)
@@ -130,18 +135,18 @@ type Service interface {
 	CloseSession() (reply *SecuritySignOut_v04_1.Response, err error)
 
 	// Search
-	FareMasterPricerTravelBoardSearch(query *Fare_MasterPricerTravelBoardSearchRequest_v14_3.Request) (*Fare_MasterPricerTravelBoardSearchResponse_v14_3.Response, *client.ResponseSOAPHeader, error)
+	FareMasterPricerTravelBoardSearch(query *search.SearchRequest) (*search.SearchResponse, *client.ResponseSOAPHeader, error)
 	FareInformativeBestPricingWithout(query *Fare_InformativeBestPricingWithoutPNRRequest_v12_4.Request) (*Fare_InformativeBestPricingWithoutPNRResponse_v12_4.Response, *client.ResponseSOAPHeader, error)
 	FareInformativePricingWithoutPNR(query *Fare_InformativePricingWithoutPNR_v12_4.Request) (*Fare_InformativePricingWithoutPNRReply_v12_4.Response, *client.ResponseSOAPHeader, error)
 
 	// Book
 	AirSellFromRecommendation(query *Air_SellFromRecommendationRequest_v05_2.Request) (*Air_SellFromRecommendationResponse_v05_2.Response, *client.ResponseSOAPHeader, error)
-	PNRAddMultiElements(query *PNR_AddMultiElementsRequest_v11_3.Request) (*PNR_Reply_v11_3.Response, *client.ResponseSOAPHeader, error)
+	PNRAddMultiElements(query *PNR_AddMultiElementsRequest_v11_3.Request) (*PNR_Retrieve_v11_3_response.Response, *client.ResponseSOAPHeader, error)
 	FarePricePNRWithBookingClass(query *Fare_PricePNRWithBookingClassRequest_v14_1.Request) (*Fare_PricePNRWithBookingClassResponse_v14_1.Response, *client.ResponseSOAPHeader, error)
 	TicketCreateTSTFromPricing(query *Ticket_CreateTSTFromPricing_v04_1.Request) (*Ticket_CreateTSTFromPricing_v04_1.Response, *client.ResponseSOAPHeader, error)
 
 	// Cancellation
-	PNRCancel(query *PNR_Cancel_v11_3.Request) (*PNR_Reply_v11_3.Response, *client.ResponseSOAPHeader, error)
+	PNRCancel(query *PNR_Cancel_v11_3.Request) (*PNR_Retrieve_v11_3_response.Response, *client.ResponseSOAPHeader, error)
 
 	// Issue
 	DocIssuanceIssueTicket(query *DocIssuance_IssueTicket_v09_1.Request) (*DocIssuance_IssueTicket_v09_1.Response, *client.ResponseSOAPHeader, error)

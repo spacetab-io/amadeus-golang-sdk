@@ -1,0 +1,30 @@
+version: 2.0
+
+orbs:
+  codecov: codecov/codecov@1.0.4
+
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1.12
+    steps:
+      - checkout
+      - run:
+          name: "Create directories"
+          command: |
+            mkdir -p /tmp/artifacts
+      - run:
+          name: "Run tests and collect coverage reports"
+          command: |
+            make test
+            mv coverage.html /tmp/artifacts
+            mv c.out /tmp/artifacts
+      - store_artifacts:
+          path: /tmp/artifacts
+      - run:
+          name: Upload Coverage Results
+          command: "bash <(curl -s https://codecov.io/bash) \
+            -f /tmp/artifacts/* \
+            -n ${CIRCLE_BUILD_NUM} \
+            -t ${CODECOV_TOKEN} \
+            -y .codecov.yml"

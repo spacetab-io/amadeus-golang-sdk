@@ -1,19 +1,36 @@
 package service
 
 import (
-	"github.com/tmconsulting/amadeus-golang-sdk/client"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/commandCryptic"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/commandCryptic/v07.3"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/checkRules/v07.1/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/fare/checkRules/v07.1/response"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/reply/v11.3"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/pnr/retrieve/v11.3"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/displayTST/v07.1/request"
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/ticket/displayTST/v07.1/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/client"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/commandCryptic"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/commandCryptic/v07.3"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/checkRules/v07.1/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/fare/checkRules/v07.1/response"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/pnr/retrieve"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/pnr/retrieve/v11.3/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/pnr/retrieve/v19.1/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ticket/displayTST/v07.1/request"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/ticket/displayTST/v07.1/response"
 )
 
-func (s *service) PNRRetrieve(query *PNR_Retrieve_v11_3.Request) (*PNR_Reply_v11_3.Response, *client.ResponseSOAPHeader, error) {
-	return s.sdk.PNRRetrieveV113(query)
+func (s *service) PNRRetrieve(query *PNR_Information.Request) (*PNR_Information.Response, *client.ResponseSOAPHeader, error) {
+	switch s.mm[PNRRetrieve] {
+	case PNRRetrieveV113:
+		query := PNR_Retrieve_v11_3_request.MakeRequest(query)
+		response, header, err := s.sdk.PNRRetrieveV113(query)
+		if response == nil {
+			return nil, header, err
+		}
+		return response.ToCommon(), header, err
+	case PNRRetrieveV191:
+		query := PNR_Retrieve_v19_1_request.MakeRequest(query)
+		response, header, err := s.sdk.PNRRetrieveV191(query)
+		if response == nil {
+			return nil, header, err
+		}
+		return response.ToCommon(), header, err
+	}
+	return nil, nil, nil
 }
 
 func (s *service) TicketDisplayTST(query *Ticket_DisplayTSTRequest_v07_1.Request) (*Ticket_DisplayTSTResponse_v07_1.Response, *client.ResponseSOAPHeader, error) {

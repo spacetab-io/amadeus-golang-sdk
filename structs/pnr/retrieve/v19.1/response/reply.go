@@ -1,9 +1,9 @@
-package PNR_Reply_v11_3 // pnracc113
+package PNR_Retrieve_v19_1_response
 
 //import "encoding/xml"
 
 type Response struct {
-	// XMLName xml.Name `xml:"http://xml.amadeus.com/PNRACC_11_3_1A PNR_Reply"`
+	// XMLName xml.Name `xml:"http://xml.amadeus.com/PNRACC_19_1_1A PNR_Reply"`
 
 	PnrHeader []*PnrHeader `xml:"pnrHeader,omitempty"` // maxOccurs="198"
 

@@ -1,13 +1,12 @@
-package PNR_Retrieve_v11_3 // pnrret113
+package PNR_Retrieve_v19_1_request // pnrret191
 
 import (
 	"encoding/xml"
-
-	"github.com/tmconsulting/amadeus-golang-sdk/structs/formats"
+	"github.com/tmconsulting/amadeus-golang-sdk/v2/structs/formats"
 )
 
 type Request struct {
-	XMLName xml.Name `xml:"http://xml.amadeus.com/PNRRET_11_3_1A PNR_Retrieve"`
+	XMLName xml.Name `xml:"http://xml.amadeus.com/PNRRET_19_1_1A PNR_Retrieve"`
 
 	Settings *Settings `xml:"settings,omitempty"`
 

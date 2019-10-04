@@ -2,7 +2,7 @@ package Ticket_CancelDocument_v11_1 // trcanq111
 
 import (
 	"encoding/xml"
-	//"github.com/tmconsulting/amadeus-golang-sdk/sdk/formats"
+	//"github.com/tmconsulting/amadeus-golang-sdk/v2/sdk/formats"
 )
 
 type Request struct {

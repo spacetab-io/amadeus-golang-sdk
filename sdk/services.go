@@ -2,13 +2,14 @@ package amadeus_sdk
 
 import (
 	"github.com/tmconsulting/amadeus-golang-sdk/hooks"
+	"time"
 )
 
 var soapUrl = "http://webservices.amadeus.com/WSAP/"
 
-func CreateAmadeusClient(url, originator, passwordRaw, officeId string) *AmadeusClient {
+func CreateAmadeusClient(url, originator, passwordRaw, officeId string, timeout time.Duration) *AmadeusClient {
 	var client = new(AmadeusClient)
-	client.service = CreateWebServicePTSOAP4Header(url, originator, passwordRaw, officeId, true)
+	client.service = CreateWebServicePTSOAP4Header(url, originator, passwordRaw, officeId, true, timeout)
 	//client.service = soap4.NewAmadeusWebServicesPTSOAP4Header(url, originator, passwordRaw, officeId, true)
 	client.session = CreateSession()
 	client.Hooks = make(hooks.LevelHooks)

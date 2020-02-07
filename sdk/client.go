@@ -17,7 +17,7 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/utils"
 )
 
-var timeout = time.Duration(20 * time.Second)
+//var timeout = time.Duration(20 * time.Second)
 
 const (
 	SoapNs = "http://schemas.xmlsoap.org/soap/envelope/"
@@ -257,6 +257,7 @@ type SOAP4Client struct {
 	pass    string
 	agent   string
 	tls     bool
+	timeout time.Duration
 	headers []interface{}
 }
 
@@ -265,9 +266,9 @@ type WebServicePT struct {
 	// wsap   string
 }
 
-func CreateWebServicePTSOAP4Header(url, user, pass, agent string, tls bool) *WebServicePT {
+func CreateWebServicePTSOAP4Header(url, user, pass, agent string, tls bool, timeout time.Duration) *WebServicePT {
 	return &WebServicePT{
-		client: NewSOAP4Client(url, user, pass, agent, tls),
+		client: NewSOAP4Client(url, user, pass, agent, tls, timeout),
 		// wsap:   wsap,
 	}
 }
@@ -290,17 +291,18 @@ func (service *WebServicePT) UpdateHeader(header interface{}) {
 	service.client.UpdateHeader(header)
 }
 
-func dialTimeout(network, addr string) (net.Conn, error) {
-	return net.DialTimeout(network, addr, timeout)
-}
+//func dialTimeout(network, addr string) (net.Conn, error) {
+//	return net.DialTimeout(network, addr, timeout)
+//}
 
-func NewSOAP4Client(url, user, pass, agent string, tls bool) *SOAP4Client {
+func NewSOAP4Client(url, user, pass, agent string, tls bool, timeout time.Duration) *SOAP4Client {
 	return &SOAP4Client{
-		url:   url,
-		user:  user,
-		pass:  pass,
-		agent: agent,
-		tls:   tls,
+		url:     url,
+		user:    user,
+		pass:    pass,
+		agent:   agent,
+		tls:     tls,
+		timeout: timeout,
 	}
 }
 
@@ -364,7 +366,9 @@ func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply i
 		TLSClientConfig: &tls.Config{
 			InsecureSkipVerify: s.tls,
 		},
-		Dial: dialTimeout,
+		Dial: func(network, addr string) (net.Conn, error) {
+			return net.DialTimeout(network, addr, s.timeout)
+		},
 	}
 
 	numberOfAttempts := 3
@@ -372,7 +376,7 @@ func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply i
 	var res *http.Response
 	client := &http.Client{
 		Transport: tr,
-		Timeout:   timeout,
+		Timeout:   s.timeout,
 	}
 	res, err = client.Do(req)
 	for err != nil {
@@ -385,7 +389,7 @@ func (s *SOAP4Client) Call(soapUrl, soapAction, messageId string, query, reply i
 
 		client = &http.Client{
 			Transport: tr,
-			Timeout:   timeout,
+			Timeout:   s.timeout,
 		}
 		res, err = client.Do(req)
 

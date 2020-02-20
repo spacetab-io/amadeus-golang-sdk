@@ -5,6 +5,8 @@ import (
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/fare/checkRules/v07_1_reply"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/fare/informativePricingWithoutPNR/v12_4_query"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/fare/informativePricingWithoutPNR/v12_4_reply"
+	"github.com/tmconsulting/amadeus-golang-sdk/sdk/fare/informativePricingWithoutPNR/v19_1_query"
+	"github.com/tmconsulting/amadeus-golang-sdk/sdk/fare/informativePricingWithoutPNR/v19_1_reply"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/pnr/reply/v11_3"
 	"github.com/tmconsulting/amadeus-golang-sdk/sdk/pnr/retrieve/v11_3_query"
 	"github.com/tmconsulting/amadeus-golang-sdk/utils"
@@ -31,6 +33,17 @@ func (client *AmadeusClient) PNRRetrieveV113(query *PNR_Retrieve_v11_3.PNRRetrie
 func (client *AmadeusClient) FareInformativePricingWithoutPNRv124(query *Fare_InformativePricingWithoutPNR_v12_4.FareInformativePricingWithoutPNR) (*Fare_InformativePricingWithoutPNRReply_v12_4.FareInformativePricingWithoutPNRReply, *ResponseSOAP4Header, error) {
 	var soapAction = ActInfoFareInformativePricingWithoutPNR
 	var reply = new(Fare_InformativePricingWithoutPNRReply_v12_4.FareInformativePricingWithoutPNRReply)
+	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
+	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
+	if err != nil {
+		return nil, header, err
+	}
+	return reply, header, nil
+}
+
+func (client *AmadeusClient) FareInformativePricingWithoutPNRv191(query *Fare_InformativePricingWithoutPNR_v19_1.FareInformativePricingWithoutPNR) (*Fare_InformativePricingWithoutPNRReply_v19_1.FareInformativePricingWithoutPNRReply, *ResponseSOAP4Header, error) {
+	var soapAction = "TIPNRQ_19_1"
+	var reply = new(Fare_InformativePricingWithoutPNRReply_v19_1.FareInformativePricingWithoutPNRReply)
 	var messageId = strings.ToUpper(utils.RandStringBytesMaskImprSrc(22))
 	header, err := client.service.Call(soapUrl, soapAction, messageId, query, reply, client)
 	if err != nil {
